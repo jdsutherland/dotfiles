@@ -9,12 +9,14 @@ brew install ack
 brew install aria2
 brew install catimg
 brew install cheat
+brew install coreutils
 brew install diff-so-fancy
 brew install fasd
 brew install fzf
 brew install git-secrets
 brew install gitsh
 brew install go
+brew install homebrew/completions/tmuxinator-completion
 brew install htop
 brew install httpie
 brew install jq
@@ -29,7 +31,6 @@ brew install rbenv-default-gems
 brew install reattach-to-user-namespace
 brew install shellcheck
 brew install speedtest_cli
-brew install homebrew/completions/tmuxinator-completion
 brew install tree
 brew install watch
 brew install weechat --with-perl --with-python
@@ -53,13 +54,13 @@ brew cask install iterm2-nightly
 brew cask install karabiner
 brew cask install kindle
 brew cask install licecap
+brew cask install mattr-slate
 brew cask install padbury-clock
 brew cask install qlcolorcode qlstephen qlmarkdown qlprettypatch quicklook-csv betterzipql qlimagesize webpquicklook suspicious-package quicklookase qlvideo
 brew cask install sassquatch
 brew cask install screenhero
 brew cask install skype
 brew cask install slack
-brew cask install mattr-slate
 brew cask install totalspaces
 brew cask install virtualbox
 
