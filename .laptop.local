@@ -1,0 +1,116 @@
+#!/bin/sh
+
+fancy_echo "Running your customizations from ~/.laptop.local ..."
+
+brew install caskroom/cask/brew-cask
+brew tap caskroom/versions
+
+brew install ack
+brew install aria2
+brew install catimg
+brew install cheat
+brew install diff-so-fancy
+brew install fasd
+brew install fzf
+brew install git-secrets
+brew install gitsh
+brew install go
+brew install htop
+brew install httpie
+brew install jq
+brew install mutt
+brew install mysql
+brew install phantomjs
+brew install postgresql
+brew install python
+brew install python3
+brew install rbenv-ctags
+brew install rbenv-default-gems
+brew install reattach-to-user-namespace
+brew install shellcheck
+brew install speedtest_cli
+brew install homebrew/completions/tmuxinator-completion
+brew install tree
+brew install watch
+brew install weechat --with-perl --with-python
+brew install wifi-password
+brew install yank
+brew install z
+brew install zsh-syntax-highlighting
+
+brew cask install alfred2
+brew cask install dash
+brew cask install dropbox
+brew cask install fantastical
+brew cask install flux
+brew cask install ginbox
+brew cask install github-desktop
+brew cask install google-chrome
+brew cask install google-chrome-canary
+brew cask install google-play-music-desktop-player
+brew cask install imageoptim
+brew cask install iterm2-nightly
+brew cask install karabiner
+brew cask install kindle
+brew cask install licecap
+brew cask install padbury-clock
+brew cask install qlcolorcode qlstephen qlmarkdown qlprettypatch quicklook-csv betterzipql qlimagesize webpquicklook suspicious-package quicklookase qlvideo
+brew cask install sassquatch
+brew cask install screenhero
+brew cask install skype
+brew cask install slack
+brew cask install mattr-slate
+brew cask install totalspaces
+brew cask install virtualbox
+
+gem install autoprefixer-rails
+gem install bitters
+gem install bourbon
+gem install bundler
+gem install churn
+gem install foreman
+gem install middleman
+gem install neat
+gem install pivotal_git_scripts
+gem install pry
+gem install sass
+gem install scss_lint
+gem install tmuxinator
+
+pip install bs4
+pip install prettyprint
+pip install ptpython
+pip install requests
+pip install scrapy
+pip install tinycss
+pip install urllib3
+pip install virtualenv
+
+npm install -g castnow
+npm install -g eslint
+npm install -g git-open
+npm install -g gulp
+npm install -g hicat
+npm install -g jsctags
+npm install -g jsonlint
+npm install -g npm-check
+npm install -g peercast
+npm install -g peerflix
+npm install -g readme
+npm install -g tldr
+npm install -g yo
+
+mkdir ~/go
+export GOPATH=~/go
+export PATH=$PATH:$GOPATH/bin
+go get -u github.com/olivere/iterm2-imagetools/cmd/imgcat
+go get -u github.com/olivere/iterm2-imagetools/cmd/imgls
+
+fancy_echo "Cleaning up old Homebrew formulae ..."
+brew cleanup
+brew cask cleanup
+
+if [ -r "$HOME/.rcrc" ]; then
+  fancy_echo "Updating dotfiles ..."
+  rcup
+fi
