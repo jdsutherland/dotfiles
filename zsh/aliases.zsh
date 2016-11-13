@@ -20,7 +20,7 @@ if [[ -o interactive ]]; then
   # Directories
   alias drop='cd ~/code'
   alias dev='cd ~/Development'
-  alias dot='ccd ~/.dotfiles'
+  alias dot='cd ~/.dotfiles'
   alias drop='cd ~/Dropbox'
   alias casts='cd ~/Documents/screencasts/'
 
