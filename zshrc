@@ -6,14 +6,14 @@ fi
 BASE="$HOME/.zsh"
 
 load_all_files_in() {
-  if [ -d "$BASE/$1" ]; then
-    for file in "$BASE/$1"/*.zsh; do
+  if [ -d "$BASE" ]; then
+    for file in "$BASE"/*.zsh; do
       source "$file"
     done
   fi
 }
 
-load_all_files_in ""
+load_all_files_in
 # set colorscheme
 source $HOME/.colors/base16-tomorrow.dark.sh
 

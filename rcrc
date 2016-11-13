@@ -1,2 +1,2 @@
-EXCLUDES="README.md tags karabiner homebrew install-script.sh"
+EXCLUDES="README.md tags karabiner install-script.sh"
 SYMLINK_DIRSS="zprezto"
