@@ -5,6 +5,9 @@ curl --remote-name https://raw.githubusercontent.com/thoughtbot/laptop/master/ma
 less mac
 sh mac 2>&1 | tee ~/laptop.log
 
+# get prezto
+git clone --recursive https://github.com/jdsutherland/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+
 # iterm config
 # set iterm config from: http://sts10.github.io/blog/2015/10/24/true-hex-colors-with-neovim-and-iterm2/
 # get and set font: https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Inconsolata/complete
