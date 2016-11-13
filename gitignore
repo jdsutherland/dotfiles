@@ -1,0 +1,16 @@
+*.pyc
+*.swp
+*~
+.DS_Store
+.ctags
+.env
+.project-notes
+.sass-cache/
+.stack-work
+.svn
+.vagrant
+.vimrc.local
+/tags
+tags
+Thumbs.db*
+log/
