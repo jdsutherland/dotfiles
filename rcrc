@@ -1,2 +1,1 @@
 EXCLUDES="README.md tags karabiner install-script.sh"
-SYMLINK_DIRSS="zprezto"
