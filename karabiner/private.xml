@@ -1,0 +1,334 @@
+<?xml version="1.0"?>
+<root>
+  <vkopenurldef>
+    <name>KeyCode::VK_OPEN_URL_APP_Chrome</name>
+    <url type="file">/Applications/Google Chrome.app</url>
+  </vkopenurldef>
+  <vkopenurldef>
+    <name>KeyCode::VK_OPEN_URL_APP_Canary</name>
+    <url type="file">/Applications/Google Chrome Canary.app</url>
+  </vkopenurldef>
+  <vkopenurldef>
+    <name>KeyCode::VK_OPEN_URL_APP_iTerm</name>
+    <url type="file">/Applications/iTerm.app</url>
+  </vkopenurldef>
+  <vkopenurldef>
+    <name>KeyCode::VK_OPEN_URL_APP_OneNote</name>
+    <url type="file">/Applications/Microsoft OneNote.app</url>
+  </vkopenurldef>
+    <item>
+      <name>Hyper+B to open Chrome ("B" for "Browser")</name>
+      <identifier>com.jasonrudolph.hyper_b</identifier>
+      <autogen>
+        __KeyToKey__
+        KeyCode::B, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+        KeyCode::VK_OPEN_URL_APP_Chrome,
+      </autogen>
+    </item>
+    <item>
+      <name>Hyper+C to open ChromeCanary ("C" for "Canary")</name>
+      <identifier>com.jasonrudolph.hyper_c</identifier>
+      <autogen>
+        __KeyToKey__
+        KeyCode::C, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+        KeyCode::VK_OPEN_URL_APP_Canary,
+      </autogen>
+    </item>
+    <item>
+      <name>Hyper+T to open iTerm ("T" for "Terminal")</name>
+      <identifier>com.jasonrudolph.hyper_t</identifier>
+      <autogen>
+        __KeyToKey__
+        KeyCode::T, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+        KeyCode::VK_OPEN_URL_APP_iTerm,
+      </autogen>
+    </item>
+    <item>
+      <name>Hyper+N to open OneNote ("N" for "Note")</name>
+      <identifier>com.jasonrudolph.hyper_n</identifier>
+      <autogen>
+        __KeyToKey__
+        KeyCode::N, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+        KeyCode::VK_OPEN_URL_APP_OneNote,
+      </autogen>
+    </item>
+
+  <item>
+    <name>Remap CMD_R to Hyper with alt-tab on tap</name>
+    <appendix>OS X doesn't have a Hyper. This maps OPTION_R to Control + Shift + Option + Command, unless you tap it.</appendix>
+    <identifier>cmdR_to_hyper_or_alttab</identifier>
+    <autogen>
+        --KeyOverlaidModifier--
+        KeyCode::COMMAND_R,
+
+        KeyCode::COMMAND_L,
+        ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+        KeyCode::TAB, ModifierFlag::COMMAND_L
+    </autogen>
+  </item>
+
+  <item>
+      <name>Map OPT_L to chrome inspect element on tap</name>
+      <appendix>optL_to_hyper_or_chrome_inspect</appendix>
+
+      <identifier>cmdR_to_hyper_or_chrome_inspect</identifier>
+
+      <autogen>
+          --KeyOverlaidModifier--
+          KeyCode::OPTION_L,
+
+          KeyCode::OPTION_L,
+          KeyCode::C, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L
+      </autogen>
+  </item>
+
+  <!-- <item> -->
+  <!--       <name>Map OPT_L to chrome inspect element on tap</name> -->
+  <!--       <appendix>optL_to_hyper_or_chrome_inspect</appendix> -->
+
+  <!--       <identifier>cmdR_to_hyper_or_chrome_inspect</identifier> -->
+
+  <!--       <autogen> -->
+  <!--           --KeyOverlaidModifier-- -->
+  <!--           KeyCode::OPTION_L, -->
+
+  <!--           KeyCode::OPTION_L, -->
+  <!--           KeyCode::C, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L -->
+  <!--       </autogen> -->
+  <!-- </item> -->
+
+  <item>
+      <name>Tap shift to move over words</name>
+      <appendix>Shift keys move the cursor one word forward or backward when pressed alone. When used with other keys they act as normal shifts.</appendix>
+      <identifier>private.shifts_to_forward_backward_word</identifier>
+      <not>TERMINAL</not>
+
+      <autogen>--KeyOverlaidModifier-- KeyCode::SHIFT_R, ModifierFlag::SHIFT_R | ModifierFlag::NONE, KeyCode::SHIFT_R, KeyCode::CURSOR_RIGHT, ModifierFlag::OPTION_L</autogen>
+      <autogen>--KeyOverlaidModifier-- KeyCode::SHIFT_L, ModifierFlag::SHIFT_L | ModifierFlag::NONE, KeyCode::SHIFT_L, KeyCode::CURSOR_LEFT, ModifierFlag::OPTION_L</autogen>
+  </item>
+
+  <item>
+   <name>Shifts to Parentheses</name>
+   <appendix>Shifts, when pressed alone, type parentheses.  When used with other keys they're normal shifts.</appendix>
+    <only>TERMINAL</only>
+
+   <identifier>private.shifts_to_parens</identifier>
+
+   <!-- This is the basic mapping. -->
+   <autogen>
+     --KeyOverlaidModifier--
+     KeyCode::SHIFT_R,
+     ModifierFlag::SHIFT_R | ModifierFlag::NONE,
+     KeyCode::SHIFT_R, KeyCode::KEY_0,
+     ModifierFlag::SHIFT_L
+   </autogen>
+   <autogen>--KeyOverlaidModifier-- KeyCode::SHIFT_L, ModifierFlag::SHIFT_L | ModifierFlag::NONE, KeyCode::SHIFT_L, KeyCode::KEY_9, ModifierFlag::SHIFT_R</autogen>
+
+   <!--
+     Remap the "rolls" of () and )( because it's too easy to hit one
+     before finishing the other, and there's no other reason to be
+     pressing both shift keys at once anyway
+   -->
+   <autogen>--KeyToKey-- KeyCode::SHIFT_L, ModifierFlag::SHIFT_R, KeyCode::KEY_0, ModifierFlag::SHIFT_L, KeyCode::KEY_9, ModifierFlag::SHIFT_L</autogen>
+   <autogen>--KeyToKey-- KeyCode::SHIFT_R, ModifierFlag::SHIFT_L, KeyCode::KEY_9, ModifierFlag::SHIFT_L, KeyCode::KEY_0, ModifierFlag::SHIFT_L</autogen>
+
+   <!--
+     Remap Rshift+Space to ') ', because when typing an end paren and
+     then a space I tend to hit space before I let go of rshift.
+   -->
+   <autogen>--KeyToKey-- KeyCode::SPACE, ModifierFlag::SHIFT_R, KeyCode::KEY_0, ModifierFlag::SHIFT_L, KeyCode::SPACE</autogen>
+  </item>
+
+  <item>
+    <name>Chrome Dev Modifier</name>
+    <appendix>Alt_r :: C-Opt. Fullscreens a window if tapped</appendix>
+    <identifier>private.chromedev</identifier>
+    <!-- Cmd_R :: C-Opt ; access key (browser modifier) -->
+    <autogen>
+      --KeyOverlaidModifier--
+      KeyCode::OPTION_R,
+      KeyCode::COMMAND_L, ModifierFlag::OPTION_L,
+      KeyCode::F, ModifierFlag::CONTROL_L, ModifierFlag::COMMAND_L
+    </autogen>
+    <!-- Alt_R :: C-Sh ; Useful for Chrome shortcuts -->
+    <!-- <autogen> -->
+    <!--   --KeyToKey-- -->
+    <!--   KeyCode::OPTION_R, -->
+    <!--   KeyCode::COMMAND_L, ModifierFlag::SHIFT_L -->
+    <!-- </autogen> -->
+  </item>
+
+    <item>
+        <name>Home Row Arrow Keys: COMMAND_L + SHIFT_L + IJKL to ^&lt;&gt;v</name>
+        <identifier>private.coolaj86_cmd_shift_homerowarrows</identifier>
+        <autogen>
+            __KeyToKey__
+            KeyCode::H,
+            ModifierFlag::CONTROL_L | ModifierFlag::SHIFT_L | ModifierFlag::NONE,
+            KeyCode::CURSOR_LEFT
+        </autogen>
+        <autogen>
+            __KeyToKey__
+            KeyCode::J,
+            ModifierFlag::CONTROL_L | ModifierFlag::SHIFT_L | ModifierFlag::NONE,
+            KeyCode::CURSOR_DOWN
+        </autogen>
+        <autogen>
+            __KeyToKey__
+            KeyCode::K,
+            ModifierFlag::CONTROL_L | ModifierFlag::SHIFT_L | ModifierFlag::NONE,
+            KeyCode::CURSOR_UP
+        </autogen>
+        <autogen>
+            __KeyToKey__
+            KeyCode::L,
+            ModifierFlag::CONTROL_L | ModifierFlag::SHIFT_L | ModifierFlag::NONE,
+            KeyCode::CURSOR_RIGHT
+        </autogen>
+    </item>
+  <!-- <item> -->
+  <!--   <name>CAPSREMAP arrowkeys</name> -->
+  <!--   <appendix>Caps+Lshift[hjkl]</appendix> -->
+  <!--   <identifier>private.capsarrow</identifier> -->
+  <!--   <autogen> -->
+  <!--     __KeyToKey__ -->
+  <!--     KeyCode::H, ModifierFlag::F19, ModifierFlag::SHIFT_L, -->
+  <!--     KeyCode::CURSOR_LEFT -->
+  <!--   </autogen> -->
+  <!--   <autogen> -->
+  <!--     __KeyToKey__ -->
+  <!--     KeyCode::J, ModifierFlag::F19, ModifierFlag::SHIFT_L, -->
+  <!--     KeyCode::CURSOR_DOWN -->
+  <!--   </autogen> -->
+  <!--   <autogen> -->
+  <!--     __KeyToKey__ -->
+  <!--     KeyCode::K, ModifierFlag::F19, ModifierFlag::SHIFT_L, -->
+  <!--     KeyCode::CURSOR_UP -->
+  <!--   </autogen> -->
+  <!--   <autogen> -->
+  <!--     __KeyToKey__ -->
+  <!--     KeyCode::L, ModifierFlag::F19, ModifierFlag::SHIFT_L, -->
+  <!--     KeyCode::CURSOR_RIGHT -->
+  <!--   </autogen> -->
+
+  <!--   <autogen> -->
+  <!--     __KeyToKey__ -->
+  <!--     KeyCode::SEMICOLON, ModifierFlag::F19, ModifierFlag::SHIFT_L, -->
+  <!--     KeyCode::DELETE -->
+  <!--   </autogen> -->
+  <!--   <autogen> -->
+  <!--     __KeyToKey__ -->
+  <!--     KeyCode::QUOTE, ModifierFlag::F19, ModifierFlag::SHIFT_L, -->
+  <!--     KeyCode::FORWARD_DELETE -->
+  <!--   </autogen> -->
+  <!-- </item> -->
+
+
+  <item>
+    <name>Vi Navigation in Preview</name>
+    <appendix>Vim keys in preview.</appendix>
+    <identifier>private.preview.vinav</identifier>
+    <only>PREVIEW</only>
+    <uielementrole_not>AXTextField, AXTextArea</uielementrole_not>
+    <modifier_only>
+        ModifierFlag::NONE,
+        ModifierFlag::SHIFT_L | ModifierFlag::NONE,
+        ModifierFlag::SHIFT_R | ModifierFlag::NONE,
+    </modifier_only>
+    <appendix>Navigate using the HJKL keys.</appendix>
+    <appendix>Search: /, n, N.</appendix>
+    <autogen>__KeyToKey__ KeyCode::J, KeyCode::CURSOR_DOWN</autogen>
+    <autogen>__KeyToKey__ KeyCode::K, KeyCode::CURSOR_UP</autogen>
+    <autogen>__KeyToKey__ KeyCode::H, KeyCode::CURSOR_LEFT</autogen>
+    <autogen>__KeyToKey__ KeyCode::L, KeyCode::CURSOR_RIGHT</autogen>
+    <autogen>__KeyToKey__ KeyCode::SLASH, KeyCode::F, ModifierFlag::COMMAND_L</autogen>
+    <autogen>__KeyToKey__ KeyCode::N, KeyCode::G, ModifierFlag::COMMAND_L</autogen>
+    <autogen>
+      __KeyToKey__
+      KeyCode::N, ModifierFlag::SHIFT_L,
+      KeyCode::G, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_COMMAND, ModifierFlag::SHIFT_L
+    </autogen>
+  </item>
+
+  <item>
+    <name>Vi Zoom in Preview</name>
+    <appendix>Vim zoom keys in preview.</appendix>
+    <identifier>private.preview.vizoom</identifier>
+    <only>PREVIEW</only>
+    <uielementrole_not>AXTextField, AXTextArea</uielementrole_not>
+    <modifier_only>
+        ModifierFlag::NONE,
+        ModifierFlag::SHIFT_L | ModifierFlag::NONE,
+        ModifierFlag::SHIFT_R | ModifierFlag::NONE,
+    </modifier_only>
+    <appendix>Zoom using I/O: in/out</appendix>
+    <appendix>Zoom to fit: F</appendix>
+    <appendix>Zoom to 100%: D</appendix>
+    <autogen>__KeyToKey__ KeyCode::F, KeyCode::KEYPAD_9, VK_COMMAND</autogen>
+    <autogen>__KeyToKey__ KeyCode::D, KeyCode::KEYPAD_0, VK_COMMAND</autogen>
+    <autogen>__KeyToKey__ KeyCode::I, KeyCode::KEYPAD_PLUS, VK_COMMAND</autogen>
+    <autogen>__KeyToKey__ KeyCode::O, KeyCode::KEYPAD_MINUS, VK_COMMAND</autogen>
+  </item>
+
+  <!-- <item> -->
+  <!--   <name>Swap backslash and pipe</name> -->
+  <!--   <appendix>This one i'm trying out really, it's not as if I use either of these all</appendix> -->
+  <!--   <appendix>that often, but I think writing OR statements happens more often than</appendix> -->
+  <!--   <appendix>manually escaping characters. Still, if I was writing a lot of regex I</appendix> -->
+  <!--   <appendix>would likely want the backslash back mapped to a single finger key.</appendix> -->
+  <!--   <identifier>private.backslash_pipe_swap</identifier> -->
+  <!--   <autogen> -->
+  <!--     --KeyToKey-- -->
+  <!--     KeyCode::BACKSLASH, ModifierFlag::SHIFT_L, -->
+  <!--     KeyCode::BACKSLASH -->
+  <!--   </autogen> -->
+  <!--   <autogen> -->
+  <!--     --KeyToKey-- -->
+  <!--     KeyCode::BACKSLASH, ModifierFlag::SHIFT_R, -->
+  <!--     KeyCode::BACKSLASH -->
+  <!--   </autogen> -->
+  <!--   <autogen> -->
+  <!--     --KeyToKey-- -->
+  <!--     KeyCode::BACKSLASH, -->
+  <!--     KeyCode::BACKSLASH, ModifierFlag::SHIFT_L -->
+  <!--   </autogen> -->
+  <!-- </item> -->
+
+  <item>
+      <name>Use the correct shift keys.</name>
+      <identifier>private.correct_shift_keys</identifier>
+      <not>TERMINAL</not>
+      <not>GOOGLE_CHROME</not>
+
+      <autogen>--KeyToKey-- KeyCode::Q, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::W, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::E, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::R, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::T, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::A, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::S, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::D, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::F, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::G, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::Z, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::X, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::C, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::V, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+
+      <autogen>--KeyToKey-- KeyCode::Y,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::U,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::I,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::O,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::P,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::H,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::J,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::K,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::L,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::SEMICOLON, ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::N,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::M,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::COMMA,     ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::DOT,       ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+      <autogen>--KeyToKey-- KeyCode::QUOTE,     ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+  </item>
+</root>
