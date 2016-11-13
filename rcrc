@@ -1,2 +1,2 @@
-EXCLUDES="README.md tags karabiner homebrew config"
+EXCLUDES="README.md tags karabiner homebrew"
 SYMLINK_DIRSS="zprezto"
