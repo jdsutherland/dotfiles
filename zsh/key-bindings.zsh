@@ -8,9 +8,9 @@ join-lines() {
 bind-git-helper() {
   local char
   for c in $@; do
-    eval "fzf-g$c-widget() LBUFFER+=\$(g$c | join-lines)"
-    eval "zle -N fzf-g$c-widget"
-    eval "bindkey '^g^$c' fzf-g$c-widget"
+    eval "fzf-fg$c-widget() LBUFFER+=\$(fg$c | join-lines)"
+    eval "zle -N fzf-fg$c-widget"
+    eval "bindkey '^g^$c' fzf-fg$c-widget"
   done
 }
 bind-git-helper f b t r h
