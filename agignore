@@ -1,0 +1,54 @@
+*-min*
+*.min*
+*.min.*
+*.sql
+*.svg
+*_min*
+/.git/
+bundle
+coverage
+cscope.*
+doc
+log
+min
+public/assets
+public/fonts
+tags
+tmp
+vendor
+
+/bin/stubs
+# For Middleman
+/build/
+/coverage/
+/doc/
+/log/
+/public/assets/
+/tmp/
+# ag --hidden finds files with a leading dot, which includes
+# the .git directory for the current repo. So tell ag to ignore it.
+/.git/
+# Ignore vim backups in dotfiles
+/vim/backups/
+# Ignore vim undodir in dotfiles
+/vim/undodir
+# Ignore local JS-related files
+/node_modules/
+/bower_components/
+
+## Files
+
+# ctags file
+/tags
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.tiff
+*.bmp
+*.svg
+/spec/fixtures/*.sql
+.keep
+# This file is huge and messes up the vim quickfix window
+/vendor/assets/javascripts/highlight.all.js
+.git

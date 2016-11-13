@@ -1,0 +1,9 @@
+--ignore-dir=cassettes
+--ignore-dir=public/assets
+--ignore-dir=tmp
+--ignore-file=is:tags
+--ignore-file=is:TAGS
+--type-add=js=.jst,.coffee,.ejs
+--type-add=ruby=.haml,.slim,.rake
+--type-add=css=.scss,.sass
+--pager=less -RFX
