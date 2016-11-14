@@ -56,6 +56,7 @@ brew cask install kindle
 brew cask install licecap
 brew cask install mattr-slate
 brew cask install padbury-clock
+brew cask install private-internet-access
 brew cask install qlcolorcode qlstephen qlmarkdown qlprettypatch quicklook-csv betterzipql qlimagesize webpquicklook suspicious-package quicklookase qlvideo
 brew cask install sassquatch
 brew cask install screenhero
