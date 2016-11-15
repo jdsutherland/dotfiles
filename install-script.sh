@@ -31,7 +31,7 @@ copy_plists()
 }
 copy_plists
 
-# karabiner set key repeat 120/40 ?
+# karabiner set key repeat 225/20
 
 # rcup depends on .rcrc being in home - this is a workaround
 RCRC=rcrc rcup
