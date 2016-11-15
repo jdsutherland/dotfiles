@@ -33,3 +33,4 @@ autocmd BufRead,BufNewFile *.md setlocal spell complete+=kspell
 autocmd FileType gitcommit setlocal spell complete+=kspell
 
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
