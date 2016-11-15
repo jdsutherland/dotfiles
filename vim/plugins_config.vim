@@ -44,7 +44,6 @@ let g:neomake_python_enabled_makers = ['flake8']
 " let g:neomake_ruby_enabled_makers = ['rubocop']
 let g:neomake_sh_enabled_makers = ['shellcheck']
 let g:neomake_zsh_enabled_makers = ['shellcheck']
-let g:neomake_java_javac_classpath = '.'
 
 " monster - ruby
 let g:monster#completion#rcodetools#backend = "async_rct_complete"
