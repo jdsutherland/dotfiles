@@ -23,11 +23,11 @@ install_prezto
 # get and set font: https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Inconsolata/complete
 
 # copy karabiner settings
-ln -s karabiner/private.xml ~/Library/Application\ Support/Karabiner/private.xml
+ln -s ~/.dotfiles/karabiner/private.xml ~/Library/Application\ Support/Karabiner/private.xml
 
 copy_plists()
 {
-  for i in config/*plist; do cp "$i" ~/Library/Preferences/; done
+  for i in ~/.dotfiles/config/*plist; do cp "$i" ~/Library/Preferences/; done
 }
 copy_plists
 
