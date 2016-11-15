@@ -2,6 +2,7 @@
 let mapleader = ","
 filetype plugin indent on
 syntax on
+runtime macros/matchit.vim
 set shell=/bin/zsh
 set nocompatible
 set modelines=0
