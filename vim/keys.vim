@@ -126,7 +126,7 @@ noremap <leader>9 9gt
 
 " fugitive git bindings
 nnoremap <space>ga :Git add %:p<CR><CR>
-nnoremap <space>gs :Gstatus<CR>
+nmap <space>gs :ToggleGStatus<CR>
 nnoremap <space>gS :Gministatus<CR>
 nnoremap <space>gc :Gcommit -v -q<CR>
 nnoremap <space>gt :Gcommit -v -q %:p<CR>

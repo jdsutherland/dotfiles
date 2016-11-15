@@ -3,12 +3,11 @@ source ~/.vim/plugins.vim
 call plug#end()
 
 source ~/.vim/plugins_config.vim
-source ~/.vim/autocmds.vim
 source ~/.vim/general.vim
-source ~/.vim/keys.vim
 source ~/.vim/functions.vim
+source ~/.vim/autocmds.vim
+source ~/.vim/keys.vim
 
-" All of your Pnmap <D-N> :NERDTreeToggle<CR>lugins must be added before the following line
 
 " let g:SuperTabLongestEnhanced = 1
 " let g:SuperTabClosePreviewOnPopupClose = 1
@@ -73,18 +72,6 @@ vmap <D-A> :Tabularize /
 
 " SEARCH
 
-" NAVIGATION
-
-" preview tag above
-" nnoremap <silent> <space>ll :set nosb<CR>:exec("ptag ".expand("<cword>"))<CR>:set sb<CR>
-
-
-" Control shortcuts
-command! Q q " Bind :Q to :q
-command! Qall qall
-command! QA qall
-command! E e
-
 " Merge a tab into a split in the previous window
 function! MergeTabs()
   if tabpagenr() == 1
@@ -131,9 +118,3 @@ function! AlternateForCurrentFile()
   return new_file
 endfunction
 nnoremap <leader>. :call OpenTestAlternate()<cr>
-
-" Source surround mappings seperately (breaks vimrc syntax highlighting)
-" so ~/.vimrc.chrome
-" so ~/.vimrc.tabs
-" so ~/.vimrc.surrounds
-" so ~/.vimrc.openchangedfiles
