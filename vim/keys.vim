@@ -126,18 +126,18 @@ noremap <leader>9 9gt
 
 " fugitive git bindings
 nnoremap <space>ga :Git add %:p<CR><CR>
-nmap <space>gs :ToggleGStatus<CR>
+nnoremap <space>gs :ToggleGStatus<CR>
 nnoremap <space>gS :Gministatus<CR>
 nnoremap <space>gc :Gcommit -v -q<CR>
 nnoremap <space>gt :Gcommit -v -q %:p<CR>
 nnoremap <space>gb :Gblame<CR>
 nnoremap <space>gB :Gbrowse<CR>
 nnoremap <space>gp :Git add --patch<CR>
-" nnoremap <space>ge :Gedit<CR>
+nnoremap <space>ge :Gedit<CR>
 nnoremap <space>gr :Gread<CR>
 nnoremap <space>gw :Gwrite<CR><CR>
-nnoremap <space>gL :silent! Glog<CR>:bot copen<CR>
-nnoremap <space>gl :GitLog<space>
+nnoremap <space>gl :silent! Glog<CR>
+nnoremap <space>gL :GitLog<space>
 nnoremap <space>gP :Ggrep<Space>
 nnoremap <space>gm :Gmove<Space>
 nnoremap <space>gbr :Git branch<Space>
@@ -145,6 +145,7 @@ nnoremap <space>go :Git checkout<Space>
 nnoremap <space>gps :Dispatch! git push<CR>
 nnoremap <space>gpl :Dispatch! git pull<CR>
 command! GdiffInTab tabedit %|Gdiff
+nnoremap <space>gD :Gdiff<cr>
 nnoremap <space>gd :GdiffInTab<cr>
 nnoremap <space>dt :diffthis<cr>
 nnoremap <leader>du :diffupdate<CR>
