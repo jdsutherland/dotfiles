@@ -45,9 +45,6 @@ Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'eruby', 'yaml'] }
 Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby', 'yaml'] }
 Plug 'tpope/vim-projectionist'
 Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
-Plug 'rudes/vim-java', { 'for': 'java' }
-Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
 " Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 Plug 'rizzatti/dash.vim'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'ryanoasis/vim-devicons' " file drawer
