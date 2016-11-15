@@ -34,3 +34,10 @@ autocmd FileType gitcommit setlocal spell complete+=kspell
 
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
+" ruby
+augroup rubypath
+  autocmd!
+  autocmd FileType ruby setlocal suffixesadd+=.rb
+augroup END
+autocmd FileType ruby setlocal path+=lib
