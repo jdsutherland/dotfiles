@@ -109,6 +109,11 @@ fd() {
   cd "$dir"
 }
 
+# t - tree color with paging
+t() {
+  tree $1 -C | less -F
+}
+
 z() {
   local dir
   dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
