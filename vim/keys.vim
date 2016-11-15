@@ -1,36 +1,4 @@
-" TODO: QUESTIONABLE - do i want these?
-inoremap <expr> <C-S> pumvisible() \|\| &omnifunc == '' ?
-\ "\<lt>C-n>" :
-\ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
-\ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
-\ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
-nnoremap [oU :set colorcolumn=81<CR>
-nnoremap ]oU :set colorcolumn=0<CR>
-nnoremap co<bar> :set colorcolumn=<C-R>=&colorcolumn != 0 ? 0 : 81<CR><CR>
-" HASNOEFFECT? Resize windows with arrow keys
-nnoremap <c-Up> <C-w>+
-nnoremap <c-Down> <C-w>-
-nnoremap <c-Left> <C-w><
-nnoremap <c-Right>  <C-w>>
-nnoremap <silent> ,gf   :vertical botright wincmd F<CR>
-
-nnoremap <leader>d :read !date<CR>
-nnoremap <leader>r :!!<CR>
-map <silent> ,gz <C-w>o "Zoom
-
-nnoremap <leader>s :set spell!<CR>
-nnoremap <M-q> <C-W>p
-nnoremap <leader>p :set nopaste!<CR>
-nnoremap <leader>rc :so $MYVIMRC<CR>
-nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
-nnoremap <leader>ea <C-w><C-v><C-l>:e ~/.vim/bundle/vim-snippets/UltiSnips/
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
-
-" end QUESTIONABLE
-
-
-" -----GENERAL------
+" ---GENERAL---
 map Q @q
 nnoremap Y y$
 
@@ -39,7 +7,7 @@ nnoremap gp '[v']
 " Go to position of last edit. Mnem: 'Go to Edit'
 nnoremap ge `.
 
-" swap colons
+" ---SWITCHEROOs---
 nnoremap ; :
 nnoremap : ;
 " `` goes to line and column; more useful
@@ -57,6 +25,7 @@ vnoremap $ 4
 nnoremap j gj
 nnoremap k gk
 
+nnoremap <cr><cr> :nohls<CR>
 nnoremap <silent> <space>dd :call CloseWindowOrKillBuffer()<CR>
 nnoremap <silent><leader>w :call <SID>StripTrailingWhitespaces()<CR>
 nmap <script> <silent> \\ :call ToggleQuickfixList()<CR>
@@ -64,9 +33,21 @@ nnoremap <silent> \d :lcl<CR>
 nnoremap <silent> \e :Errors<CR>
 vnoremap . :norm.<CR>
 
+nnoremap co<bar> :set colorcolumn=<C-R>=&colorcolumn != 0 ? 0 : 81<CR><CR>
+nnoremap <leader>rc :so $MYVIMRC<CR>
+nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+nnoremap <leader>ea <C-w><C-v><C-l>:e ~/.vim/bundle/vim-snippets/UltiSnips/
+inoremap <expr> <C-S> pumvisible() \|\| &omnifunc == '' ?
+\ "\<lt>C-n>" :
+\ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+\ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+\ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+
 " get filepath + name
-nnoremap <silent> ,cf :let @* = expand("%:~")<CR>
-nnoremap <silent> ,cn :let @* = expand("%:t")<CR>
+nnoremap <silent>,cf :let @* = expand("%:~")<CR>
+nnoremap <silent>,cn :let @* = expand("%:t")<CR>
+nnoremap <leader>dd :read !date<CR>
+nnoremap <leader>rr :!!<CR>
 
 " replace with system clipboard
 nmap ,gr "*gr
@@ -78,15 +59,13 @@ nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(st
 nnoremap <Leader>sub :%s///g<left><left>
 vnoremap <Leader>sub :s///g<left><left>
 nnoremap <leader>wub :%s//<C-r><C-w>/g<cr>
- 
-" inserts
+
+" ---INSERTs---
 imap ,rr <space>=><space>
 imap ,aa ->
 imap ,uu __
 
-nnoremap <cr><cr> :nohls<CR>
-
-" NAVIGATION
+" ---NAVIGATION---
 " open prev buffer
 nnoremap <cr>b <C-^>
 " Karabiner cmd_l to previous spit
@@ -151,13 +130,6 @@ nnoremap <space>dt :diffthis<cr>
 nnoremap <leader>du :diffupdate<CR>
 nnoremap <leader>dp :diffput<space>
 nnoremap <leader>dg :diffget<space>
-" test bindings
-nnoremap <silent> <space>tt :TestNearest<CR>
-nnoremap <silent> <space>ts :TestSuite<CR>
-nnoremap <silent> <space>T :TestFile<CR>
-" nnoremap <silent> <leader>a :TestSuite<CR>
-" nnoremap <silent> <leader>l :TestLast<CR>
-nnoremap <silent> <space>tv :vsp<CR>:exec ':TestVisit'<CR>
 
 " tagbar
 nnoremap <silent> ,zz :TagbarToggle<CR>
@@ -234,10 +206,17 @@ nmap <leader>bp orequire 'pry'; binding.pry<esc>^
 " javascript
 nmap ,cl yiwoconsole.log('<c-r>"', <c-r>");<Esc>^
 
+" test bindings
+nnoremap <silent> <space>tt :TestNearest<CR>
+nnoremap <silent> <space>ts :TestSuite<CR>
+nnoremap <silent> <space>T :TestFile<CR>
+" nnoremap <silent> <leader>a :TestSuite<CR>
+" nnoremap <silent> <leader>l :TestLast<CR>
+nnoremap <silent> <space>tv :vsp<CR>:exec ':TestVisit'<CR>
+
 " splitjoin
 nnoremap sj :SplitjoinSplit<cr>
 nnoremap sk :SplitjoinJoin<cr>
-
 
 " lldb
 nmap <A-b> <Plug>LLBreakSwitch
@@ -252,7 +231,6 @@ vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
 nnoremap <F10> :LL next<CR>
 nnoremap <F11> :LL step<CR>
 nnoremap <S-F11> :LL finish<CR>
-
 
 " ----SURROUND----
 " ,# Surround a word with #{ruby interpolation}
