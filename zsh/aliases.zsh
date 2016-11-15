@@ -30,10 +30,10 @@ if [[ -o interactive ]]; then
   # Dotfiles
   alias ae='e ~/.dotfiles/zsh/aliases.zsh'
   alias fe='e ~/.dotfiles/zsh/functions.zsh'
-  alias ne='e ~/.nvimrc'
+  alias ne='e ~/.vim/init.vim'
   alias se='e ~/.slate'
   alias te='e ~/.tmux.conf'
-  alias ve='e ~/.vimrc'
+  alias ve='e ~/.vim/init.vim'
   alias ze='e ~/.zshrc'
   alias zs='source ~/.zshrc'
 
