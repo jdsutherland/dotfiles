@@ -3,9 +3,9 @@
 Targeted for OSX. Managed with [rcm][1].
 
 ## Contains
-[prezto][3]
-karabiner
-osx keyboard shortcuts
+* [prezto][3]
+* karabiner
+* osx keyboard shortcuts
 
 ## Install
 
