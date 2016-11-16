@@ -140,7 +140,7 @@ fgt() {
     --preview 'git show --color=always {} | head -'$LINES
 }
 
-fgh() {
+fgi() {
   is_in_git_repo || return
   git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph |
   fzf-tmux --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
