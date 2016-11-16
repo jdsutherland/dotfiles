@@ -56,6 +56,7 @@ if [[ -o interactive ]]; then
   alias gitdbg='git ci -am 'dbg' && git pull origin master && git push origin master'
   alias gitp='git pull origin master && git push origin master'
   alias gitundo='git commit --amend'
+  alias gldr='gld --reverse'
   alias gst='git status'
 
   # App
