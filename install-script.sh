@@ -36,4 +36,7 @@ copy_plists
 # rcup depends on .rcrc being in home - this is a workaround
 RCRC=rcrc rcup
 
+# neovim: req for deoplete
+pip3 install --upgrade neovim
+
 echo "Finished install-script"
