@@ -78,6 +78,8 @@
   pager = less -X
   editor = "NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim"
   pager = diff-so-fancy | less --tabs=4 -RFX
+[pager]
+    diff = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
 [push]
   default = upstream
 [merge]
@@ -106,3 +108,10 @@
 	modified = red
 [help]
   autocorrect = 1
+[color "diff-highlight"]
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+	oldNormal = red bold
+[diff-so-fancy]
+	markEmptyLines = false
