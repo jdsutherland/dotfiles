@@ -32,11 +32,14 @@ let g:neomake_error_sign = {
     \ 'text': '✗',
     \ 'texthl': 'ErrorMsg',
     \ }
-let g:neomake_javascript_eslint_maker = {
-            \ 'args': ['--no-color', '--format'],
-            \ 'errorformat': '%f: line %l\, col %c\, %m'
-            \ }
-let g:neomake_javascript_enabled_makers = ['eslint']
+
+let g:neomake_javascript_jscs_maker = {
+    \ 'exe': 'jscs',
+    \ 'args': ['--no-color', '--preset', 'airbnb', '--reporter', 'inline', '--esnext'],
+    \ 'errorformat': '%f: line %l\, col %c\, %m',
+    \ }
+let g:neomake_javascript_enabled_makers = ['jscs']
+
 " let g:neomake_c_enabled_makers = ['clang']
 let g:neomake_json_enabled_makers = ['jsonlint']
 let g:neomake_python_enabled_makers = ['flake8']
