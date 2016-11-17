@@ -72,6 +72,7 @@ if [[ -o interactive ]]; then
   alias tmux='tmux -2'
   alias tre='tree -C | less'
   alias v='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
+  alias vim='n'
 
   # Bundler
   alias be='bundle exec'
