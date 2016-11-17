@@ -1,4 +1,4 @@
-function! s:fzf_statusline()
+function! Fzf_statusline()
   " Override statusline as you like
   highlight fzf1 ctermfg=161 ctermbg=251
   highlight fzf2 ctermfg=23 ctermbg=251
