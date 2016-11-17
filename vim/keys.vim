@@ -25,6 +25,9 @@ vnoremap $ 4
 nnoremap j gj
 nnoremap k gk
 
+" coupled to karabiner mapping to go to previous window
+nnoremap <M-q> <C-W>p
+
 nnoremap <cr><cr> :nohls<CR>
 nnoremap <silent> <space>dd :call CloseWindowOrKillBuffer()<CR>
 nnoremap <silent><leader>w :call StripTrailingWhitespaces()<CR>
