@@ -129,3 +129,12 @@ jscsf() {
   jscs $1 --preset=airbnb --fix
 }
 
+# trees - tree with size and depth param (useful for media)
+trees() {
+  if [ "$1" -gt 0 ]; then
+    tree -C -h -L "$1" | less -R
+  else
+    # defaults to 2
+    tree -C -h -L 2 | less -R
+  fi
+}
