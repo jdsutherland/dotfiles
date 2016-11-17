@@ -187,6 +187,9 @@ nmap ,X <Plug>(simple-todo-mark-as-undone)
 imap ,X <Plug>(simple-todo-mark-as-undone)
 nmap ,l <Plug>(simple-todo-new-list-item)
 
+" vim-plug
+nnoremap <silent>,pu :PlugUpdate<CR>
+
 " EasyAlign
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
