@@ -1,6 +1,11 @@
+" yankstack workaround
+call yankstack#setup()
+nnoremap Y y$
+nmap <space>p <Plug>yankstack_substitute_older_paste
+nmap <space>P <Plug>yankstack_substitute_newer_paste
+
 " ---GENERAL---
 map Q @q
-nnoremap Y y$
 
 " Reselect pasted text. Mnem: 'Get pasted'
 nnoremap gp '[v']
