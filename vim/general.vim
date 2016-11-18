@@ -29,7 +29,6 @@ set backspace=indent,eol,start
 set history=500
 set updatetime=750 " https://www.reddit.com/r/vim/comments/3ql651/what_do_you_set_your_updatetime_to/
 set laststatus=2
-set noundofile
 nnoremap / /\v
 vnoremap / /\v
 set ignorecase
@@ -68,3 +67,7 @@ set list listchars=tab:»·,trail:·
 
 " Ag
 set grepprg=ag
+
+" persistent undo
+set undodir=~/.config/nvim/undodir
+set undofile
