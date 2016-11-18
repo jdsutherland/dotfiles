@@ -41,3 +41,6 @@ augroup rubypath
   autocmd FileType ruby setlocal suffixesadd+=.rb
 augroup END
 autocmd FileType ruby setlocal path+=lib
+
+" run neomake on every save
+autocmd! BufWritePost * Neomake

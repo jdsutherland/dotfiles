@@ -103,6 +103,7 @@ Plug 'chriskempson/base16-vim'
 Plug 'edkolev/tmuxline.vim'
 Plug 'mhartington/oceanic-next'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'junegunn/rainbow_parentheses.vim'
 
 " c
 Plug 'Shougo/neoinclude.vim', { 'for': ['c', 'cpp'] }

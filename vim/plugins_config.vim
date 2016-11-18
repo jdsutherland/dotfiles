@@ -33,12 +33,16 @@ let g:neomake_error_sign = {
     \ 'texthl': 'ErrorMsg',
     \ }
 
+let g:neomake_javascript_enabled_makers = ['jshint', 'jscs']
+let g:neomake_javascript_jshint_maker = {
+    \ 'args': ['--verbose'],
+    \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
+    \ }
 let g:neomake_javascript_jscs_maker = {
     \ 'exe': 'jscs',
     \ 'args': ['--no-color', '--preset', 'airbnb', '--reporter', 'inline', '--esnext'],
     \ 'errorformat': '%f: line %l\, col %c\, %m',
     \ }
-let g:neomake_javascript_enabled_makers = ['jscs']
 
 " let g:neomake_c_enabled_makers = ['clang']
 let g:neomake_json_enabled_makers = ['jsonlint']
