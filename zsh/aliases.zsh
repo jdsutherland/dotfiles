@@ -7,8 +7,8 @@ if [[ -o interactive ]]; then
   # Arguments and pipes
   alias -g A='| ack'
   alias -g L='| less'
+  alias a='ag --pager "less -R"'
   alias agh='ag --hidden'
-  alias agp='ag --pager "less -R"'
   alias als='alias | ack'
   alias f='ag -g'
   alias fa='alias | fzf'
