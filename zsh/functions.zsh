@@ -6,30 +6,14 @@ function -() { cd - }
 # If just doing `clip`, paste it.
 clip() { [ -t 0 ] && pbpaste || pbcopy;}
 
-push_ssh_cert() {
-    local _host
-    test -f ~/.ssh/id_rsa.pub || ssh-keygen -t dsa
-    for _host in "$@";
-    do
-        echo $_host
-        ssh $_host 'cat >> ~/.ssh/authorized_keys' < ~/.ssh/id_rsa.pub
-    done
-}
-
-push_ssh_key() {
-  local _host
-  test -f ~/.ssh/id_rsa.pub
-  for _host in "$@";
-  do
-    echo $_host
-    scp ~/.ssh/id_rsa.pub $_host:~/.ssh/id_rsa.pub
-    scp ~/.ssh/id_rsa $_host:~/.ssh/id_rsa
-  done
-}
-
-take() {
-  mkdir $1
-  cd $1
+# agv - use ag and fzf to open result in vim in matching line
+agv () {
+  CHOICE=$(ag --color $* | fzf -0 -1 --ansi)
+  if [ ! -z "$CHOICE" ]; then
+    # Open vim at the selected file and line, but also run the Ag scan
+    # the ! on Ag! stops Ag jumping to the first match, and the wincmd gives the editor window focus
+    nvim $( echo "$CHOICE" | awk 'BEGIN { FS=":" } { printf "+%d %s\n", $2, $1 } ') +"Ag! '$*'" "+wincmd k"
+  fi
 }
 
 # vf - fuzzy open with vim from anywhere
@@ -46,6 +30,12 @@ vf() {
      print -l $files[1]
   fi
 }
+
+take() {
+  mkdir $1
+  cd $1
+}
+
 
 # fkill - kill process
 fkill() {
@@ -66,7 +56,6 @@ conflicted() {
   vim +Conflicted
 }
 
-# ##### FZF #####
 # c - browse chrome history
 c() {
   local cols sep
@@ -95,7 +84,6 @@ fv() {
   unset IFS
 }
 
-
 # fh - repeat history
 fzh() {
   print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
@@ -114,6 +102,16 @@ t() {
   tree $1 -C | less -F
 }
 
+# trees - tree with size and depth param (useful for media)
+trees() {
+  if [ "$1" -gt 0 ]; then
+    tree -C -h -L "$1" | less -R
+  else
+    # defaults to 2
+    tree -C -h -L 2 | less -R
+  fi
+}
+
 z() {
   local dir
   dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
@@ -129,12 +127,42 @@ jscsf() {
   jscs $1 --preset=airbnb --fix
 }
 
-# trees - tree with size and depth param (useful for media)
-trees() {
-  if [ "$1" -gt 0 ]; then
-    tree -C -h -L "$1" | less -R
-  else
-    # defaults to 2
-    tree -C -h -L 2 | less -R
-  fi
+# Repeatedly try to connect to a host which is booting
+# ssh's return code is a little unhelpful as it doesn't distinguish the failure
+# reason properly so this is a little naive
+try_ssh () {
+  SUCCESS=0
+  while [ $SUCCESS -eq 0 ]; do
+    ssh -o "ConnectTimeout 30" $*
+    RESULT=$?
+    if [ $RESULT -ne 255 ]; then
+      SUCCESS=1
+    else
+      echo "--> SSH return code was $RESULT"
+      print "Waiting to retry ssh..."
+      sleep 10
+      echo "--> Retrying..."
+    fi
+  done
+}
+
+push_ssh_cert() {
+    local _host
+    test -f ~/.ssh/id_rsa.pub || ssh-keygen -t dsa
+    for _host in "$@";
+    do
+        echo $_host
+        ssh $_host 'cat >> ~/.ssh/authorized_keys' < ~/.ssh/id_rsa.pub
+    done
+}
+
+push_ssh_key() {
+  local _host
+  test -f ~/.ssh/id_rsa.pub
+  for _host in "$@";
+  do
+    echo $_host
+    scp ~/.ssh/id_rsa.pub $_host:~/.ssh/id_rsa.pub
+    scp ~/.ssh/id_rsa $_host:~/.ssh/id_rsa
+  done
 }

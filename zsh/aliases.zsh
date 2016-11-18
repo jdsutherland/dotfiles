@@ -12,6 +12,7 @@ if [[ -o interactive ]]; then
   alias als='alias | ack'
   alias f='ag -g'
   alias fa='alias | fzf'
+  alias fag='ag --nobreak --nonumbers --noheading . | fzf'
   alias ff='functions | fzf'
   alias fh='ag --hidden -g'
   alias fls='functions | ack'
