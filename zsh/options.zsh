@@ -15,6 +15,9 @@ setopt autopushd
 # Timestamp history entries
 setopt extended_history
 
+# command preceded by space won't be added to history
+setopt histignorespace
+
 unsetopt correctall
 # Allow [ or ] wherever you want
 # (Prevents "zsh: no matches found: ...")
