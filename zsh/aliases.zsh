@@ -74,6 +74,7 @@ if [[ -o interactive ]]; then
   alias tre='tree -C | less'
   alias v='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
   alias vim='n'
+  alias tidyh='tidy -config ~/.tidy.conf'
 
   # Bundler
   alias be='bundle exec'
