@@ -82,7 +82,7 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
 " html/css
 Plug 'ap/vim-css-color', { 'for': ['html', 'scss', 'less', 'css', 'eruby'] }
-Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
+" Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'helino/vim-json', { 'for': 'json' }
 Plug 'mattn/emmet-vim', { 'for': ['html', 'scss', 'less', 'css', 'eruby'] }
@@ -103,7 +103,7 @@ Plug 'chriskempson/base16-vim'
 Plug 'edkolev/tmuxline.vim'
 Plug 'mhartington/oceanic-next'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'junegunn/rainbow_parentheses.vim'
+" Plug 'junegunn/rainbow_parentheses.vim'
 
 " c
 Plug 'Shougo/neoinclude.vim', { 'for': ['c', 'cpp'] }
