@@ -63,7 +63,7 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 colorscheme base16-tomorrow
 
 " Display extra whitespace
-set list listchars=tab:»·,trail:·
+set listchars=tab:→\ ,trail:∙,nbsp:•
 
 " Ag
 set grepprg=ag
