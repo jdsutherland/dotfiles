@@ -55,7 +55,6 @@ inoremap <expr> <C-S> pumvisible() \|\| &omnifunc == '' ?
 nnoremap <silent>,cf :let @* = expand("%:~")<CR>
 nnoremap <silent>,cn :let @* = expand("%:t")<CR>
 nnoremap <leader>dd :read !date<CR>
-nnoremap <leader>rr :!!<CR>
 
 " replace with system clipboard
 nmap ,gr "*gr
@@ -207,24 +206,32 @@ nmap ga <Plug>(EasyAlign)
 " tmuxnav
 nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 
-" ruby rspec/tmux runner
+" ruby
+nnoremap <leader>R :VtrSendCommandToRunner rake<cr>
+nmap <leader>bp orequire 'pry'; binding.pry<esc>^
 map <Leader>rt :call RunCurrentSpecFile()<CR>
 map <Leader>rs :call RunNearestSpec()<CR>
 map <Leader>rl :call RunLastSpec()<CR>
 map <Leader>ra :call RunAllSpecs()<CR>
-nnoremap <leader>pry :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'pry'}<cr>
-nmap <leader>bp orequire 'pry'; binding.pry<esc>^
-
-" javascript
-nmap ,cl yiwoconsole.log('<c-r>"', <c-r>");<Esc>^
 
 " test bindings
 nnoremap <silent> <space>tt :TestNearest<CR>
 nnoremap <silent> <space>ts :TestSuite<CR>
-nnoremap <silent> <space>T :TestFile<CR>
-" nnoremap <silent> <leader>a :TestSuite<CR>
-" nnoremap <silent> <leader>l :TestLast<CR>
+nnoremap <silent> <space>tf :TestFile<CR>
+nnoremap <silent> <space>tl :TestLast<CR>
 nnoremap <silent> <space>tv :vsp<CR>:exec ':TestVisit'<CR>
+
+" tmux runner
+nnoremap <leader>sr :VtrOpenRunner {'orientation': 'h', 'percentage': 50}<cr>
+nnoremap <leader>sf :w<cr>:call SendFileViaVtr()<cr>
+nnoremap <leader>pry :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'pry'}<cr>
+nnoremap <leader>sd :VtrSendCtrlD<cr>
+nmap <C-f> :VtrSendLineToRunner<cr>
+vmap <C-f> <Esc>:VtrSendSelectedToRunner<cr>
+
+" javascript
+nnoremap <leader>nr :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'node'}<cr>
+nmap ,cl yiwoconsole.log('<c-r>"', <c-r>");<Esc>^
 
 " splitjoin
 nnoremap sj :SplitjoinSplit<cr>

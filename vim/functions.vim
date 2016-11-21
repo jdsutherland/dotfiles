@@ -120,3 +120,21 @@ function! AlternateForCurrentFile()
   endif
   return new_file
 endfunction
+
+" tmux runner
+function! SendFileViaVtr()
+  let runners = {
+        \ 'haskell': 'ghci',
+        \ 'ruby': 'ruby',
+        \ 'javascript': 'node',
+        \ 'python': 'python',
+        \ 'sh': 'sh'
+        \ }
+  if has_key(runners, &filetype)
+    let runner = runners[&filetype]
+    let local_file_path = expand('%')
+    execute join(['VtrSendCommandToRunner', runner, local_file_path])
+  else
+    echoerr 'Unable to determine runner'
+  endif
+endfunction

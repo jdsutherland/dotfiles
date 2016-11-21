@@ -93,7 +93,7 @@ Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] }
 " ruby
 Plug 'fishbullet/deoplete-ruby', { 'for': ['ruby', 'eruby', 'yaml'] ,}
 Plug 'osyo-manga/vim-monster', { 'for': ['ruby', 'eruby', 'yaml'] }
-Plug 'thoughtbot/vim-rspec', { 'for': ['ruby', 'eruby', 'yaml'] }
+" Plug 'thoughtbot/vim-rspec', { 'for': ['ruby', 'eruby', 'yaml'] }
 Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby', 'yaml'] }
 Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'eruby', 'yaml'] }
 

@@ -58,6 +58,11 @@ let g:deoplete#sources#omni#input_patterns = {
 \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
 \}
 
+" tmux runner
+let g:VtrUseVtrMaps = 1
+let g:VtrGitCdUpOnOpen = 0
+let g:VtrPercentage = 30
+
 " rspec
 let g:rspec_command = "call VtrSendCommand('rspec {spec}')"
 
@@ -92,7 +97,7 @@ let g:vim_markdown_new_list_item_indent = 2
 let g:switch_mapping = "-"
 
 " vim-test
-let test#strategy = 'neovim'
+let test#strategy = 'vtr'
 let g:test#preserve_screen = 1
 
 " togglelist
