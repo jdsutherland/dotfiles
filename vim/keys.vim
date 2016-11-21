@@ -33,7 +33,7 @@ nnoremap k gk
 " coupled to karabiner mapping to go to previous window
 nnoremap <M-q> <C-W>p
 
-nnoremap <cr><cr> :nohls<CR>
+nnoremap <cr> :nohls<CR>
 nnoremap <silent> <space>dd :call CloseWindowOrKillBuffer()<CR>
 nnoremap <silent><leader>w :call StripTrailingWhitespaces()<CR>
 nmap <script> <silent> \\ :call ToggleQuickfixList()<CR>
@@ -83,9 +83,7 @@ nnoremap <silent> ,fv :vsp <CR>:exec("tag ".expand("<cword>"))<CR>zz<C-w><C-p>
 nnoremap <silent> <space>ll :exec("ptag ".expand("<cword>"))<CR>:set sb<CR>
 nnoremap <silent> <space>lc :pclose<CR>
 nnoremap <silent> ,vs   :vert stag<space>
-" Create window splits easier.
-nnoremap <silent> vv <C-w>v
-nnoremap <silent> ss <C-w>s
+
 nnoremap <space>D :bd<CR>
 nnoremap <space>z za
 nnoremap <leader>N :set nonumber!<CR>:set norelativenumber!<CR>
@@ -93,6 +91,16 @@ nnoremap <leader>N :set nonumber!<CR>:set norelativenumber!<CR>
 nnoremap <leader>hp :!open -a Google\ Chrome %<CR><CR>
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>L :set list!<CR>
+
+" splits
+nnoremap <silent> vv <C-w>v
+nnoremap <silent> ss <C-w>s
+" vertical to horizontal ( | -> -- )
+noremap <c-w>-  <c-w>t<c-w>K
+" horizontal to vertical ( -- -> | )
+noremap <c-w>\|  <c-w>t<c-w>H
+noremap <c-w>\  <c-w>t<c-w>H
+noremap <c-w>/  <c-w>t<c-w>H
 
 " tabs
 nnoremap <silent> <space>tc :tabclose<CR>
@@ -112,7 +120,7 @@ noremap <leader>9 9gt
 
 " fugitive git bindings
 nnoremap <space>ga :Git add %:p<CR><CR>
-nnoremap <space>gs :ToggleGStatus<CR>
+nnoremap <space>gg :ToggleGStatus<CR>
 nnoremap <space>gc :Gcommit -v -q<CR>
 nnoremap <space>gt :Gcommit -v -q %:p<CR>
 nnoremap <space>gb :Gblame<CR>
@@ -222,6 +230,7 @@ nnoremap <silent> <space>tl :TestLast<CR>
 nnoremap <silent> <space>tv :vsp<CR>:exec ':TestVisit'<CR>
 
 " tmux runner
+" nnoremap <leader>ar :VtrReattachRunner<cr>
 nnoremap <leader>sr :VtrOpenRunner {'orientation': 'h', 'percentage': 50}<cr>
 nnoremap <leader>sf :w<cr>:call SendFileViaVtr()<cr>
 nnoremap <leader>pry :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'pry'}<cr>
