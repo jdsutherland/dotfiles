@@ -114,7 +114,6 @@ noremap <leader>9 9gt
 " fugitive git bindings
 nnoremap <space>ga :Git add %:p<CR><CR>
 nnoremap <space>gs :ToggleGStatus<CR>
-nnoremap <space>gS :Gministatus<CR>
 nnoremap <space>gc :Gcommit -v -q<CR>
 nnoremap <space>gt :Gcommit -v -q %:p<CR>
 nnoremap <space>gb :Gblame<CR>
@@ -132,7 +131,9 @@ nnoremap <space>go :Git checkout<Space>
 nnoremap <space>gps :Dispatch! git push<CR>
 nnoremap <space>gpl :Dispatch! git pull<CR>
 command! GdiffInTab tabedit %|Gdiff
-nnoremap <space>gD :Gdiff<cr>
+nnoremap <space>g :Gdiff<cr>
+" close a fugitive :Gdiff
+nnoremap <space>G <c-w>h<c-w>c
 nnoremap <space>gd :GdiffInTab<cr>
 nnoremap <space>dt :diffthis<cr>
 nnoremap <leader>du :diffupdate<CR>
