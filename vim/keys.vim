@@ -75,7 +75,7 @@ imap ,uu __
 
 " ---NAVIGATION---
 " open prev buffer
-nnoremap <cr>b <C-^>
+nnoremap <c-b> <C-^>
 " Karabiner cmd_l to previous spit
 nnoremap <silent> ,f <C-]>zz
 nnoremap <silent>,T :tab split <CR>:exec("tag ".expand("<cword>"))<CR>
