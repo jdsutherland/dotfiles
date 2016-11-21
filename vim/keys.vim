@@ -251,6 +251,10 @@ nnoremap <F10> :LL next<CR>
 nnoremap <F11> :LL step<CR>
 nnoremap <S-F11> :LL finish<CR>
 
+" cxiw and ct_ are common
+map <leader>cx cxiw
+map <leader>ct ct_
+
 " ----SURROUND----
 " ,# Surround a word with #{ruby interpolation}
 map ,# ysiw#
