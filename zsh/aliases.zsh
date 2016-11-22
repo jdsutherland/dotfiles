@@ -39,6 +39,7 @@ if [[ -o interactive ]]; then
   alias zs='source ~/.zshrc'
 
   # Git
+  eval "$(hub alias -s)"
   alias amend='git commit --amend'
   alias fixgit='git config branch.master.remote origin && git config branch.master.merge refs/heads/master'
   alias ga='git add'
