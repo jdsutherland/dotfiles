@@ -4,8 +4,6 @@
 [color]
   ui = true
 [alias]
-	glog = log -E -i --grep
-	sla = log --oneline --decorate --graph --all -20
   aa = add --all
   adp = add --patch
   b = branch
@@ -28,13 +26,15 @@
   fall = "!for remote in $(git remote); do echo "Fetching $remote"; git fetch "$remote"; done"
   fpop = !git stash show -p | git apply && git stash drop
   full-commit = !git cat-file -p $(git rev-parse HEAD)
+  glog = log -E -i --grep
   issues = !hub browse -- issues
   lnames = !git --no-pager show --name-only $1
-  next-commit = !git checkout $(git log --reverse --ancestry-path --pretty=%H HEAD..master | head -1)
   master = checkout master
   mb = !git merge-base HEAD $1
   mup = !git checkout master && git pull && git checkout -
+  next-commit = !git checkout $(git log --reverse --ancestry-path --pretty=%H HEAD..master | head -1)
   no-ff = merge --no-ff
+  pf = push --force-with-lease
   pl = pull
   plr = pull --rebase
   pom = push -u origin master
@@ -49,11 +49,12 @@
   rpo = remote prune origin
   sal = !git sla # Accepting that I will continue to mistype this
   sdot = status . --short --branch
-  stat = show --stat
   si = status --ignored
   sl = log --oneline --decorate --graph -20
+  sla = log --oneline --decorate --graph --all -20
   slap = log --oneline --decorate --all --graph
   slp = log --oneline --decorate --graph
+  stat = show --stat
   trust = !mkdir .git/safe
   unchange = checkout --
   uncommit = reset --soft HEAD^
