@@ -22,6 +22,14 @@ fbr() {
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
+# fbrd - Fuzzy Branch Delete
+fbrd() {
+  local branches branch
+  branches=$(git branch --merged) &&
+  branch=$(echo "$branches" | fzf +m) &&
+    git branch -d $(echo "$branch" | sed "s/.* //") && fbrd
+}
+
 # fco - checkout git branch/tag
 fco() {
   local tags branches target
