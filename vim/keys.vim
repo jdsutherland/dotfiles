@@ -154,6 +154,8 @@ nnoremap <silent> ,zx :TagbarTogglePause<CR>
 
 " dash
 nnoremap gk :Dash<CR>
+" hacky way to lookup node native modules easily in Dash
+map ngk viwf.ey;Dash <C-R>" node<CR>
 
 " argwap
 nnoremap <silent> <leader>a :ArgWrap<CR>
