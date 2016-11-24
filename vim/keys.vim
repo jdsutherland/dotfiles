@@ -71,7 +71,7 @@ vnoremap <Leader>sub :s///g<left><left>
 nnoremap <leader>wub :%s//<C-r><C-w>/g<cr>
 
 " ---INSERTs---
-imap ,rr <space>=><space>
+imap ,rr =>
 imap ,aa ->
 imap ,uu __
 

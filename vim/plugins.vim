@@ -72,6 +72,7 @@ Plug '1995eaton/vim-better-javascript-completion', { 'for': 'javascript' }
 Plug 'burnettk/vim-angular', { 'for': 'javascript' }
 Plug 'carlitux/deoplete-ternjs', { 'for': 'javascript' }
 Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] }
+Plug 'isRuslan/vim-es6', { 'for': 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'moll/vim-node', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': 'jsx' }

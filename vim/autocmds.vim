@@ -3,6 +3,13 @@ autocmd VimResized * :wincmd =
 " autosave when lose focus
 autocmd BufLeave,FocusLost * silent! wall
 
+" TODO: why doesn't this work?
+" run neomake on every save
+" autocmd! BufWritePost * Neomake
+
+" strip whitespace on every save
+" autocmd! BufWritePost * call StripTrailingWhitespaces()
+
 " Execute macro in q
 autocmd FileType vim setlocal keywordprg=:help " Open vim help under cursor
 
@@ -42,5 +49,4 @@ augroup rubypath
 augroup END
 autocmd FileType ruby setlocal path+=lib
 
-" run neomake on every save
-autocmd! BufWritePost * Neomake
+
