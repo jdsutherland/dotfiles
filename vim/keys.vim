@@ -13,6 +13,10 @@ nnoremap gp '[v']
 nnoremap ge `.
 
 " ---SWITCHEROOs---
+" default to unimpaired paste auto indent
+nnoremap <leader>p :call <SNR>96_putline(']p', 'Below')<CR>=']
+nnoremap <leader>P :call <SNR>96_putline('[p', 'Above')<CR>=']
+
 nnoremap ; :
 nnoremap : ;
 " `` goes to line and column; more useful
@@ -54,7 +58,6 @@ inoremap <expr> <C-S> pumvisible() \|\| &omnifunc == '' ?
 " get filepath + name
 nnoremap <silent>,cf :let @* = expand("%:~")<CR>
 nnoremap <silent>,cn :let @* = expand("%:t")<CR>
-nnoremap <leader>dd :read !date<CR>
 
 " replace with system clipboard
 nmap ,gr "*gr
@@ -115,6 +118,9 @@ noremap <leader>6 6gt
 noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
+let g:lasttab = 1
+nmap <leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
 
 " -----PLUGIN------
 
@@ -166,7 +172,7 @@ imap <C-x><C-f> <plug>(fzf-complete-file-ag)
 nnoremap <silent> ,t :FzfFiles<CR>
 nnoremap <silent> ,b :FzfBuffers<CR>
 nnoremap <silent> ,ss :FzfSnippets<CR>
-nnoremap <silent> ,A :FzfWindows<CR>
+nnoremap <silent> ,fw :FzfWindows<CR>
 nnoremap <silent> ,; :FzfBLines<CR>
 nnoremap <silent> ,. :FzfLines<CR>
 nnoremap <silent> ,o :FzfBTags<CR>
@@ -262,9 +268,12 @@ nnoremap <F10> :LL next<CR>
 nnoremap <F11> :LL step<CR>
 nnoremap <S-F11> :LL finish<CR>
 
-" cxiw and ct_ are common
+" make common changes faster
+map <leader>ww ciw
 map <leader>cx cxiw
 map <leader>ct ct_
+map <leader>dd daw
+map <leader>df dip
 
 " ----SURROUND----
 " ,# Surround a word with #{ruby interpolation}
