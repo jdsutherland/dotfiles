@@ -9,6 +9,9 @@ let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTool
 let g:deoplete#sources#clang#clang_header = '/Library/Developer/CommandLineTools/usr/lib/clang'
 let g:deoplete#sources#clang#sort_algo = 'priority'
 
+" gist
+let g:gist_post_anonymous = 1
+
 " resize
 let g:vim_resize_disable_auto_mappings = 1
 
