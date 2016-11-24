@@ -90,7 +90,7 @@ function! ToggleGStatus()
         Gstatus
     endif
 endfunction
-command ToggleGStatus :call ToggleGStatus()
+command! ToggleGStatus :call ToggleGStatus()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SWITCH BETWEEN TEST AND PRODUCTION CODE

@@ -249,6 +249,11 @@ vmap <C-f> <Esc>:VtrSendSelectedToRunner<cr>
 " javascript
 nnoremap <leader>nr :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'node'}<cr>
 nmap ,cl yiwoconsole.log('<c-r>"', <c-r>");<Esc>^
+" ||=
+nmap <leader>\| yiWA<space>=<space><C-R>"<space>\|\|<space>
+nmap <leader>;; A;<ESC>
+" open current file in devtool chrome debugger
+nnoremap <leader>jsd :! devtool % &<CR>
 
 " splitjoin
 nnoremap sj :SplitjoinSplit<cr>
@@ -274,6 +279,7 @@ map <leader>cx cxiw
 map <leader>ct ct_
 map <leader>dd daw
 map <leader>df dip
+map <leader>cc cip
 
 " ----SURROUND----
 " ,# Surround a word with #{ruby interpolation}
