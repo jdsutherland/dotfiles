@@ -27,7 +27,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'ervandew/supertab'
 Plug 'godlygeek/tabular'
 Plug 'janko-m/vim-test'
-Plug 'jeetsukumaran/vim-gazetteer/'
+Plug 'jeetsukumaran/vim-gazetteer'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-journal'
@@ -68,18 +68,20 @@ Plug 'rhysd/github-complete.vim'
 Plug 'tpope/vim-fugitive'
 
 " javascript
+" Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+" Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug '1995eaton/vim-better-javascript-completion', { 'for': 'javascript' }
 Plug 'burnettk/vim-angular', { 'for': 'javascript' }
 Plug 'carlitux/deoplete-ternjs', { 'for': 'javascript' }
 Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] }
-Plug 'isRuslan/vim-es6', { 'for': 'javascript' }
-Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'moll/vim-node', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': 'jsx' }
+Plug 'nono/vim-handlebars', { 'for': 'javascript' }
 Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
 Plug 'othree/jspc.vim', { 'for': 'javascript' }
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'othree/yajs.vim', { 'for': 'javascript' }
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 
 " html/css
 Plug 'ap/vim-css-color', { 'for': ['html', 'scss', 'less', 'css', 'eruby'] }
@@ -102,7 +104,7 @@ Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'eruby', 'yaml'] }
 Plug 'bling/vim-airline'
 Plug 'chriskempson/base16-vim'
 Plug 'edkolev/tmuxline.vim'
-Plug 'mhartington/oceanic-next'
+Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'junegunn/rainbow_parentheses.vim'
 

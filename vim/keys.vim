@@ -6,6 +6,8 @@ nmap <space>P <Plug>yankstack_substitute_newer_paste
 
 " ---GENERAL---
 map Q @q
+nnoremap <cr>x :xall<cr>
+nnoremap <cr>D :qall!
 
 " Reselect pasted text. Mnem: 'Get pasted'
 nnoremap gp '[v']
@@ -48,12 +50,13 @@ vnoremap . :norm.<CR>
 nnoremap co<bar> :set colorcolumn=<C-R>=&colorcolumn != 0 ? 0 : 81<CR><CR>
 nnoremap <leader>rc :so $MYVIMRC<CR>
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
-nnoremap <leader>ea <C-w><C-v><C-l>:e ~/.vim/bundle/vim-snippets/UltiSnips/
-inoremap <expr> <C-S> pumvisible() \|\| &omnifunc == '' ?
-\ "\<lt>C-n>" :
-\ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
-\ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
-\ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+
+nnoremap <leader>ea <C-w><C-v><C-l>:e ~/.vim/plugged/vim-snippets/UltiSnips/
+" inoremap <expr> <C-S> pumvisible() \|\| &omnifunc == '' ?
+" \ "\<lt>C-n>" :
+" \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+" \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+" \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
 
 " get filepath + name
 nnoremap <silent>,cf :let @* = expand("%:~")<CR>
@@ -118,9 +121,6 @@ noremap <leader>6 6gt
 noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
-let g:lasttab = 1
-nmap <leader>tl :exe "tabn ".g:lasttab<CR>
-au TabLeave * let g:lasttab = tabpagenr()
 
 " -----PLUGIN------
 

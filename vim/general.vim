@@ -60,7 +60,7 @@ set diffopt+=vertical
 set background=dark
 let base16colorspace=256
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-colorscheme base16-tomorrow
+colorscheme base16-tomorrow-night
 
 " Display extra whitespace
 set listchars=tab:→\ ,trail:∙,nbsp:•

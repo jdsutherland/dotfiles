@@ -8,6 +8,27 @@ let g:deoplete#file#enable_buffer_path = 1
 let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
 let g:deoplete#sources#clang#clang_header = '/Library/Developer/CommandLineTools/usr/lib/clang'
 let g:deoplete#sources#clang#sort_algo = 'priority'
+let g:deoplete#omni#functions = {}
+let g:deoplete#omni#functions.javascript = [
+  \ 'tern#Complete',
+  \ 'jspc#omni'
+\]
+
+" omnifuncs
+augroup omnifuncs
+  autocmd!
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup end
+" tern
+if exists('g:plugs["tern_for_vim"]')
+  let g:tern_show_argument_hints = 'on_hold'
+  let g:tern_show_signature_in_pum = 1
+  autocmd FileType javascript setlocal omnifunc=tern#Complete
+endif
 
 " gist
 let g:gist_post_anonymous = 1
@@ -35,17 +56,10 @@ let g:neomake_error_sign = {
     \ 'text': '✗',
     \ 'texthl': 'ErrorMsg',
     \ }
+let g:neomake_verbose = 3
 
-let g:neomake_javascript_enabled_makers = ['jshint', 'jscs']
-let g:neomake_javascript_jshint_maker = {
-    \ 'args': ['--verbose'],
-    \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
-    \ }
-let g:neomake_javascript_jscs_maker = {
-    \ 'exe': 'jscs',
-    \ 'args': ['--no-color', '--preset', 'airbnb', '--reporter', 'inline', '--esnext'],
-    \ 'errorformat': '%f: line %l\, col %c\, %m',
-    \ }
+" let g:neomake_javascript_eslint_exe = 'eslint_d'
+let g:neomake_javascript_enabled_makers = ['eslint']
 
 " let g:neomake_c_enabled_makers = ['clang']
 let g:neomake_json_enabled_makers = ['jsonlint']
@@ -71,10 +85,11 @@ let g:rspec_command = "call VtrSendCommand('rspec {spec}')"
 
 " snippets
 let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsListSnippets="<a-s>"
+let g:UltiSnipsListSnippets='<C-s>'
 
 " editorconfig
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+let g:EditorConfig_core_mode = 'external_command'
 
 " fzf
 let g:fzf_layout = { 'window': 'new' }
@@ -112,4 +127,4 @@ let NERDTreeDirArrows = 1
 let g:NERDTreeWinSize = 30
 
 " javascript-libraries-syntax
-let g:used_javascript_libs = 'jquery,underscore,angularjs,jasmine'
+let g:used_javascript_libs = 'jquery,underscore,angularjs,jasmine,chai'

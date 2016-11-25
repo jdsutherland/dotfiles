@@ -3,10 +3,9 @@ autocmd VimResized * :wincmd =
 " autosave when lose focus
 autocmd BufLeave,FocusLost * silent! wall
 
-" TODO: why doesn't this work?
 " run neomake on every save
-" autocmd! BufWritePost * Neomake
-
+autocmd! BufWritePost * silent! Neomake
+" TODO: why doesn't this work?
 " strip whitespace on every save
 " autocmd! BufWritePost * call StripTrailingWhitespaces()
 
@@ -39,7 +38,12 @@ endif
 autocmd BufRead,BufNewFile *.md setlocal spell complete+=kspell
 autocmd FileType gitcommit setlocal spell complete+=kspell
 
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+" javascript
+" TODO: add more as needed
+autocmd FileType javascript UltiSnipsAddFiletypes javascript-node
+autocmd FileType javascript UltiSnipsAddFiletypes javascript-jasmine
+
+" fzf
 autocmd! User FzfStatusLine call Fzf_statusline()
 
 " ruby
