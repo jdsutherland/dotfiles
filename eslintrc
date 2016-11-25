@@ -7,7 +7,6 @@
     "settings": {
         "ecmascript": 6
     },
-    "extends": "airbnb",
     "rules": {
         "strict": [2, "global"],
         "no-multi-spaces": 0,

@@ -3,6 +3,8 @@ if [[ -o interactive ]]; then
   # alias cd..='cd ..'
   # alias ..='cd ..'
   alias cdb='cd -'
+  # Copy-pasting `$ python something.py` works
+  alias \$=''
 
   # Arguments and pipes
   alias -g A='| ack'
@@ -13,7 +15,6 @@ if [[ -o interactive ]]; then
   alias f='ag -g'
   alias fa='alias | fzf'
   alias fag='ag --nobreak --nonumbers --noheading . | fzf'
-  alias ff='functions | fzf'
   alias fh='ag --hidden -g'
   alias fls='functions | ack'
   alias fw='{ alias; functions; } | fzf'
