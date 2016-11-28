@@ -240,10 +240,11 @@ nnoremap <silent> <space>tv :vsp<CR>:exec ':TestVisit'<CR>
 " tmux runner
 " nnoremap <leader>ar :VtrReattachRunner<cr>
 nnoremap <leader>sr :VtrOpenRunner {'orientation': 'h', 'percentage': 50}<cr>
+nnoremap <leader>or :VtrOpenRunner {'orientation': 'v', 'percentage': 20}<cr>
 nnoremap <leader>sf :w<cr>:call SendFileViaVtr()<cr>
 nnoremap <leader>pry :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'pry'}<cr>
 nnoremap <leader>sd :VtrSendCtrlD<cr>
-nmap <C-f> :VtrSendLineToRunner<cr>
+nnoremap <C-f> :VtrSendLineToRunner<cr>
 vmap <C-f> <Esc>:VtrSendSelectedToRunner<cr>
 
 " javascript
@@ -252,6 +253,7 @@ nmap ,cl yiwoconsole.log('<c-r>"', <c-r>");<Esc>^
 " ||=
 nmap <leader>\| yiWA<space>=<space><C-R>"<space>\|\|<space>
 nmap <leader>;; A;<ESC>
+nmap <leader>,, A,<ESC>
 " open current file in devtool chrome debugger
 nnoremap <leader>jsd :! devtool % &<CR>
 
@@ -314,3 +316,4 @@ vmap ,} c{ <C-R>" }<ESC>
 vmap ,{ c{<C-R>"}<ESC>
 
 map ,` ysiw`
+map ,<space> ysiw<space><space>

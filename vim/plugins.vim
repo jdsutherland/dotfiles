@@ -84,7 +84,7 @@ Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 
 " html/css
-Plug 'ap/vim-css-color', { 'for': ['html', 'scss', 'less', 'css', 'eruby'] }
+" Plug 'ap/vim-css-color', { 'for': ['html', 'scss', 'less', 'css', 'eruby'] }
 " Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'helino/vim-json', { 'for': 'json' }
