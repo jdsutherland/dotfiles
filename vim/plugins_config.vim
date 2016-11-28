@@ -94,6 +94,24 @@ let g:EditorConfig_core_mode = 'external_command'
 " fzf
 let g:fzf_layout = { 'window': 'new' }
 let g:fzf_command_prefix = 'Fzf'
+let g:fzf_buffers_jump = 1
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+let g:fzf_commits_log_options =
+\ '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
 " airline
 let g:airline_theme='base16_default'

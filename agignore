@@ -33,7 +33,7 @@ vendor
 # Ignore vim undodir in dotfiles
 /vim/undodir
 # Ignore local JS-related files
-/node_modules/
+node_modules/
 /bower_components/
 
 ## Files

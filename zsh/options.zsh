@@ -38,6 +38,9 @@ export LESS="ij.5FKMRX"
 # Show grep results in white text on a red background
 export GREP_COLOR='1;37;41'
 
+# Fzf
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+
 # Enable completion
 autoload -U compinit
 compinit
