@@ -83,6 +83,10 @@ if [[ -o interactive ]]; then
   alias bi='bundle install'
   alias bu='bundle update'
 
+  # Yarn
+  alias y='yarn'
+  alias yi='yarn install'
+
   # Common misspellings
 
 
