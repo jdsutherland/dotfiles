@@ -71,11 +71,12 @@ Plug 'tpope/vim-fugitive'
 " Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 " Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug '1995eaton/vim-better-javascript-completion', { 'for': 'javascript' }
+Plug 'benjie/neomake-local-eslint.vim', { 'for': 'javascript' }
 Plug 'burnettk/vim-angular', { 'for': 'javascript' }
 Plug 'carlitux/deoplete-ternjs', { 'for': 'javascript' }
 Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] }
 Plug 'moll/vim-node', { 'for': 'javascript' }
-Plug 'mxw/vim-jsx', { 'for': 'jsx' }
+Plug 'mxw/vim-jsx'
 Plug 'nono/vim-handlebars', { 'for': 'javascript' }
 Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }

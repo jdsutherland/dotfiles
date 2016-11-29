@@ -77,6 +77,7 @@ nnoremap <leader>wub :%s//<C-r><C-w>/g<cr>
 imap ,rr =>
 imap ,aa ->
 imap ,uu __
+imap ,. /><space>
 
 " ---NAVIGATION---
 " open prev buffer
