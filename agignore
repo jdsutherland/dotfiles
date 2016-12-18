@@ -5,6 +5,7 @@
 *.svg
 *_min*
 /.git/
+.gitkeep
 bundle
 coverage
 cscope.*
