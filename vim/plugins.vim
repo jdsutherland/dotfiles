@@ -77,6 +77,7 @@ Plug 'carlitux/deoplete-ternjs', { 'for': 'javascript' }
 Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] }
 Plug 'moll/vim-node', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx'
+Plug 'bentayloruk/vim-react-es6-snippets', { 'for': ['javascript', 'jsx'] }
 Plug 'nono/vim-handlebars', { 'for': 'javascript' }
 Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
@@ -85,11 +86,11 @@ Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 
 " html/css
-" Plug 'ap/vim-css-color', { 'for': ['html', 'scss', 'less', 'css', 'eruby'] }
 " Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
+Plug 'ap/vim-css-color', { 'for': ['scss', 'less', 'css', 'eruby'] }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'helino/vim-json', { 'for': 'json' }
-Plug 'mattn/emmet-vim', { 'for': ['html', 'scss', 'less', 'css', 'eruby'] }
+Plug 'mattn/emmet-vim', { 'for': ['html', 'scss', 'less', 'css', 'eruby', 'javascript', 'jsx'] }
 Plug 'othree/html5.vim', { 'for': ['html', 'scss', 'less', 'css', 'eruby'] }
 Plug 'tpope/vim-jdaddy'
 Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] }

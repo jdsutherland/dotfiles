@@ -5,6 +5,7 @@ autocmd BufLeave,FocusLost * silent! wall
 
 " run neomake on every save
 autocmd! BufWritePost * silent! Neomake
+autocmd! QuitPre * let g:neomake_verbose = 0
 " TODO: why doesn't this work?
 " strip whitespace on every save
 " autocmd! BufWritePost * call StripTrailingWhitespaces()
@@ -42,6 +43,7 @@ autocmd FileType gitcommit setlocal spell complete+=kspell
 " TODO: add more as needed
 autocmd FileType javascript UltiSnipsAddFiletypes javascript-node
 autocmd FileType javascript UltiSnipsAddFiletypes javascript-jasmine
+autocmd FileType html,css,javascript.jsx EmmetInstall
 
 " fzf
 autocmd! User FzfStatusLine call Fzf_statusline()

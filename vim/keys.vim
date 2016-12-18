@@ -77,7 +77,7 @@ nnoremap <leader>wub :%s//<C-r><C-w>/g<cr>
 imap ,rr =>
 imap ,aa ->
 imap ,uu __
-imap ,. /><space>
+imap ,. />
 
 " ---NAVIGATION---
 " open prev buffer
@@ -127,6 +127,7 @@ noremap <leader>9 9gt
 
 " fugitive git bindings
 nnoremap <space>ga :Git add %:p<CR><CR>
+nnoremap <space>gA :Git add .<CR>
 nnoremap <space>gg :ToggleGStatus<CR>
 nnoremap <space>gc :Gcommit -v -q<CR>
 nnoremap <space>gt :Gcommit -v -q %:p<CR>
@@ -162,20 +163,25 @@ nnoremap <silent> ,zx :TagbarTogglePause<CR>
 " dash
 nnoremap gk :Dash<CR>
 " hacky way to lookup node native modules easily in Dash
-map ngk viwf.ey;Dash <C-R>" node<CR>
+map ,ngk viwf.ey;Dash <C-R>" node<CR>
 
 " argwap
 nnoremap <silent> <leader>a :ArgWrap<CR>
+
+" titlecase
+nmap <leader>gt <Plug>Titlecase
+vmap <leader>gt <Plug>Titlecase
+nmap <leader>gT <Plug>TitlecaseLine
 
 " fzf
 imap <c-x><c-l> <plug>(fzf-complete-line)
 imap <C-x><C-f> <plug>(fzf-complete-file-ag)
 nnoremap <silent> ,t :FzfFiles<CR>
-nnoremap <silent> ,b :FzfBuffers<CR>
+nnoremap <silent> <cr>b :FzfBuffers<CR>
 nnoremap <silent> ,ss :FzfSnippets<CR>
 nnoremap <silent> ,fw :FzfWindows<CR>
-nnoremap <silent> ,; :FzfBLines<CR>
-nnoremap <silent> ,. :FzfLines<CR>
+nnoremap <silent> ,bL :FzfBLines<CR>
+nnoremap <silent> ,bl :FzfLines<CR>
 nnoremap <silent> ,o :FzfBTags<CR>
 nnoremap <silent> ,O :FzfTags<CR>
 nnoremap <silent> ,? :FzfHistory<CR>
@@ -225,11 +231,13 @@ nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 
 " ruby
 nnoremap <leader>R :VtrSendCommandToRunner rake<cr>
-nmap <leader>bp orequire 'pry'; binding.pry<esc>^
+nmap <leader>bp orequire "pry"; binding.pry<esc>^
 map <Leader>rt :call RunCurrentSpecFile()<CR>
 map <Leader>rs :call RunNearestSpec()<CR>
 map <Leader>rl :call RunLastSpec()<CR>
 map <Leader>ra :call RunAllSpecs()<CR>
+" hack for constructor assignment
+nmap <cr>c yiWi@<esc>A<space>=<space><C-R>"<esc>
 
 " test bindings
 nnoremap <silent> <space>tt :TestNearest<CR>
@@ -244,8 +252,10 @@ nnoremap <leader>sr :VtrOpenRunner {'orientation': 'h', 'percentage': 50}<cr>
 nnoremap <leader>or :VtrOpenRunner {'orientation': 'v', 'percentage': 20}<cr>
 nnoremap <leader>sf :w<cr>:call SendFileViaVtr()<cr>
 nnoremap <leader>pry :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'pry'}<cr>
+" open a git log diff
+nnoremap <leader>gd :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'gld'}<cr>
 nnoremap <leader>sd :VtrSendCtrlD<cr>
-nnoremap <C-f> :VtrSendLineToRunner<cr>
+nmap <C-f> :VtrSendLineToRunner<cr>
 vmap <C-f> <Esc>:VtrSendSelectedToRunner<cr>
 
 " javascript
@@ -253,8 +263,8 @@ nnoremap <leader>nr :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd':
 nmap ,cl yiwoconsole.log('<c-r>"', <c-r>");<Esc>^
 " ||=
 nmap <leader>\| yiWA<space>=<space><C-R>"<space>\|\|<space>
-nmap <leader>;; A;<ESC>
-nmap <leader>,, A,<ESC>
+nmap <leader>; A;<ESC>
+nmap <leader>, A,<ESC>
 " open current file in devtool chrome debugger
 nnoremap <leader>jsd :! devtool % &<CR>
 
@@ -283,6 +293,7 @@ map <leader>ct ct_
 map <leader>dd daw
 map <leader>df dip
 map <leader>cc cip
+map <cr>g griw
 
 " ----SURROUND----
 " ,# Surround a word with #{ruby interpolation}

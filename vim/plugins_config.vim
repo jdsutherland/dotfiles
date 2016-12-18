@@ -65,7 +65,7 @@ let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_json_enabled_makers = ['jsonlint']
 let g:neomake_python_enabled_makers = ['flake8']
 " let g:neomake_scss_enabled_makers = ['sasslint']
-" let g:neomake_ruby_enabled_makers = ['rubocop']
+let g:neomake_ruby_enabled_makers = ['rubocop']
 let g:neomake_sh_enabled_makers = ['shellcheck']
 let g:neomake_zsh_enabled_makers = ['shellcheck']
 
@@ -124,6 +124,9 @@ let g:airline#extensions#tabline#show_tab_nr = 1
 
 " vim-todo
 let g:simple_todo_map_keys = 0
+
+" vim-titlecase
+let g:titlecase_map_keys = 0
 
 " vim-markdown
 let g:vim_markdown_folding_disabled = 1
