@@ -67,6 +67,10 @@ Style/ClassVars:
 Style/CollectionMethods:
   Enabled: true
   PreferredMethods:
+    find: detect
+    inject: reduce
+    collect: map
+    find_all: select
 
 Style/ColonMethodCall:
   Description: 'Do not use :: for method call.'
