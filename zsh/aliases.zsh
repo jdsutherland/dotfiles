@@ -32,6 +32,7 @@ if [[ -o interactive ]]; then
   # Dotfiles
   alias ae='e ~/.dotfiles/zsh/aliases.zsh'
   alias fe='e ~/.dotfiles/zsh/functions.zsh'
+  alias ge='e ~/.dotfiles/gitconfig'
   alias ne='e ~/.vim/init.vim'
   alias se='e ~/.slate'
   alias te='e ~/.tmux.conf'
@@ -85,10 +86,8 @@ if [[ -o interactive ]]; then
 
   # Yarn
   alias y='yarn'
-  alias yi='yarn install'
 
   # Common misspellings
-
 
   # OS Specific
   if [ '$UNAME' = Darwin ]; then

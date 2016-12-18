@@ -173,3 +173,8 @@ push_ssh_key() {
     scp ~/.ssh/id_rsa $_host:~/.ssh/id_rsa
   done
 }
+
+# git log diff filetype
+gldf() {
+  git log -p -- "*.${1}"
+}
