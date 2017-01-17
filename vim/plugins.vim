@@ -31,7 +31,8 @@ Plug 'jeetsukumaran/vim-gazetteer'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-journal'
-Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-indent' | Plug 'kana/vim-textobj-entire' | Plug 'kana/vim-textobj-line' | Plug 'thalesmello/vim-textobj-methodcall' | Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-indent' | Plug 'kana/vim-textobj-entire' | Plug 'kana/vim-textobj-line' | Plug 'nelstrom/vim-textobj-rubyblock'
+" Plug 'thalesmello/vim-textobj-methodcall'
 Plug 'majutsushi/tagbar'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'milkypostman/vim-togglelist'
@@ -96,9 +97,9 @@ Plug 'tpope/vim-jdaddy'
 Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] }
 
 " ruby
-Plug 'fishbullet/deoplete-ruby', { 'for': ['ruby', 'eruby', 'yaml'] ,}
+Plug 'ecomba/vim-ruby-refactoring', { 'for': ['ruby', 'eruby', 'yaml'] }
+Plug 'fishbullet/deoplete-ruby', { 'for': ['ruby', 'uby', 'yaml'] }
 Plug 'osyo-manga/vim-monster', { 'for': ['ruby', 'eruby', 'yaml'] }
-" Plug 'thoughtbot/vim-rspec', { 'for': ['ruby', 'eruby', 'yaml'] }
 Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby', 'yaml'] }
 Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'eruby', 'yaml'] }
 
@@ -126,5 +127,6 @@ Plug 'rking/ag.vim'
 Plug 'exu/pgsql.vim', { 'for': 'sql' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'plasticboy/vim-markdown', { 'for': 'md' }
+Plug 'suan/vim-instant-markdown'
 Plug 'zchee/deoplete-go', { 'for': 'go' }
 Plug 'zchee/deoplete-jedi', { 'for': 'python' }

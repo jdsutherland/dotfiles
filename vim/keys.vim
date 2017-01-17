@@ -225,6 +225,12 @@ nnoremap <silent>,pu :PlugUpdate<CR>
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+" align inner indent
+nmap <cr>a viiga<space>
+" sort inner indent
+nmap <cr>s viigs
+" hack to sort and align current indent (useful css)
+nmap <cr>as viiga<space>gvgs
 
 " tmuxnav
 nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
@@ -232,10 +238,6 @@ nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 " ruby
 nnoremap <leader>R :VtrSendCommandToRunner rake<cr>
 nmap <leader>bp orequire "pry"; binding.pry<esc>^
-map <Leader>rt :call RunCurrentSpecFile()<CR>
-map <Leader>rs :call RunNearestSpec()<CR>
-map <Leader>rl :call RunLastSpec()<CR>
-map <Leader>ra :call RunAllSpecs()<CR>
 " hack for constructor assignment
 nmap <cr>c yiWi@<esc>A<space>=<space><C-R>"<esc>
 
@@ -255,8 +257,8 @@ nnoremap <leader>pry :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd'
 " open a git log diff
 nnoremap <leader>gd :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'gld'}<cr>
 nnoremap <leader>sd :VtrSendCtrlD<cr>
-nmap <C-f> :VtrSendLineToRunner<cr>
-vmap <C-f> <Esc>:VtrSendSelectedToRunner<cr>
+nmap <CR>f :VtrSendLineToRunner<cr>
+vmap <CR>f <Esc>:VtrSendSelectedToRunner<cr>
 
 " javascript
 nnoremap <leader>nr :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'node'}<cr>

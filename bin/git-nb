@@ -10,7 +10,7 @@ def main
   return if local_branch_name.nil?
 
   system("git checkout -b #{local_branch_name}")
-  system("git push -u origin #{local_branch_name}:cjt-#{local_branch_name}")
+  system("git push -u origin #{local_branch_name}:jds-#{local_branch_name}")
 end
 
 main

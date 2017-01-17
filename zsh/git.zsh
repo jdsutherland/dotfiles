@@ -124,7 +124,7 @@ is_in_git_repo() {
   git rev-parse HEAD > /dev/null 2>&1
 }
 
-fgf() {
+fgu() {
   is_in_git_repo || return
   git -c color.status=always status --short |
   fzf-tmux -m --ansi --nth 2..,.. \

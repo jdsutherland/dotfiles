@@ -182,10 +182,10 @@ Style/IfUnlessModifier:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#if-as-a-modifier'
   Enabled: false
 
-Style/IfWithSemicolon:
-  Description: 'Do not use if x; .... Use the ternary operator instead.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-semicolon-ifs'
-  Enabled: false
+# Style/IfWithSemicolon:
+#   Description: 'Do not use if x; .... Use the ternary operator instead.'
+#   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-semicolon-ifs'
+#   Enabled: false
 
 Style/InlineComment:
   Description: 'Avoid inline comments.'
@@ -356,7 +356,7 @@ Style/StringLiterals:
   Description: 'Checks if uses of quotes match the configured preference.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#consistent-string-literals'
   EnforcedStyle: double_quotes
-  Enabled: true
+  Enabled: false
 
 Style/TrailingCommaInArguments:
   Description: 'Checks for trailing comma in argument lists.'

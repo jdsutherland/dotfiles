@@ -65,19 +65,20 @@ if [[ -o interactive ]]; then
 
   # App
   alias ack='nocorrect ack'
-  alias ctag='ctags -R .'
+  alias ctag='ctags -R --exlude=.git --exclude=log *'
   alias grep='grep --color=auto -i'
   alias irc='weechat'
   alias jtag='find . -type f -iregex ".*\.js$" -not -path "./node_modules/*" -exec jsctags {} -f \; | sed "/^$/d" | sort > tags'
   alias ls='ls -F'
   alias n='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
   alias nvimu='brew reinstall --HEAD neovim'
+  alias rr='rails'
+  alias tidyh='tidy -config ~/.tidy.conf'
   alias tl='tldr'
   alias tmux='tmux -2'
   alias tre='tree -C | less'
   alias v='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
   alias vim='n'
-  alias tidyh='tidy -config ~/.tidy.conf'
 
   # Bundler
   alias be='bundle exec'
