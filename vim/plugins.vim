@@ -36,7 +36,6 @@ Plug 'junegunn/vim-journal'
 Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-indent' | Plug 'kana/vim-textobj-entire' | Plug 'kana/vim-textobj-line' | Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'majutsushi/tagbar'
 Plug 'maxbrunsfeld/vim-yankstack'
-Plug 'milkypostman/vim-togglelist'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'ryanoasis/vim-devicons' " file drawer
 Plug 'skwp/greplace.vim'
@@ -101,8 +100,9 @@ Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] }
 Plug 'ecomba/vim-ruby-refactoring', { 'for': ['ruby', 'eruby', 'yaml'] }
 Plug 'fishbullet/deoplete-ruby', { 'for': ['ruby', 'uby', 'yaml'] }
 Plug 'osyo-manga/vim-monster', { 'for': ['ruby', 'eruby', 'yaml'] }
-Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby', 'yaml'] }
 Plug 'rhysd/vim-textobj-ruby', { 'for': ['ruby', 'eruby', 'yaml'] }
+Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby', 'yaml'] }
+Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'eruby', 'yaml'] }
 
 " style/color
 Plug 'bling/vim-airline'

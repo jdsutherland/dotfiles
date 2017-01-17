@@ -42,8 +42,6 @@ nnoremap <M-q> <C-W>p
 nnoremap <cr> :nohls<CR>
 nnoremap <silent> <space>dd :call CloseWindowOrKillBuffer()<CR>
 nnoremap <silent><leader>w :call StripTrailingWhitespaces()<CR>
-" nmap <script> <silent> \\ :call ToggleQuickfixList()<CR>
-" nnoremap <silent> \d :lcl<CR>
 nnoremap <silent> \e :Errors<CR>
 vnoremap . :norm.<CR>
 
