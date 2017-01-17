@@ -39,6 +39,10 @@ let g:vim_resize_disable_auto_mappings = 1
 " psql
 let g:sql_type_default = 'pgsql'
 
+" togglelist
+let g:lt_location_list_toggle_map = '\d'
+let g:lt_quickfix_list_toggle_map = '\\'
+
 " easymotion
 let g:EasyMotion_leader_key = '<Space><space>'
 
@@ -74,6 +78,10 @@ let g:monster#completion#rcodetools#backend = "async_rct_complete"
 let g:deoplete#sources#omni#input_patterns = {
 \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
 \}
+
+
+" ruby textobj
+let g:textobj_ruby_more_mappings = 1
 
 " tmux runner
 let g:VtrUseVtrMaps = 1

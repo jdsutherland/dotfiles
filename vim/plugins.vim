@@ -7,6 +7,7 @@ Plug 'Shougo/vimproc.vim'
 Plug 'benekastah/neomake'
 
 " general
+" Plug 'thalesmello/vim-textobj-methodcall'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/switch.vim'
@@ -14,6 +15,7 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'FooSoft/vim-argwrap'
 Plug 'PeterRincker/vim-argumentative'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'Valloric/ListToggle'
 Plug 'breuckelen/vim-resize'
 Plug 'bronson/vim-visual-star-search'
 Plug 'christoomey/vim-sort-motion'
@@ -32,7 +34,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-journal'
 Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-indent' | Plug 'kana/vim-textobj-entire' | Plug 'kana/vim-textobj-line' | Plug 'nelstrom/vim-textobj-rubyblock'
-" Plug 'thalesmello/vim-textobj-methodcall'
 Plug 'majutsushi/tagbar'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'milkypostman/vim-togglelist'
@@ -69,7 +70,7 @@ Plug 'rhysd/github-complete.vim'
 Plug 'tpope/vim-fugitive'
 
 " javascript
-" Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 " Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug '1995eaton/vim-better-javascript-completion', { 'for': 'javascript' }
 Plug 'benjie/neomake-local-eslint.vim', { 'for': 'javascript' }
@@ -101,7 +102,7 @@ Plug 'ecomba/vim-ruby-refactoring', { 'for': ['ruby', 'eruby', 'yaml'] }
 Plug 'fishbullet/deoplete-ruby', { 'for': ['ruby', 'uby', 'yaml'] }
 Plug 'osyo-manga/vim-monster', { 'for': ['ruby', 'eruby', 'yaml'] }
 Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby', 'yaml'] }
-Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'eruby', 'yaml'] }
+Plug 'rhysd/vim-textobj-ruby', { 'for': ['ruby', 'eruby', 'yaml'] }
 
 " style/color
 Plug 'bling/vim-airline'

@@ -13,7 +13,7 @@ bind-git-helper() {
     eval "bindkey '^g^$c' fzf-fg$c-widget"
   done
 }
-bind-git-helper f b t r i
+bind-git-helper u b t r i
 unset -f bind-git-helper
 
 # Vim-style line editing
