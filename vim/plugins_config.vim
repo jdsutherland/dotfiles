@@ -50,7 +50,7 @@ let g:EasyMotion_leader_key = '<Space><space>'
 let g:grep_cmd_opts = '--line-numbers --noheading'
 
 " neomake
-let g:neomake_open_list = 2
+" let g:neomake_open_list = 2
 let g:neomake_list_height = 3
 let g:neomake_warning_sign = {
     \ 'text': '⚠',
