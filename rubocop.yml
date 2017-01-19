@@ -100,11 +100,6 @@ Rails/Delegate:
   Description: 'Prefer delegate method for delegations.'
   Enabled: false
 
-Style/DeprecatedHashMethods:
-  Description: 'Checks for use of deprecated Hash methods.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#hash-key'
-  Enabled: false
-
 Style/Documentation:
   Description: 'Document classes and non-namespace modules.'
   Enabled: false
@@ -126,6 +121,9 @@ Style/EachWithObject:
 Style/EmptyLiteral:
   Description: 'Prefer literals to Array.new/Hash.new/String.new.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#literal-array-hash'
+  Enabled: false
+
+Style/EmptyMethod:
   Enabled: false
 
 # Checks whether the source file has a utf-8 encoding comment or not
@@ -362,20 +360,12 @@ Style/TrailingCommaInArguments:
   Description: 'Checks for trailing comma in argument lists.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas'
   EnforcedStyleForMultiline: comma
-  SupportedStyles:
-    - comma
-    - consistent_comma
-    - no_comma
   Enabled: true
 
 Style/TrailingCommaInLiteral:
   Description: 'Checks for trailing comma in array and hash literals.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas'
   EnforcedStyleForMultiline: comma
-  SupportedStyles:
-    - comma
-    - consistent_comma
-    - no_comma
   Enabled: true
 
 Style/TrivialAccessors:
