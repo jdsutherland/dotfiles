@@ -41,7 +41,7 @@ nnoremap <M-q> <C-W>p
 
 nnoremap <cr> :nohls<CR>
 nnoremap <silent> <space>dd :call CloseWindowOrKillBuffer()<CR>
-nnoremap <silent><leader>w :call StripTrailingWhitespaces()<CR>
+nnoremap <silent><leader>w :%s/\t/  /<cr>
 nnoremap <silent> \e :Errors<CR>
 vnoremap . :norm.<CR>
 
@@ -50,11 +50,11 @@ nnoremap <leader>rc :so $MYVIMRC<CR>
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
 nnoremap <leader>ea <C-w><C-v><C-l>:e ~/.vim/plugged/vim-snippets/UltiSnips/
-" inoremap <expr> <C-S> pumvisible() \|\| &omnifunc == '' ?
-" \ "\<lt>C-n>" :
-" \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
-" \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
-" \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+inoremap <expr> <C-S> pumvisible() \|\| &omnifunc == '' ?
+\ "\<lt>C-n>" :
+\ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+\ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+\ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
 
 " get filepath + name
 nnoremap <silent>,cf :let @* = expand("%:~")<CR>
@@ -108,7 +108,7 @@ noremap <c-w>\  <c-w>t<c-w>H
 noremap <c-w>/  <c-w>t<c-w>H
 
 " tabs
-nnoremap <silent> <space>tc :tabclose<CR>
+nnoremap <silent> <space>tc :tabclose<CR>gT
 nnoremap <leader>wn :tabnew%<cr>
 " Go to tab by number
 noremap <leader>1 1gt
@@ -160,8 +160,8 @@ nnoremap <silent> ,zx :TagbarTogglePause<CR>
 
 " dash
 nnoremap gk :Dash<CR>
-" hacky way to lookup node native modules easily in Dash
-map ,ngk viwf.ey;Dash <C-R>" node<CR>
+" hacky way to lookup dot chain native modules easily in Dash
+map <cr>k viwf.ey;Dash <C-R>" node<CR>
 
 " argwap
 nnoremap <silent> <leader>a :ArgWrap<CR>
@@ -230,6 +230,16 @@ nmap <cr>s viigs
 " hack to sort and align current indent (useful css)
 nmap <cr>as viiga<space>gvgs
 
+" replace line with under cursor
+nmap <cr>C yiwcc<c-r>0<esc>
+nnoremap <cr>q :VtrSendCommandToRunner<space>
+nnoremap <cr><tab> :VtrFocusRunner<cr>
+
+" visual grab entire function
+nmap <cr>j vil%
+" split carriage returns
+nnoremap <cr>0 /\r<cr>s<cr><esc>df<space>
+
 " tmuxnav
 nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 
@@ -238,6 +248,7 @@ nnoremap <leader>R :VtrSendCommandToRunner rake<cr>
 nmap <leader>bp orequire "pry"; binding.pry<esc>^
 " hack for constructor assignment
 nmap <cr>c yiWi@<esc>A<space>=<space><C-R>"<esc>
+nnoremap <cr>v :AV<cr>
 
 " test bindings
 nnoremap <silent> <space>tt :TestNearest<CR>
@@ -267,10 +278,16 @@ nmap <leader>; A;<ESC>
 nmap <leader>, A,<ESC>
 " open current file in devtool chrome debugger
 nnoremap <leader>jsd :! devtool % &<CR>
+nmap <leader>jd odebugger;<esc>^
+" hack for this assignment
+nmap <cr>t yiWithis.<esc>A<space>=<space><C-R>";<esc>
 
 " splitjoin
 nnoremap sj :SplitjoinSplit<cr>
 nnoremap sk :SplitjoinJoin<cr>
+
+" characterize
+nmap gA <Plug>(characterize)
 
 " lldb
 nmap <A-b> <Plug>LLBreakSwitch
@@ -288,6 +305,7 @@ nnoremap <S-F11> :LL finish<CR>
 
 " make common changes faster
 map <leader>ww ciw
+map <leader>vv viW
 map <leader>cx cxiw
 map <leader>ct ct_
 map <leader>dd daw

@@ -77,7 +77,7 @@
 [core]
   excludesfile = ~/.gitignore
   pager = less -X
-  editor = "NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim"
+  editor = "nvim"
   pager = diff-so-fancy | less --tabs=4 -RFX
 [pager]
     diff = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '

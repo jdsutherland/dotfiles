@@ -44,6 +44,10 @@ autocmd FileType gitcommit setlocal spell complete+=kspell
 autocmd FileType javascript UltiSnipsAddFiletypes javascript-node
 autocmd FileType javascript UltiSnipsAddFiletypes javascript-jasmine
 autocmd FileType html,css,javascript.jsx EmmetInstall
+autocmd FileType javascript,jsx nnoremap <buffer> ,f :TernDef<cr>
+autocmd FileType javascript,jsx nnoremap <buffer> ,fs :TernDefSplit<cr>
+autocmd FileType javascript,jsx nnoremap <buffer> T :TernType<cr>
+autocmd FileType javascript,jsx nnoremap <buffer> <space>ll :TernDefPreview<cr>
 
 " fzf
 autocmd! User FzfStatusLine call Fzf_statusline()

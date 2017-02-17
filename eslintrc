@@ -6,6 +6,5 @@
     },
     "settings": {
         "ecmascript": 6
-    },
-    "extends": "airbnb"
+    }
 }

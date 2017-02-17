@@ -31,7 +31,11 @@ require 'interactive_editor'
 begin
   require 'rubygems'
   require 'awesome_print'
-  require 'awesome_print_colors'
+  # require 'awesome_print_colors'
+  Gem.path.each do |gemset|
+    $:.concat(Dir.glob("#{gemset}/gems/pry-*/lib"))
+  end if defined?(Bundler)
+  $:.uniq!
   require 'pry-editline'
   # The following line enables awesome_print for all pry output,
   # and it also enables paging

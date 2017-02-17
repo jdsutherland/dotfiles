@@ -6,11 +6,11 @@
 *_min*
 /.git/
 .gitkeep
+*.lock
 bundle
 coverage
 cscope.*
 doc
-log
 min
 public/assets
 public/fonts
@@ -23,7 +23,6 @@ vendor
 /build/
 /coverage/
 /doc/
-/log/
 /public/assets/
 /tmp/
 # ag --hidden finds files with a leading dot, which includes

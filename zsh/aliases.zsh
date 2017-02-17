@@ -79,6 +79,8 @@ if [[ -o interactive ]]; then
   alias tre='tree -C | less'
   alias v='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
   alias vim='n'
+  alias h='howdoi -c'
+  alias ha='howdoi -c -a'
 
   # Bundler
   alias be='bundle exec'
