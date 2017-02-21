@@ -178,3 +178,15 @@ push_ssh_key() {
 gldf() {
   git log -p -- "*.${1}"
 }
+
+# open gh page of an npm package
+ngh() {
+  b "http://ghub.io/${1}"
+}
+
+# sets up airbnb eslint for project
+setup_airbnb() {
+  yarn add dev eslint
+  npm info eslint-config-airbnb@latest peerDependencies --json | command sed 's/[\{\},]//g ; s/: /@/g' | xargs yarn add --dev eslint-config-airbnb@latest
+  echo '{\n  "extends": "airbnb"\n}' > .eslintrc.json
+}

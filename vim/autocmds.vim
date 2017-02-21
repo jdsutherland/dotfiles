@@ -14,12 +14,14 @@ autocmd! QuitPre * let g:neomake_verbose = 0
 autocmd FileType vim setlocal keywordprg=:help " Open vim help under cursor
 
 " By default, vim thinks .md is Modula-2.
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+" autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 " Without this, vim breaks in the middle of words when wrapping
 autocmd FileType markdown setlocal nolist wrap lbr
 autocmd FileType markdown let b:dispatch = 'octodown --live-reload %'
 au BufRead,BufNewFile *.json set filetype=json
+au BufRead,BufNewFile *.babelrc set filetype=json
+au BufRead,BufNewFile *.eslintrc set filetype=json
 
 " Wrap the quickfix window
 autocmd FileType qf setlocal wrap linebreak
@@ -29,11 +31,6 @@ au FileType qf call AdjustWindowHeight(3, 10)
 function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
-
-" Resume last edit position on opening buffer
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
 
 " spell
 autocmd BufRead,BufNewFile *.md setlocal spell complete+=kspell
@@ -47,7 +44,10 @@ autocmd FileType html,css,javascript.jsx EmmetInstall
 autocmd FileType javascript,jsx nnoremap <buffer> ,f :TernDef<cr>
 autocmd FileType javascript,jsx nnoremap <buffer> ,fs :TernDefSplit<cr>
 autocmd FileType javascript,jsx nnoremap <buffer> T :TernType<cr>
-autocmd FileType javascript,jsx nnoremap <buffer> <space>ll :TernDefPreview<cr>
+autocmd FileType javascript,jsx nnoremap <buffer> <space>ll :TernDefPreview<cr><c-o>
+
+" auto js template str html
+" autocmd FileType javascript JsPreTmpl html
 
 " fzf
 autocmd! User FzfStatusLine call Fzf_statusline()
@@ -58,5 +58,3 @@ augroup rubypath
   autocmd FileType ruby setlocal suffixesadd+=.rb
 augroup END
 autocmd FileType ruby setlocal path+=lib
-
-

@@ -139,6 +139,7 @@ let g:titlecase_map_keys = 0
 " vim-markdown
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_new_list_item_indent = 2
+let g:vim_markdown_fenced_languages = ['psql=sql', 'js=javascript', 'rb=ruby', 'erb=eruby', 'py=python', 'csharp=cs']
 
 " vim-switch
 let g:switch_mapping = "-"
@@ -156,4 +157,7 @@ let NERDTreeDirArrows = 1
 let g:NERDTreeWinSize = 30
 
 " javascript-libraries-syntax
-let g:used_javascript_libs = 'jquery,underscore,angularjs,jasmine,chai'
+let g:used_javascript_libs = 'jquery,underscore,angularjs,jasmine,chai,flux,handlebars,requirejs,sugar,ramda'
+
+" flow
+let g:flow#autoclose = 1

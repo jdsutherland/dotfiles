@@ -39,7 +39,7 @@ nnoremap k gk
 " coupled to karabiner mapping to go to previous window
 nnoremap <M-q> <C-W>p
 
-nnoremap <cr> :nohls<CR>
+nnoremap <cr>d :nohls<CR>
 nnoremap <silent> <space>dd :call CloseWindowOrKillBuffer()<CR>
 nnoremap <silent><leader>w :%s/\t/  /<cr>
 nnoremap <silent> \e :Errors<CR>
@@ -69,7 +69,8 @@ nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(st
 " Do a / search first, then leave pattern empty in :s// to use previous
 nnoremap <Leader>sub :%s///g<left><left>
 vnoremap <Leader>sub :s///g<left><left>
-nnoremap <leader>wub :%s//<C-r><C-w>/g<cr>
+nnoremap <leader>wub :%s/<C-r><C-w>//gc<left><left><left>
+nnoremap <cr>r :s/<C-r><C-w>//<left>
 
 " ---INSERTs---
 imap ,rr =>
@@ -126,7 +127,7 @@ noremap <leader>9 9gt
 " fugitive git bindings
 nnoremap <space>ga :Git add %:p<CR><CR>
 nnoremap <space>gA :Git add .<CR>
-nnoremap <space>gg :ToggleGStatus<CR>
+nnoremap <space>gg :ToggleGStatus<CR>:silent! <C-U>execute <SNR>111_StageNext(v:count1)<CR>zz
 nnoremap <space>gc :Gcommit -v -q<CR>
 nnoremap <space>gt :Gcommit -v -q %:p<CR>
 nnoremap <space>gb :Gblame<CR>
@@ -161,7 +162,7 @@ nnoremap <silent> ,zx :TagbarTogglePause<CR>
 " dash
 nnoremap gk :Dash<CR>
 " hacky way to lookup dot chain native modules easily in Dash
-map <cr>k viwf.ey;Dash <C-R>" node<CR>
+map <cr>k viwf.ey;Dash <C-R>"<CR>
 
 " argwap
 nnoremap <silent> <leader>a :ArgWrap<CR>
@@ -230,8 +231,6 @@ nmap <cr>s viigs
 " hack to sort and align current indent (useful css)
 nmap <cr>as viiga<space>gvgs
 
-" replace line with under cursor
-nmap <cr>C yiwcc<c-r>0<esc>
 nnoremap <cr>q :VtrSendCommandToRunner<space>
 nnoremap <cr><tab> :VtrFocusRunner<cr>
 
@@ -309,9 +308,14 @@ map <leader>vv viW
 map <leader>cx cxiw
 map <leader>ct ct_
 map <leader>dd daw
+map <leader>da dac
+map <leader>ya yac
 map <leader>df dip
 map <leader>cc cip
+map gy yiw
 map <cr>g griw
+" replace line with under cursor
+nmap <cr>C yiwcc<c-r>0<esc>
 
 " ----SURROUND----
 " ,# Surround a word with #{ruby interpolation}

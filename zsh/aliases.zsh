@@ -89,6 +89,11 @@ if [[ -o interactive ]]; then
 
   # Yarn
   alias y='yarn'
+  alias ya='yarn add'
+  alias yad='yarn add --dev'
+  alias ys='yarn start'
+  alias yt='yarn test'
+  alias yu='curl -o- -L https://yarnpkg.com/install.sh | bash'
 
   # Common misspellings
 

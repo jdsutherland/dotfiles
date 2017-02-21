@@ -138,3 +138,10 @@ function! SendFileViaVtr()
     echoerr 'Unable to determine runner'
   endif
 endfunction
+
+" Requires 'jq' (brew install jq)
+function! s:PrettyJSON()
+  %!jq .
+  set filetype=json
+endfunction
+command! PrettyJSON :call <sid>PrettyJSON()

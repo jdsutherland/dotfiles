@@ -12,6 +12,7 @@ Plug 'AndrewRadev/linediff.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/switch.vim'
 Plug 'Chiel92/vim-autoformat'
+Plug 'dietsche/vim-lastplace'
 Plug 'FooSoft/vim-argwrap'
 Plug 'PeterRincker/vim-argumentative'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
@@ -28,7 +29,8 @@ Plug 'easymotion/vim-easymotion'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ervandew/supertab'
 Plug 'godlygeek/tabular'
-Plug 'janko-m/vim-test'
+Plug 'gcmt/taboo.vim'
+Plug 'kanko-m/vim-test'
 Plug 'jeetsukumaran/vim-gazetteer'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-easy-align'
@@ -74,19 +76,22 @@ Plug 'moll/vim-bbye'
 " javascript
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 " Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug '1995eaton/vim-better-javascript-completion', { 'for': 'javascript' }
+Plug '1995eaton/vim-better-javascript-completion', { 'for': ['javascript', 'jsx'] }
 Plug 'benjie/neomake-local-eslint.vim', { 'for': 'javascript' }
-Plug 'burnettk/vim-angular', { 'for': 'javascript' }
-Plug 'carlitux/deoplete-ternjs', { 'for': 'javascript' }
+Plug 'nikvdp/ejs-syntax', { 'for': 'ejs' }
+" Plug 'burnettk/vim-angular', { 'for': 'javascript' }
+Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'jsx'] }
 Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] }
-Plug 'moll/vim-node', { 'for': 'javascript' }
+Plug 'moll/vim-node', { 'for': ['javascript', 'jsx'] }
 Plug 'mxw/vim-jsx'
+Plug 'flowtype/vim-flow', { 'for': ['javascript', 'jsx'] }
+Plug 'Quramy/vim-js-pretty-template', { 'for': ['javascript', 'jsx'] }
 Plug 'bentayloruk/vim-react-es6-snippets', { 'for': ['javascript', 'jsx'] }
 Plug 'nono/vim-handlebars', { 'for': 'javascript' }
-Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
-Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
-Plug 'othree/jspc.vim', { 'for': 'javascript' }
-Plug 'othree/yajs.vim', { 'for': 'javascript' }
+Plug 'othree/es.next.syntax.vim', { 'for': ['javascript', 'jsx'] }
+Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'jsx'] }
+Plug 'othree/jspc.vim', { 'for': ['javascript', 'jsx'] }
+Plug 'othree/yajs.vim', { 'for': ['javascript', 'jsx'] }
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 
 " html/css

@@ -1,0 +1,16 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "settings": {
+    "ecmascript": 6
+  },
+  "globals": {
+    "_": true,
+    "next": true,
+    "it": true,
+    "describe": true
+  }
+}
