@@ -81,6 +81,8 @@ if [[ -o interactive ]]; then
   alias vim='n'
   alias h='howdoi -c'
   alias ha='howdoi -c -a'
+  alias wh='which'
+  alias gap='git add -p'
 
   # Bundler
   alias be='bundle exec'
@@ -96,6 +98,8 @@ if [[ -o interactive ]]; then
   alias yu='curl -o- -L https://yarnpkg.com/install.sh | bash'
 
   # Common misspellings
+  alias wwhich='which'
+  alias whic='which'
 
   # OS Specific
   if [ '$UNAME' = Darwin ]; then

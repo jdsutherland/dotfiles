@@ -36,16 +36,20 @@ vnoremap $ 4
 nnoremap j gj
 nnoremap k gk
 
-" META. NOTE: tmux uses: [b,j,l,o,p,i,q]
-nnoremap <M-r> <C-W>p
+" META. NOTE: tmux uses: [b,j,l,k,p,i,q]
+nnoremap <M-o> <C-W>p
 nnoremap <M-s> :FzfSnippets<CR>
-inoremap <expr> <M-g> pumvisible() \|\| &omnifunc == '' ?
+inoremap <expr> <M-[> pumvisible() \|\| &omnifunc == '' ?
 \ "\<lt>C-n>" :
 \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
 \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
 \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
 nnoremap <M-h> :VtrSendCommandToRunner<space>
 map <M-d> vacjd
+nnoremap <M-t> :VtrFocusRunner<cr>
+nnoremap <M-g> :ToggleGStatus<cr>
+nnoremap <M-9> :tabprev<cr>
+nnoremap <M-0> :tabnext<cr>
 
 nnoremap <cr>d :nohls<CR>
 nnoremap <silent> <space>dd :call CloseWindowOrKillBuffer()<CR>
