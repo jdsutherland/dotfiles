@@ -36,8 +36,16 @@ vnoremap $ 4
 nnoremap j gj
 nnoremap k gk
 
-" coupled to karabiner mapping to go to previous window
-nnoremap <M-q> <C-W>p
+" META. NOTE: tmux uses: [b,j,l,o,p,i,q]
+nnoremap <M-r> <C-W>p
+nnoremap <M-s> :FzfSnippets<CR>
+inoremap <expr> <M-g> pumvisible() \|\| &omnifunc == '' ?
+\ "\<lt>C-n>" :
+\ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+\ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+\ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+nnoremap <M-h> :VtrSendCommandToRunner<space>
+map <M-d> vacjd
 
 nnoremap <cr>d :nohls<CR>
 nnoremap <silent> <space>dd :call CloseWindowOrKillBuffer()<CR>
@@ -50,11 +58,6 @@ nnoremap <leader>rc :so $MYVIMRC<CR>
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
 nnoremap <leader>ea <C-w><C-v><C-l>:e ~/.vim/plugged/vim-snippets/UltiSnips/
-inoremap <expr> <C-S> pumvisible() \|\| &omnifunc == '' ?
-\ "\<lt>C-n>" :
-\ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
-\ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
-\ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
 
 " get filepath + name
 nnoremap <silent>,cf :let @* = expand("%:~")<CR>
@@ -81,7 +84,6 @@ imap ,. />
 " ---NAVIGATION---
 " open prev buffer
 nnoremap <c-b> <C-^>
-" Karabiner cmd_l to previous spit
 nnoremap <silent> ,f <C-]>zz
 nnoremap <silent>,T :tab split <CR>:exec("tag ".expand("<cword>"))<CR>
 nnoremap <silent> ,fs :sp<CR>:exec("tag ".expand("<cword>"))<CR>zz<C-w><C-p>
@@ -308,14 +310,14 @@ map <leader>vv viW
 map <leader>cx cxiw
 map <leader>ct ct_
 map <leader>dd daw
-map <leader>da dac
-map <leader>ya yac
+map <leader>da vacjd
 map <leader>df dip
 map <leader>cc cip
 map gy yiw
 map <cr>g griw
 " replace line with under cursor
 nmap <cr>C yiwcc<c-r>0<esc>
+nnoremap <space>- :TabooRename<space>
 
 " ----SURROUND----
 " ,# Surround a word with #{ruby interpolation}

@@ -71,7 +71,7 @@
       <name>Map OPT_L to chrome inspect element on tap</name>
       <appendix>optL_to_hyper_or_chrome_inspect</appendix>
 
-      <identifier>cmdR_to_hyper_or_chrome_inspect</identifier>
+      <identifier>optL_to_hyper_or_chrome_inspect</identifier>
 
       <autogen>
           --KeyOverlaidModifier--
@@ -82,20 +82,34 @@
       </autogen>
   </item>
 
-  <!-- <item> -->
-  <!--       <name>Map OPT_L to chrome inspect element on tap</name> -->
-  <!--       <appendix>optL_to_hyper_or_chrome_inspect</appendix> -->
+  <item>
+        <name>FN key switch windows of same apps on tap</name>
+        <appendix>FN to toggle apps on tap</appendix>
+        <identifier>minus_switch</identifier>
+        <not>TERMINAL</not>
+        <uielementrole_not>AXTextField, AXTextArea</uielementrole_not>
+        <autogen>
+            --KeyOverlaidModifier--
+            KeyCode::FN,
 
-  <!--       <identifier>cmdR_to_hyper_or_chrome_inspect</identifier> -->
+            KeyCode::FN,
+            KeyCode::BACKQUOTE, ModifierFlag::COMMAND_L
+          </autogen>
+  </item>
 
-  <!--       <autogen> -->
-  <!--           --KeyOverlaidModifier-- -->
-  <!--           KeyCode::OPTION_L, -->
+  <item>
+        <name>Map CMD_L to zoom tmux on Tap</name>
+        <appendix>CMD_L to OPT_L-Q on tap</appendix>
+        <identifier>cmd_L-to-previous-split</identifier>
+        <only>TERMINAL</only>
+        <autogen>
+            --KeyOverlaidModifier--
+            KeyCode::COMMAND_L,
 
-  <!--           KeyCode::OPTION_L, -->
-  <!--           KeyCode::C, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L -->
-  <!--       </autogen> -->
-  <!-- </item> -->
+            KeyCode::COMMAND_L,
+            KeyCode::Q, ModifierFlag::OPTION_L
+        </autogen>
+  </item>
 
   <item>
       <name>Tap shift to move over words</name>
@@ -269,30 +283,6 @@
     <autogen>__KeyToKey__ KeyCode::I, KeyCode::KEYPAD_PLUS, VK_COMMAND</autogen>
     <autogen>__KeyToKey__ KeyCode::O, KeyCode::KEYPAD_MINUS, VK_COMMAND</autogen>
   </item>
-
-  <!-- <item> -->
-  <!--   <name>Swap backslash and pipe</name> -->
-  <!--   <appendix>This one i'm trying out really, it's not as if I use either of these all</appendix> -->
-  <!--   <appendix>that often, but I think writing OR statements happens more often than</appendix> -->
-  <!--   <appendix>manually escaping characters. Still, if I was writing a lot of regex I</appendix> -->
-  <!--   <appendix>would likely want the backslash back mapped to a single finger key.</appendix> -->
-  <!--   <identifier>private.backslash_pipe_swap</identifier> -->
-  <!--   <autogen> -->
-  <!--     --KeyToKey-- -->
-  <!--     KeyCode::BACKSLASH, ModifierFlag::SHIFT_L, -->
-  <!--     KeyCode::BACKSLASH -->
-  <!--   </autogen> -->
-  <!--   <autogen> -->
-  <!--     --KeyToKey-- -->
-  <!--     KeyCode::BACKSLASH, ModifierFlag::SHIFT_R, -->
-  <!--     KeyCode::BACKSLASH -->
-  <!--   </autogen> -->
-  <!--   <autogen> -->
-  <!--     --KeyToKey-- -->
-  <!--     KeyCode::BACKSLASH, -->
-  <!--     KeyCode::BACKSLASH, ModifierFlag::SHIFT_L -->
-  <!--   </autogen> -->
-  <!-- </item> -->
 
   <item>
       <name>Use the correct shift keys.</name>

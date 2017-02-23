@@ -21,6 +21,9 @@ install_prezto
 # iterm config
 # set iterm config from: http://sts10.github.io/blog/2015/10/24/true-hex-colors-with-neovim-and-iterm2/
 # get and set font: https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Inconsolata/complete
+# set CMD_L to be OPT_L (can map meta keys in vim/tmux)
+#   set 'do not remap modifiers for alt+tab' (breaks cmd tap for alt tab)
+#   set fullscreen, font inc/dec, preference mappings for alt (now that cmd doesn't work)
 
 # copy karabiner settings
 ln -s ~/.dotfiles/karabiner/private.xml ~/Library/Application\ Support/Karabiner/private.xml
