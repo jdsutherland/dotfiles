@@ -24,13 +24,14 @@ Plug 'christoomey/vim-system-copy'
 Plug 'christoomey/vim-titlecase'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'christoomey/vim-tmux-runner'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'dzeban/vim-log-syntax'
 Plug 'easymotion/vim-easymotion'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ervandew/supertab'
 Plug 'godlygeek/tabular'
 Plug 'gcmt/taboo.vim'
-Plug 'kanko-m/vim-test'
+Plug 'janko-m/vim-test'
 Plug 'jeetsukumaran/vim-gazetteer'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-easy-align'
@@ -80,7 +81,7 @@ Plug '1995eaton/vim-better-javascript-completion', { 'for': ['javascript', 'jsx'
 Plug 'benjie/neomake-local-eslint.vim', { 'for': 'javascript' }
 Plug 'nikvdp/ejs-syntax', { 'for': 'ejs' }
 " Plug 'burnettk/vim-angular', { 'for': 'javascript' }
-Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'jsx'] }
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install --global tern' }
 Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] }
 Plug 'moll/vim-node', { 'for': ['javascript', 'jsx'] }
 Plug 'mxw/vim-jsx'
@@ -134,6 +135,7 @@ Plug 'rking/ag.vim'
 
 " misc lang
 Plug 'exu/pgsql.vim', { 'for': 'sql' }
+Plug 'moskytw/nginx-contrib-vim'
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'plasticboy/vim-markdown', { 'for': 'md' }
 Plug 'suan/vim-instant-markdown'

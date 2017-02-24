@@ -287,6 +287,8 @@ nnoremap <leader>jsd :! devtool % &<CR>
 nmap <leader>jd odebugger;<esc>^
 " hack for this assignment
 nmap <cr>t yiWithis.<esc>A<space>=<space><C-R>";<esc>
+" require to import
+nmap r2i :<C-U>s/\(const\) \(\w*\)\s*=\srequire(\('.*'\))/import \2 from \3<CR>
 
 " splitjoin
 nnoremap sj :SplitjoinSplit<cr>

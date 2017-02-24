@@ -8,7 +8,7 @@ if [[ -o interactive ]]; then
 
   # Arguments and pipes
   alias -g A='| ack'
-  alias -g L='| less'
+  alias -g L='| less -r'
   alias a='ag --pager "less -R"'
   alias agh='ag --hidden'
   alias als='alias | ack'
@@ -86,6 +86,7 @@ if [[ -o interactive ]]; then
   alias hot="ansiweather | tr '-' '\n' |tr '\>' '\n'"
   alias forecast="ansiweather -l Bangkok -F | tr '-' '\n' |tr '\>' '\n'"
   alias copyloc='locateme -f "{LAT} {LON}" | pbc'
+  alias twitter='rainbowstream'
 
   # Bundler
   alias be='bundle exec'
