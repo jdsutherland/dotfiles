@@ -83,9 +83,9 @@
   </item>
 
   <item>
-        <name>FN key switch windows of same apps on tap</name>
-        <appendix>FN to toggle apps on tap</appendix>
-        <identifier>minus_switch</identifier>
+        <name>FN key tap screenclip</name>
+        <appendix>FN screenclip</appendix>
+        <identifier>fn-screenclip</identifier>
         <not>TERMINAL</not>
         <uielementrole_not>AXTextField, AXTextArea</uielementrole_not>
         <autogen>
@@ -93,7 +93,7 @@
             KeyCode::FN,
 
             KeyCode::FN,
-            KeyCode::BACKQUOTE, ModifierFlag::COMMAND_L
+            KeyCode::4, ModifierFlag::COMMAND_R, ModifierFlag::SHIFT_L
           </autogen>
   </item>
 
@@ -158,6 +158,7 @@
     <appendix>Alt_r :: C-Opt. Fullscreens a window if tapped</appendix>
     <identifier>private.chromedev</identifier>
     <!-- Cmd_R :: C-Opt ; access key (browser modifier) -->
+    <not>TERMINAL</not>
     <autogen>
       --KeyOverlaidModifier--
       KeyCode::OPTION_R,

@@ -190,3 +190,28 @@ setup_airbnb() {
   npm info eslint-config-airbnb@latest peerDependencies --json | command sed 's/[\{\},]//g ; s/: /@/g' | xargs yarn add --dev eslint-config-airbnb@latest
   echo '{\n  "extends": "airbnb"\n}' > .eslintrc.json
 }
+
+# prints current LAT, LON coords
+getloc() {
+  locateme -f "{LAT} {LON}"
+}
+
+# gets uber price from given a destination
+uberp() {
+  uber price -s $(getloc) -e $1
+}
+
+# gets uber time estimate given a destination
+ubert() {
+  uber time -s $(getloc) -e $1
+}
+
+# opens a google map direction age given a destination
+mdir() {
+  ${(z)BROWSER} "https://www.google.com/maps/dir/$(getloc)/${1}"
+}
+
+# colorized less output
+cless () {
+    pygmentize -f terminal "$1" | less -R
+}

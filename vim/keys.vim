@@ -47,9 +47,10 @@ inoremap <expr> <M-[> pumvisible() \|\| &omnifunc == '' ?
 nnoremap <M-h> :VtrSendCommandToRunner<space>
 map <M-d> vacjd
 nnoremap <M-t> :VtrFocusRunner<cr>
+nnoremap <M-\> :TmuxNavigatePrevious<cr>
 nnoremap <M-g> :ToggleGStatus<cr>
-nnoremap <M-9> :tabprev<cr>
-nnoremap <M-0> :tabnext<cr>
+nnoremap <silent><M-9> :tabprev<cr>
+nnoremap <silent><M-0> :tabnext<cr>
 
 nnoremap <cr>d :nohls<CR>
 nnoremap <silent> <space>dd :call CloseWindowOrKillBuffer()<CR>
@@ -133,7 +134,7 @@ noremap <leader>9 9gt
 " fugitive git bindings
 nnoremap <space>ga :Git add %:p<CR><CR>
 nnoremap <space>gA :Git add .<CR>
-nnoremap <space>gg :ToggleGStatus<CR>:silent! <C-U>execute <SNR>111_StageNext(v:count1)<CR>zz
+nnoremap <silent><space>gg :ToggleGStatus<CR>:silent! <C-U>execute <SNR>111_StageNext(v:count1)<CR>zz
 nnoremap <space>gc :Gcommit -v -q<CR>
 nnoremap <space>gt :Gcommit -v -q %:p<CR>
 nnoremap <space>gb :Gblame<CR>

@@ -83,6 +83,9 @@ if [[ -o interactive ]]; then
   alias ha='howdoi -c -a'
   alias wh='which'
   alias gap='git add -p'
+  alias hot="ansiweather | tr '-' '\n' |tr '\>' '\n'"
+  alias forecast="ansiweather -l Bangkok -F | tr '-' '\n' |tr '\>' '\n'"
+  alias copyloc='locateme -f "{LAT} {LON}" | pbc'
 
   # Bundler
   alias be='bundle exec'
