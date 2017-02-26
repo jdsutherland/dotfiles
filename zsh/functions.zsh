@@ -198,12 +198,7 @@ getloc() {
 
 # gets uber price from given a destination
 uberp() {
-  uber price -s $(getloc) -e $1
-}
-
-# gets uber time estimate given a destination
-ubert() {
-  uber time -s $(getloc) -e $1
+  uber price -s "$(getloc)" -e $1
 }
 
 # opens a google map direction age given a destination

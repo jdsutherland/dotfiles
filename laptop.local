@@ -14,6 +14,7 @@ brew install battery
 brew install catimg
 brew install cheat
 brew install coreutils
+brew install detox
 brew install diff-so-fancy
 brew install fasd
 brew install fzf
@@ -21,7 +22,7 @@ brew install git-secrets
 brew install gitsh
 brew install go
 brew install homebrew/completions/tmuxinator-completion
-brew install htop
+brew install htop-osx
 brew install httpie
 brew install iftop
 brew install jq
@@ -46,6 +47,7 @@ brew install speedtest_cli
 brew install task
 brew install tig
 brew install tree
+brew install urlview
 brew install watch
 brew install weechat --with-perl --with-python
 brew install wifi-password
@@ -103,7 +105,6 @@ pip install urllib3
 pip install virtualenv
 
 npm install -g castnow
-npm install -g eslint
 npm install -g git-open
 npm install -g gulp
 npm install -g hicat

@@ -84,7 +84,7 @@ if [[ -o interactive ]]; then
   alias wh='which'
   alias gap='git add -p'
   alias hot="ansiweather | tr '-' '\n' |tr '\>' '\n'"
-  alias forecast="ansiweather -l Bangkok -F | tr '-' '\n' |tr '\>' '\n'"
+  alias fore="ansiweather -l Bangkok -F | tr '-' '\n' |tr '\>' '\n'"
   alias copyloc='locateme -f "{LAT} {LON}" | pbc'
   alias twitter='rainbowstream'
 
