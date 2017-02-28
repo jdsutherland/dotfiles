@@ -44,7 +44,7 @@ let g:lt_location_list_toggle_map = '\d'
 let g:lt_quickfix_list_toggle_map = '\\'
 
 " easymotion
-let g:EasyMotion_leader_key = '<Space><space>'
+let g:EasyMotion_leader_key = '<M-a>'
 
 " greplace
 let g:grep_cmd_opts = '--line-numbers --noheading'

@@ -37,6 +37,7 @@ nnoremap j gj
 nnoremap k gk
 
 " META. NOTE: tmux uses: [b,j,l,k,p,i,q]
+" others: [a]
 nnoremap <M-o> <C-W>p
 nnoremap <M-s> :FzfSnippets<CR>
 inoremap <expr> <M-[> pumvisible() \|\| &omnifunc == '' ?
@@ -44,13 +45,21 @@ inoremap <expr> <M-[> pumvisible() \|\| &omnifunc == '' ?
 \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
 \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
 \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
-nnoremap <M-h> :VtrSendCommandToRunner<space>
 map <M-d> vacjd
-nnoremap <M-t> :VtrFocusRunner<cr>
+nnoremap <M-f> :FzfFiles<CR>
+nnoremap <M-h> :VtrSendCommandToRunner<space>
+nnoremap <M-y> :VtrSendCommandToRunner<space><cr>
+nnoremap <M-t> :VtrFocusRunner<CR><c>c :TmuxNavigatePrevious<CR>
+nnoremap <M-r> :VtrOpenRunner {'orientation': 'v', 'percentage': 20}<cr>
+nnoremap <M-x> :VtrKillRunner<cr>
+nnoremap <M-w> :FzfWindows<CR>
+nnoremap <M-/> :FzfMarks<CR>
 nnoremap <M-\> :TmuxNavigatePrevious<cr>
 nnoremap <M-g> :ToggleGStatus<cr>
 nnoremap <silent><M-9> :tabprev<cr>
 nnoremap <silent><M-0> :tabnext<cr>
+" hacky way to lookup dot chain native modules easily in Dash
+map <M-m> viwf.ey;Dash <C-R>"<CR>
 
 nnoremap <cr>d :nohls<CR>
 nnoremap <silent> <space>dd :call CloseWindowOrKillBuffer()<CR>
@@ -334,6 +343,7 @@ map <cr>g griw
 " replace line with under cursor
 nmap <cr>C yiwcc<c-r>0<esc>
 nnoremap <space>- :TabooRename<space>
+nnoremap <space>3 :Autoformat<cr>
 
 " ----SURROUND----
 " ,# Surround a word with #{ruby interpolation}
