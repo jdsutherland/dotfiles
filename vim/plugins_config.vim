@@ -103,6 +103,18 @@ let g:EditorConfig_core_mode = 'external_command'
 let g:fzf_layout = { 'window': 'new' }
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_buffers_jump = 1
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" [Files] Extra options for fzf
+"   e.g. File preview using Highlight
+"        (http://www.andre-simon.de/doku/highlight/en/highlight.html)
+let g:fzf_files_options =
+  \ '--preview "(highlight -O ansi {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+" [Commands] --expect expression for directly executing the command
+let g:fzf_commands_expect = 'alt-enter,ctrl-s'
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
@@ -120,6 +132,8 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 let g:fzf_commits_log_options =
 \ '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+let g:rg_command = 'rg --no-ignore --hidden --follow --column --line-number --no-heading --color "always"  -g "*.js" -g "*.json" -g "*.php" -g "*.md" -g "*.styl" -g "*.scss" -g "*.sass" -g "*.pug" -g "*.html" -g "*.config" -g "*.py" -g "*.cpp" -g "*.c" -g "*.go" -g "*.hs" -g "*.rb" -g "*.conf" -g "*.vim" -g "*.sh" -g "*.txt" -g "!.git/**" -g "!node_modules/**" -g "!vendor/**" -g "!build/**" -g "!plugged/**" '
+command! -bang -nargs=* RG call fzf#vim#grep(g:rg_command . '--ignore-case --fixed-strings ' . shellescape(<q-args>), 1, <bang>0)
 
 " airline
 let g:airline_theme='base16_default'

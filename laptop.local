@@ -40,6 +40,7 @@ brew install ranger
 brew install rbenv-ctags
 brew install rbenv-default-gems
 brew install reattach-to-user-namespace
+brew install ripgrep
 brew install shellcheck
 brew install slurm
 brew install source-highlight
@@ -105,6 +106,7 @@ pip install urllib3
 pip install virtualenv
 
 npm install -g castnow
+npm install -g devtool
 npm install -g git-open
 npm install -g gulp
 npm install -g hicat
@@ -117,7 +119,6 @@ npm install -g peerflix
 npm install -g readme
 npm install -g tldr
 npm install -g yo
-npm install -g devtool
 
 mkdir ~/go
 export GOPATH=~/go

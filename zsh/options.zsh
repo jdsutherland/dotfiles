@@ -40,7 +40,9 @@ export LESSOPEN="| /usr/local/bin/src-hilite-lesspipe.sh %s"
 export GREP_COLOR='1;37;41'
 
 # Fzf
-export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+# export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*"'
+export FZF_DEFAULT_OPTS='--bind J:down,K:up --reverse --ansi '
 
 # Enable completion
 autoload -U compinit

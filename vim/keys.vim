@@ -180,8 +180,16 @@ vmap <leader>gt <Plug>Titlecase
 nmap <leader>gT <Plug>TitlecaseLine
 
 " fzf
-imap <c-x><c-l> <plug>(fzf-complete-line)
-imap <C-x><C-f> <plug>(fzf-complete-file-ag)
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+" imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-s><c-f> <plug>(fzf-complete-path)
+imap <c-s><c-j> <plug>(fzf-complete-file-ag)
+imap <c-s><c-l> <plug>(fzf-complete-line)
+" Advanced customization using autoload functions
+inoremap <expr> <c-s><c-k> fzf#vim#complete#word({'left': '15%'})
 nnoremap <silent> ,t :FzfFiles<CR>
 nnoremap <silent> <cr>b :FzfBuffers<CR>
 nnoremap <silent> ,ss :FzfSnippets<CR>
@@ -190,6 +198,7 @@ nnoremap <silent> ,bL :FzfBLines<CR>
 nnoremap <silent> ,bl :FzfLines<CR>
 nnoremap <silent> ,o :FzfBTags<CR>
 nnoremap <silent> ,O :FzfTags<CR>
+nnoremap <silent> ,ht :FzfHelptags<CR>
 nnoremap <silent> ,? :FzfHistory<CR>
 nnoremap <silent> ,gl :FzfCommits<CR>
 nnoremap <silent> ,ga :FzfBCommits<CR>
