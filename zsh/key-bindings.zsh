@@ -22,4 +22,4 @@ bindkey -v
 bindkey "^N" insert-last-word
 bindkey "^R" history-incremental-search-backward
 
-bindkey -s "^P" ' vim $(fzf);^m'
+bindkey -s "^P" ' vim $(fzf -m);^m'

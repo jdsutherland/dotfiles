@@ -100,7 +100,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 let g:EditorConfig_core_mode = 'external_command'
 
 " fzf
-let g:fzf_layout = { 'window': 'new' }
+let g:fzf_layout = { 'window': '-tabnew' }
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_buffers_jump = 1
 let g:fzf_action = {
@@ -132,8 +132,28 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 let g:fzf_commits_log_options =
 \ '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-let g:rg_command = 'rg --no-ignore --hidden --follow --column --line-number --no-heading --color "always"  -g "*.js" -g "*.json" -g "*.php" -g "*.md" -g "*.styl" -g "*.scss" -g "*.sass" -g "*.pug" -g "*.html" -g "*.config" -g "*.py" -g "*.cpp" -g "*.c" -g "*.go" -g "*.hs" -g "*.rb" -g "*.conf" -g "*.vim" -g "*.sh" -g "*.txt" -g "!.git/**" -g "!node_modules/**" -g "!vendor/**" -g "!build/**" -g "!plugged/**" '
-command! -bang -nargs=* RG call fzf#vim#grep(g:rg_command . '--ignore-case --fixed-strings ' . shellescape(<q-args>), 1, <bang>0)
+let g:rg_command = 'rg --hidden --follow --column --line-number --no-heading --color -j 8 "always"  -g "*.js" -g "*.json" -g "*.php" -g "*.md" -g "*.styl" -g "*.scss" -g "*.sass" -g "*.pug" -g "*.html" -g "*.config" -g "*.py" -g "*.cpp" -g "*.c" -g "*.go" -g "*.hs" -g "*.rb" -g "*.conf" -g "*.vim" -g "*.sh" -g "*.txt" -g "!.git/**" -g "!node_modules/**" -g "!vendor/**" -g "!build/**" -g "!plugged/**" -g "!*.lock" '
+" command! -bang -nargs=* RG call fzf#vim#grep(g:rg_command . '--ignore-case --fixed-strings ' . shellescape(<q-args>), 1, <bang>0)
+" " let g:rg_command = '
+"   \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+"   \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
+"   \ -g "!{.git,node_modules,vendor}/*" '
+
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('right:50%')
+  \           : fzf#vim#with_preview('right:50%:hidden', ';'),
+  \   <bang>0)
+
+"   :Ag  - Start fzf with hidden preview window that can be enabled with "?" key
+"   :Ag! - Start fzf in fullscreen and display the preview window above
+" command! -bang -nargs=* Ag
+"   \ call fzf#vim#ag(<q-args>,
+"   \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+"   \                         : fzf#vim#with_preview('right:50%:hidden', '\'),
+"   \                 <bang>0)
 
 " airline
 let g:airline_theme='base16_default'

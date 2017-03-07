@@ -210,3 +210,50 @@ mdir() {
 cless () {
     pygmentize -f terminal "$1" | less -R
 }
+
+git-commit-browser() {
+  if [[ -d '.git/' ]]; then
+    glg --color=always "$@" |
+    fzf --ansi \
+      --no-sort \
+      --reverse \
+      --tiebreak=index \
+      --bind=ctrl-s:toggle-sort \
+      --preview "echo {} |
+        grep --only-matching '[a-f0-9]\{7\}' |
+        head -1 |
+        xargs -I % sh -c 'git show --color=always --format="" % |
+        diff-so-fancy |
+        head -$LINES'" \
+      --bind "enter:execute:echo {} |
+        grep --only-matching '[a-f0-9]\{7\}' |
+        head -1 |
+        xargs -I % sh -c 'vim fugitive://\$(git rev-parse --show-toplevel)/.git//% < /dev/tty'"
+  else
+    echo 'Not a git repository'
+  fi
+}
+
+fp() {
+  ag -g "$@" | less -RFX
+}
+
+# ripgrep with paging
+r() {
+  rg -j 8 -p "$@" | less -RFX
+}
+
+# ripgrep hidden
+rh() {
+  rg -uu -j 8  -p "$@" | less -RFX
+}
+
+# find dirnames
+lf() {
+  l A "$@"
+}
+
+# find uniq dirnames
+funiq() {
+  f "$@" | cut -d'/' -f1,2 | uniq
+}

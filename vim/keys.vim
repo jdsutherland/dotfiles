@@ -36,30 +36,40 @@ vnoremap $ 4
 nnoremap j gj
 nnoremap k gk
 
-" META. NOTE: tmux uses: [b,j,l,k,p,i,q]
+" META. NOTE: tmux uses: [b,j,l,k,p,i,q,p]
 " others: [a]
 nnoremap <M-o> <C-W>p
-nnoremap <M-s> :FzfSnippets<CR>
-inoremap <expr> <M-[> pumvisible() \|\| &omnifunc == '' ?
+noremap <M-s> :FzfSnippets<CR>
+inoremap <M-s> <C-O>:FzfSnippets<CR>
+inoremap <expr> <M-[> puvisible() \|\| &omnifunc == '' ?
 \ "\<lt>C-n>" :
 \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
 \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
 \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+nnoremap <M-]> :VtrFocusRunner<cr>
 map <M-d> vacjd
 nnoremap <M-f> :FzfFiles<CR>
 nnoremap <M-h> :VtrSendCommandToRunner<space>
 nnoremap <M-y> :VtrSendCommandToRunner<space><cr>
-nnoremap <M-t> :VtrFocusRunner<CR><c>c :TmuxNavigatePrevious<CR>
 nnoremap <M-r> :VtrOpenRunner {'orientation': 'v', 'percentage': 20}<cr>
 nnoremap <M-x> :VtrKillRunner<cr>
 nnoremap <M-w> :FzfWindows<CR>
 nnoremap <M-/> :FzfMarks<CR>
 nnoremap <M-\> :TmuxNavigatePrevious<cr>
-nnoremap <M-g> :ToggleGStatus<cr>
+nnoremap <M-t> :ToggleGStatus<cr><C-E><C-E><C-E>zz
 nnoremap <silent><M-9> :tabprev<cr>
 nnoremap <silent><M-0> :tabnext<cr>
 " hacky way to lookup dot chain native modules easily in Dash
 map <M-m> viwf.ey;Dash <C-R>"<CR>
+nnoremap <M-g> :Rg<CR>
+imap <M-u> _
+
+" easymotion
+nmap <space>w <M-a>w
+nmap <space>b <M-a>b
+nmap <space>f <M-a>f
+nmap <space>k <M-a>k
+nmap <space>j <M-a>j
 
 nnoremap <cr>d :nohls<CR>
 nnoremap <silent> <space>dd :call CloseWindowOrKillBuffer()<CR>
@@ -140,10 +150,13 @@ noremap <leader>9 9gt
 
 " -----PLUGIN------
 
+" js html template
+nnoremap <space>T :JsPreTmpl html<cr>
+nnoremap <space>Y :JsPreTmplClear<cr>
 " fugitive git bindings
 nnoremap <space>ga :Git add %:p<CR><CR>
 nnoremap <space>gA :Git add .<CR>
-nnoremap <silent><space>gg :ToggleGStatus<CR>:silent! <C-U>execute <SNR>111_StageNext(v:count1)<CR>zz
+nnoremap <space>gg :ToggleGStatus<CR><C-N>
 nnoremap <space>gc :Gcommit -v -q<CR>
 nnoremap <space>gt :Gcommit -v -q %:p<CR>
 nnoremap <space>gb :Gblame<CR>
@@ -214,8 +227,8 @@ nnoremap <silent> ,ga :FzfBCommits<CR>
 nnoremap <silent> ,gs :FzfGFiles?<CR>
 nnoremap <silent> ,ft :FzfFiletypes<CR>
 nnoremap <silent> ,m :FzfMap<CR>
-nnoremap <silent> K :call SearchWordWithAg()<CR>
-vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
+nnoremap <silent> K :call SearchWordWithRg()<CR>
+vnoremap <silent> K :call SearchVisualSelectionWithRg()<CR>
 nnoremap ,gg :FzfAg<CR>
 nnoremap ,/ :Ag ""<left>
 nnoremap ,gcf :exec "Ag " . expand("%:t:r")<CR>

@@ -6,11 +6,27 @@ function! Fzf_statusline()
   setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
 endfunction
 
-function! SearchWordWithAg()
-  execute 'FzfAg' expand('<cword>')
+" function! SearchWordWithAg()
+"   execute 'FzfAg' expand('<cword>')
+" endfunction
+
+function! SearchWordWithRg()
+  execute 'Rg' expand('<cword>')
 endfunction
 
-function! SearchVisualSelectionWithAg() range
+" function! SearchVisualSelectionWithAg() range
+"   let old_reg = getreg('"')
+"   let old_regtype = getregtype('"')
+"   let old_clipboard = &clipboard
+"   set clipboard&
+"   normal! ""gvy
+"   let selection = getreg('"')
+"   call setreg('"', old_reg, old_regtype)
+"   let &clipboard = old_clipboard
+"   execute 'FzfAg' selection
+" endfunction
+
+function! SearchVisualSelectionWithRg() range
   let old_reg = getreg('"')
   let old_regtype = getregtype('"')
   let old_clipboard = &clipboard
@@ -19,7 +35,7 @@ function! SearchVisualSelectionWithAg() range
   let selection = getreg('"')
   call setreg('"', old_reg, old_regtype)
   let &clipboard = old_clipboard
-  execute 'FzfAg' selection
+  execute 'Rg' selection
 endfunction
 
 function! StripTrailingWhitespaces()
