@@ -34,6 +34,10 @@ chpwd() {
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(rbenv init - --no-rehash)"
 
+# Variables
+export xc="/Volumes/seag8/screencasts"
+export xcp="/Volumes/seag8/screencasts/pluralsight"
+
 # tabtab source for yarn package
 # uninstall by removing these lines or running `tabtab uninstall yarn`
 [[ -f /usr/local/lib/node_modules/yarn-completions/node_modules/tabtab/.completions/yarn.zsh ]] && . /usr/local/lib/node_modules/yarn-completions/node_modules/tabtab/.completions/yarn.zsh

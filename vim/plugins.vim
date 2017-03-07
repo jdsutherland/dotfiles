@@ -8,30 +8,33 @@ Plug 'benekastah/neomake'
 
 " general
 " Plug 'thalesmello/vim-textobj-methodcall'
+" Plug 'tpope/vim-sleuth'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/switch.vim'
 Plug 'Chiel92/vim-autoformat'
-Plug 'dietsche/vim-lastplace'
 Plug 'FooSoft/vim-argwrap'
 Plug 'PeterRincker/vim-argumentative'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'Valloric/ListToggle'
 Plug 'breuckelen/vim-resize'
 Plug 'bronson/vim-visual-star-search'
+Plug 'chrisbra/vim-diff-enhanced'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
 Plug 'christoomey/vim-titlecase'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'christoomey/vim-tmux-runner'
-Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'dietsche/vim-lastplace'
 Plug 'dzeban/vim-log-syntax'
 Plug 'easymotion/vim-easymotion'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ervandew/supertab'
-Plug 'godlygeek/tabular'
 Plug 'gcmt/taboo.vim'
+Plug 'godlygeek/tabular'
+Plug 'james9909/stackanswers.vim'
 Plug 'janko-m/vim-test'
+" Plug 'jbarbero/doctabs.vim'
 Plug 'jeetsukumaran/vim-gazetteer'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-easy-align'
@@ -42,7 +45,9 @@ Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'rondale-sc/vim-spacejam'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'ryanoasis/vim-devicons' " file drawer
+Plug 'sickill/vim-pasta'
 Plug 'skwp/greplace.vim'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-bundler'
@@ -54,16 +59,14 @@ Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-repeat'
-" Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
-Plug 'james9909/stackanswers.vim'
-Plug 'chrisbra/vim-diff-enhanced'
 Plug 'tpope/vim-unimpaired'
 Plug 'vasconcelloslf/vim-interestingwords'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'vim-utils/vim-man'
 Plug 'vitalk/vim-simple-todo'
 Plug 'wellle/targets.vim'
+
 " git
 Plug 'airblade/vim-gitgutter'
 Plug 'christoomey/vim-conflicted'
@@ -84,7 +87,8 @@ Plug 'nikvdp/ejs-syntax', { 'for': 'ejs' }
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install --global tern' }
 Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] }
 Plug 'moll/vim-node', { 'for': ['javascript', 'jsx'] }
-Plug 'mxw/vim-jsx'
+" Plug 'mxw/vim-jsx'
+Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'flowtype/vim-flow', { 'for': ['javascript', 'jsx'] }
 Plug 'Quramy/vim-js-pretty-template', { 'for': ['javascript', 'jsx'] }
 Plug 'bentayloruk/vim-react-es6-snippets', { 'for': ['javascript', 'jsx'] }
@@ -131,7 +135,7 @@ Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp'] }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'rizzatti/dash.vim'
-Plug 'rking/ag.vim'
+" Plug 'rking/ag.vim'
 
 " misc lang
 Plug 'exu/pgsql.vim', { 'for': 'sql' }
@@ -141,3 +145,4 @@ Plug 'plasticboy/vim-markdown', { 'for': 'md' }
 Plug 'suan/vim-instant-markdown'
 Plug 'zchee/deoplete-go', { 'for': 'go' }
 Plug 'zchee/deoplete-jedi', { 'for': 'python' }
+Plug 'mux-plugins/vim-tmux'

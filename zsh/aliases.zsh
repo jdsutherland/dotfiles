@@ -9,18 +9,19 @@ if [[ -o interactive ]]; then
   # Arguments and pipes
   alias -g A='| ack'
   alias -g L='| less -r'
-  alias a='ag --pager "less -R"'
+  alias a='ag --workers 8 --pager "less -R"'
   alias agh='ag --hidden'
   alias als='alias | ack'
   alias f='ag -g'
   alias fa='alias | fzf'
   alias fag='ag --nobreak --nonumbers --noheading . | fzf'
-  alias fh='ag --hidden -g'
+  alias fh='ag --unrestricted -g'
   alias fls='functions | ack'
   alias fw='{ alias; functions; } | fzf'
 
   # Directories
-  alias casts='cd ~/Documents/screencasts/'
+  alias casts='cd ~/Volumes/seag8/screencasts'
+  alias dl='cd ~/Downloads'
   alias dev='cd ~/Development'
   alias dot='cd ~/.dotfiles'
   alias drop='cd ~/Dropbox'
@@ -65,7 +66,7 @@ if [[ -o interactive ]]; then
 
   # App
   alias ack='nocorrect ack'
-  alias ctag='ctags -R --exlude=.git --exclude=log *'
+  alias ctag='ctags -R --exclude=.git --exclude=log *'
   alias grep='grep --color=auto -i'
   alias irc='weechat'
   alias jtag='find . -type f -iregex ".*\.js$" -not -path "./node_modules/*" -exec jsctags {} -f \; | sed "/^$/d" | sort > tags'
@@ -87,6 +88,11 @@ if [[ -o interactive ]]; then
   alias fore="ansiweather -l Bangkok -F | tr '-' '\n' |tr '\>' '\n'"
   alias copyloc='locateme -f "{LAT} {LON}" | pbc'
   alias twitter='rainbowstream'
+  alias play='mpv *.(mp4|webm|mkv|mov) > /dev/null 2>&1 &'
+
+  # Archives
+  alias uz='unar *zip'
+  alias dz='rm -rf *zip'
 
   # Bundler
   alias be='bundle exec'
