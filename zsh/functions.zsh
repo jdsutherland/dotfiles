@@ -106,7 +106,7 @@ ff() {
 
 # t - tree color with paging
 t() {
-  tree $1 -C | less -F
+  tree -I 'node_modules' $1 -C | less -F
 }
 
 # trees - tree with size and depth param (useful for media)
@@ -175,8 +175,8 @@ push_ssh_key() {
 }
 
 # git log diff filetype
-gldf() {
-  git log -p -- "*.${1}"
+gldft() {
+  git log --follow --patch -- "*.${1}"
 }
 
 # open gh page of an npm package
@@ -189,6 +189,44 @@ setup_airbnb() {
   yarn add dev eslint
   npm info eslint-config-airbnb@latest peerDependencies --json | command sed 's/[\{\},]//g ; s/: /@/g' | xargs yarn add --dev eslint-config-airbnb@latest
   echo '{\n  "extends": "airbnb"\n}' > .eslintrc.json
+}
+
+setup_babel() {
+  yarn add --dev babel-cli
+  yarn add --dev babel-preset-env
+  yarn add --dev nodemon
+  yarn add babel-polyfill
+
+  scripts=`cat <<EOF
+  "scripts": {
+    "start": "yarn dev:start",
+    "dev:start": "nodemon -e js,jsx --ignore lib --ignore dist --exec babel-node src",
+    "compile": "babel src -d lib --ignore spec.js",
+    "test": "yarn compile \&\& mocha --compilers js:babel-core/register test"
+  }
+}
+EOF
+`
+  # sanitize to work with sed
+  scripts=${scripts//\//\\\/}
+  scripts=${scripts//$'\n'/\\$'\n'}
+  # replace last } with scripts
+  gsed -i "s/^}/$scripts/" package.json
+
+  babelrc=`cat <<EOF
+{
+  "presets": [
+    "env"
+  ]
+}
+EOF
+`
+  echo "$babelrc" > .babelrc
+}
+
+setup_js_proj() {
+  setup_airbnb
+  setup_babel
 }
 
 # prints current LAT, LON coords
@@ -256,4 +294,29 @@ lf() {
 # find uniq dirnames
 funiq() {
   f "$@" | cut -d'/' -f1,2 | uniq
+}
+
+hl() {
+  how2 -l "$@"
+}
+ha() {
+  howdoi -ca "$@"
+}
+
+# refresh path for disconnected drive
+ref() {
+  cd; cd -
+}
+
+# gets the total running time of videos recursively from the working dir
+vidtime() {
+  exiftool -n -q -p '${Duration;our $sum;$_=ConvertDuration($sum+=$_)}' **/*.(mp4|webm|mkv|mov) | tail -n1
+}
+
+unpackvideo() {
+  uz && dz && detox -r * && vidtime | pbcopy
+}
+
+unpackudc() {
+  uz && dz && detox -r * && vidtime | pbcopy && mv -n */* . && rmdir *
 }

@@ -8,6 +8,7 @@ if [[ -o interactive ]]; then
 
   # Arguments and pipes
   alias -g A='| ack'
+  alias -g V='| vim -'
   alias -g L='| less -r'
   alias a='ag --workers 8 --pager "less -R"'
   alias agh='ag --hidden'
@@ -63,6 +64,8 @@ if [[ -o interactive ]]; then
   alias gitundo='git commit --amend'
   alias gldr='gld --reverse'
   alias gst='git status'
+  alias glf='g pb'
+  alias glfr='g pba'
 
   # App
   alias ack='nocorrect ack'
@@ -80,18 +83,24 @@ if [[ -o interactive ]]; then
   alias tre='tree -C | less'
   alias v='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
   alias vim='n'
-  alias h='howdoi -c'
-  alias ha='howdoi -c -a'
   alias wh='which'
   alias gap='git add -p'
   alias hot="ansiweather | tr '-' '\n' |tr '\>' '\n'"
   alias fore="ansiweather -l Bangkok -F | tr '-' '\n' |tr '\>' '\n'"
   alias copyloc='locateme -f "{LAT} {LON}" | pbc'
   alias twitter='rainbowstream'
-  alias play='mpv *.(mp4|webm|mkv|mov) > /dev/null 2>&1 &'
+  alias play='mpv **/*.(mp4|webm|mkv|mov) > /dev/null 2>&1 &'
+  alias st='speedtest'
+  alias ra='ranger'
+  alias h='how2'
+  alias G='googler -c com -l en'
+  alias Gd='googler -c com -l en -n 4 define'
+  alias G6='googler -c com -l en -t m6'
+  alias Gy='googler -c com -l en -t y1'
+  alias nosleep=caffeinate
 
   # Archives
-  alias uz='unar *zip'
+  alias uz='unarchive *zip'
   alias dz='rm -rf *zip'
 
   # Bundler

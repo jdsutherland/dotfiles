@@ -26,6 +26,9 @@ unsetopt nomatch
 # https://github.com/gabebw/dotfiles/pull/15
 unsetopt multios
 
+# 10ms for key sequences
+KEYTIMEOUT=1
+
 # i - Vim's smart case
 # j.5 - Center search results
 # F - Quit if the content is <1 screen

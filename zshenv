@@ -9,6 +9,7 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export GOPATH=~/go
 export PATH=$PATH:$GOPATH/bin
 export PATH="/usr/local/Cellar/node/7.2.0/bin:$PATH"
+export PATH="~/.config/yarn/global/node_modules/.bin:$PATH"
 
 PATH="/Users/jeff/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/Users/jeff/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
