@@ -22,6 +22,8 @@
   current-branch = !git rev-parse --abbrev-ref HEAD 2> /dev/null | sed 's/^HEAD$//'
   dc = diff --word-diff --cached --color-words
   df = diff --word-diff --color-words
+  pb = log --patch --follow
+  pbr = log --patch --reverse --follow
   dsf = "!f() { [ \"$GIT_PREFIX\" != \"\" ] && cd "$GIT_PREFIX"; git diff --color $@ | diff-so-fancy | less --tabs=4 -RFX; }; f"
   fall = "!for remote in $(git remote); do echo "Fetching $remote"; git fetch "$remote"; done"
   fpop = !git stash show -p | git apply && git stash drop

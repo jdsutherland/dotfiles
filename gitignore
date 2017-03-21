@@ -11,7 +11,7 @@
 .vagrant
 .vimrc.local
 /tags
-tags
+tags*
 Thumbs.db*
 log/
 .tern-port
