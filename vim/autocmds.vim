@@ -13,8 +13,17 @@ autocmd! QuitPre * let g:neomake_verbose = 0
 " Execute macro in q
 autocmd FileType vim setlocal keywordprg=:help " Open vim help under cursor
 
+" fix bug between taboo and airline
+autocmd TabNew * AirlineToggle
+autocmd TabNew * AirlineToggle
+
 " By default, vim thinks .md is Modula-2.
 " autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
+" set unnamed buffer to sh (useful for using vim run shell command)
+" if @% == ""
+"   autocmd BufRead,BufNewFile * set filetype=sh
+" endif
 
 " Without this, vim breaks in the middle of words when wrapping
 autocmd FileType markdown setlocal nolist wrap lbr
@@ -46,6 +55,15 @@ autocmd FileType javascript,jsx nnoremap <buffer> ,fs :TernDefSplit<cr>
 autocmd FileType javascript,jsx nnoremap <buffer> T :TernType<cr>
 autocmd FileType javascript,jsx nnoremap <buffer> <space>ll :TernDefPreview<cr><c-o>
 
+" js conceal expand
+autocmd FileType javascript,jsx inoremap <silent> @ <C-r>=syntax_expand#expand("@", "this")<CR>
+autocmd FileType javascript,jsx inoremap <silent> # <C-r>=syntax_expand#expand("#", "prototype")<CR>
+autocmd FileType javascript,jsx inoremap <silent> < <C-r>=syntax_expand#expand_head("<", "return")<CR>
+autocmd FileType javascript,jsx set concealcursor=n
+
+" omnisharp
+autocmd FileType cs nnoremap ,f :OmniSharpGotoDefinition<cr>
+
 " auto js template str html
 " autocmd FileType javascript JsPreTmpl html
 
@@ -58,3 +76,8 @@ augroup rubypath
   autocmd FileType ruby setlocal suffixesadd+=.rb
 augroup END
 autocmd FileType ruby setlocal path+=lib
+
+" tmuxline truecolor fix?
+" if exists('$TMUX')
+"     autocmd VimEnter * call tmuxline#set_statusline('vim_statusline_1')
+" endif

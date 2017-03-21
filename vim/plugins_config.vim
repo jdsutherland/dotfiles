@@ -73,6 +73,12 @@ let g:neomake_ruby_enabled_makers = ['rubocop']
 let g:neomake_sh_enabled_makers = ['shellcheck']
 let g:neomake_zsh_enabled_makers = ['shellcheck']
 
+" omnisharp - dotnet
+let g:OmniSharp_selector_ui = 'fzf'    " Use fzf.vim
+" let g:OmniSharp_server_type = 'v1'
+" let g:OmniSharp_server_type = 'roslyn'
+let g:OmniSharp_timeout = 100
+
 " monster - ruby
 let g:monster#completion#rcodetools#backend = "async_rct_complete"
 let g:deoplete#sources#omni#input_patterns = {
@@ -132,17 +138,18 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 let g:fzf_commits_log_options =
 \ '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-let g:rg_command = 'rg --hidden --follow --column --line-number --no-heading --color -j 8 "always"  -g "*.js" -g "*.json" -g "*.php" -g "*.md" -g "*.styl" -g "*.scss" -g "*.sass" -g "*.pug" -g "*.html" -g "*.config" -g "*.py" -g "*.cpp" -g "*.c" -g "*.go" -g "*.hs" -g "*.rb" -g "*.conf" -g "*.vim" -g "*.sh" -g "*.txt" -g "!.git/**" -g "!node_modules/**" -g "!vendor/**" -g "!build/**" -g "!plugged/**" -g "!*.lock" '
-" command! -bang -nargs=* RG call fzf#vim#grep(g:rg_command . '--ignore-case --fixed-strings ' . shellescape(<q-args>), 1, <bang>0)
-" " let g:rg_command = '
-"   \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
-"   \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
-"   \ -g "!{.git,node_modules,vendor}/*" '
+
+" let g:rg_command = 'rg --follow --ignore-case --column --line-number --no-heading --color -j 8 "always"  -g "*.js" -g "*.json" -g "*.php" -g "*.md" -g "*.styl" -g "*.scss" -g "*.sass" -g "*.pug" -g "*.html" -g "*.config" -g "*.py" -g "*.cpp" -g "*.c" -g "*.go" -g "*.hs" -g "*.rb" -g "*.conf" -g "*.vim" -g "*.sh" -g "*.txt" -g "!.git/**" -g "!node_modules/**" -g "!vendor/**" -g "!build/**" -g "!plugged/**" -g "!*.lock" '
+
+let g:rg_command = 'rg --hidden --follow --column --line-number --no-heading -j 8 --smart-case --color "always"
+\ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,erb,conf}"
+\ -g "!{.git,node_modules,vendor,build,plugged,lib,dist}/*"
+\ -g "!*.{lock}" '
 
 " Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   g:rg_command .shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('right:50%')
   \           : fzf#vim#with_preview('right:50%:hidden', ';'),
   \   <bang>0)
@@ -161,8 +168,19 @@ let g:airline_powerline_fonts = 1
 let g:airline_detect_modified=1
 let g:airline_detect_paste=1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':r'
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#show_close_button = 0
+
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline#extensions#taboo#enabled = 1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#hunks#enabled = 1
+let g:airline#extensions#hunks#non_zero_only = 1
+" display root buffer/filename instead of full path
+let g:airline_section_c = '%t'
 
 " vim-todo
 let g:simple_todo_map_keys = 0
@@ -193,5 +211,44 @@ let g:NERDTreeWinSize = 30
 " javascript-libraries-syntax
 let g:used_javascript_libs = 'jquery,underscore,angularjs,jasmine,chai,flux,handlebars,requirejs,sugar,ramda'
 
+" pangloss javascript
+let g:javascript_plugin_flow = 1
+let g:javascript_plugin_jsdoc = 1
+
+let g:javascript_conceal_function             = "ƒ"
+let g:javascript_conceal_null                 = "ø"
+let g:javascript_conceal_this                 = "@"
+let g:javascript_conceal_return               = "⇚"
+let g:javascript_conceal_undefined            = "¿"
+let g:javascript_conceal_NaN                  = "ℕ"
+let g:javascript_conceal_prototype            = "¶"
+" let g:javascript_conceal_static               = "•"
+" let g:javascript_conceal_super                = "Ω"
+let g:javascript_conceal_arrow_function       = "⇒"
+
 " flow
 let g:flow#autoclose = 1
+
+" vim-instant-markdown
+let g:instant_markdown_autostart = 0
+
+" Rappel
+let g:rappel#term       = 'vsp | term '
+" let g:rappel#term = ' VtrSendCommandToRunner cd $(dirname %:p); '
+let g:rappel#launch     = 'chrome %'
+let g:rappel#default    = g:rappel#term
+
+let g:rappel#custom_repls = {
+\ 'ruby': {
+\   'repl': 'pry',
+\   'run':  'ruby %',
+\ },
+\ 'python': {
+\   'repl': 'ptpython',
+\   'run': 'python %',
+\ },
+\ 'c': {
+\   'compiler': 'gcc % -Wall -g',
+\   'run': 'make debug && make gdbrun || sudo cgdb a.out',
+\ },
+\}

@@ -161,3 +161,11 @@ function! s:PrettyJSON()
   set filetype=json
 endfunction
 command! PrettyJSON :call <sid>PrettyJSON()
+
+" TODO - how to make this work?
+" function! ES6js()
+"   %s/var/const/g
+"   %s/\"/\'/g
+"   %s/function\s*()/\(\) \=>/g
+" endfunction
+" command! ES6js :call <sid>ES6js()

@@ -1,4 +1,4 @@
-" yankstack workaround
+" yankstack workaround,
 call yankstack#setup()
 nnoremap Y y$
 nmap <space>p <Plug>yankstack_substitute_older_paste
@@ -8,6 +8,13 @@ nmap <space>P <Plug>yankstack_substitute_newer_paste
 map Q @q
 nnoremap <cr>x :xall<cr>
 nnoremap <cr>D :qall!
+
+inoremap <expr> <C-F> pumvisible() \|\| &omnifunc == '' ?
+\ "\<lt>C-n>" :
+\ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+\ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+\ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+inoremap <C-D> <C-P>
 
 " Reselect pasted text. Mnem: 'Get pasted'
 nnoremap gp '[v']
@@ -36,26 +43,23 @@ vnoremap $ 4
 nnoremap j gj
 nnoremap k gk
 
-" META. NOTE: tmux uses: [b,j,l,k,p,i,q,p]
+" META. NOTE: tmux uses: [b,j,l,k,p,i,p,`,E,c,C]
 " others: [a]
+inoremap <M-s> <C-O>:FzfSnippets<CR>
 nnoremap <M-o> <C-W>p
 noremap <M-s> :FzfSnippets<CR>
-inoremap <M-s> <C-O>:FzfSnippets<CR>
-inoremap <expr> <M-[> puvisible() \|\| &omnifunc == '' ?
-\ "\<lt>C-n>" :
-\ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
-\ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
-\ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
-nnoremap <M-]> :VtrFocusRunner<cr>
+nnoremap <M-e> :VtrFocusRunner<cr>
+" delete a chunk
 map <M-d> vacjd
 nnoremap <M-f> :FzfFiles<CR>
 nnoremap <M-h> :VtrSendCommandToRunner<space>
 nnoremap <M-y> :VtrSendCommandToRunner<space><cr>
 nnoremap <M-r> :VtrOpenRunner {'orientation': 'v', 'percentage': 20}<cr>
-nnoremap <M-x> :VtrKillRunner<cr>
+nnoremap <M-q> :VtrKillRunner<cr>
 nnoremap <M-w> :FzfWindows<CR>
 nnoremap <M-/> :FzfMarks<CR>
-nnoremap <M-\> :TmuxNavigatePrevious<cr>
+" nnoremap <M-\> :TmuxNavigatePrevious<cr>
+" nnoremap <M-S-E> :TmuxNavigatePrevious<cr>
 nnoremap <M-t> :ToggleGStatus<cr><C-E><C-E><C-E>zz
 nnoremap <silent><M-9> :tabprev<cr>
 nnoremap <silent><M-0> :tabnext<cr>
@@ -74,6 +78,8 @@ nmap <space>j <M-a>j
 nnoremap <cr>d :nohls<CR>
 nnoremap <silent> <space>dd :call CloseWindowOrKillBuffer()<CR>
 nnoremap <silent><leader>w :%s/\t/  /<cr>
+" remove semicolons
+nnoremap <silent><cr>; :%s/;//<cr>
 nnoremap <silent> \e :Errors<CR>
 vnoremap . :norm.<CR>
 
@@ -122,6 +128,7 @@ nnoremap <leader>N :set nonumber!<CR>:set norelativenumber!<CR>
 
 nnoremap <leader>hp :!open -a Google\ Chrome %<CR><CR>
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
+nnoremap <silent> ,u :UndotreeToggle<CR>
 nnoremap <leader>L :set list!<CR>
 
 " splits
@@ -212,7 +219,7 @@ imap <c-s><c-j> <plug>(fzf-complete-file-ag)
 imap <c-s><c-l> <plug>(fzf-complete-line)
 " Advanced customization using autoload functions
 inoremap <expr> <c-s><c-k> fzf#vim#complete#word({'left': '15%'})
-nnoremap <silent> ,t :FzfFiles<CR>
+" nnoremap <silent> ,t :FzfFiles<CR>
 nnoremap <silent> <cr>b :FzfBuffers<CR>
 nnoremap <silent> ,ss :FzfSnippets<CR>
 nnoremap <silent> ,fw :FzfWindows<CR>
@@ -283,6 +290,7 @@ nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 " ruby
 nnoremap <leader>R :VtrSendCommandToRunner rake<cr>
 nmap <leader>bp orequire "pry"; binding.pry<esc>^
+nmap <leader>bpr orequire "pry-remote"; binding.remote_pry<esc>^
 " hack for constructor assignment
 nmap <cr>c yiWi@<esc>A<space>=<space><C-R>"<esc>
 nnoremap <cr>v :AV<cr>
@@ -319,7 +327,8 @@ nmap <leader>jd odebugger;<esc>^
 " hack for this assignment
 nmap <cr>t yiWithis.<esc>A<space>=<space><C-R>";<esc>
 " require to import
-nmap r2i :<C-U>s/\(const\) \(\w*\)\s*=\srequire(\('.*'\))/import \2 from \3<CR>
+nnoremap r2i :<C-U>s/\(const\) \(\w*\)\s*=\srequire(\('.*'\))/import \2 from \3<CR>
+nnoremap <M-\> :exec &conceallevel ? "set conceallevel=0" : "set conceallevel=1"<CR>
 
 " splitjoin
 nnoremap sj :SplitjoinSplit<cr>

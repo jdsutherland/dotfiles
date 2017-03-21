@@ -11,6 +11,9 @@ set expandtab
 set shiftwidth=2
 set softtabstop=2
 set tabstop=2
+set mouse=
+" for pangloss
+set conceallevel=1
 set autoindent
 set encoding=utf-8
 set scrolloff=3
@@ -29,6 +32,8 @@ set backspace=indent,eol,start
 set history=500
 set updatetime=750 " https://www.reddit.com/r/vim/comments/3ql651/what_do_you_set_your_updatetime_to/
 set laststatus=2
+" show filename rather than full path
+set statusline=%t
 nnoremap / /\v
 vnoremap / /\v
 set ignorecase
@@ -57,16 +62,20 @@ set stl+=%{ConflictedVersion()}
 set diffopt+=vertical
 
 " color
-set background=dark
 let base16colorspace=256
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+set background=dark
+" set termguicolors
+" colorscheme gruvbox
 colorscheme base16-tomorrow-night
+" let g:hybrid_custom_term_colors = 1
+" let g:enable_bold_font = 1
+" colorscheme hybrid_reverse
 
 " Display extra whitespace
 set listchars=tab:→\ ,trail:∙,nbsp:•
 
 " Ag
-set grepprg=ag
+set grepprg=rv
 
 " persistent undo
 set undodir=~/.config/nvim/undodir

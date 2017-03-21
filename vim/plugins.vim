@@ -10,6 +10,9 @@ Plug 'benekastah/neomake'
 " Plug 'thalesmello/vim-textobj-methodcall'
 " Plug 'tpope/vim-sleuth'
 Plug 'AndrewRadev/linediff.vim'
+Plug 'Cypher1/nvim-rappel'
+Plug 'Olical/vim-syntax-expand'
+Plug 'sjl/vitality.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/switch.vim'
 Plug 'Chiel92/vim-autoformat'
@@ -79,7 +82,7 @@ Plug 'moll/vim-bbye'
 
 " javascript
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
-" Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug '1995eaton/vim-better-javascript-completion', { 'for': ['javascript', 'jsx'] }
 Plug 'benjie/neomake-local-eslint.vim', { 'for': 'javascript' }
 Plug 'nikvdp/ejs-syntax', { 'for': 'ejs' }
@@ -93,17 +96,17 @@ Plug 'flowtype/vim-flow', { 'for': ['javascript', 'jsx'] }
 Plug 'Quramy/vim-js-pretty-template', { 'for': ['javascript', 'jsx'] }
 Plug 'bentayloruk/vim-react-es6-snippets', { 'for': ['javascript', 'jsx'] }
 Plug 'nono/vim-handlebars', { 'for': 'javascript' }
-Plug 'othree/es.next.syntax.vim', { 'for': ['javascript', 'jsx'] }
-Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'jsx'] }
+" Plug 'othree/es.next.syntax.vim', { 'for': ['javascript', 'jsx'] }
+" Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'jsx'] }
+" Plug 'othree/yajs.vim', { 'for': ['javascript', 'jsx'] }
 Plug 'othree/jspc.vim', { 'for': ['javascript', 'jsx'] }
-Plug 'othree/yajs.vim', { 'for': ['javascript', 'jsx'] }
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 
 " html/css
 " Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
 Plug 'ap/vim-css-color', { 'for': ['scss', 'less', 'css', 'eruby'] }
 Plug 'groenewege/vim-less', { 'for': 'less' }
-Plug 'helino/vim-json', { 'for': 'json' }
+Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'mattn/emmet-vim', { 'for': ['html', 'scss', 'less', 'css', 'eruby', 'javascript', 'jsx'] }
 Plug 'othree/html5.vim', { 'for': ['html', 'scss', 'less', 'css', 'eruby'] }
 Plug 'tpope/vim-jdaddy'
@@ -122,7 +125,13 @@ Plug 'bling/vim-airline'
 Plug 'chriskempson/base16-vim'
 Plug 'edkolev/tmuxline.vim'
 Plug 'morhetz/gruvbox'
+Plug 'w0ng/vim-hybrid'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'w0ng/vim-hybrid'
+Plug 'MaxSt/FlatColor'
+Plug 'dracula/vim'
+Plug 'atelierbram/Base2Tone-vim'
 " Plug 'junegunn/rainbow_parentheses.vim'
 
 " c
@@ -130,6 +139,11 @@ Plug 'Shougo/neoinclude.vim', { 'for': ['c', 'cpp'] }
 Plug 'critiqjo/lldb.nvim', { 'for': ['c', 'cpp'] }
 Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'cpp'] }
 Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp'] }
+
+" csharp
+Plug 'OrangeT/vim-csharp'
+Plug 'OmniSharp/omnisharp-vim', { 'do': 'cd server && xbuild' }
+Plug 'https://gitlab.com/mixedCase/deoplete-omnisharp.git'
 
 " other apps
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -145,4 +159,4 @@ Plug 'plasticboy/vim-markdown', { 'for': 'md' }
 Plug 'suan/vim-instant-markdown'
 Plug 'zchee/deoplete-go', { 'for': 'go' }
 Plug 'zchee/deoplete-jedi', { 'for': 'python' }
-Plug 'mux-plugins/vim-tmux'
+Plug 'tmux-plugins/vim-tmux'
