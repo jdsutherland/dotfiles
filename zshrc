@@ -17,14 +17,17 @@ load_all_files_in
 # set colorscheme
 source $HOME/.colors/base16-tomorrow.dark.sh
 
+# aws
+source /usr/local/bin/aws_zsh_completer.sh
+
 # autorun tmux
-_not_inside_tmux() { [[ -z "$TMUX" ]] }
-ensure_tmux_is_running() {
-  if _not_inside_tmux; then
-    tat
-  fi
-}
-ensure_tmux_is_running
+# _not_inside_tmux() { [[ -z "$TMUX" ]] }
+# ensure_tmux_is_running() {
+#   if _not_inside_tmux; then
+#     tat
+#   fi
+# }
+# ensure_tmux_is_running
 
 # Show contents of directory after cd-ing into it
 chpwd() {
@@ -37,6 +40,12 @@ eval "$(rbenv init - --no-rehash)"
 # Variables
 export xc="/Volumes/seag8/screencasts"
 export xcp="/Volumes/seag8/screencasts/pluralsight"
+
+# truecolors
+export TERM=xterm-256color
+
+ #zsh-navigation-tools
+source /usr/local/share/zsh-navigation-tools/zsh-navigation-tools.plugin.zsh
 
 # tabtab source for yarn package
 # uninstall by removing these lines or running `tabtab uninstall yarn`

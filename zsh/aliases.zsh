@@ -8,6 +8,7 @@ if [[ -o interactive ]]; then
 
   # Arguments and pipes
   alias -g A='| ack'
+  alias -g R='| rg'
   alias -g V='| vim -'
   alias -g L='| less -r'
   alias a='ag --workers 8 --pager "less -R"'
@@ -19,13 +20,17 @@ if [[ -o interactive ]]; then
   alias fh='ag --unrestricted -g'
   alias fls='functions | ack'
   alias fw='{ alias; functions; } | fzf'
+  alias cpwd="pwd | tr -d '\n' | pbcopy"
 
   # Directories
   alias casts='cd ~/Volumes/seag8/screencasts'
-  alias dl='cd ~/Downloads'
+  alias cdl='cd ~/Downloads'
+  alias cdoc='cd ~/Documents'
   alias dev='cd ~/Development'
+  alias med='cd ~/Media'
   alias dot='cd ~/.dotfiles'
   alias drop='cd ~/Dropbox'
+  alias dockerdir='~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/'
 
   # PS
   alias psa='ps aux'
@@ -40,12 +45,14 @@ if [[ -o interactive ]]; then
   alias te='e ~/.tmux.conf'
   alias ve='e ~/.vim/init.vim'
   alias ze='e ~/.zshrc'
+  alias zenv='e ~/.zshenv'
   alias zs='source ~/.zshrc'
 
-  # Git
+  # # Git
   eval "$(hub alias -s)"
   alias amend='git commit --amend'
   alias fixgit='git config branch.master.remote origin && git config branch.master.merge refs/heads/master'
+  alias gitdbg='git ci -am 'dbg' && git pull origin master && git push origin master'
   alias ga='git add'
   alias gad='git add .'
   alias gadu='git add -u .'
@@ -59,13 +66,13 @@ if [[ -o interactive ]]; then
   alias gd='git diff'
   alias gdc='git diff --cached'
   alias gdm='git diff master'
-  alias gitdbg='git ci -am 'dbg' && git pull origin master && git push origin master'
   alias gitp='git pull origin master && git push origin master'
   alias gitundo='git commit --amend'
   alias gldr='gld --reverse'
   alias gst='git status'
   alias glf='g pb'
   alias glfr='g pba'
+  alias gldd='git log --topo-order --stat --patch --pretty=format:${_git_log_medium_format} -- . ":(exclude)*.lock"'
 
   # App
   alias ack='nocorrect ack'
@@ -93,11 +100,40 @@ if [[ -o interactive ]]; then
   alias st='speedtest'
   alias ra='ranger'
   alias h='how2'
+  alias ydl='youtube-dl'
   alias G='googler -c com -l en'
-  alias Gd='googler -c com -l en -n 4 define'
+  alias Gd='googler -c com -l en -n 3 define'
   alias G6='googler -c com -l en -t m6'
   alias Gy='googler -c com -l en -t y1'
   alias nosleep=caffeinate
+  alias t1='tree -L 1 * | less -F'
+  alias dm='docker-machine'
+  alias doc='docker'
+  alias wale='whalebrew'
+
+  # misc
+
+  alias saythai='say -v Kanya'
+
+  ## Docker
+  # Get latest container ID
+  alias dl="docker ps -l -q"
+  # Get container process
+  alias dps="docker ps"
+  # Get process included stop container
+  alias dpa="docker ps -a"
+  # Get images
+  alias di="docker images"
+  # Get container IP
+  alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
+  # Run deamonized container, e.g., $dkd base /bin/echo hello
+  alias dkd="docker run -d -P"
+  # Run interactive container, e.g., $dki base /bin/bash
+  alias dki="docker run -i -t -P"
+  # Execute interactive container, e.g., $dex base /bin/bash
+  alias dex="docker exec -i -t"
+  # Stop and Remove all containers
+  alias drmf='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
 
   # Archives
   alias uz='unarchive *zip'
@@ -110,6 +146,7 @@ if [[ -o interactive ]]; then
 
   # Yarn
   alias y='yarn'
+  alias yi='yarn install'
   alias ya='yarn add'
   alias yad='yarn add --dev'
   alias ys='yarn start'

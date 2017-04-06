@@ -42,14 +42,8 @@ export LESSOPEN="| /usr/local/bin/src-hilite-lesspipe.sh %s"
 # Show grep results in white text on a red background
 export GREP_COLOR='1;37;41'
 
-# Fzf
-# export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow -g "!{.git,node_modules}/*"'
-export FZF_DEFAULT_OPTS='--bind=J:down,K:up --reverse --ansi '
-# export FZF_CTRL_R_OPTS="--preview-window  --sort right:30% --preview 'echo {}'"
-export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden --bind '\:toggle-preview'"
-export FZF_CTRL_T_OPTS="--select-1 --exit-0"
-export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+# fzf options
+source ~/.dotfiles/zsh/fzf-config.zsh
 
 # Enable completion
 autoload -U compinit

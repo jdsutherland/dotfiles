@@ -305,7 +305,7 @@ ha() {
 
 # refresh path for disconnected drive
 ref() {
-  cd; cd -
+  cd `pwd`
 }
 
 # gets the total running time of videos recursively from the working dir
@@ -318,5 +318,59 @@ unpackvideo() {
 }
 
 unpackudc() {
-  uz && dz && detox -r * && vidtime | pbcopy && mv -n */* . && rmdir *
+  uz && dz && detox -r * && vidtime && mv -n */* . && rmdir *
 }
+
+# open clipboard link with mpv
+mp() {
+  mpv $(pbpaste) &
+}
+
+pget() {
+  cd /tmp
+  rm -rf *.magnet
+  pirate-get "$@"
+}
+
+tget() {
+  cd /tmp
+  aria2c "$(cat *.magnet)"
+}
+
+# recursively run detox to fix filenames in all dirs
+fixnames() {
+  for i in **/*;do detox $i; done
+}
+
+2digit0pad() {
+  for i in [0-9]-*; do mv "$i" "0$i"; done
+}
+
+imv() {
+  local src dst
+  for src; do
+    [[ -e $src ]] || { print -u2 "$src does not exist"; continue }
+    dst=$src
+    vared dst
+    [[ $src != $dst ]] && mkdir -p $dst:h && mv -n $src $dst
+  done
+}
+
+# google open w3m
+Gt() {
+  BROWSER=w3m googler $@
+}
+
+## Docker
+# Stop all containers
+dstop() { docker stop $(docker ps -a -q); }
+# Remove all containers
+drm() { docker rm $(docker ps -a -q); }
+# Remove all images
+dri() { docker rmi $(docker images -q); }
+# Dockerfile build, e.g., $dbu tcnksm/test 
+dbu() { docker build -t=$1 .; }
+# Show all alias related docker
+dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
+# Bash into running container
+dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }

@@ -10,6 +10,10 @@ export GOPATH=~/go
 export PATH=$PATH:$GOPATH/bin
 export PATH="/usr/local/Cellar/node/7.2.0/bin:$PATH"
 export PATH="~/.config/yarn/global/node_modules/.bin:$PATH"
+# export PATH="~/.rbenv/shims:$PATH"
+export PROMPT="$node_info[version]:$PROMPT"
+export PROMPT="$ruby_info[version]:$PROMPT"
+export PROMPT="$python_info[version]:$PROMPT"
 
 PATH="/Users/jeff/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/Users/jeff/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
