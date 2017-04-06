@@ -12,6 +12,7 @@ brew install ansiweather
 brew install aria2
 brew install battery
 brew install catimg
+brew install colormake
 brew install cheat
 brew install coreutils
 brew install detox
@@ -21,6 +22,7 @@ brew install fzf
 brew install git-secrets
 brew install gitsh
 brew install go
+brew install googler
 brew install homebrew/completions/tmuxinator-completion
 brew install htop-osx
 brew install httpie
@@ -56,8 +58,18 @@ brew install yank
 brew install z
 brew install zsh-syntax-highlighting
 
+# mpv
+brew install --without-harfbuzz libass
+brew install --with-rtmpdump --with-openssl --with-libass --with-libbs2b --with-rubberband ffmpeg
+brew install --with-vapoursynth --with-libarchive --with-bundle mpv
+brew install mvtools
+brew install ffms2
+brew install subliminal
+brew linkapps mpv
+
 brew cask install alfred2
 brew cask install dash
+brew cask install docker
 brew cask install dropbox
 brew cask install fantastical
 brew cask install flux
@@ -67,7 +79,7 @@ brew cask install google-chrome
 brew cask install google-chrome-canary
 brew cask install google-play-music-desktop-player
 brew cask install imageoptim
-brew cask install iterm2-nightly
+brew cask install iterm2-beta
 brew cask install karabiner
 brew cask install kindle
 brew cask install licecap
@@ -109,6 +121,8 @@ npm install -g castnow
 npm install -g devtool
 npm install -g git-open
 npm install -g gulp
+npm install -g howdoi
+npm install -g how2
 npm install -g hicat
 npm install -g jsctags
 npm install -g jsonlint

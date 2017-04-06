@@ -113,8 +113,35 @@
   </item>
 
   <item>
+        <name>SHIFT_R key tap alfred</name>
+        <appendix>SHIFT_R aflred</appendix>
+        <identifier>SHIFT_R-tap-aflred</identifier>
+        <!-- <not>TERMINAL</not> -->
+        <uielementrole_not>AXTextField, AXTextArea</uielementrole_not>
+        <autogen>
+            --KeyOverlaidModifier--
+            KeyCode::SHIFT_R,
+
+            KeyCode::SHIFT_R,
+            KeyCode::SPACE, ModifierFlag::OPTION_R
+        </autogen>
+  </item>
+
+  <item>
+    <name>Terminal swap to make alfred work</name>
+    <appendix>Terminal swap to make alfred</appendix>
+    <identifier>Terminal-alfred</identifier>
+    <only>TERMINAL</only>
+    <autogen>
+      __KeyToKey__
+      KeyCode::SPACE, ModifierFlag::OPTION_R,
+      KeyCode::SPACE, ModifierFlag::COMMAND_L
+    </autogen>
+  </item>
+
+  <item>
         <name>Map CMD_L-` to zoom tmux on Tap</name>
-        <appendix>CMD_L to OPT_L-` on tap</appendix>
+        <appendix>CMD_L to OPTION_L-` on tap</appendix>
         <identifier>cmd_L-`-zoom</identifier>
         <only>TERMINAL</only>
         <autogen>
