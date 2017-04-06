@@ -67,6 +67,7 @@ nnoremap <silent><M-0> :tabnext<cr>
 map <M-m> viwf.ey;Dash <C-R>"<CR>
 nnoremap <M-g> :Rg<CR>
 imap <M-u> _
+nmap <M-n> <plug>(scratch-insert-reuse)
 
 " easymotion
 nmap <space>w <M-a>w
@@ -103,6 +104,7 @@ nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(st
 nnoremap <Leader>sub :%s///g<left><left>
 vnoremap <Leader>sub :s///g<left><left>
 nnoremap <leader>wub :%s/<C-r><C-w>//gc<left><left><left>
+nnoremap <Leader>pub :cfdo %s///gc<left><left><left>
 nnoremap <cr>r :s/<C-r><C-w>//<left>
 
 " ---INSERTs---
@@ -213,7 +215,8 @@ nmap <leader>gT <Plug>TitlecaseLine
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
-" imap <c-x><c-k> <plug>(fzf-complete-word)
+" imap <c-s><c-k> <plug>(fzf-complete-word)
+inoremap <expr> <c-s><c-k> fzf#vim#complete#word({'left': '15%'})
 imap <c-s><c-f> <plug>(fzf-complete-path)
 imap <c-s><c-j> <plug>(fzf-complete-file-ag)
 imap <c-s><c-l> <plug>(fzf-complete-line)
@@ -223,8 +226,8 @@ inoremap <expr> <c-s><c-k> fzf#vim#complete#word({'left': '15%'})
 nnoremap <silent> <cr>b :FzfBuffers<CR>
 nnoremap <silent> ,ss :FzfSnippets<CR>
 nnoremap <silent> ,fw :FzfWindows<CR>
-nnoremap <silent> ,bL :FzfBLines<CR>
-nnoremap <silent> ,bl :FzfLines<CR>
+nnoremap <silent> ,bl :FzfBLines<CR>
+nnoremap <silent> ,bL :FzfLines<CR>
 nnoremap <silent> ,o :FzfBTags<CR>
 nnoremap <silent> ,O :FzfTags<CR>
 nnoremap <silent> ,ht :FzfHelptags<CR>
@@ -321,6 +324,7 @@ nmap ,cl yiwoconsole.log('<c-r>"', <c-r>");<Esc>^
 nmap <leader>\| yiWA<space>=<space><C-R>"<space>\|\|<space>
 nmap <leader>; A;<ESC>
 nmap <leader>, A,<ESC>
+nmap \| A<space>\<ESC>
 " open current file in devtool chrome debugger
 nnoremap <leader>jsd :! devtool % &<CR>
 nmap <leader>jd odebugger;<esc>^
@@ -333,6 +337,11 @@ nnoremap <M-\> :exec &conceallevel ? "set conceallevel=0" : "set conceallevel=1"
 " splitjoin
 nnoremap sj :SplitjoinSplit<cr>
 nnoremap sk :SplitjoinJoin<cr>
+
+" incsearch
+map g/  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+" map g/ <Plug>(incsearch-stay)
 
 " characterize
 nmap gA <Plug>(characterize)

@@ -114,11 +114,6 @@ let g:fzf_action = {
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit' }
 
-" [Files] Extra options for fzf
-"   e.g. File preview using Highlight
-"        (http://www.andre-simon.de/doku/highlight/en/highlight.html)
-let g:fzf_files_options =
-  \ '--preview "(highlight -O ansi {} || cat {}) 2> /dev/null | head -'.&lines.'"'
 " [Commands] --expect expression for directly executing the command
 let g:fzf_commands_expect = 'alt-enter,ctrl-s'
 
@@ -136,13 +131,16 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
+" fix black color
+hi Number ctermfg=14
+
 let g:fzf_commits_log_options =
 \ '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
 " let g:rg_command = 'rg --follow --ignore-case --column --line-number --no-heading --color -j 8 "always"  -g "*.js" -g "*.json" -g "*.php" -g "*.md" -g "*.styl" -g "*.scss" -g "*.sass" -g "*.pug" -g "*.html" -g "*.config" -g "*.py" -g "*.cpp" -g "*.c" -g "*.go" -g "*.hs" -g "*.rb" -g "*.conf" -g "*.vim" -g "*.sh" -g "*.txt" -g "!.git/**" -g "!node_modules/**" -g "!vendor/**" -g "!build/**" -g "!plugged/**" -g "!*.lock" '
 
 let g:rg_command = 'rg --hidden --follow --column --line-number --no-heading -j 8 --smart-case --color "always"
-\ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,erb,conf}"
+\ -g "*.{js,jsx,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,erb,conf,hbs}"
 \ -g "!{.git,node_modules,vendor,build,plugged,lib,dist}/*"
 \ -g "!*.{lock}" '
 
@@ -150,9 +148,28 @@ let g:rg_command = 'rg --hidden --follow --column --line-number --no-heading -j 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   g:rg_command .shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('right:50%')
-  \           : fzf#vim#with_preview('right:50%:hidden', ';'),
+  \   <bang>0 ? fzf#vim#with_preview('up:70%:hidden')
+  \           : fzf#vim#with_preview('right:50%', ';'),
   \   <bang>0)
+
+" [Files] Extra options for fzf
+"   e.g. File preview using Highlight
+"        (http://www.andre-simon.de/doku/highlight/en/highlight.html)
+let g:fzf_files_options =
+  \ '--preview "(highlight -O ansi {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+
+" fzf mru files
+command! FZFMru call fzf#run({
+\ 'source':  reverse(s:all_files()),
+\ 'sink':    'edit',
+\ 'options': '-m -x +s',
+\ 'down':    '40%' })
+function! s:all_files()
+  return extend(
+  \ filter(copy(v:oldfiles),
+  \        "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/'"),
+  \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
+endfunction
 
 "   :Ag  - Start fzf with hidden preview window that can be enabled with "?" key
 "   :Ag! - Start fzf in fullscreen and display the preview window above
@@ -161,6 +178,8 @@ command! -bang -nargs=* Rg
 "   \                 <bang>0 ? fzf#vim#with_preview('up:60%')
 "   \                         : fzf#vim#with_preview('right:50%:hidden', '\'),
 "   \                 <bang>0)
+
+
 
 " airline
 let g:airline_theme='base16_default'
@@ -252,3 +271,14 @@ let g:rappel#custom_repls = {
 \   'run': 'make debug && make gdbrun || sudo cgdb a.out',
 \ },
 \}
+
+" scratch
+let g:scratch_no_mappings = 1
+
+" autopairs
+let g:AutoPairsShortcutJump = ''
+
+" incsearch
+" let g:incsearch#auto_nohlsearch = 1
+
+let g:rooter_manual_only = 1

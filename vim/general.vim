@@ -65,17 +65,19 @@ set diffopt+=vertical
 let base16colorspace=256
 set background=dark
 " set termguicolors
-" colorscheme gruvbox
+
 colorscheme base16-tomorrow-night
+" colorscheme gruvbox
+
+" colorscheme hybrid_reverse
 " let g:hybrid_custom_term_colors = 1
 " let g:enable_bold_font = 1
-" colorscheme hybrid_reverse
 
 " Display extra whitespace
 set listchars=tab:→\ ,trail:∙,nbsp:•
 
 " Ag
-set grepprg=rv
+set grepprg=rg\ --vimgrep
 
 " persistent undo
 set undodir=~/.config/nvim/undodir

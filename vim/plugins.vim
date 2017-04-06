@@ -4,11 +4,11 @@ endfunction
 " neovim specific (probably more below... oh well)
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'Shougo/vimproc.vim'
-Plug 'benekastah/neomake'
+Plug 'neomake/neomake' | Plug 'dojoteef/neomake-autolint'
 
 " general
 " Plug 'thalesmello/vim-textobj-methodcall'
-" Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-sleuth'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'Cypher1/nvim-rappel'
 Plug 'Olical/vim-syntax-expand'
@@ -69,6 +69,21 @@ Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'vim-utils/vim-man'
 Plug 'vitalk/vim-simple-todo'
 Plug 'wellle/targets.vim'
+Plug 'wellle/tmux-complete.vim'
+Plug 'wellle/visual-split.vim'
+Plug 'mtth/scratch.vim'
+Plug 'haya14busa/incsearch.vim'
+Plug 'sunaku/vim-hicterm'
+Plug 'osyo-manga/vim-over'
+Plug 'machakann/vim-highlightedyank'
+Plug 'airblade/vim-rooter'
+Plug 'rhysd/clever-f.vim'
+Plug 'tommcdo/vim-lion'
+Plug 'mbbill/undotree'
+" Plug 'wincent/ferret'
+" https://github.com/machakann/vim-sandwich
+" https://github.com/wesQ3/vim-windowswap
+" https://github.com/fadein/vim-FIGlet
 
 " git
 Plug 'airblade/vim-gitgutter'
@@ -78,6 +93,7 @@ Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'rhysd/github-complete.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'int3/vim-extradite'
 Plug 'moll/vim-bbye'
 
 " javascript
@@ -95,7 +111,7 @@ Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'flowtype/vim-flow', { 'for': ['javascript', 'jsx'] }
 Plug 'Quramy/vim-js-pretty-template', { 'for': ['javascript', 'jsx'] }
 Plug 'bentayloruk/vim-react-es6-snippets', { 'for': ['javascript', 'jsx'] }
-Plug 'nono/vim-handlebars', { 'for': 'javascript' }
+Plug 'nono/vim-handlebars'
 " Plug 'othree/es.next.syntax.vim', { 'for': ['javascript', 'jsx'] }
 " Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'jsx'] }
 " Plug 'othree/yajs.vim', { 'for': ['javascript', 'jsx'] }
@@ -104,7 +120,8 @@ Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 
 " html/css
 " Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
-Plug 'ap/vim-css-color', { 'for': ['scss', 'less', 'css', 'eruby'] }
+" Plug 'ap/vim-css-color', { 'for': ['scss', 'less', 'css', 'eruby'] }
+Plug 'chrisbra/Colorizer'
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'mattn/emmet-vim', { 'for': ['html', 'scss', 'less', 'css', 'eruby', 'javascript', 'jsx'] }
@@ -160,3 +177,4 @@ Plug 'suan/vim-instant-markdown'
 Plug 'zchee/deoplete-go', { 'for': 'go' }
 Plug 'zchee/deoplete-jedi', { 'for': 'python' }
 Plug 'tmux-plugins/vim-tmux'
+Plug 'ekalinin/Dockerfile.vim'
