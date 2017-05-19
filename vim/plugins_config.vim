@@ -44,7 +44,7 @@ let g:lt_location_list_toggle_map = '\d'
 let g:lt_quickfix_list_toggle_map = '\\'
 
 " easymotion
-let g:EasyMotion_leader_key = '<M-a>'
+let g:EasyMotion_leader_key = '<M-u>'
 
 " greplace
 let g:grep_cmd_opts = '--line-numbers --noheading'
@@ -69,6 +69,8 @@ let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_json_enabled_makers = ['jsonlint']
 let g:neomake_python_enabled_makers = ['flake8']
 " let g:neomake_scss_enabled_makers = ['sasslint']
+let g:neomake_html_enabled_makers = ['tidy']
+let g:neomake_css_enabled_makers = ['csslint']
 let g:neomake_ruby_enabled_makers = ['rubocop']
 let g:neomake_sh_enabled_makers = ['shellcheck']
 let g:neomake_zsh_enabled_makers = ['shellcheck']
@@ -115,7 +117,7 @@ let g:fzf_action = {
   \ 'ctrl-v': 'vsplit' }
 
 " [Commands] --expect expression for directly executing the command
-let g:fzf_commands_expect = 'alt-enter,ctrl-s'
+let g:fzf_commands_expect = 'ctrl-enter,ctrl-s'
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
@@ -140,9 +142,11 @@ let g:fzf_commits_log_options =
 " let g:rg_command = 'rg --follow --ignore-case --column --line-number --no-heading --color -j 8 "always"  -g "*.js" -g "*.json" -g "*.php" -g "*.md" -g "*.styl" -g "*.scss" -g "*.sass" -g "*.pug" -g "*.html" -g "*.config" -g "*.py" -g "*.cpp" -g "*.c" -g "*.go" -g "*.hs" -g "*.rb" -g "*.conf" -g "*.vim" -g "*.sh" -g "*.txt" -g "!.git/**" -g "!node_modules/**" -g "!vendor/**" -g "!build/**" -g "!plugged/**" -g "!*.lock" '
 
 let g:rg_command = 'rg --hidden --follow --column --line-number --no-heading -j 8 --smart-case --color "always"
-\ -g "*.{js,jsx,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,erb,conf,hbs}"
 \ -g "!{.git,node_modules,vendor,build,plugged,lib,dist}/*"
-\ -g "!*.{lock}" '
+\ -g "*.{js,jsx,json,php,md,styl,jade,html,css,config,py,cpp,c,go,hs,rb,erb,conf,hbs,sh,vim}"
+\ -g "!*.{lock,min.js,swp,o,zip}" '
+
+" TODO?(if desired): whitelist of filetypes
 
 " Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
 command! -bang -nargs=* Rg
@@ -182,7 +186,7 @@ endfunction
 
 
 " airline
-let g:airline_theme='base16_default'
+" let g:airline_theme='base16_default'
 let g:airline_powerline_fonts = 1
 let g:airline_detect_modified=1
 let g:airline_detect_paste=1
@@ -192,6 +196,9 @@ let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tabline#show_close_button = 0
+let g:airline#extensions#tmuxline#enabled = 1
+let g:airline#extensions#obsession#enabled = 1
+let g:airline#extensions#obsession#indicator_text = '$'
 
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#taboo#enabled = 1
@@ -227,6 +234,20 @@ let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let g:NERDTreeWinSize = 30
 
+" clever-f
+let g:clever_f_not_overwrites_standard_mappings=1
+
+" writing
+let g:languagetool_jar = '/usr/local/Cellar/languagetool/3.6/libexec/languagetool-commandline.jar'
+let g:languagetool_lang = 'en-US'
+let g:grammarous#languagetool_cmd = 'languagetool'
+let g:lexical#thesaurus_key = '<c-s><c-t>'
+" let g:limelight_conceal_ctermfg = 'gray'
+" let g:limelight_conceal_guifg = '#777777'
+
+" rainbow
+let g:rainbow_active = 1
+
 " javascript-libraries-syntax
 let g:used_javascript_libs = 'jquery,underscore,angularjs,jasmine,chai,flux,handlebars,requirejs,sugar,ramda'
 
@@ -244,6 +265,9 @@ let g:javascript_conceal_prototype            = "¶"
 " let g:javascript_conceal_static               = "•"
 " let g:javascript_conceal_super                = "Ω"
 let g:javascript_conceal_arrow_function       = "⇒"
+
+" jsx
+let g:vim_jsx_pretty_colorful_config = 1
 
 " flow
 let g:flow#autoclose = 1
@@ -268,7 +292,8 @@ let g:rappel#custom_repls = {
 \ },
 \ 'c': {
 \   'compiler': 'gcc % -Wall -g',
-\   'run': 'make debug && make gdbrun || sudo cgdb a.out',
+\   'run': 'make debug && make dgb || sudo cgdb a.out',
+\   'launch': './a.out',
 \ },
 \}
 
@@ -282,3 +307,7 @@ let g:AutoPairsShortcutJump = ''
 " let g:incsearch#auto_nohlsearch = 1
 
 let g:rooter_manual_only = 1
+
+" conflicted
+let g:diffget_local_map = ',dgl'
+let g:diffget_upstream_map = ',dgu'

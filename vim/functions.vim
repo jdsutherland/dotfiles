@@ -11,7 +11,8 @@ endfunction
 " endfunction
 
 function! SearchWordWithRg()
-  execute 'Rg' expand('<cword>')
+  let l:word = expand('<cword>')
+  execute 'Rg' l:word
 endfunction
 
 " function! SearchVisualSelectionWithAg() range
@@ -161,6 +162,18 @@ function! s:PrettyJSON()
   set filetype=json
 endfunction
 command! PrettyJSON :call <sid>PrettyJSON()
+
+function! s:OpenTmuxGitFileFollowHistory()
+  let filepath=shellescape(expand('%'))
+  call system("tmux splitw -h -c '#{pane_current_path}' 'git log --patch --follow " . filepath . "; read'")
+endfunction
+command! OpenTmuxGitFileFollowHistory :call <sid>OpenTmuxGitFileFollowHistory()
+
+function! s:OpenTmuxGitFileFullHistory()
+  let filepath=shellescape(expand('%'))
+  call system("tmux splitw -h -c '#{pane_current_path}' 'git log --patch --full-diff " . filepath . "; read'")
+endfunction
+command! OpenTmuxGitFileFullHistory :call <sid>OpenTmuxGitFileFullHistory()
 
 " TODO - how to make this work?
 " function! ES6js()

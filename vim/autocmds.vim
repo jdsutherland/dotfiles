@@ -43,7 +43,15 @@ endfunction
 
 " spell
 autocmd BufRead,BufNewFile *.md setlocal spell complete+=kspell
+" autocmd BufRead,BufNewFile *.txt setlocal spell complete+=kspell
+autocmd BufRead,BufNewFile *.tex* setlocal spell complete+=kspell
 autocmd FileType gitcommit setlocal spell complete+=kspell
+
+" rainbow parens around cursor
+au! cursormoved * silent! call PoppyInit()
+
+" writing
+" au FileType markdown,text,tex DittoOn  " Turn on Ditto's autocmds
 
 " javascript
 " TODO: add more as needed
@@ -81,3 +89,87 @@ autocmd FileType ruby setlocal path+=lib
 " if exists('$TMUX')
 "     autocmd VimEnter * call tmuxline#set_statusline('vim_statusline_1')
 " endif
+
+" Goyo
+function! s:goyo_enter()
+  silent !tmux set status off
+  " silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  Limelight
+  " ...
+endfunction
+
+function! s:goyo_leave()
+  silent !tmux set status on
+  " silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  set showmode
+  set showcmd
+  set scrolloff=5
+  Limelight!
+  " ...
+endfunction
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+" vim-pencil - advanced init
+function! Prose()
+  call pencil#init()
+  call lexical#init()
+  call litecorrect#init()
+  call textobj#quote#init()
+  call textobj#sentence#init()
+
+  " manual reformatting shortcuts
+  nnoremap <buffer> <silent> Q gqap
+  xnoremap <buffer> <silent> Q gq
+  nnoremap <buffer> <silent> <leader>Q vapJgqap
+
+  " force top correction on most recent misspelling
+  nnoremap <buffer> <c-s> [s1z=<c-o>
+  inoremap <buffer> <c-s> <c-g>u<Esc>[s1z=`]A<c-g>u
+
+  " replace common punctuation
+  iabbrev <buffer> -- –
+  iabbrev <buffer> --- —
+  iabbrev <buffer> << «
+  iabbrev <buffer> >> »
+
+  " open most folds
+  setlocal foldlevel=6
+
+  " replace typographical quotes (reedes/vim-textobj-quote)
+  map <silent> <buffer> <leader>qc <Plug>ReplaceWithCurly
+  map <silent> <buffer> <leader>qs <Plug>ReplaceWithStraight
+
+  " highlight words (reedes/vim-wordy)
+  noremap <silent> <buffer> <F8> :<C-u>NextWordy<cr>
+  xnoremap <silent> <buffer> <F8> :<C-u>NextWordy<cr>
+  inoremap <silent> <buffer> <F8> <C-o>:NextWordy<cr>
+
+endfunction
+
+" automatically initialize buffer by file type
+autocmd FileType mkd,text call Prose()
+
+" invoke manually by command for other file types
+command! -nargs=0 Prose call Prose()
+
+" vim-pencil - high-granular
+augroup pencil
+  autocmd!
+  autocmd FileType mkd call pencil#init()
+                            \ | call litecorrect#init()
+                            \ | setl spell spl=en_us fdl=4 noru nonu nornu
+                            \ | setl fdo+=search
+  autocmd Filetype git,gitsendemail,*commit*,*COMMIT*
+                            \ | call litecorrect#init()
+                            \ | setl spell spl=en_us et sw=2 ts=2 noai
+  autocmd Filetype mail         call pencil#init({'wrap': 'hard', 'textwidth': 60})
+                            \ | call litecorrect#init()
+                            \ | setl spell spl=en_us et sw=2 ts=2 noai nonu nornu
+  autocmd Filetype html,xml     call pencil#init({'wrap': 'soft'})
+                            \ | call litecorrect#init()
+                            \ | setl spell spl=en_us et sw=2 ts=2
+augroup END

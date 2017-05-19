@@ -50,6 +50,7 @@ if exists("+spelllang")
   set spelllang=en_us
 endif
 set spellfile=~/.vim/spell/en.utf-8.add
+set thesaurus=~/.vim/spell/thesaurus/mthesaur.txt
 set noswapfile
 " Set the tag file search order
 set tags=./tags;
@@ -61,13 +62,18 @@ set splitright
 set stl+=%{ConflictedVersion()}
 set diffopt+=vertical
 
+" base16 vim
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
+
 " color
-let base16colorspace=256
-set background=dark
+" set background=dark
 " set termguicolors
 
-colorscheme base16-tomorrow-night
-" colorscheme gruvbox
+" colorscheme base16-tomorrow-night
+colorscheme base16-default-dark
 
 " colorscheme hybrid_reverse
 " let g:hybrid_custom_term_colors = 1

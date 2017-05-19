@@ -36,7 +36,8 @@ nnoremap 0 ^
 nnoremap ^ 0
 " 4 goes to end of line
 nnoremap 4 $
-nnoremap $ 4
+nnoremap $ ea<space>
+nnoremap <space>a ea<space>
 vnoremap 4 $
 vnoremap $ 4
 " move vertically by visual line
@@ -45,6 +46,7 @@ nnoremap k gk
 
 " META. NOTE: tmux uses: [b,j,l,k,p,i,p,`,E,c,C]
 " others: [a]
+inoremap <M-a> <ESC>f<space>a
 inoremap <M-s> <C-O>:FzfSnippets<CR>
 nnoremap <M-o> <C-W>p
 noremap <M-s> :FzfSnippets<CR>
@@ -67,14 +69,16 @@ nnoremap <silent><M-0> :tabnext<cr>
 map <M-m> viwf.ey;Dash <C-R>"<CR>
 nnoremap <M-g> :Rg<CR>
 imap <M-u> _
+imap <M-o> -
 nmap <M-n> <plug>(scratch-insert-reuse)
 
 " easymotion
-nmap <space>w <M-a>w
-nmap <space>b <M-a>b
-nmap <space>f <M-a>f
-nmap <space>k <M-a>k
-nmap <space>j <M-a>j
+nmap <space>w <M-u>w
+nmap <space>b <M-u>b
+nmap <space>e <M-u>e
+nmap <space>f <M-u>f
+nmap <space>k <M-u>k
+nmap <space>j <M-u>j
 
 nnoremap <cr>d :nohls<CR>
 nnoremap <silent> <space>dd :call CloseWindowOrKillBuffer()<CR>
@@ -103,8 +107,11 @@ nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(st
 " Do a / search first, then leave pattern empty in :s// to use previous
 nnoremap <Leader>sub :%s///g<left><left>
 vnoremap <Leader>sub :s///g<left><left>
+" hack to write a file that needs sudo
+nnoremap <Leader>sud :w !sudo tee %<cr>
 nnoremap <leader>wub :%s/<C-r><C-w>//gc<left><left><left>
 nnoremap <Leader>pub :cfdo %s///gc<left><left><left>
+nnoremap <cr>l :s///<left>
 nnoremap <cr>r :s/<C-r><C-w>//<left>
 
 " ---INSERTs---
@@ -146,6 +153,8 @@ noremap <c-w>/  <c-w>t<c-w>H
 " tabs
 nnoremap <silent> <space>tc :tabclose<CR>gT
 nnoremap <leader>wn :tabnew%<cr>
+nnoremap t :ZoomWinTabToggle<CR>
+nnoremap T :tabclo<cr>gT
 " Go to tab by number
 noremap <leader>1 1gt
 noremap <leader>2 2gt
@@ -226,8 +235,8 @@ inoremap <expr> <c-s><c-k> fzf#vim#complete#word({'left': '15%'})
 nnoremap <silent> <cr>b :FzfBuffers<CR>
 nnoremap <silent> ,ss :FzfSnippets<CR>
 nnoremap <silent> ,fw :FzfWindows<CR>
-nnoremap <silent> ,bl :FzfBLines<CR>
-nnoremap <silent> ,bL :FzfLines<CR>
+nnoremap <silent> ,bl :FzfLines<CR>
+nnoremap <silent> ,bL :FzfBLines<CR>
 nnoremap <silent> ,o :FzfBTags<CR>
 nnoremap <silent> ,O :FzfTags<CR>
 nnoremap <silent> ,ht :FzfHelptags<CR>
@@ -246,6 +255,10 @@ nnoremap ,af :AgFile ""<Left>
 nnoremap ,ad :Ag 'def<space>
 nnoremap <silent> ,ag :Ag <cword><CR>
 vnoremap ,ag :<C-U>execute "Ag " . GetVisual()<CR>
+
+nnoremap <space>re :RappelRepl<CR>
+nnoremap <space>rr :RappelRun<CR>
+nnoremap <space>rl :RappelLaunch<CR>
 
 " vim-resize - resizes splits
 nnoremap <silent> <left> :CmdResizeLeft<cr>
@@ -273,14 +286,23 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 " align inner indent
-nmap <cr>a viiga<space>
+nmap <cr>i viiga<space>
 " sort inner indent
 nmap <cr>s viigs
 " hack to sort and align current indent (useful css)
-nmap <cr>as viiga<space>gvgs
+nmap <cr>is viiga<space>gvgs
 
+" CR maps
 nnoremap <cr>q :VtrSendCommandToRunner<space>
-nnoremap <cr><tab> :VtrFocusRunner<cr>
+" useful for move up and down paragraph (reading w goyo)
+nnoremap <cr><tab> {kzz
+nnoremap <tab> }jzz
+" surround current line with newlines
+map <cr><space> [<space>]<space>
+map <cr>v viW
+map <cr>w ciW
+
+map <space>v bvE
 
 " visual grab entire function
 nmap <cr>j vil%
@@ -296,7 +318,7 @@ nmap <leader>bp orequire "pry"; binding.pry<esc>^
 nmap <leader>bpr orequire "pry-remote"; binding.remote_pry<esc>^
 " hack for constructor assignment
 nmap <cr>c yiWi@<esc>A<space>=<space><C-R>"<esc>
-nnoremap <cr>v :AV<cr>
+nnoremap <cr>aa :AV<cr>
 
 " test bindings
 nnoremap <silent> <space>tt :TestNearest<CR>
@@ -332,6 +354,7 @@ nmap <leader>jd odebugger;<esc>^
 nmap <cr>t yiWithis.<esc>A<space>=<space><C-R>";<esc>
 " require to import
 nnoremap r2i :<C-U>s/\(const\) \(\w*\)\s*=\srequire(\('.*'\))/import \2 from \3<CR>
+nmap g2p cvf/ffvBcPlug<space><esc>wviWS'
 nnoremap <M-\> :exec &conceallevel ? "set conceallevel=0" : "set conceallevel=1"<CR>
 
 " splitjoin
@@ -365,16 +388,30 @@ map <leader>ww ciw
 map <leader>vv viW
 map <leader>cx cxiw
 map <leader>ct ct_
-map <leader>dd daw
+map <leader>dd daW
 map <leader>da vacjd
 map <leader>df dip
-map <leader>cc cip
+map <leader>cc ,vvc
 map gy yiw
 map <cr>g griw
 " replace line with under cursor
 nmap <cr>C yiwcc<c-r>0<esc>
 nnoremap <space>- :TabooRename<space>
+nnoremap <space>2 :PrettyJSON<cr>
 nnoremap <space>3 :Autoformat<cr>
+nnoremap <space>4 :FZFMru<cr>
+nnoremap <space>5 :Rooter<cr>
+
+nmap f <Plug>(clever-f-f)
+xmap f <Plug>(clever-f-f)
+omap f <Plug>(clever-f-f)
+nmap F <Plug>(clever-f-F)
+xmap F <Plug>(clever-f-F)
+omap F <Plug>(clever-f-F)
+
+" karabiner coupled hacks
+nnoremap <M-S-z> :OpenTmuxGitFileFollowHistory<cr>
+nnoremap <M-S-x> :OpenTmuxGitFileFullHistory<cr>
 
 " ----SURROUND----
 " ,# Surround a word with #{ruby interpolation}
