@@ -15,9 +15,10 @@ export PROMPT="$node_info[version]:$PROMPT"
 export PROMPT="$ruby_info[version]:$PROMPT"
 export PROMPT="$python_info[version]:$PROMPT"
 
+export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
+
 PATH="/Users/jeff/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/Users/jeff/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
 PERL_LOCAL_LIB_ROOT="/Users/jeff/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/Users/jeff/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/jeff/perl5"; export PERL_MM_OPT;
-

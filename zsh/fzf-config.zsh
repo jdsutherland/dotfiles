@@ -28,8 +28,8 @@ export FZF_CTRL_T_OPTS="--select-1 --exit-0"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
 export FZF_DEFAULT_OPTS="
-  --bind=J:down,K:up --reverse --ansi
-  --height 40% --border
+  --reverse --ansi
+  --height 100% --border
   --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D
   --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C
   --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D

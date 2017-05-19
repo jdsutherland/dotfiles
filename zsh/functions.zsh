@@ -6,6 +6,21 @@ function -() { cd - }
 # If just doing `clip`, paste it.
 clip() { [ -t 0 ] && pbpaste || pbcopy;}
 
+fzf-vim-open() {
+  local file
+  file=$(fzf --height 100% --preview "(coderay {} || cat {}) 2> /dev/null")
+
+  if [[ -n $file ]]; then
+     </dev/tty > /dev/tty 2>&1 vim $file
+  fi
+}
+
+# open vim with preview
+vp() {
+  files=$(fzf-down-full -m --select-1 --exit-0 --preview "(coderay {} || cat {}) 2> /dev/null")
+  [[ -n "$files" ]] && vim "${files[@]}"
+}
+
 # agv - use ag and fzf to open result in vim in matching line
 agv () {
   CHOICE=$(ag --color $* | fzf -0 -1 --ansi)
@@ -104,8 +119,8 @@ ff() {
    file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
 
-# t - tree color with paging
-t() {
+# T - tree color with paging
+T() {
   tree -I 'node_modules' $1 -C | less -F
 }
 
@@ -342,6 +357,8 @@ fixnames() {
   for i in **/*;do detox $i; done
 }
 
+detoxl() { for i in *; do detox $i; done }
+
 2digit0pad() {
   for i in [0-9]-*; do mv "$i" "0$i"; done
 }
@@ -356,9 +373,34 @@ imv() {
   done
 }
 
+# mpv subtitle
+# TODO: make it not suck
+mpvs() {
+  local file="$1"
+  mpv --sub-file="$2" "$file"
+}
+
 # google open w3m
 Gt() {
   BROWSER=w3m googler $@
+}
+
+npmexport() {
+  npm list --global --parseable --depth=0 | sed '1d' | awk '{gsub(/\/.*\//,"",$1); print}' > ~/.dotfiles/Npmfile
+}
+
+fdir() {
+  find . -type d -name "*$1*" -print 2>/dev/null
+}
+
+# resumes at given index
+ydlps() {
+  youtube-dl -cio "%(autonumber)s-%(title)s.%(ext)s" --playlist-start $2 --autonumber-start $2 $1
+}
+
+# downloads playlist in medium format
+ydlpm() {
+  youtube-dl -f '(mp4)[height<1280]' -cio "%(autonumber)s-%(title)s.%(ext)s" $1
 }
 
 ## Docker
@@ -374,3 +416,35 @@ dbu() { docker build -t=$1 .; }
 dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
 # Bash into running container
 dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
+
+sth() {
+  say -v Kanya -r 140 $(trans -b :th "$@")
+}
+
+bsyncs() {
+  if [[ -z "$1" ]]; then
+    browser-sync start --server --files "$1"
+  else
+    browser-sync start --server --files "css/*.css"
+  fi
+}
+
+bsyncp() {
+  proxy_url=$1
+
+  if [[ -z "$2" ]]; then
+    browser-sync start --proxy "$proxy_url" --files "$2"
+  else
+    browser-sync start --proxy "$proxy_url" --files "css/*.css"
+  fi
+}
+
+# using rsync locally (doesn't delete by default)
+rlocal() {
+  rsync -avhW --no-compress --progress $@
+}
+
+backup-seag8-to-silver() {
+  rlocal ~/Development /Volumes/seag8silver/
+  rlocal /Volumes/seag8 /Volumes/seag8silver/seag8
+}

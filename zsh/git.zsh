@@ -29,7 +29,6 @@ fbrd() {
   branch=$(echo "$branches" | fzf +m) &&
     git branch -d $(echo "$branch" | sed "s/.* //") && fbrd
 }
-
 # fco - checkout git branch/tag
 fco() {
   local tags branches target
@@ -51,17 +50,7 @@ fcoc() {
   commit=$(echo "$commits" | fzf --tac +s +m -e) &&
   git checkout $(echo "$commit" | sed "s/ .*//")
 }
-# fshow - git commit browser
-fshow() {
-  git log --graph --color=always \
-      --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
-  fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
-      --bind "ctrl-m:execute:
-                (grep -o '[a-f0-9]\{7\}' | head -1 |
-                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
-                {}
-FZF-EOF"
-}
+
 # fcs - get git commit sha
 # example usage: git rebase -i `fcs`
 fcs() {
@@ -124,7 +113,10 @@ is_in_git_repo() {
 }
 
 fzf-down() {
-  fzf --height 50% "$@" --border
+  fzf --height 80% "$@" --border
+}
+fzf-down-full() {
+  fzf --height 100% "$@" --border
 }
 
 # file
@@ -132,7 +124,7 @@ fzf-gitfile() {
   is_in_git_repo || return
   git -c color.status=always status --short |
   fzf-down -m --ansi --nth 2..,.. \
-    --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1}) | head -500' |
+    --preview '(git diff --color=always --format="" -- {-1} | diff-so-fancy | sed 1,4d; cat {-1}) | head -500' |
   cut -c4- | sed 's/.* -> //'
 }
 
@@ -151,7 +143,7 @@ fzf-gittag() {
   is_in_git_repo || return
   git tag --sort -version:refname |
   fzf-down --multi --preview-window right:70% \
-    --preview 'git show --color=always {} | head -'$LINES
+    --preview 'git show --color=always --format="" {} | diff-so-fancy | head -'$LINES
 }
 
 # remote
@@ -167,14 +159,14 @@ fzf-gitremote() {
 fzf-githash() {
   is_in_git_repo || return
   git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
-  fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
-    --header 'Press CTRL-S to toggle sort' \
-    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -'$LINES |
+  fzf-down-full --ansi --no-sort --reverse --multi --bind 'ctrl-o:toggle-sort' \
+    --header 'Press CTRL-O to toggle sort' \
+    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always --notes | diff-so-fancy | head -'$LINES |
   grep -o "[a-f0-9]\{7,\}"
 }
+
 # -------------
 # end GIT fzf
-
 
 fzshow() {  
   hash=$(git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |  fzf | awk '{print $1}')

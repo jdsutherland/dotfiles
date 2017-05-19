@@ -36,8 +36,8 @@ KEYTIMEOUT=1
 # M - Longer prompt
 # R - handle ASCII color escapes
 # X - Don't send clear screen signal
+export LESSOPEN="| src-hilite-lesspipe.sh %s"
 export LESS="ij.5FKMRX"
-export LESSOPEN="| /usr/local/bin/src-hilite-lesspipe.sh %s"
 
 # Show grep results in white text on a red background
 export GREP_COLOR='1;37;41'
