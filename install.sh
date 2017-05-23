@@ -16,10 +16,12 @@ set -euo pipefail
 # *copy plists (from Dropbox)
 # *you to manually config licenses (alfred, dash, totalspaces2, ynab, pia vpn) ((via lastpass))
 
+# colors
 white='\033[0;37m'
 green='\033[0;32m'
 blue='\033[0;34m'
 magenta='\033[0;35m'
+cyan='\033[0;36m'
 
 #  Reset text attributes to normal
 alias Reset="tput sgr0"
@@ -35,7 +37,7 @@ cecho() {
 
 print_action_notification() {
   echo
-  echo "Action: $*"
+  cecho "Action: $*..." "$cyan"
   echo
 }
 
@@ -58,13 +60,18 @@ _get_base16_shell_colors() {
   git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
 }
 
-# iterm config
 # TODO: not sure if plist will make render this unnecessary
+# iterm config
 # get and set font: https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Inconsolata/complete
 # set CMD_L to be OPT_L (can map meta keys in vim/tmux)
 
-# karabiner set key repeat 225/20
 # TODO: not sure if plist will make render this unnecessary
+# karabiner set key repeat 225/20
+
+_setup_karabiner() {
+  print_action_notification "symlinking karabiner"
+  ln -s ~/.dotfiles/karabiner/private.xml ~/Library/Application\ Support/Karabiner/private.xml
+}
 
 _setup_neovim() {
   print_action_notification "neovim setup"
@@ -216,6 +223,8 @@ main_prompt() {
   cecho "===================================================" "$white"
   cecho " Reminder: You might need to install weechat scripts (see weechat/README.md)" "$magenta"
   cecho "===================================================" "$white"
+
+  _setup_karabiner
 
   echo
   echo "Finished"
