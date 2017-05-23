@@ -61,10 +61,10 @@ _install_npmfile() {
 install_package_files() {
   echo "Installing packages from $path"
   echo
-  # _install_brewfile
-  # _install_pipfile
-  # _install_gemfile
-  # _install_gofile
+  _install_brewfile
+  _install_pipfile
+  _install_gemfile
+  _install_gofile
   _install_npmfile
   echo
   echo "Finished installing packages from $path"
