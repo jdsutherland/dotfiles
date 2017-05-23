@@ -1,6 +1,6 @@
 [user]
   name = Jeff Sutherland
-  email = jdsuther@asu.edu
+  email = jeffdsuth@gmail.com
 [color]
   ui = true
 [alias]
@@ -51,6 +51,7 @@
   rpo = remote prune origin
   sal = !git sla # Accepting that I will continue to mistype this
   sdot = status . --short --branch
+  search = log -S
   si = status --ignored
   sl = log --oneline --decorate --graph -20
   sla = log --oneline --decorate --graph --all -20
@@ -62,9 +63,10 @@
   uncommit = reset --soft HEAD^
   unreleased = !git l production/master..master
   unstage = reset
-  upstream = rev-parse --abbrev-ref --symbolic-full-name @{u}
+  upstream = rev-parse --abbrev-ref --symbolic-full-name @{upstream}
   ureset = !git upstream && git reset --hard $(git upstream)
   vdf = difftool
+  vv = branch -vv
 
 	pam= !BRANCH=`git recent | fzf` && git checkout ${BRANCH}
 	pamadd= !FILES=`git status -s | awk '{ print $2 }' | fzf -x -m` && git add --all ${FILES}
@@ -76,11 +78,11 @@
 	pamgrep= !sh -c 'FILES=`git grep -l -A 0 -B 0 $1 $2 | fzf -x -m` && vim `echo ${FILES} | cut -d':' -f1 | xargs`' -
 	pamvimlog= !HASH=`git log --pretty=oneline | head -n 50 | fzf` && HASHZ=`echo ${HASH} | awk '{ print $1 }'` && FILES=`git show --pretty='format:'  --name-only $HASHZ | fzf -x -m` && vim ${FILES}
 	pamreset= !HASH=`git log --pretty=oneline | head -n 50 | fzf` && git reset --soft `echo ${HASH} | awk '{ print $1 }'`^
+	lastchange = log -p --follow -n 1
 [core]
   excludesfile = ~/.gitignore
-  pager = less -X
   editor = "nvim"
-  pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
 [pager]
     diff = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
 [push]
@@ -111,10 +113,21 @@
 	modified = red
 [help]
   autocorrect = 1
+[color]
+	ui = always
+[color "diff"]
+	meta = yellow bold
+	commit = green bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
 [color "diff-highlight"]
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
 	oldNormal = red bold
+	oldHighlight = "red bold 52"
+	newNormal = "green bold"
+	newHighlight = "green bold 22"
 [diff-so-fancy]
 	markEmptyLines = false
+[init]
+	templatedir = /Users/jeff/.git-templates

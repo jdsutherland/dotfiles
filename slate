@@ -112,7 +112,7 @@ bind q:${hyper}     focus 'Dash'
 bind g:${hyper}     focus 'Finder'
 bind p:${hyper}     focus 'Preview'
 bind m:${hyper}     focus ${music}
-# bind e:${hyper}     focus ${email}
+bind e:${hyper}     focus ${email}
 bind e:${hyper}     focus 'Electron'
 bind v:${hyper}     focus 'mpv'
 # NOTE: mapped the following in Karabiner (doesn't work here)

@@ -1,1 +1,1 @@
-EXCLUDES="README.md tags karabiner install-script.sh"
+EXCLUDES="README.md karabiner install.sh osx.sh packages reference"

@@ -16,3 +16,4 @@ Thumbs.db*
 log/
 .tern-port
 node_modules/
+Session.vim
