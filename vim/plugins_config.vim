@@ -244,6 +244,20 @@ let g:grammarous#languagetool_cmd = 'languagetool'
 let g:lexical#thesaurus_key = '<c-s><c-t>'
 " let g:limelight_conceal_ctermfg = 'gray'
 " let g:limelight_conceal_guifg = '#777777'
+" let g:thematic#themes = {
+" \ 'tomorrow_dark':{ 'colorscheme': 'base16-tomorrow-night',
+" \                 'background': 'dark',
+" \                 'airline-theme': 'base16_default',
+" \                },
+" \ 'harmonic_dark':{ 'colorscheme': 'base16-harmonic-dark',
+" \                 'background': 'dark',
+" \                 'airline-theme': 'base16_default',
+" \                },
+" \ 'solarized_light':{ 'colorscheme': 'base16-solarized-light',
+" \                 'background': 'light',
+" \                 'airline-theme': 'base16_solarized',
+" \                },
+" \ }
 
 " rainbow
 let g:rainbow_active = 1

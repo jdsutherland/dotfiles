@@ -397,7 +397,8 @@ map <cr>g griw
 " replace line with under cursor
 nmap <cr>C yiwcc<c-r>0<esc>
 nnoremap <space>- :TabooRename<space>
-nnoremap <space>2 :PrettyJSON<cr>
+nnoremap <space>1 :PrettyJSON<cr>
+nnoremap <space>2 :Goyo<cr>
 nnoremap <space>3 :Autoformat<cr>
 nnoremap <space>4 :FZFMru<cr>
 nnoremap <space>5 :Rooter<cr>

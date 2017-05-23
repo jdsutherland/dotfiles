@@ -47,7 +47,6 @@ Plug 'majutsushi/tagbar'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'rondale-sc/vim-spacejam'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'ryanoasis/vim-devicons' " file drawer
 Plug 'sickill/vim-pasta'
 Plug 'skwp/greplace.vim'
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -87,6 +86,9 @@ Plug 'bounceme/poppy.vim'
 Plug 'troydm/zoomwintab.vim'
 Plug 'google/vim-searchindex'
 Plug 'triglav/vim-visual-increment'
+Plug 'mattboehm/vim-unstack'
+Plug 'mattboehm/vim-accordion'
+
 " Plug 'wincent/ferret'
 " https://github.com/wesQ3/vim-windowswap
 " https://github.com/fadein/vim-FIGlet
@@ -172,6 +174,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'chriskempson/base16-vim'
 Plug 'edkolev/tmuxline.vim'
+Plug 'powerman/vim-plugin-AnsiEsc'
 
 " c
 Plug 'Shougo/neoinclude.vim', { 'for': ['c', 'cpp'] }
@@ -189,7 +192,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'rizzatti/dash.vim'
 Plug 'blindFS/vim-taskwarrior'
-" Plug 'rking/ag.vim'
+" Plug 'vimwiki/vimwiki' | Plug 'tbabej/taskwiki'
 
 " misc lang
 Plug 'exu/pgsql.vim', { 'for': 'sql' }

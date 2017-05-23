@@ -206,8 +206,6 @@ s3
 aws
 stdin
 CTRL
-vim
-vim
 struct
 ESLint
 Rubocop
@@ -228,3 +226,10 @@ OOP
 add
 linux
 zsh
+symlink
+karabiner
+weechat
+mpv
+OSX
+osx
+vim
