@@ -36,6 +36,8 @@ if [[ -o interactive ]]; then
   alias cdl='cd ~/Downloads'
   alias cdoc='cd ~/Documents'
   alias dev='cd ~/Development'
+  alias proj='cd ~/Development/Projects'
+  alias interview='cd ~/Development/Interview'
   alias oss='cd ~/Development/OSS'
   alias tutorials='cd ~/Development/Tutorials'
   alias med='cd ~/Media'
@@ -58,6 +60,7 @@ if [[ -o interactive ]]; then
   alias te='e ~/.dotfiles/tmux.conf'
   alias ve='e ~/.dotfiles/vim/init.vim'
   alias ze='e ~/.dotfiles/zshrc'
+  alias sshe='e ~/.ssh/config'
   alias zenv='e ~/.dotfiles/zshenv'
   alias zs='source ~/.zshrc'
 
@@ -102,7 +105,7 @@ if [[ -o interactive ]]; then
   alias jtag='find . -type f -iregex ".*\.js$" -not -path "./node_modules/*" -exec jsctags {} -f \; | sed "/^$/d" | sort > tags'
   alias f60='find -mmin -60'
   alias ls='ls -F'
-  alias lnew='ls -tl | head 20'
+  alias lnew='ls -tl | head -n 20'
   alias nvimu='brew reinstall --HEAD neovim'
   alias rr='rails'
   alias tidyh='tidy -config ~/.tidy.conf'
@@ -135,11 +138,14 @@ if [[ -o interactive ]]; then
   alias wale='whalebrew'
   alias brewa='brewu && brewc && caskc'
   alias syt='mpsyt'
+  alias you='mpsyt'
   alias npmimport='xargs npm install --global < ~/.dotfiles/Npmfile'
   alias tmuxr='tmux rename-session'
   alias fb='fb-messenger-cli'
   alias tasks='task list'
-  alias t='task list'
+  alias t='task'
+  alias ta='task add'
+  alias tw='timew'
 
   # misc
 
@@ -181,7 +187,6 @@ if [[ -o interactive ]]; then
   alias yad='yarn add --dev'
   alias ys='yarn start'
   alias yt='yarn test'
-  alias yu='curl -o- -L https://yarnpkg.com/install.sh | bash'
 
   # Common misspellings
   alias wwhich='which'

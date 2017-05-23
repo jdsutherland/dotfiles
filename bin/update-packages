@@ -40,3 +40,5 @@ update_all_global_packages() {
   echo "Updates complete"
 }
 
+update_all_global_packages
+

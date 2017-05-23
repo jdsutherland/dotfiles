@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# speaks thai using `translate-shell`
+
+say -v Kanya -r 140 "$(trans -b :th "$@")"

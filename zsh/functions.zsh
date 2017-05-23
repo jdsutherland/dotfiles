@@ -421,24 +421,6 @@ sth() {
   say -v Kanya -r 140 $(trans -b :th "$@")
 }
 
-bsyncs() {
-  if [[ -z "$1" ]]; then
-    browser-sync start --server --files "$1"
-  else
-    browser-sync start --server --files "css/*.css"
-  fi
-}
-
-bsyncp() {
-  proxy_url=$1
-
-  if [[ -z "$2" ]]; then
-    browser-sync start --proxy "$proxy_url" --files "$2"
-  else
-    browser-sync start --proxy "$proxy_url" --files "css/*.css"
-  fi
-}
-
 # using rsync locally (doesn't delete by default)
 rlocal() {
   rsync -avhW --no-compress --progress $@
@@ -448,3 +430,4 @@ backup-seag8-to-silver() {
   rlocal ~/Development /Volumes/seag8silver/
   rlocal /Volumes/seag8 /Volumes/seag8silver/seag8
 }
+
