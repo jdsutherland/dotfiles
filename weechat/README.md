@@ -1,3 +1,6 @@
+
+
+
 ```
 /script install buffers.pl buffer_autoclose.py iset.pl go.py colorize_nicks.py vimode.py iset.pl histsearch.py nickregain.pl shortenurl.py colorize_lines.pl highmon.pl autosort.py
 
@@ -64,4 +67,5 @@
 
 https://hackernoon.com/my-weechat-plugins-9278fe4783c
 http://zanshin.net/2015/01/10/a-guide-for-setting-up-weechat-and-bitlbee/
+https://gist.github.com/pascalpoitras/8406501
 https://github.com/sindresorhus/weechat-notification-center
