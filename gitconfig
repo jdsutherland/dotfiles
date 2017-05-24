@@ -88,10 +88,7 @@
 [push]
   default = upstream
 [merge]
-  tool = fugitive
   ff = only
-[mergetool "fugitive"]
-  cmd = vim -f -c \"Gvdiff\" \"$MERGED\"
 [credential]
   helper = osxkeychain
 [rerere]
