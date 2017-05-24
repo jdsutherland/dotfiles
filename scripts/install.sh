@@ -86,9 +86,11 @@ _setup_neovim() {
   curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-  # symlink neovim rc
-  mkdir ~/.config/nvim
-  ln -sf "$dotfiles_path/vim/init.vim" ~/.config/nvim/init.vim
+  # symlink to neovim dir
+  mkdir -p ~/.config/nvim
+  for f in $dotfiles_path/vim/* ; do
+    ln -sf "$f" "$HOME/.config/nvim/${f##*/}"
+  done
 }
 
 

@@ -18,7 +18,7 @@ Plug 'AndrewRadev/switch.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'FooSoft/vim-argwrap'
 Plug 'PeterRincker/vim-argumentative'
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips' | Plug 'jdsutherland/vim-snippets'
 Plug 'Valloric/ListToggle'
 Plug 'breuckelen/vim-resize'
 Plug 'bronson/vim-visual-star-search'
@@ -172,8 +172,8 @@ Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'eruby', 'yaml'] }
 " style/color
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'chriskempson/base16-vim'
-Plug 'edkolev/tmuxline.vim'
+Plug 'jdsutherland/base16-vim'
+Plug 'jdsutherland/tmuxline.vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
 
 " c
