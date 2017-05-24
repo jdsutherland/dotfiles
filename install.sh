@@ -92,7 +92,8 @@ _setup_neovim() {
 # fix for: zsh compinit: insecure directories, run compaudit for list.
 # http://stackoverflow.com/questions/13762280/zsh-compinit-insecure-directories
 _fix_zsh_compinit_error() {
-  cd /usr/local/share/zsh || exit
+  cd /usr/local/share/
+  sudo chmod -R 755 zsh
   sudo chown -R root:staff zsh
 }
 
