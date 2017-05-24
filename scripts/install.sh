@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+
 set -euo pipefail
 
 # install.sh - intended to be run on fresh install of osx 10.11 (not macOS)
@@ -15,6 +16,8 @@ set -euo pipefail
 # *neovim setup
 # *copy plists (from Dropbox)
 # *you to manually config licenses (alfred, dash, totalspaces2, ynab, pia vpn) ((via lastpass))
+
+dotfiles_path="$HOME/.dotfiles"
 
 # colors
 white='\033[0;37m'
@@ -70,7 +73,7 @@ _get_base16_shell_colors() {
 
 _setup_karabiner() {
   print_action_notification "symlinking karabiner"
-  ln -s ~/.dotfiles/karabiner/private.xml ~/Library/Application\ Support/Karabiner/private.xml
+  ln -s "$dotfiles_path/karabiner/private.xml" ~/Library/Application\ Support/Karabiner/private.xml
 }
 
 _setup_neovim() {
@@ -85,7 +88,7 @@ _setup_neovim() {
 
   # symlink neovim rc
   mkdir ~/.config/nvim
-  ln -sf ~/.dotfiles/vim/init.vim ~/.config/nvim/init.vim
+  ln -sf "$dotfiles_path/vim/init.vim" ~/.config/nvim/init.vim
 }
 
 
@@ -95,6 +98,7 @@ _fix_zsh_compinit_error() {
   cd /usr/local/share/
   sudo chmod -R 755 zsh
   sudo chown -R root:staff zsh
+  popd
 }
 
 _setup_gopath() {
@@ -151,7 +155,7 @@ main_prompt() {
   case $response in
     [yY])
       print_action_notification "osx config script"
-      ./osx.sh
+      "$dotfiles_path/scripts/osx.sh"
   esac
 
   echo
@@ -162,7 +166,7 @@ main_prompt() {
   case $response in
     [yY])
       print_action_notification "packages"
-      packages/install-package-files.sh
+      "$dotfiles_path/packages/install_package_files.sh"
   esac
 
   echo

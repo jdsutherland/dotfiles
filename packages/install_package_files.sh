@@ -53,8 +53,7 @@ _install_npmfile() {
   while read -r line || [[ -n $line ]]; do
     echo "$line"
     echo
-    # TODO: some fail with yarn -- use npm instead (put in main script?)
-    sudo yarn global add "$line"
+    sudo npm install -g "$line"
   done < "$path/$npmfile"
 }
 
