@@ -431,3 +431,9 @@ backup-seag8-to-silver() {
   rlocal /Volumes/seag8 /Volumes/seag8silver/seag8
 }
 
+bo() {
+  book_title=$1
+  take $book_title
+  pbpaste | pup '#text' | pandoc -f html --to markdown_github -o "$book_title.md"
+  popd
+}

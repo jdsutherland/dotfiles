@@ -58,3 +58,6 @@ source ~/.private/private.sh
 [[ -f /usr/local/lib/node_modules/yarn-completions/node_modules/tabtab/.completions/yarn.zsh ]] && . /usr/local/lib/node_modules/yarn-completions/node_modules/tabtab/.completions/yarn.zsh
 /usr/local/bin/git-tip
 export PATH="/usr/local/opt/curl/bin:$PATH"
+
+autoload -U promptinit; promptinit
+prompt purer

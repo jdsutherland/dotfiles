@@ -1,0 +1,31 @@
+render r
+next_img n Right space
+prev_img p Left BackSpace
+
+jump_fwd T Next
+jump_back H Prior
+
+remove     d   Delete
+delete   C-d C-Delete
+
+scroll_up    C-k C-Up
+scroll_down  C-j C-Down
+scroll_left  C-h C-Left
+scroll_right C-l C-Right
+
+zoom_in  C-i i
+zoom_out C-o o
+zoom_default C-u
+zoom_fit a
+
+toggle_actions   l
+toggle_filenames f
+
+save_image
+save_filelist
+
+menu_parent N Left
+menu_child s Right
+menu_down t Down
+menu_up h Up
+menu_select Return space
