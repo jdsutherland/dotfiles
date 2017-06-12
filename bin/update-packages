@@ -3,11 +3,11 @@
 set -euo pipefail
 
 update_all_pip() {
-  sudo pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+  sudo pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip install -U
 }
 
 update_all_pip3() {
-  sudo pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+  sudo pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip install -U
 }
 
 update_all_go() {
@@ -30,12 +30,48 @@ update_all_gems() {
 }
 
 update_all_global_packages() {
-  echo "Updating all packages for: pip, pip3, go, yarn, and rubygems"
+  echo "Update all packages for: pip, pip3, go, yarn, and rubygems"
   echo
-  update_all_pip
-  update_all_pip3
-  update_all_yarn
-  update_all_gems
+
+  echo "Update pip?"
+  read -r response
+  case $response in
+    [yY])
+      update_all_pip
+  esac
+
+  echo
+  echo "Update pip3?"
+  read -r response
+  case $response in
+    [yY])
+      update_all_pip3
+  esac
+
+  echo
+  echo "Update yarn?"
+  read -r response
+  case $response in
+    [yY])
+      update_all_yarn
+  esac
+
+  echo
+  echo "Update npm?"
+  read -r response
+  case $response in
+    [yY])
+      update_all_npm
+  esac
+
+  echo
+  echo "Update gems?"
+  read -r response
+  case $response in
+    [yY])
+      update_all_gems
+  esac
+
   echo
   echo "Updates complete"
 }

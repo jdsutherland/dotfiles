@@ -19,7 +19,7 @@ pull_forked() {
 
 pull_nonforked() {
   echo 
-  cd "$HOME/.config/base16-shell" && git pull --rebase
+  cd "$HOME/.config/base16-shell" && git pull --rebase origin master
 }
 
 pull_forked
