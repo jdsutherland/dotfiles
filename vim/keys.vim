@@ -37,6 +37,8 @@ nnoremap ^ 0
 " 4 goes to end of line
 nnoremap 4 $
 nnoremap $ ea<space>
+" insert argument (uses argumentative)
+nmap <leader>aa ],i,<space>
 nnoremap <space>a ea<space>
 vnoremap 4 $
 vnoremap $ 4
@@ -48,7 +50,6 @@ nnoremap k gk
 " others: [a]
 inoremap <M-a> <ESC>f<space>a
 inoremap <M-s> <C-O>:FzfSnippets<CR>
-nnoremap <M-o> <C-W>p
 noremap <M-s> :FzfSnippets<CR>
 nnoremap <M-e> :VtrFocusRunner<cr>
 " delete a chunk
@@ -226,6 +227,7 @@ xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 " imap <c-s><c-k> <plug>(fzf-complete-word)
 inoremap <expr> <c-s><c-k> fzf#vim#complete#word({'left': '15%'})
+" inoremap <expr> <c-x><c-h> fzf#complete('cat ~/.vim/spell/thesaurus/mthesaur.txt')
 imap <c-s><c-f> <plug>(fzf-complete-path)
 imap <c-s><c-j> <plug>(fzf-complete-file-ag)
 imap <c-s><c-l> <plug>(fzf-complete-line)
@@ -399,9 +401,12 @@ nmap <cr>C yiwcc<c-r>0<esc>
 nnoremap <space>- :TabooRename<space>
 nnoremap <space>1 :PrettyJSON<cr>
 nnoremap <space>2 :Goyo<cr>
-nnoremap <space>3 :Autoformat<cr>
-nnoremap <space>4 :FZFMru<cr>
-nnoremap <space>5 :Rooter<cr>
+nnoremap <space>3 :MarkedOpen<cr>
+nnoremap <space>4 :Autoformat<cr>
+nnoremap <space>5 :FZFMru<cr>
+nnoremap <space>6 :Rooter<cr>
+nnoremap <space>7 :ALEFix<cr>
+nnoremap <space>8 :ALEFixSuggest<cr>
 
 nmap f <Plug>(clever-f-f)
 xmap f <Plug>(clever-f-f)
@@ -448,3 +453,6 @@ vmap ,{ c{<C-R>"}<ESC>
 
 map ,` ysiw`
 map ,<space> ysiw<space><space>
+
+" paste system clip without added newline above
+nmap cvv cvgpO<esc>kdd

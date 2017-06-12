@@ -3,13 +3,6 @@ autocmd VimResized * :wincmd =
 " autosave when lose focus
 autocmd BufLeave,FocusLost * silent! wall
 
-" run neomake on every save
-autocmd! BufWritePost * silent! Neomake
-autocmd! QuitPre * let g:neomake_verbose = 0
-" TODO: why doesn't this work?
-" strip whitespace on every save
-" autocmd! BufWritePost * call StripTrailingWhitespaces()
-
 " Execute macro in q
 autocmd FileType vim setlocal keywordprg=:help " Open vim help under cursor
 
@@ -48,7 +41,7 @@ autocmd BufRead,BufNewFile *.tex* setlocal spell complete+=kspell
 autocmd FileType gitcommit setlocal spell complete+=kspell
 
 " rainbow parens around cursor
-au! cursormoved * silent! call PoppyInit()
+" au! cursormoved * silent! call PoppyInit()
 
 " writing
 " au FileType markdown,text,tex DittoOn  " Turn on Ditto's autocmds
@@ -84,11 +77,6 @@ augroup rubypath
   autocmd FileType ruby setlocal suffixesadd+=.rb
 augroup END
 autocmd FileType ruby setlocal path+=lib
-
-" tmuxline truecolor fix?
-" if exists('$TMUX')
-"     autocmd VimEnter * call tmuxline#set_statusline('vim_statusline_1')
-" endif
 
 " Goyo
 function! s:goyo_enter()

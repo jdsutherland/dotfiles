@@ -4,7 +4,7 @@ endfunction
 " neovim specific (probably more below... oh well)
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'Shougo/vimproc.vim'
-Plug 'neomake/neomake' | Plug 'dojoteef/neomake-autolint'
+Plug 'w0rp/ale'
 
 " general
 " Plug 'thalesmello/vim-textobj-methodcall'
@@ -88,6 +88,8 @@ Plug 'google/vim-searchindex'
 Plug 'triglav/vim-visual-increment'
 Plug 'mattboehm/vim-unstack'
 Plug 'mattboehm/vim-accordion'
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'duff/vim-ddldbl'
 
 " Plug 'wincent/ferret'
 " https://github.com/wesQ3/vim-windowswap
@@ -108,6 +110,7 @@ Plug 'dbmrq/vim-ditto'
 Plug 'reedes/vim-wordy'
 Plug 'rhysd/vim-grammarous'
 Plug 'reedes/vim-lexical'
+Plug 'Ron89/thesaurus_query.vim'
 Plug 'reedes/vim-litecorrect'
 
 " Plug 'dpelle/vim-LanguageTool'
@@ -128,10 +131,10 @@ Plug 'junegunn/vim-github-dashboard'
 Plug 'google/vim-searchindex'
 
 " javascript
+Plug 'sindresorhus/vim-xo'
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug '1995eaton/vim-better-javascript-completion', { 'for': ['javascript', 'jsx'] }
-Plug 'benjie/neomake-local-eslint.vim', { 'for': 'javascript' }
 Plug 'nikvdp/ejs-syntax', { 'for': 'ejs' }
 " Plug 'burnettk/vim-angular', { 'for': 'javascript' }
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install --global tern' }
@@ -195,11 +198,13 @@ Plug 'blindFS/vim-taskwarrior'
 " Plug 'vimwiki/vimwiki' | Plug 'tbabej/taskwiki'
 
 " misc lang
-Plug 'exu/pgsql.vim', { 'for': 'sql' }
+Plug 'exu/pgsql.vim'
+Plug 'mattn/vdbi-vim'
+Plug 'vim-scripts/dbext.vim'
 Plug 'moskytw/nginx-contrib-vim'
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'plasticboy/vim-markdown', { 'for': 'md' }
-Plug 'suan/vim-instant-markdown'
+Plug 'itspriddle/vim-marked'
 Plug 'zchee/deoplete-go', { 'for': 'go' }
 Plug 'zchee/deoplete-jedi', { 'for': 'python' }
 Plug 'tmux-plugins/vim-tmux'

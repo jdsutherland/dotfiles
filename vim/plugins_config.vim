@@ -49,31 +49,52 @@ let g:EasyMotion_leader_key = '<M-u>'
 " greplace
 let g:grep_cmd_opts = '--line-numbers --noheading'
 
-" neomake
-" let g:neomake_open_list = 2
-let g:neomake_list_height = 3
-let g:neomake_warning_sign = {
-    \ 'text': '⚠',
-    \ 'texthl': 'ErrorMsg',
-    \ }
-let g:neomake_error_sign = {
-    \ 'text': '✗',
-    \ 'texthl': 'ErrorMsg',
-    \ }
-let g:neomake_verbose = 3
+" poppy - rainbow parens
+augroup Poppy
+  au!
+augroup END
+nnoremap <silent><leader>\  :call clearmatches() \| let g:poppy = -get(g:,'poppy',-1) \|
+      \ exe 'au! Poppy CursorMoved *' . (g:poppy > 0 ? ' call PoppyInit()' : '') <cr>
 
-" let g:neomake_javascript_eslint_exe = 'eslint_d'
-let g:neomake_javascript_enabled_makers = ['eslint']
+" ale linting
+let g:ale_fixers = {}
+let g:ale_linters = {
+      \ 'javascript': ['eslint', 'flow']
+      \ }
+let g:ale_fixers.javascript = ['prettier', 'eslint']
+let g:ale_javascript_prettier_options = '--no-bracket-spacing --single-quote'
 
-" let g:neomake_c_enabled_makers = ['clang']
-let g:neomake_json_enabled_makers = ['jsonlint']
-let g:neomake_python_enabled_makers = ['flake8']
-" let g:neomake_scss_enabled_makers = ['sasslint']
-let g:neomake_html_enabled_makers = ['tidy']
-let g:neomake_css_enabled_makers = ['csslint']
-let g:neomake_ruby_enabled_makers = ['rubocop']
-let g:neomake_sh_enabled_makers = ['shellcheck']
-let g:neomake_zsh_enabled_makers = ['shellcheck']
+let g:ale_fixers.python = [
+      \ 'remove_trailing_lines',
+      \ 'add_blank_lines_for_python_control_statements',
+      \ 'isort',
+      \ 'autopep8',
+      \ 'yapf']
+
+" TODO do i want this?
+let g:ale_ruby_rubocop_options = '--rails --display-style-guide'
+
+nmap <silent> [r <Plug>(ale_previous_wrap)
+nmap <silent> ]r <Plug>(ale_next_wrap)
+" Linting on all changes felt too aggressive. The below settings calls lint on
+" certain events, either when I stop interacting or when entering / leaving
+" insert mode
+set updatetime=1000
+autocmd CursorHold * call ale#Lint()
+autocmd CursorHoldI * call ale#Lint()
+autocmd InsertLeave * call ale#Lint()
+autocmd TextChanged * call ale#Lint()
+let g:ale_lint_on_text_changed = 0
+let g:ale_linter_aliases = {
+      \ 'zsh': 'sh'
+      \ }
+let g:ale_sign_error = '●'
+let g:ale_sign_warning = '.'
+
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '']
+set statusline+=%=
+set statusline+=\ %{ALEGetStatusLine()}
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 " omnisharp - dotnet
 let g:OmniSharp_selector_ui = 'fzf'    " Use fzf.vim
@@ -86,7 +107,6 @@ let g:monster#completion#rcodetools#backend = "async_rct_complete"
 let g:deoplete#sources#omni#input_patterns = {
 \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
 \}
-
 
 " ruby textobj
 let g:textobj_ruby_more_mappings = 1
@@ -207,6 +227,15 @@ let g:airline#extensions#hunks#enabled = 1
 let g:airline#extensions#hunks#non_zero_only = 1
 " display root buffer/filename instead of full path
 let g:airline_section_c = '%t'
+let g:airline_skip_empty_sections = 1
+
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#right_sep = ''
+let g:airline#extensions#tabline#right_alt_sep = ''
 
 " vim-todo
 let g:simple_todo_map_keys = 0
@@ -241,23 +270,11 @@ let g:clever_f_not_overwrites_standard_mappings=1
 let g:languagetool_jar = '/usr/local/Cellar/languagetool/3.6/libexec/languagetool-commandline.jar'
 let g:languagetool_lang = 'en-US'
 let g:grammarous#languagetool_cmd = 'languagetool'
-let g:lexical#thesaurus_key = '<c-s><c-t>'
-" let g:limelight_conceal_ctermfg = 'gray'
-" let g:limelight_conceal_guifg = '#777777'
-" let g:thematic#themes = {
-" \ 'tomorrow_dark':{ 'colorscheme': 'base16-tomorrow-night',
-" \                 'background': 'dark',
-" \                 'airline-theme': 'base16_default',
-" \                },
-" \ 'harmonic_dark':{ 'colorscheme': 'base16-harmonic-dark',
-" \                 'background': 'dark',
-" \                 'airline-theme': 'base16_default',
-" \                },
-" \ 'solarized_light':{ 'colorscheme': 'base16-solarized-light',
-" \                 'background': 'light',
-" \                 'airline-theme': 'base16_solarized',
-" \                },
-" \ }
+" let g:lexical#thesaurus_key = '<c-s><c-t>'
+
+let g:tq_mthesaur_file='~/.vim/spell/thesaurus/mthesaur.txt'
+nnoremap <c-s><c-t> :ThesaurusQueryReplaceCurrentWord<CR>
+vnoremap <c-s><c-t> y:ThesaurusQueryReplace <C-r>"<CR>
 
 " rainbow
 let g:rainbow_active = 1
@@ -285,9 +302,6 @@ let g:vim_jsx_pretty_colorful_config = 1
 
 " flow
 let g:flow#autoclose = 1
-
-" vim-instant-markdown
-let g:instant_markdown_autostart = 0
 
 " Rappel
 let g:rappel#term       = 'vsp | term '
