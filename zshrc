@@ -19,9 +19,6 @@ load_all_files_in
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
-# aws
-source /usr/local/bin/aws_zsh_completer.sh
-
 # autorun tmux
 # _not_inside_tmux() { [[ -z "$TMUX" ]] }
 # ensure_tmux_is_running() {
@@ -61,3 +58,4 @@ export PATH="/usr/local/opt/curl/bin:$PATH"
 
 autoload -U promptinit; promptinit
 prompt purer
+source /usr/local/share/zsh/site-functions/_aws

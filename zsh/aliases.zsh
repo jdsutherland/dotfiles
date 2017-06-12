@@ -25,7 +25,7 @@ if [[ -o interactive ]]; then
   alias fw='{ alias; functions; } | fzf'
 
   # Directories
-  alias casts='cd /Volumes/seag8/screencasts'
+  alias cast='cd /Volumes/seag8/screencasts'
   alias cdl='cd ~/Downloads'
   alias cdoc='cd ~/Documents'
   alias desk='cd ~/Desktop'
@@ -38,6 +38,7 @@ if [[ -o interactive ]]; then
   alias oss='cd ~/Development/OSS'
   alias prg='cd ~/Documents/Programming'
   alias proj='cd ~/Development/Projects'
+  alias itunes='cd /Users/jeff/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album'
   alias s8='cd /Volumes/seag8'
   alias s8p='cd /Volumes/seag8/pluralsight'
   alias talks='cd /Volumes/seag8/screencasts/talks'
@@ -72,7 +73,7 @@ if [[ -o interactive ]]; then
   alias gbc='gdc'
   alias gca='git commit -a'
   alias gcaa='git commit -a --amend -C HEAD'
-  alias gchurn='git-churn | tail -n 30'
+  alias gchurn='git-churn | tail -r -n 20'
   alias gcl='git clone'
   alias gcm='git commit -m'
   alias gco='git checkout'
@@ -91,7 +92,8 @@ if [[ -o interactive ]]; then
   alias glfr='g pba'
   alias gst='git status -s .'
   alias gstats='git-bstats'
-  alias gsum='git-summary'
+  alias gsum='git-summary | head -n 27'
+  alias ginfo='gsum && echo "---------------------- churn ----------------------" && gchurn'
   eval "$(hub alias -s)"
 
   # App
@@ -144,9 +146,11 @@ if [[ -o interactive ]]; then
   alias wale='whalebrew'
   alias wh='which'
   alias wifi='airport -s'
+  alias diswifi='sudo /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -z'
   alias ydl='youtube-dl -ci'
-  alias ydlp='youtube-dl -cio "%(autonumber)s-%(title)s.%(ext)s"'
+  alias ydlp='youtube-dl --ignore-errors --download-archive archive.txt --output "%(autonumber)s-%(title)s.%(ext)s"'
   alias you='mpsyt'
+  alias hp='http-prompt'
 
   # Misc
   alias saythai='say -v Kanya -r 155'
@@ -181,12 +185,44 @@ if [[ -o interactive ]]; then
   alias bu='bundle update'
 
   # Yarn
-  alias Y='yarn'
-  alias Ya='yarn add'
-  alias Yad='yarn add --dev'
-  alias Yi='yarn install'
-  alias Ys='yarn start'
-  alias Yt='yarn test'
+  alias y='yarn'
+  alias ya='yarn add'
+  alias yad='yarn add --dev'
+  alias yi='yarn install'
+  alias ys='yarn start'
+  alias yt='yarn test'
+
+  # feh
+  alias feh='feh --quiet --verbose --action8 "nrm %F"'
+
+  # Alias structure:
+  # feh[theme][recursive?][slide-delay?]
+  # theme = [f]ullscreen | [i]ndex | [j]ust | [t]humbnail
+  # recursive: r for recursive, nothing otherwise
+  # slide-delay:
+  #     none   - no slideshow
+  #     x      - slideshow, seconds will be specified on commandline
+  #              (like "fehfrx 7 .")
+  # The themes are defined in ~/.fehrc
+  alias fehe='feh -Texif'
+  alias feher='feh -Texif --recursive'
+  alias fehf='feh -Tfs'
+  alias fehfr='feh -Tfs --recursive'
+  alias fehi='feh .fehindex.jpg'
+  alias fehj='feh -Trfs'
+  alias fehjr='feh -Trfs --recursive'
+  alias fehjx='feh -Trfs --slideshow-delay'
+  alias fehfx='feh -Tfs --slideshow-delay'
+  alias fehjrx='feh -Trfs --recursive --slideshow-delay'
+  alias fehfrx='feh -Tfs --recursive --slideshow-delay'
+  alias feht='feh -Tthumb_s'
+  alias fehtr='feh -Tthumb_s --recursive'
+  alias fehtb='feh -Tthumb_b'
+  alias fehtbr='feh -Tthumb_b --recursive'
+  alias fehtn='feh -Tthumb_s_nt'
+  alias fehtnr='feh -Tthumb_s_nt --recursive'
+  alias fehtnb='feh -Tthumb_b_nt'
+  alias fehtnbr='feh -Tthumb_b_nt --recursive'
 
   # OS Specific
   if [ '$UNAME' = Darwin ]; then

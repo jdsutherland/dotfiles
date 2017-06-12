@@ -33,6 +33,10 @@ bindkey '^g' fzf-githash-widget
 fzf-git-browser-widget() { fzf-git-browser; zle reset-prompt }
 zle     -N   fzf-git-browser-widget
 bindkey '^_' fzf-git-browser-widget
+
+fzf-git-reverse-widget() { fzf-git-reverse; zle reset-prompt }
+zle     -N   fzf-git-reverse-widget
+bindkey '^x^_' fzf-git-reverse-widget
 # end fzf git bindings
 
 # Vim-style line editing
@@ -55,5 +59,26 @@ bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
+
+# Copy the most recent command to the clipboard
+function _pbcopy_last_command(){
+  history | tail -1 | sed 's/ *[0-9]* *//' | pbcopy
+}
+zle -N pbcopy-last-command _pbcopy_last_command
+bindkey '^x^y' pbcopy-last-command
+
+# Fuzzy match against history, edit selected value
+_uniqe_without_sort() { awk '!x[$0]++' }
+_fuzzy_history() {
+  zle -U "$(
+    history | \
+    tail -2000 | \
+    sed 's/ *[0-9]* *//' | \
+    _uniqe_without_sort | \
+    fzf-tmux --tac --reverse --no-sort
+  )"
+}
+zle -N fuzzy-history _fuzzy_history
+bindkey '^x^r' fuzzy-history
 
 ins_help() { BUFFER="$BUFFER--help"; CURSOR=$#BUFFER }; zle -N ins_help; bindkey "^O" ins_help

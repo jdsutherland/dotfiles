@@ -349,7 +349,7 @@ pget() {
 
 tget() {
   cd /tmp
-  aria2c "$(cat *.magnet)"
+  aria2c "$@" "$(cat *.magnet)"
 }
 
 # recursively run detox to fix filenames in all dirs
@@ -418,7 +418,11 @@ dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/[
 dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
 
 sth() {
-  say -v Kanya -r 140 $(trans -b :th "$@")
+  say -v Kanya $(trans -b :th "$@")
+}
+
+sths() {
+  say -v Kanya -r 130 $(trans -b :th "$@")
 }
 
 # using rsync locally (doesn't delete by default)
@@ -436,4 +440,68 @@ bo() {
   take $book_title
   pbpaste | pup '#text' | pandoc -f html --to markdown_github -o "$book_title.md"
   popd
+}
+
+# convert copied page source html to markdown
+html_clipboard_to_markdown() {
+  css_selector=$1
+  fname=$2
+  pbpaste | pup "$css_selector" | pandoc -f html --to markdown_github -o "$fname.md"
+}
+
+findn() {
+  find . -iname "*$@*"
+}
+
+ps_latest() {
+  http https://www.pluralsight.com/browse | pup ".search-result__title a text{}" 
+  echo
+  echo "Open in browser?"
+  read -r response
+  case $response in
+    [yY])
+      ${(z)BROWSER} "https://pluralsight.com/browse"
+  esac
+}
+
+change_screenshot_format() {
+  format="$1"
+  defaults write com.apple.screencapture type "$format" && killall SystemUIServer
+}
+
+brewS() {
+  brew search "$@"
+  brew cask search "$@"
+}
+
+fzf-git-reverse() {
+  git log --oneline --reverse --color=always \
+    --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" |
+  fzf --ansi --no-sort --reverse --tiebreak=index --height 100% --bind=ctrl-o:toggle-sort \
+    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always --format="" | diff-so-fancy' \
+    --bind "ctrl-m:execute:
+              (grep -o '[a-f0-9]\{7,\}' | head -1 |
+              xargs -I % sh -c 'git show --color=always --notes % | diff-so-fancy | less -R ') << 'FZF-EOF'
+              {}
+  FZF-EOF"
+  clear
+}
+
+ftpane() {
+  local panes current_window current_pane target target_window target_pane
+  panes=$(tmux list-panes -s -F '#I:#P - #{pane_current_path} #{pane_current_command}')
+  current_pane=$(tmux display-message -p '#I:#P')
+  current_window=$(tmux display-message -p '#I')
+
+  target=$(echo "$panes" | grep -v "$current_pane" | fzf +m --reverse) || return
+
+  target_window=$(echo $target | awk 'BEGIN{FS=":|-"} {print$1}')
+  target_pane=$(echo $target | awk 'BEGIN{FS=":|-"} {print$2}' | cut -c 1)
+
+  if [[ $current_window -eq $target_window ]]; then
+    tmux select-pane -t ${target_window}.${target_pane}
+  else
+    tmux select-pane -t ${target_window}.${target_pane} &&
+    tmux select-window -t $target_window
+  fi
 }

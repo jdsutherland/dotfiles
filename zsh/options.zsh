@@ -47,7 +47,7 @@ source ~/.dotfiles/zsh/fzf-config.zsh
 
 # Enable completion
 autoload -U compinit
-compinit
+compinit -u
 
 # Disable flow control commands (keeps C-s from freezing everything)
 stty start undef
