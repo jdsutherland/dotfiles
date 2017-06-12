@@ -41,7 +41,7 @@ alias 2-rightbottom move screenOriginX+screenSizeX/2;screenOriginY+screenSizeY/2
 # 2 Monitor layout
 layout 2monitors 'iTerm2':MAIN_FIRST,IGNORE_FAIL                                         ${1-left} | ${2-left}
 layout 2monitors 'Google Chrome':IGNORE_FAIL,TITLE_ORDER_REGEX=^Developer\sTools\s-\s.+$ ${1-right} | ${2-right}
-# layout 2monitors 'Google Chrome Canary':REPEAT             ${2-right}
+# layout 2monitors 'Google Chrome Canary':REPEAT                                           ${2-right}
 layout 2monitors 'Preview':REPEAT                                                        ${2-full}
 layout 2monitors 'Dash':REPEAT                                                           ${2-left}
 layout 2monitors 'Finder':REPEAT                                                         ${2-leftbottom}
@@ -49,22 +49,57 @@ layout 2monitors 'OneNote':REPEAT                                               
 layout 2monitors 'Google Play Music Desktop Player':REPEAT                               ${1-full}
 
 # 1 Monitor layout
-layout 1monitor 'iTerm2':MAIN_FIRST                                                       ${1-left}
+layout 1monitor 'iTerm2':MAIN_FIRST                                                      ${1-left}
 layout 1monitor 'Google Chrome':REPEAT                                                   ${1-right}
-layout 1monitor 'Dash':REPEAT                                                            ${1-right}
+layout 1monitor 'Google Chrome Canary':REPEAT                                            ${rightless}
+layout 1monitor 'Dash':REPEAT                                                            ${rightless}
+layout 1monitor 'WhatsApp':REPEAT                                                        ${rightless}
+layout 1monitor 'Marked 2':REPEAT                                                        ${rightless}
 layout 1monitor 'Preview':REPEAT                                                         ${1-right}
-layout 1monitor 'Finder':REPEAT                                                          ${1-left}
-layout 1monitor 'OneNote':REPEAT                                                         ${1-right}
-layout 1monitor 'Google Play Music tDesktop Player':REPEAT                                ${1-full}
+layout 1monitor 'mpv':REPEAT                                                             ${1-right}
+layout 1monitor 'Finder':REPEAT                                                          ${rightless}
+layout 1monitor 'Microsoft OneNote':REPEAT                                               ${1-right}
+layout 1monitor 'Google Play Music Desktop Player':REPEAT                                ${1-full}
 
-# 1 Monitor 3/4 term - browser
-layout 1dev 'iTerm2':MAIN_FIRST                                                       ${leftmost}
-layout 1dev 'Google Chrome':REPEAT                                                   ${rightless}
+# 1 Monitor 3/4 term - browser (1dev)
+layout 1dev 'iTerm2':MAIN_FIRST                                                          ${leftmost}
+layout 1dev 'Google Chrome':REPEAT                                                       ${rightless}
+layout 1dev 'Google Chrome Canary':REPEAT                                                ${rightless}
+layout 1dev 'Microsoft OneNote':REPEAT                                                   ${rightless}
+layout 1dev 'Dash':REPEAT                                                                ${rightless}
+layout 1dev 'Marked 2':REPEAT                                                            ${rightless}
+layout 1dev 'mpv':REPEAT                                                                 ${rightless}
+layout 1dev 'WhatsApp':REPEAT                                                            ${rightless}
+layout 1dev 'Preview':REPEAT                                                             ${rightless}
+
+# 1 Monitor 3/4 pdf - term (1pdf)
+layout 1pdf 'Preview':MAIN_FIRST                                                         ${leftmost}
+layout 1pdf 'Google Chrome':REPEAT                                                       ${leftmost}
+layout 1pdf 'Google Chrome Canary':REPEAT                                                ${leftmost}
+layout 1pdf 'mpv':REPEAT                                                                 ${leftmost}
+layout 1pdf 'iTerm2':REPEAT                                                              ${rightless}
+layout 1pdf 'Dash':REPEAT                                                                ${rightless}
+layout 1pdf 'Marked 2':REPEAT                                                            ${rightless}
+layout 1pdf 'WhatsApp':REPEAT                                                            ${rightless}
+layout 1pdf 'Microsoft OneNote':REPEAT                                                   ${rightless}
+
+# 1 Monitor 3/4 mpv - onenote (1mpv)
+layout 1mpv 'mpv':MAIN_FIRST                                                             ${leftmost}
+layout 1mpv 'Preview':REPEAT                                                             ${leftmost}
+layout 1mpv 'Google Chrome':REPEAT                                                       ${rightless}
+layout 1mpv 'Google Chrome Canary':REPEAT                                                ${rightless}
+layout 1mpv 'Microsoft OneNote':REPEAT                                                   ${rightless}
+layout 1mpv 'Dash':REPEAT                                                                ${rightless}
+layout 1mpv 'Marked 2':REPEAT                                                            ${rightless}
+layout 1mpv 'WhatsApp':REPEAT                                                            ${rightless}
+layout 1mpv 'iTerm2':REPEAT                                                              ${rightless}
 
 # # Default Layouts
 default 2monitors resolutions:${mon-laptop};${mon-asus};
 default 1monitor  resolutions:${mon-laptop}
-default 1dev  resolutions:${mon-laptop}
+default 1dev      resolutions:${mon-laptop}
+default 1pdf      resolutions:${mon-laptop}
+default 1mpv      resolutions:${mon-laptop}
 
 ### Aliases
 # ## Key aliases
@@ -72,9 +107,13 @@ alias hyper ctrl;shift;alt;cmd
 
 bind ;:${hyper} hint ASDFJKLGHWERTYUIO
 bind ':${hyper} grid
-bind 1:${hyper} layout 1monitor
-bind 2:${hyper} layout 2monitors
-bind 3:${hyper} layout 1dev
+bind 1:${hyper} layout 2monitors
+bind 2:${hyper} sequence layout 1monitor | focus 'Google Chrome' | focus 'Google Chrome'
+bind 3:${hyper} sequence layout 1dev | focus 'iTerm2' | focus 'Dash'
+bind 4:${hyper} sequence layout 1pdf | focus 'Preview' | focus 'iTerm2'
+bind 5:${hyper} sequence layout 1mpv | focus 'mpv' | focus 'Microsoft OneNote'
+bind 8:${hyper} sequence activate-snapshot random | focus 'Microsoft OneNote' | focus 'mpv'
+bind 9:${hyper} snapshot random save-to-disk
 bind space:${hyper} hide 'current'
 
 ## Application aliases
@@ -111,10 +150,12 @@ bind w:${hyper}     focus 'WhatsApp'
 bind q:${hyper}     focus 'Dash'
 bind g:${hyper}     focus 'Finder'
 bind p:${hyper}     focus 'Preview'
-bind m:${hyper}     focus ${music}
+# bind m:${hyper}     focus ${music}
+bind m:${hyper}     focus 'Marked 2'
 bind e:${hyper}     focus ${email}
 bind e:${hyper}     focus 'Electron'
 bind v:${hyper}     focus 'mpv'
+bind z:${hyper}     focus 'Caprine'
 # NOTE: mapped the following in Karabiner (doesn't work here)
 # bind b:${hyper}     focus ${browser}
 # bind t:${hyper}     focus 'iTerm2'
