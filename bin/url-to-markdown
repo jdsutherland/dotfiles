@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Use fuckyeahmarkdown.com API to generate markdown from a url
+
+# Usage: url-to-markdown <url> [filename]
+
+API=http://fuckyeahmarkdown.com/go/
+url=$1
+
+# filename defaults to basename of url if omitted
+if [ -z "$2" ]; then
+	filename="$(basename "$url")"
+else
+	filename="$2"
+fi
+
+http -f --download POST $API u="$url" --output "$filename".md

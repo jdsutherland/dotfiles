@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+# Google Trending Hourly
+
+require 'nokogiri'
+require 'open-uri'
+require 'colorize'
+
+hot_url = 'http://google.com/trends/hottrends/atom/hourly'
+
+page = Nokogiri::HTML(open(hot_url))
+puts "Google Hourly Trending at #{Time.now}".yellow
+page.css('li').each { |x| puts x.text.magenta }
