@@ -63,7 +63,7 @@ fkill() {
 }
 
 # List desc count of filetypes
-ftcount() {
+fcount() {
   print -rl **/?*.*(.:e) | uniq -c |sort -k1nr
 }
 
@@ -542,4 +542,8 @@ fmpv() {
 # search a directory name to begin fzf with
 Fmpv() {
   mpv $(F $@ | fzf -m) > /dev/null 2>&1 &
+}
+
+dircount() {
+  find . -mindepth 1 -type d | wc -l
 }
