@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# move given files to new dir
+# mkmv <file(s)> <newdir>
+
+mkdir -p $argv[-1]
+mv -i $argv[0,-2] -t $argv[-1]
