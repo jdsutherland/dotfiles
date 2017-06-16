@@ -141,6 +141,7 @@ if [[ -o interactive ]]; then
   alias tre='tree -C | less'
   alias tw='timew'
   alias twitter='rainbowstream'
+  alias reddit='BROWSER=rtv_browser rtv'
   alias vim='nvim'
   alias vs='vim -S Session.vim'
   alias wale='whalebrew'
