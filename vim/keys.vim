@@ -407,6 +407,7 @@ nnoremap <space>5 :FZFMru<cr>
 nnoremap <space>6 :Rooter<cr>
 nnoremap <space>7 :ALEFix<cr>
 nnoremap <space>8 :ALEFixSuggest<cr>
+nnoremap <space>0 :ALEToggle<cr>
 
 nmap f <Plug>(clever-f-f)
 xmap f <Plug>(clever-f-f)
@@ -455,4 +456,7 @@ map ,` ysiw`
 map ,<space> ysiw<space><space>
 
 " paste system clip without added newline above
-nmap cvv cvgpO<esc>kdd
+nmap cV cvgpO<esc>kdd
+nmap cpp <Plug>SystemCopyLine
+" exchange to end of line
+nmap cX cx$

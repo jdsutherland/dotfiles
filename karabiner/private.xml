@@ -59,6 +59,10 @@
       </autogen>
     </item>
 
+    <replacementdef>
+      <replacementname>VIM_EMU_IGNORE_APPS</replacementname>
+      <replacementvalue>TERMINAL</replacementvalue>
+    </replacementdef>
   <item>
     <name>Remap CMD_R to Hyper with alt-tab on tap</name>
     <appendix>OS X doesn't have a Hyper. This maps OPTION_R to Control + Shift + Option + Command, unless you tap it.</appendix>

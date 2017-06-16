@@ -7,9 +7,9 @@ if [[ -o interactive ]]; then
   alias \$=''
 
   # Arguments and pipes
-  alias -g A='| ack --context'
+  alias -g A='| ack -i --context'
   alias -g L='| less -r'
-  alias -g R='| rg'
+  alias -g R='| rg -i'
   alias -g V='| vim -'
   alias a='ag --workers 8 --pager "less -R"'
   alias agh='ag --hidden'

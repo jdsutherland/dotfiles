@@ -12,8 +12,8 @@ load_all_files_in() {
     done
   fi
 }
-
 load_all_files_in
+
 # set colorscheme
 # source $HOME/.colors/base16-tomorrow.dark.sh
 BASE16_SHELL=$HOME/.config/base16-shell/

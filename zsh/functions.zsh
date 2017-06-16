@@ -119,9 +119,33 @@ ff() {
    file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
 
+# cf - fuzzy cd from anywhere
+# ex: cf word1 word2 ... (even part of a file name)
+# zsh autoload function
+cf() {
+  local file
+
+  file="$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1)"
+
+  if [[ -n $file ]]
+  then
+     if [[ -d $file ]]
+     then
+        cd -- $file
+     else
+        cd -- ${file:h}
+     fi
+  fi
+}
+
 # T - tree color with paging
 T() {
   tree -I 'node_modules' $1 -C | less -F
+}
+
+# tree hidden fzf
+Th() {
+  tree -a -I 'node_modules' $1 -C | fzf
 }
 
 # trees - tree with size and depth param (useful for media)
@@ -389,7 +413,7 @@ npmexport() {
   npm list --global --parseable --depth=0 | sed '1d' | awk '{gsub(/\/.*\//,"",$1); print}' > ~/.dotfiles/Npmfile
 }
 
-fdir() {
+F() {
   find . -type d -name "*$1*" -print 2>/dev/null
 }
 
@@ -453,6 +477,10 @@ findn() {
   find . -iname "*$@*"
 }
 
+finde() {
+  find . -iname "*$1*" -exec "$2" {} \;
+}
+
 ps_latest() {
   http https://www.pluralsight.com/browse | pup ".search-result__title a text{}" 
   echo
@@ -504,4 +532,14 @@ ftpane() {
     tmux select-pane -t ${target_window}.${target_pane} &&
     tmux select-window -t $target_window
   fi
+}
+
+# fuzzy mpv
+fmpv() {
+  mpv $(fzf -m) > /dev/null 2>&1 &
+}
+
+# search a directory name to begin fzf with
+Fmpv() {
+  mpv $(F $@ | fzf -m) > /dev/null 2>&1 &
 }
