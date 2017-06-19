@@ -116,4 +116,4 @@ function main()
 end
 
 -- mp.add_key_binding(o.key, "subit", main)
-mp.add_key_binding("Meta+s", "subit", main)
+mp.add_key_binding("Ctrl+d", "subit", main)

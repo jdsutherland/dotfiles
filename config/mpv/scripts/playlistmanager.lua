@@ -3,7 +3,7 @@ local settings = {
   linux_over_windows = nil,
 
   --path where you want to save playlists, notice trailing \ or /. Do not use shortcuts like ~ or $HOME
-  playlist_savepath = "/home/anon/Documents/",
+  playlist_savepath = "/Users/jeff/Documents/playlists",
 
   --osd when navigating in seconds
   osd_duration_seconds = 5,
@@ -16,7 +16,7 @@ local settings = {
   sortplaylist_on_start = false,
 
   --amount of entries to show before slicing. Optimal value depends on font/video size etc.
-  showamount = 5,
+  showamount = 11,
 
   --replaces matches on filenames based on extension, put as false to not replace anything
   --replaces executed in index order, if order doesn't matter many rules can be placed inside one index
@@ -33,7 +33,7 @@ local settings = {
       ['ext'] = { ['mkv']=true, ['mp4']=true, ['webm']=true, ['mov']=true, ['mpg']=true },
       ['rules'] = {
         [1] = { ['^(.+)%..+$']='%1' },          --remove extension
-        [2] = { ['%s*[%[%(].-[%]%)]%s*']='' },  --remove bracets, their content and surrounding white space
+        [2] = { ['%s*[%[%(].-[%]%)]%s*']='' },  --remove brackets, their content and surrounding white space
         [3] = { ['(%w)%.(%w)']='%1 %2' },       --change dots between alphanumeric chars to spaces
         [4] = { ['(%w+)[%d][%sp]?']='' },   --remove repetitive number stuff?
       },
@@ -46,7 +46,7 @@ local settings = {
   title_suffix = " - mpv",
 
   --slice long filenames, and how many chars to show
-  slice_longfilenames = {false, 85},
+  slice_longfilenames = {true, 85},
 
   --show playlist every time a new file is loaded
   --NOTE: using osd-playing-message will interfere with this setting, if you prefer it use 0 here
@@ -186,7 +186,7 @@ function showplaylist(duration)
     local l_path, l_file = utils.split_path(mp.get_property('playlist/'..i..'/filename'))
     playlist[i] = stripfilename(l_file)
   end
-  output = "Playing: "..strippedname.."\n\n"
+  output = "Playing: "..strippedname or "undefined".."\n\n"
   output = output.."Playlist - "..(cursor+1).." / "..plen.."\n"
   local b = cursor - math.floor(settings.showamount/2)
   local showall = false
@@ -344,7 +344,12 @@ function playlist()
       end
     end
     popen:close()
-    if c2 > 0 or c>0 then mp.osd_message("Added "..c.." files before and "..c2.." files after current file") end
+    if c2 > 0 or c>0 then
+      mp.osd_message("Added "..c.." files before and "..c2.." files after current file")
+      mp.add_timeout(2, showplaylist)
+    else
+      mp.osd_message("No additional files found")
+    end
     cursor = mp.get_property_number('playlist-pos', 1)
   else
     msg.error("Could not scan for files: "..(err or ""))
@@ -379,7 +384,7 @@ end
 
 function alphanumsort(o)
   local function padnum(d) local dec, n = string.match(d, "(%.?)0*(.+)")
-    return #dec > 0 and ("%.12"):format(d) or ("%s%03d%s"):format(dec, #n, n) end
+    return #dec > 0 and ("%.12f"):format(d) or ("%s%03d%s"):format(dec, #n, n) end
     table.sort(o, function(a,b)
     return tostring(a):gsub("%.?%d+",padnum)..("%3d"):format(#b)
          < tostring(b):gsub("%.?%d+",padnum)..("%3d"):format(#a) end)
@@ -457,8 +462,8 @@ mp.register_script_message("playlistmanager", handlemessage)
 
 mp.add_key_binding('CTRL+p', 'sortplaylist', sortplaylist)
 mp.add_key_binding('CTRL+P', 'shuffleplaylist', shuffleplaylist)
--- mp.add_key_binding('P', 'loadfiles', playlist)
-mp.add_key_binding('P', 'saveplaylist', save_playlist)
+mp.add_key_binding('Meta+l', 'loadfiles', playlist)
+mp.add_key_binding('Meta+s', 'saveplaylist', save_playlist)
 mp.add_key_binding('SHIFT+ENTER', 'showplaylist', showplaylist)
 -- mp.add_key_binding(';', 'showplaylist', showplaylist)
 
