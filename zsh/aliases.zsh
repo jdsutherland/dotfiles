@@ -123,7 +123,7 @@ if [[ -o interactive ]]; then
   alias nosleep=caffeinate
   alias npmimport='xargs npm install --global < ~/.dotfiles/Npmfile'
   alias nvimu='brew reinstall --HEAD neovim'
-  alias play='mpv **/*.(mp4|webm|mkv|mov) > /dev/null 2>&1 &'
+  alias playall='mpv **/*.(mp4|webm|mkv|mov) > /dev/null 2>&1 &'
   alias ra='ranger'
   alias rr='rails'
   alias rsync='rsync'
@@ -152,6 +152,10 @@ if [[ -o interactive ]]; then
   alias ydlp='youtube-dl --restrict-filenames --ignore-errors --download-archive archive.txt --output "%(autonumber)s-%(title)s.%(ext)s"'
   alias you='mpsyt'
   alias hp='http-prompt'
+  alias ariachrome='aria2c -c -x 10 -s 10 --enable-rpc --rpc-listen-all=true --rpc-allow-origin-all=true'
+  alias aria='aria2c -c -x 10 -s 10'
+  alias cplay='cd ~/Media/config/playlists'
+  alias quicklook='qlmanage -p "$@" >& /dev/null'
 
   # Misc
   alias saythai='say -v Kanya -r 155'

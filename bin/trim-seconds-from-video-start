@@ -2,9 +2,7 @@
 
 # trim-seconds-from-video-start <ext> <sec>
 
-ext=$1
+infile=$1
 sec=$2
 
-for f in *.$ext; do
- ffmpeg -ss "$sec" -i "$f" -vcodec copy -acodec copy "$f".trimmed.mp4
-done
+ffmpeg -ss "$sec" -i "$infile" -vcodec copy -acodec copy "$infile".trimmed.mp4

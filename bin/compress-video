@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# use ffmpeg to compress in attempt to reduce filesize while retaining quality
+# based on: https://unix.stackexchange.com/a/38380
+
+# compress-video <infile>
+
+set -euo pipefail
+
+infile=$1
+outdir="$PWD"/compressed
+
+_usage() {
+	echo "compress-video <infile>"
+}
+
+_check_arg() {
+	if [[ -z "$infile" ]]; then
+		_usage
+		exit 1
+	fi
+}
+
+main() {
+	_check_arg
+	mkdir -p "$outdir"
+	ffmpeg -i "$infile" -vcodec libx264 -crf 20 "$outdir/$infile"
+}
+
+main

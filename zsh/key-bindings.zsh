@@ -38,6 +38,11 @@ fzf-git-reverse-widget() { fzf-git-reverse; zle reset-prompt }
 zle     -N   fzf-git-reverse-widget
 bindkey '^x^g' fzf-git-reverse-widget
 # end fzf git bindings
+#
+
+fzf-play-widget() { play; zle reset-prompt }
+zle     -N   fzf-play-widget
+bindkey '^x^p' fzf-play-widget
 
 # Vim-style line editing
 bindkey -v

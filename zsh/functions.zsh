@@ -373,7 +373,7 @@ pget() {
 
 tget() {
   cd /tmp
-  aria2c "$@" "$(cat *.magnet)"
+  aria2c -c -x 10 -s 10 "$@" "$(cat *.magnet)"
 }
 
 # recursively run detox to fix filenames in all dirs
@@ -543,16 +543,6 @@ fmpv() {
 # search a directory name to begin fzf with
 Fmpv() {
   mpv $(F $@ | fzf -m) > /dev/null 2>&1 &
-}
-
-# mpv playlist
-mpvp() {
-  find ~/Documents/playlists -type f | fzf-down-full -m \
-    --preview "(highlight -O ansi {} || cat {}) 2> /dev/null" \
-    --bind "ctrl-m:execute(cat `basename {}`)";
-  # mpv $(find ~/Documents/playlists -type f | fzf-down-full -m \
-  #   --preview "(highlight -O ansi {} || cat {}) 2> /dev/null" \
-  #   --bind "ctrl-m:execute: cat {} ");
 }
 
 dircount() {

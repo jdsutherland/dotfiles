@@ -102,7 +102,7 @@ end
 
 --// default file to save/load bookmarks to/from
 function getConfigFile()
-  return os.getenv("HOME") .. "/Documents/playlists/mpv-bookmarks.json"
+  return os.getenv("HOME") .. "/Media/config/mpv-bookmarks.json"
 end
 
 --// check whether a file exists or not

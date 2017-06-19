@@ -3,7 +3,7 @@ local settings = {
   linux_over_windows = nil,
 
   --path where you want to save playlists, notice trailing \ or /. Do not use shortcuts like ~ or $HOME
-  playlist_savepath = "/Users/jeff/Documents/playlists",
+  playlist_savepath = "/Users/jeff/Media/config/playlists",
 
   --osd when navigating in seconds
   osd_duration_seconds = 5,
@@ -186,7 +186,7 @@ function showplaylist(duration)
     local l_path, l_file = utils.split_path(mp.get_property('playlist/'..i..'/filename'))
     playlist[i] = stripfilename(l_file)
   end
-  output = "Playing: "..strippedname or "undefined".."\n\n"
+  output = "Playing: "..(strippedname or "undefined").."\n\n"
   output = output.."Playlist - "..(cursor+1).." / "..plen.."\n"
   local b = cursor - math.floor(settings.showamount/2)
   local showall = false
@@ -367,13 +367,13 @@ function save_playlist()
     msg.error("Error in creating playlist file, check permissions and paths: "..(err or ""))
   else
     local i=0
-    local pwd = mp.get_property("working-directory")
-    local filename = mp.get_property('playlist/'..i..'/filename')
-    local fullpath = filename
-    if not filename:match("^%a%a+:%/%/") then
-      fullpath = utils.join_path(pwd, filename)
-    end
     while i < length do
+      local pwd = mp.get_property("working-directory")
+      local filename = mp.get_property('playlist/'..i..'/filename')
+      local fullpath = filename
+      if not filename:match("^%a%a+:%/%/") then
+        fullpath = utils.join_path(pwd, filename)
+      end
       file:write(fullpath, "\n")
       i=i+1
     end
