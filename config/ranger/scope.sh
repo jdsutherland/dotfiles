@@ -95,18 +95,21 @@ case "$extension" in
         ;; # fall back to highlight/cat if the text browsers fail
 esac
 
+# https://www.apt-browse.org/browse/debian/wheezy/main/all/highlight-common/3.9-1+deb7u1/file/usr/share/highlight/themes
+HIGHLIGHT_THEME="molokai"
+
 case "$mimetype" in
     # Syntax highlight for text files:
     text/* | */xml)
         if [ "$(tput colors)" -ge 256 ]; then
-            pygmentize_format=terminal256
-            highlight_format="xterm256 --style=nightshimmer"
+            pygmentize_format=256
+            highlight_format="xterm256 --style=$HIGHLIGHT_THEME"
         else
             pygmentize_format=terminal
             highlight_format=ansi
         fi
         try safepipe highlight --out-format=${highlight_format} "$path" && { dump | trim; exit 5; }
-        try safepipe pygmentize -f ${pygmentize_format} "$path" && { dump | trim; exit 5; }
+        try safepipe pygmentize "$path" && { dump | trim; exit 5; }
         exit 2;;
     # Ascii-previews of images:
     image/*)
