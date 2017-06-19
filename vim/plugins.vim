@@ -90,6 +90,7 @@ Plug 'mattboehm/vim-unstack'
 Plug 'mattboehm/vim-accordion'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'duff/vim-ddldbl'
+Plug 'tpope/vim-vinegar'
 
 " Plug 'wincent/ferret'
 " https://github.com/wesQ3/vim-windowswap
