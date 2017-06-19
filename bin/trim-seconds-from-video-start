@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# trim-seconds-from-video-start <ext> <sec>
+
+ext=$1
+sec=$2
+
+for f in *.$ext; do
+ ffmpeg -ss "$sec" -i "$f" -vcodec copy -acodec copy "$f".trimmed.mp4
+done

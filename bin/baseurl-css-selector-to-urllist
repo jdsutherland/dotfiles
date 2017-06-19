@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# Usage: baseurl-css-selector-to-urllist <url> <selector> [outfile]
+
+# use phantomjs (with additional script) to save all urls (using passed querySelector)
+#   from a given page
+
+baseurl=$1
+selector=$2
+fout=$3
+fout="$PWD/${fout:=urls}".txt
+
+prepend_baseurl_to_each_url() {
+	sed -i -e "s|^|$baseurl|" "$fout"
+}
+
+phantomjs phantomjs-get-urllist-via-selector.js "$baseurl" "$selector" > "$fout"
+prepend_baseurl_to_each_url
