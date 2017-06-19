@@ -419,12 +419,12 @@ F() {
 
 # resumes at given index
 ydlps() {
-  youtube-dl -cio "%(autonumber)s-%(title)s.%(ext)s" --playlist-start $2 --autonumber-start $2 $1
+  youtube-dl --restrict-filenames -cio "%(autonumber)s-%(title)s.%(ext)s" --playlist-start $2 --autonumber-start $2 $1
 }
 
 # downloads playlist in medium format
 ydlpm() {
-  youtube-dl -f '(mp4)[height<1280]' -cio "%(autonumber)s-%(title)s.%(ext)s" $1
+  youtube-dl --restrict-filenames -f '(mp4)[height<1280]' -cio "%(autonumber)s-%(title)s.%(ext)s" $1
 }
 
 ## Docker
@@ -473,7 +473,8 @@ html_clipboard_to_markdown() {
   pbpaste | pup "$css_selector" | pandoc -f html --to markdown_github -o "$fname.md"
 }
 
-findn() {
+# find name
+fn() {
   find . -iname "*$@*"
 }
 
@@ -544,6 +545,24 @@ Fmpv() {
   mpv $(F $@ | fzf -m) > /dev/null 2>&1 &
 }
 
+# mpv playlist
+mpvp() {
+  find ~/Documents/playlists -type f | fzf-down-full -m \
+    --preview "(highlight -O ansi {} || cat {}) 2> /dev/null" \
+    --bind "ctrl-m:execute(cat `basename {}`)";
+  # mpv $(find ~/Documents/playlists -type f | fzf-down-full -m \
+  #   --preview "(highlight -O ansi {} || cat {}) 2> /dev/null" \
+  #   --bind "ctrl-m:execute: cat {} ");
+}
+
 dircount() {
   find . -mindepth 1 -type d | wc -l
+}
+
+restart-postgres() {
+  rm /usr/local/var/postgres/postmaster.pid && ( \
+    cd ~/Library/LaunchAgents && \
+      launchctl unload homebrew.mxcl.postgresql.plist && \
+      launchctl load -w homebrew.mxcl.postgresql.plist \
+  )
 }

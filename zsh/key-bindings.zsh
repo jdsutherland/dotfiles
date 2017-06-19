@@ -36,7 +36,7 @@ bindkey '^_' fzf-git-browser-widget
 
 fzf-git-reverse-widget() { fzf-git-reverse; zle reset-prompt }
 zle     -N   fzf-git-reverse-widget
-bindkey '^x^_' fzf-git-reverse-widget
+bindkey '^x^g' fzf-git-reverse-widget
 # end fzf git bindings
 
 # Vim-style line editing
@@ -80,5 +80,20 @@ _fuzzy_history() {
 }
 zle -N fuzzy-history _fuzzy_history
 bindkey '^x^r' fuzzy-history
+
+tmux-man-for-current-word() {
+  cmd=$(echo "$BUFFER" | rev | sed -E 's/^ +//' | cut -d ' ' -f 1 | rev)
+  width=$(tmux display -p '#{pane_width}')
+  height=$(tmux display -p '#{pane_height}')
+  normalized_height=$( echo "$height * 2.2" | bc )
+
+  if (( normalized_height > width )); then
+    tmux split-window -v "man $cmd"
+  else
+    tmux split-window -h "man $cmd"
+  fi
+}
+zle -N tmux-man-for-current-word
+bindkey '^Q' tmux-man-for-current-word
 
 ins_help() { BUFFER="$BUFFER--help"; CURSOR=$#BUFFER }; zle -N ins_help; bindkey "^O" ins_help

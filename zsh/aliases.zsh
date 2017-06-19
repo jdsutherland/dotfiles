@@ -148,8 +148,8 @@ if [[ -o interactive ]]; then
   alias wh='which'
   alias wifi='airport -s'
   alias diswifi='sudo /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -z'
-  alias ydl='youtube-dl -ci'
-  alias ydlp='youtube-dl --ignore-errors --download-archive archive.txt --output "%(autonumber)s-%(title)s.%(ext)s"'
+  alias ydl='youtube-dl --restrict-filenames -ci'
+  alias ydlp='youtube-dl --restrict-filenames --ignore-errors --download-archive archive.txt --output "%(autonumber)s-%(title)s.%(ext)s"'
   alias you='mpsyt'
   alias hp='http-prompt'
 
