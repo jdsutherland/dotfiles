@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# play - preview mpv saved playlists in fzf
+
+find ~/Media/config/playlists -type f | fzf --exact --height 100% \
+	--preview "(cat {} | xargs -E '\n' basename) 2> /dev/null" \
+	--preview-window=right:55% \
+	--prompt="^p: quicklook, ↵ : mpv" \
+	--bind "ctrl-m:execute: mpv --quiet {} 2> /dev/null" \
+	--bind "ctrl-p:execute: cat {} | xargs qlmanage -p 2> /dev/null"

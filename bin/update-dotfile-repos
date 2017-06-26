@@ -6,20 +6,26 @@ declare -a forked_repos=(
 "$HOME/.config/nvim/plugged/tmuxline.vim"
 "$HOME/.config/nvim/plugged/base16-vim"
 "$HOME/.config/nvim/plugged/vim-snippets"
-"$HOME/.zprezto"
 )
+# "$HOME/.zprezto"
 
 pull_forked() {
   for repo in "${forked_repos[@]}" ; do
     echo "Pulling upstream for: $repo ..."
-    cd "$repo" && git pull upstream master --rebase
+    (cd "$repo" &&
+      git checkout master &&
+      git stash &&
+      git pull origin master --rebase &&
+      git pull upstream master --rebase &&
+      git push origin master &&
+      git stash pop)
     echo
   done
 }
 
 pull_nonforked() {
-  echo 
-  cd "$HOME/.config/base16-shell" && git pull --rebase origin master
+  echo
+  (cd "$HOME/.config/base16-shell" && git pull --rebase origin master)
 }
 
 pull_forked

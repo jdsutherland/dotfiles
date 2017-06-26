@@ -1,0 +1,11 @@
+#!/bin/sh
+
+#This is based on: https://github.com/ranger/ranger/blob/master/examples/bash_automatic_cd.sh
+
+tempfile="$(mktemp -t tmp.XXXXXX)"
+/usr/local/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
+test -f "$tempfile" &&
+if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
+    cd -- "$(cat "$tempfile")"
+fi  
+rm -f -- "$tempfile"

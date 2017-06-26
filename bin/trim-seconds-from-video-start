@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
-# trim-seconds-from-video-start <ext> <sec>
+# trim-seconds-from-video-start <infile> <seconds>
 
 infile=$1
 sec=$2
 
-ffmpeg -ss "$sec" -i "$infile" -vcodec copy -acodec copy "$infile".trimmed.mp4
+outfile="$infile".trimmed.mp4
+
+ffmpeg -ss "$sec" -i "$infile" -vcodec copy -acodec copy "$outfile"

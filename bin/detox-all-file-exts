@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Usage: detox-all-file-exts <ext>
+
+# detox (rename to *nix friendly filenames) for given file ext using globbing
+#   useful because detox seems to randomly stop when run without using a loop
+
+extension=$1
+file_ext_matcher="*.$extension"
+
+echo "detox dry run..."
+echo
+for f in $file_ext_matcher; do detox -v -n "$f"; done
+echo
+
+echo "Proceed with renaming?"
+read -r response
+case $response in
+	[yY])
+		for f in $file_ext_matcher; do detox -v "$f"; done
+esac
