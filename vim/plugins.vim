@@ -90,10 +90,13 @@ Plug 'mattboehm/vim-unstack'
 Plug 'mattboehm/vim-accordion'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'duff/vim-ddldbl'
-Plug 'tpope/vim-vinegar'
+" Plug 'tpope/vim-vinegar'
+" Plug 'francoiscabrol/ranger.vim' | Plug 'rbgrouleff/bclose.vim'
+Plug 'Mizuchi/vim-ranger'
+Plug 'stefandtw/quickfix-reflector.vim'
 
 " Plug 'wincent/ferret'
-" https://github.com/wesQ3/vim-windowswap
+" Plug '/github.com/wesQ3/vim-windowswap'
 " https://github.com/fadein/vim-FIGlet
 " google plugins dont work for some reason
 " Plug 'google/vim-codereview'
@@ -155,15 +158,15 @@ Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 
 " html/css
 " Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
-Plug 'ap/vim-css-color', { 'for': ['scss', 'less', 'css', 'eruby'] }
 " Plug 'chrisbra/Colorizer'
+Plug 'ap/vim-css-color', { 'for': ['scss', 'less', 'css', 'eruby'] }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'mattn/emmet-vim', { 'for': ['html', 'scss', 'less', 'css', 'eruby', 'javascript', 'jsx'] }
 Plug 'othree/html5.vim', { 'for': ['html', 'scss', 'less', 'css', 'eruby'] }
 Plug 'tpope/vim-jdaddy'
 Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] }
-Plug 'hail2u/vim-css3-syntax'
+Plug 'hail2u/vim-css3-syntax', { 'for': ['html', 'scss', 'less', 'css', 'eruby'] }
 
 " ruby
 Plug 'ecomba/vim-ruby-refactoring', { 'for': ['ruby', 'eruby', 'yaml'] }
@@ -200,8 +203,8 @@ Plug 'blindFS/vim-taskwarrior'
 
 " misc lang
 Plug 'exu/pgsql.vim'
-Plug 'mattn/vdbi-vim'
-Plug 'vim-scripts/dbext.vim'
+Plug 'mattn/vdbi-vim', { 'for': ['sql', 'psql'] }
+Plug 'vim-scripts/dbext.vim', { 'for': ['sql', 'psql'] }
 Plug 'moskytw/nginx-contrib-vim'
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'plasticboy/vim-markdown', { 'for': 'md' }

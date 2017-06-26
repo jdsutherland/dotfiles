@@ -8,10 +8,6 @@ autocmd FileType vim setlocal keywordprg=:help " Open vim help under cursor
 
 " fix bug between taboo and airline
 autocmd TabNew * AirlineToggle
-autocmd TabNew * AirlineToggle
-
-" By default, vim thinks .md is Modula-2.
-" autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 " set unnamed buffer to sh (useful for using vim run shell command)
 " if @% == ""
@@ -35,9 +31,9 @@ function! AdjustWindowHeight(minheight, maxheight)
 endfunction
 
 " spell
-autocmd BufRead,BufNewFile *.md setlocal spell complete+=kspell
+" autocmd BufRead,BufNewFile *.md setlocal spell complete+=kspell
 " autocmd BufRead,BufNewFile *.txt setlocal spell complete+=kspell
-autocmd BufRead,BufNewFile *.tex* setlocal spell complete+=kspell
+" autocmd BufRead,BufNewFile *.tex* setlocal spell complete+=kspell
 autocmd FileType gitcommit setlocal spell complete+=kspell
 
 " rainbow parens around cursor

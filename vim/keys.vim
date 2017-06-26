@@ -175,7 +175,6 @@ nnoremap <space>Y :JsPreTmplClear<cr>
 " fugitive git bindings
 nnoremap <space>ga :Git add %:p<CR><CR>
 nnoremap <space>gA :Git add .<CR>
-nnoremap <space>gg :ToggleGStatus<CR><C-N>
 nnoremap <space>gc :Gcommit -v -q<CR>
 nnoremap <space>gt :Gcommit -v -q %:p<CR>
 nnoremap <space>gb :Gblame<CR>
@@ -396,6 +395,8 @@ map <leader>df dip
 map <leader>cc ,vvc
 map gy yiw
 map <cr>g griw
+" replace to end of line
+map <cr>G gr$
 " replace line with under cursor
 nmap <cr>C yiwcc<c-r>0<esc>
 nnoremap <space>- :TabooRename<space>
@@ -457,6 +458,6 @@ map ,<space> ysiw<space><space>
 
 " paste system clip without added newline above
 nmap cV cvgpO<esc>kdd
-nmap cpp <Plug>SystemCopyLine
+nmap cpp cpil
 " exchange to end of line
 nmap cX cx$
