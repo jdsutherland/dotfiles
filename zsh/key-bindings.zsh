@@ -40,7 +40,7 @@ bindkey '^x^g' fzf-git-reverse-widget
 # end fzf git bindings
 #
 
-fzf-play-widget() { play; zle reset-prompt }
+fzf-play-widget() { playlists; zle reset-prompt }
 zle     -N   fzf-play-widget
 bindkey '^x^p' fzf-play-widget
 
@@ -101,4 +101,6 @@ tmux-man-for-current-word() {
 zle -N tmux-man-for-current-word
 bindkey '^Q' tmux-man-for-current-word
 
-ins_help() { BUFFER="$BUFFER--help"; CURSOR=$#BUFFER }; zle -N ins_help; bindkey "^O" ins_help
+bindkey '^O' ranger-cd
+
+ins_help() { BUFFER="$BUFFER--help"; CURSOR=$#BUFFER }; zle -N ins_help; bindkey "^A^H" ins_help

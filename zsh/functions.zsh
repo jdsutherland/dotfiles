@@ -68,7 +68,7 @@ fcount() {
 }
 
 conflicted() {
-  vim +Conflicted
+  nvim +Conflicted
 }
 
 # c - browse chrome history
@@ -352,7 +352,7 @@ vidtime() {
   exiftool -n -q -p '${Duration;our $sum;$_=ConvertDuration($sum+=$_)}' **/*.(mp4|webm|mkv|mov) | tail -n1
 }
 
-unpackvideo() {
+unpackvid() {
   uz && dz && detox -r * && vidtime | pbcopy
 }
 
@@ -363,17 +363,6 @@ unpackudc() {
 # open clipboard link with mpv
 mp() {
   mpv $(pbpaste) &
-}
-
-pget() {
-  cd /tmp
-  rm -rf *.magnet
-  pirate-get "$@"
-}
-
-tget() {
-  cd /tmp
-  aria2c -c -x 10 -s 10 "$@" "$(cat *.magnet)"
 }
 
 # recursively run detox to fix filenames in all dirs
@@ -422,9 +411,13 @@ ydlps() {
   youtube-dl --restrict-filenames -cio "%(autonumber)s-%(title)s.%(ext)s" --playlist-start $2 --autonumber-start $2 $1
 }
 
+ydlm() {
+  youtube-dl --restrict-filenames -f '(mp4)[height<1280]' -cio "%(title)s.%(ext)s" $@
+}
+
 # downloads playlist in medium format
 ydlpm() {
-  youtube-dl --restrict-filenames -f '(mp4)[height<1280]' -cio "%(autonumber)s-%(title)s.%(ext)s" $1
+  youtube-dl --restrict-filenames -f '(mp4)[height<1280]' -cio "%(autonumber)s-%(title)s.%(ext)s" $@
 }
 
 ## Docker
@@ -455,8 +448,8 @@ rlocal() {
 }
 
 backup-seag8-to-silver() {
-  rlocal ~/Development /Volumes/seag8silver/
-  rlocal /Volumes/seag8 /Volumes/seag8silver/seag8
+  rlocal ~/Development /Volumes/seag8/
+  rsync -avhW --no-compress --delete /Volumes/seag8/ /Volumes/seag8silver/
 }
 
 bo() {
@@ -540,6 +533,11 @@ fmpv() {
   mpv $(fzf -m) > /dev/null 2>&1 &
 }
 
+# mpv dir only exact fzf
+mf() {
+  mpv $(ag -g . | find . -type d ! -path "*.git*" ! -path "*node_modules*" | fzf -e -m) > /dev/null 2>&1 &
+}
+
 # search a directory name to begin fzf with
 Fmpv() {
   mpv $(F $@ | fzf -m) > /dev/null 2>&1 &
@@ -555,4 +553,13 @@ restart-postgres() {
       launchctl unload homebrew.mxcl.postgresql.plist && \
       launchctl load -w homebrew.mxcl.postgresql.plist \
   )
+}
+
+bn() { basename "$@" }
+
+dlmag() { aria2c -c -x 10 -s 10 `cat $@` }
+
+notify() {
+  text=${1:=Something finished}
+  osascript -e "display notification \"$text\" with title \"Alert\""
 }

@@ -10,7 +10,7 @@ if [[ -o interactive ]]; then
   alias -g A='| ack -i --context'
   alias -g L='| less -r'
   alias -g R='| rg -i'
-  alias -g V='| vim -'
+  alias -g V='| view -'
   alias a='ag --workers 8 --pager "less -R"'
   alias agh='ag --hidden'
   alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
@@ -25,9 +25,10 @@ if [[ -o interactive ]]; then
   alias fw='{ alias; functions; } | fzf'
 
   # Directories
-  alias cast='cd /Volumes/seag8/screencasts'
+  alias vids='cd /Volumes/seag8/vids'
   alias cdl='cd ~/Downloads'
   alias cdoc='cd ~/Documents'
+  alias notes='cd ~/Notes'
   alias desk='cd ~/Desktop'
   alias dev='cd ~/Development'
   alias dockerdir='~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/'
@@ -40,8 +41,9 @@ if [[ -o interactive ]]; then
   alias proj='cd ~/Development/Projects'
   alias itunes='cd /Users/jeff/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album'
   alias s8='cd /Volumes/seag8'
-  alias s8p='cd /Volumes/seag8/pluralsight'
-  alias talks='cd /Volumes/seag8/screencasts/talks'
+  alias s8m='cd /Volumes/seag8/Media'
+  alias s8p='cd /Volumes/seag8/Media/dev-learning/pluralsight'
+  alias r8='ranger-cd /Volumes/seag8/Media'
   alias tutorials='cd ~/Development/Tutorials'
 
   # PS
@@ -124,7 +126,8 @@ if [[ -o interactive ]]; then
   alias npmimport='xargs npm install --global < ~/.dotfiles/Npmfile'
   alias nvimu='brew reinstall --HEAD neovim'
   alias playall='mpv **/*.(mp4|webm|mkv|mov) > /dev/null 2>&1 &'
-  alias ra='ranger'
+  alias ra='ranger-cd'
+  alias Ra='ranger'
   alias rr='rails'
   alias rsync='rsync'
   alias st='speedtest'
@@ -156,6 +159,8 @@ if [[ -o interactive ]]; then
   alias aria='aria2c -c -x 10 -s 10'
   alias cplay='cd ~/Media/config/playlists'
   alias quicklook='qlmanage -p "$@" >& /dev/null'
+  alias top='sudo htop'
+  alias N='notify'
 
   # Misc
   alias saythai='say -v Kanya -r 155'

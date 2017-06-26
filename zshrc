@@ -59,3 +59,4 @@ export PATH="/usr/local/opt/curl/bin:$PATH"
 autoload -U promptinit; promptinit
 prompt purer
 source /usr/local/share/zsh/site-functions/_aws
+export PATH="/usr/local/bin:$PATH"
