@@ -16,7 +16,7 @@ local settings = {
   sortplaylist_on_start = false,
 
   --amount of entries to show before slicing. Optimal value depends on font/video size etc.
-  showamount = 11,
+  showamount = 15,
 
   --replaces matches on filenames based on extension, put as false to not replace anything
   --replaces executed in index order, if order doesn't matter many rules can be placed inside one index
@@ -36,6 +36,7 @@ local settings = {
         [2] = { ['%s*[%[%(].-[%]%)]%s*']='' },  --remove brackets, their content and surrounding white space
         [3] = { ['(%w)%.(%w)']='%1 %2' },       --change dots between alphanumeric chars to spaces
         [4] = { ['(%w+)[%d][%sp]?']='' },   --remove repetitive number stuff?
+        [5] = { ['(%s-%s?%d+-?%s+)+']='' },   --remove repetitive number stuff?
       },
     },
   },
@@ -64,21 +65,20 @@ local settings = {
   --allowing you to use common overlapping keybinds
   dynamic_binds = true,
 
-  --playlist display signs, {"prefix", "suffix"}
-  --currently playing file 
-  playing_str = {"▶ ", ""},
+  --currently playing file
+  playing_str = {"▷  ", ""},
   --cursor is ontop of playing file
-  playing_and_cursor_str = {"―▶ ", "―"},
+  playing_and_cursor_str = {"▶  ", ""},
   --cursor file prefix and suffix
-  cursor_str = {"―→ ", " ←―"},
+  cursor_str = {"●  ", "  ●"},
   --non cursor file prefix and suffix
-  non_cursor_str = {"○", ""},
+  non_cursor_str = {"○  ", ""},
   --when you select a file
   cursor_str_selected = {"● = ", ""},
   --when currently playing file is selected
   playing_str_selected = {"▶ = ", ""},
   --top and bottom if playlist entries are sliced off from display
-  playlist_sliced_str = {"…", "…"},
+  playlist_sliced_str = {"...", "..."},
   --show file playlistnumber before filename, second value is suffix after number
   prefix_filenumber = {false, " - "},
 
@@ -186,8 +186,8 @@ function showplaylist(duration)
     local l_path, l_file = utils.split_path(mp.get_property('playlist/'..i..'/filename'))
     playlist[i] = stripfilename(l_file)
   end
-  output = "Playing: "..(strippedname or "undefined").."\n\n"
-  output = output.."Playlist - "..(cursor+1).." / "..plen.."\n"
+  output = "Playing: "..'                                  '..(strippedname or "undefined").."\n\n"
+  output = output.."\nPlaylist - "..(cursor+1).." / "..plen.."\n"
   local b = cursor - math.floor(settings.showamount/2)
   local showall = false
   local showrest = false
@@ -361,7 +361,10 @@ end
 function save_playlist()
   local length = mp.get_property_number('playlist-count', 0)
   if length == 0 then return end
-  local savepath = utils.join_path(settings.playlist_savepath, os.time().."-size_"..length.."-playlist.m3u")
+  local path = mp.get_property("path")
+  local cur_playing_basedirname = string.gsub(path, "(.*/)(.*)/(.*)/(.*)", "%2__%3")
+  local playlist_str = string.gsub(os.time().."_"..cur_playing_basedirname.."__"..length..".m3u", "/", '_')
+  local savepath = utils.join_path(settings.playlist_savepath, playlist_str)
   local file, err = io.open(savepath, "w")
   if not file then
     msg.error("Error in creating playlist file, check permissions and paths: "..(err or ""))
