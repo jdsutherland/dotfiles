@@ -94,9 +94,9 @@ Plug 'duff/vim-ddldbl'
 " Plug 'francoiscabrol/ranger.vim' | Plug 'rbgrouleff/bclose.vim'
 Plug 'Mizuchi/vim-ranger'
 Plug 'stefandtw/quickfix-reflector.vim'
+Plug 'wesQ3/vim-windowswap'
 
 " Plug 'wincent/ferret'
-" Plug '/github.com/wesQ3/vim-windowswap'
 " https://github.com/fadein/vim-FIGlet
 " google plugins dont work for some reason
 " Plug 'google/vim-codereview'

@@ -106,12 +106,12 @@ nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(st
 
 " Mappings for quick search & replace. Global set to default
 " Do a / search first, then leave pattern empty in :s// to use previous
-nnoremap <Leader>sub :%s///g<left><left>
-vnoremap <Leader>sub :s///g<left><left>
+nnoremap <Leader>sub :%s///<left><left>
+vnoremap <Leader>sub :s///<left><left>
 " hack to write a file that needs sudo
 nnoremap <Leader>sud :w !sudo tee %<cr>
-nnoremap <leader>wub :%s/<C-r><C-w>//gc<left><left><left>
-nnoremap <Leader>pub :cfdo %s///gc<left><left><left>
+nnoremap <leader>wub :%s/<C-r><C-w>//c<left><left><left>
+nnoremap <Leader>pub :cfdo %s///c<left><left><left>
 nnoremap <cr>l :s///<left>
 nnoremap <cr>r :s/<C-r><C-w>//<left>
 
