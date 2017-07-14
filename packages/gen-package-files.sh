@@ -5,7 +5,7 @@ set -euo pipefail
 # Intended use for installing packages from fresh install.
 
 # mkdir with timestamp to avoid collisions
-outdir=$(date +%Y_%m_%d_%H%M%S)
+outdir=$HOME/.dotfiles/packages/$(date +%Y_%m_%d_%H%M%S)
 
 _gen_brewfile() {
   brewfile=Brewfile
