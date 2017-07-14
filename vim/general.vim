@@ -1,5 +1,7 @@
+scriptencoding utf-8
+
 " Basic Settings
-let mapleader = ","
+let g:mapleader = ','
 filetype plugin indent on
 syntax on
 runtime macros/matchit.vim
@@ -16,9 +18,7 @@ set tabstop=2
 set mouse=
 set conceallevel=2
 set autoindent
-set encoding=utf-8
 set scrolloff=3
-set showcmd
 set hidden
 set wildmenu
 set wildmode=longest:list,full
@@ -45,7 +45,7 @@ set wrap
 set linebreak
 set nolist
 set formatoptions=qrn1
-if exists("+spelllang")
+if exists('+spelllang')
   set spelllang=en_us
 endif
 set spellfile=~/.vim/spell/en.utf-8.add
@@ -55,16 +55,16 @@ set noswapfile
 set tags=tags
 set path=.
 " Session settings
-set ssop-=options    " do not store global and local values in a session
-set ssop-=folds      " do not store folds
+set sessionoptions-=options " don't store global and local values in a session
+set sessionoptions-=folds   " don't store folds
 set splitbelow
 set splitright
-set stl+=%{ConflictedVersion()}
+set statusline+=%{ConflictedVersion()} " TODO: add to airline
 set diffopt+=vertical
 
 " base16 vim
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
+if filereadable(expand('~/.vimrc_background'))
+  let g:base16colorspace=256
   source ~/.vimrc_background
 endif
 
