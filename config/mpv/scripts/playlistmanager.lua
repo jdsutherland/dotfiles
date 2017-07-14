@@ -186,7 +186,7 @@ function showplaylist(duration)
     local l_path, l_file = utils.split_path(mp.get_property('playlist/'..i..'/filename'))
     playlist[i] = stripfilename(l_file)
   end
-  output = "Playing: "..'                                  '..(strippedname or "undefined").."\n\n"
+  output = "Playing: "..'                               '..(strippedname or "undefined").."\n\n"
   output = output.."\nPlaylist - "..(cursor+1).." / "..plen.."\n"
   local b = cursor - math.floor(settings.showamount/2)
   local showall = false
@@ -363,7 +363,7 @@ function save_playlist()
   if length == 0 then return end
   local path = mp.get_property("path")
   local cur_playing_basedirname = string.gsub(path, "(.*/)(.*)/(.*)/(.*)", "%2__%3")
-  local playlist_str = string.gsub(os.time().."_"..cur_playing_basedirname.."__"..length..".m3u", "/", '_')
+  local playlist_str = string.gsub(cur_playing_basedirname.."__"..length..".m3u", "/", '_')
   local savepath = utils.join_path(settings.playlist_savepath, playlist_str)
   local file, err = io.open(savepath, "w")
   if not file then
