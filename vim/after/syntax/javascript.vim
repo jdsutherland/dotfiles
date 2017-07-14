@@ -8,7 +8,8 @@ syntax match jsOperator "!\~" conceal cchar=≆
 syntax match jsOperator "++" conceal cchar=Δ
 syntax match jsOperator "--" conceal cchar=∇
 syntax match jsOperator "&&" conceal cchar=∧
-syntax match jsOperator "||" conceal cchar=∨
+syntax match jsOperator "||=\@!" conceal cchar=∨
+syntax match jsOperator "||=" conceal cchar=⊫
 syntax match jsOperator " \zs\*\ze " conceal cchar=⨉
 syntax match jsOperator " \zs\/\ze "  conceal cchar=÷
 
@@ -18,14 +19,19 @@ syntax match jsOperator "\s\+\zs\.\ze"  conceal cchar=｡
 syntax match jsGenerator "*" conceal cchar=⁕
 
 " FOO.length => FOO#
-syntax match jsNoise "\w*\zs\.length\ze\>" conceal cchar=#
-syntax match jsFuncCall "\w*\zs\.forEach\ze(" conceal cchar=∫
-syntax match jsFuncCall "\w*\zs\.filter\ze(" conceal cchar=∿
-syntax match jsFuncCall "\w*\zs\.reduce\ze(" conceal cchar=λ
-syntax match jsFuncCall "\w*\zs\.every\ze(" conceal cchar=∀
-syntax match jsFuncCall "\w*\zs\.some\ze(" conceal cchar=∃
-syntax match jsFuncCall "\w*\zs\.push\ze(" conceal cchar=«
-syntax match jsFuncCall "\w*\zs\.pop()" conceal cchar=»
+syntax keyword jsfuncCall length conceal cchar=#
+syntax keyword jsFuncCall forEach conceal cchar=∫
+syntax keyword jsFuncCall filter conceal cchar=∿
+syntax keyword jsFuncCall reduce conceal cchar=λ
+syntax keyword jsFuncCall map conceal cchar=⚨
+syntax keyword jsFuncCall every conceal cchar=∀
+syntax keyword jsFuncCall some conceal cchar=∃
+syntax keyword jsFuncCall push conceal cchar=«
+syntax keyword jsFuncCall pop conceal cchar=»
+syntax keyword jsFuncCall setTimeout conceal cchar=◴
+
+syntax keyword jsOperator typeof conceal cchar=¤
+syntax keyword jsOperator delete conceal cchar=☒
 
 " rest/spread
 syntax match jsNoise "\.\.\." conceal cchar=…
@@ -59,17 +65,18 @@ syntax keyword jsAsyncKeyword await conceal cchar=å
 
 syntax keyword jsExport export conceal cchar=E
 syntax keyword jsImport import conceal cchar=ɪ
+syntax keyword jsArguments arguments conceal cchar=ȁ
 
-syntax match jsGlobalObjects "\<Boolean\>" conceal cchar=𝔹
-syntax match jsGlobalObjects "\<Integer\>" conceal cchar=ℤ
-syntax match jsGlobalObjects "\<String\>" conceal cchar=∬
-syntax match jsGlobalObjects "\<Array\>" conceal cchar=⌸
+syntax keyword jsGlobalObjects Boolean conceal cchar=𝔹
+syntax keyword jsGlobalObjects Integer conceal cchar=ℤ
+syntax keyword jsGlobalObjects String conceal cchar=Ｓ
+syntax keyword jsGlobalObjects Array conceal cchar=⌸
 " 𝒜
-syntax match jsGlobalObjects "\<Number\>" conceal cchar=ℜ
+syntax keyword jsGlobalObjects Number conceal cchar=ℜ
 syntax match jsGlobalObjects "\<boolean\>" conceal cchar=𝔹
 " syntax match jsGlobalObjects "\<number\>" conceal cchar=ℜ
 " syntax match jsGlobalObjects "\<string\>" conceal cchar=∬
-syntax match jsNumber "\<Infinity\>" conceal cchar=∞
+syntax keyword jsNumber Infinity conceal cchar=∞
 syntax match jsNumber "\<infinity\>" conceal cchar=∞
 
 syntax keyword jsGlobalNodeObjects module conceal cchar=ᴍ
@@ -83,4 +90,4 @@ syntax keyword jsStatement continue conceal cchar=↰
 
 hi! link Conceal Operator
 hi! Conceal ctermbg=Black ctermfg=Magenta
-setlocal conceallevel=2
+"setlocal conceallevel=2

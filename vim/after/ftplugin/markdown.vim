@@ -14,4 +14,4 @@ let g:markdown_fenced_languages = [
       \ 'vim'
       \ ]
 
-setlocal spell
+" setlocal spell
