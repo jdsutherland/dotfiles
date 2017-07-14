@@ -110,7 +110,7 @@ function! Prose()
   nnoremap <buffer> <silent> <leader>Q vapJgqap
 
   " force top correction on most recent misspelling
-  nnoremap <buffer> <c-s> [s1z=<c-o>
+  nnoremap <buffer> <c-s><c-s> [s1z=<c-o>
   inoremap <buffer> <c-s> <c-g>u<Esc>[s1z=`]A<c-g>u
 
   " replace common punctuation
@@ -134,28 +134,28 @@ function! Prose()
 endfunction
 
 " automatically initialize buffer by file type
-autocmd FileType mkd,text call Prose()
+" autocmd FileType mkd,text call Prose()
 
 " invoke manually by command for other file types
 command! -nargs=0 Prose call Prose()
 
 " vim-pencil - high-granular
-augroup pencil
-  autocmd!
-  autocmd FileType markdown,mkd call pencil#init()
-                            \ | call litecorrect#init()
-                            \ | setl fdo+=search
-                            \ | setl fdl=4 noru nonu nornu
-  autocmd Filetype git,gitsendemail,*commit*,*COMMIT*
-                            \ | call litecorrect#init()
-                            \ | setl spell spl=en_us et sw=2 ts=2 noai
-  autocmd Filetype mail         call pencil#init({'wrap': 'hard', 'textwidth': 60})
-                            \ | call litecorrect#init()
-                            \ | setl spell spl=en_us et sw=2 ts=2 noai nonu nornu
-  autocmd Filetype html,xml     call pencil#init({'wrap': 'soft'})
-                            \ | call litecorrect#init()
-                            \ | setl spell spl=en_us et sw=2 ts=2
-augroup END
+" augroup pencil
+"   autocmd!
+"   autocmd FileType markdown,mkd call pencil#init()
+"                             \ | call litecorrect#init()
+"                             \ | setl fdo+=search
+"                             \ | setl fdl=4 noru nonu nornu
+"   autocmd Filetype git,gitsendemail,*commit*,*COMMIT*
+"                             \ | call litecorrect#init()
+"                             \ | setl spell spl=en_us et sw=2 ts=2 noai
+"   autocmd Filetype mail         call pencil#init({'wrap': 'hard', 'textwidth': 60})
+"                             \ | call litecorrect#init()
+"                             \ | setl spell spl=en_us et sw=2 ts=2 noai nonu nornu
+"   autocmd Filetype html,xml     call pencil#init({'wrap': 'soft'})
+"                             \ | call litecorrect#init()
+"                             \ | setl spell spl=en_us et sw=2 ts=2
+" augroup END
 
 " attempt to load directory with ranger.vim
 augroup ranger

@@ -233,13 +233,11 @@ xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 " imap <c-s><c-k> <plug>(fzf-complete-word)
 inoremap <expr> <c-s><c-k> fzf#vim#complete#word({'left': '15%'})
+nnoremap <expr> <c-s><c-k> fzf#vim#complete#word({'left': '15%'})
 " inoremap <expr> <c-x><c-h> fzf#complete('cat ~/.vim/spell/thesaurus/mthesaur.txt')
 imap <c-s><c-f> <plug>(fzf-complete-path)
 imap <c-s><c-j> <plug>(fzf-complete-file-ag)
 imap <c-s><c-l> <plug>(fzf-complete-line)
-" Advanced customization using autoload functions
-inoremap <expr> <c-s><c-k> fzf#vim#complete#word({'left': '15%'})
-" nnoremap <silent> ,t :FzfFiles<CR>
 nnoremap <silent> <cr>b :FzfBuffers<CR>
 nnoremap <silent> ,ss :FzfSnippets<CR>
 nnoremap <silent> ,fw :FzfWindows<CR>
@@ -364,6 +362,7 @@ nmap <cr>t yiWithis.<esc>A<space>=<space><C-R>";<esc>
 nnoremap r2i :<C-U>s/\(const\) \(\w*\)\s*=\srequire(\('.*'\))/import \2 from \3<CR>
 nmap g2p cvf/ffvBcPlug<space><esc>wviWS'
 nnoremap <silent><cr><cr> :exec &conceallevel ? "set conceallevel=0" : "set conceallevel=2"<CR>
+nnoremap <silent><tab> :exec &conceallevel ? "set conceallevel=0" : "set conceallevel=2"<CR>
 
 " splitjoin
 nnoremap sj :SplitjoinSplit<cr>

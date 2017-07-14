@@ -1,4 +1,4 @@
-if exists('g:no_ruby_conceal') || !has('conceal') || &enc != 'utf-8'
+if exists('g:no_javascript_conceal') || !has('conceal') || &enc != 'utf-8'
 	finish
 endif
 
