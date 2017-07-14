@@ -10,7 +10,7 @@ if [[ -o interactive ]]; then
   alias -g A='| ack -i --context'
   alias -g L='| less -r'
   alias -g R='| rg -i'
-  alias -g V='| view -'
+  alias -g V='| nvim -'
   alias a='ag --workers 8 --pager "less -R"'
   alias agh='ag --hidden'
   alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
@@ -39,24 +39,28 @@ if [[ -o interactive ]]; then
   alias oss='cd ~/Development/OSS'
   alias prg='cd ~/Documents/Programming'
   alias proj='cd ~/Development/Projects'
-  alias itunes='cd /Users/jeff/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album'
+  alias itunes="cd /Users/jeff/Music/iTunes/iTunes\ Media/Music/Unknown\ Artist/Unknown\ Album"
   alias s8='cd /Volumes/seag8'
   alias s8m='cd /Volumes/seag8/Media'
   alias s8p='cd /Volumes/seag8/Media/dev-learning/pluralsight'
   alias r8='ranger-cd /Volumes/seag8/Media'
   alias tutorials='cd ~/Development/Tutorials'
+  alias cnv='cd ~/.config/nvim'
 
   # PS
   alias psa='ps aux'
   alias psr='ps aux | grep ruby'
 
   # Dotfiles
+  alias cbin='cd ~/.dotfiles/bin'
   alias ae='e ~/.dotfiles/zsh/aliases.zsh'
   alias fe='e ~/.dotfiles/zsh/functions.zsh'
   alias ge='e ~/.dotfiles/gitconfig'
   alias mpve='e ~/.dotfiles/config/mpv/mpv.conf'
   alias mpvi='e ~/.dotfiles/config/mpv/input.conf'
+  alias mpvr="mpv --script-opts=radiostart=true"
   alias se='e ~/.dotfiles/slate'
+  alias ke='e ~/.dotfiles/karabiner/private.xml'
   alias sshe='e ~/.ssh/config'
   alias te='e ~/.dotfiles/tmux.conf'
   alias ve='e ~/.dotfiles/vim/init.vim'
@@ -75,7 +79,7 @@ if [[ -o interactive ]]; then
   alias gbc='gdc'
   alias gca='git commit -a'
   alias gcaa='git commit -a --amend -C HEAD'
-  alias gchurn='git-churn | tail -r -n 20'
+  alias gch='git-churn | tail -r -n 20'
   alias gcl='git clone'
   alias gcm='git commit -m'
   alias gco='git checkout'
@@ -95,7 +99,7 @@ if [[ -o interactive ]]; then
   alias gst='git status -s .'
   alias gstats='git-bstats'
   alias gsum='git-summary | head -n 27'
-  alias ginfo='gsum && echo "---------------------- churn ----------------------" && gchurn'
+  alias ginfo='gsum && echo "---------------------- churn ----------------------" && gch'
   eval "$(hub alias -s)"
 
   # App
@@ -125,7 +129,7 @@ if [[ -o interactive ]]; then
   alias nosleep=caffeinate
   alias npmimport='xargs npm install --global < ~/.dotfiles/Npmfile'
   alias nvimu='brew reinstall --HEAD neovim'
-  alias playall='mpv **/*.(mp4|webm|mkv|mov) > /dev/null 2>&1 &'
+  alias playall='mpv **/*.(mp4|webm|mkv|mov|m4v) > /dev/null 2>&1 &'
   alias ra='ranger-cd'
   alias Ra='ranger'
   alias rr='rails'
@@ -158,9 +162,14 @@ if [[ -o interactive ]]; then
   alias ariachrome='aria2c -c -x 10 -s 10 --enable-rpc --rpc-listen-all=true --rpc-allow-origin-all=true'
   alias aria='aria2c -c -x 10 -s 10'
   alias cplay='cd ~/Media/config/playlists'
+  alias chromext='cd ~/Library/Application\ Support/Google/Chrome/Default'
   alias quicklook='qlmanage -p "$@" >& /dev/null'
   alias top='sudo htop'
   alias N='notify'
+  alias bsyncall='browser-sync start --server --files . > /dev/null 2>&1 &'
+  alias jn='jupyter notebook'
+  alias brewn='brew info'
+  alias caskn='brew cask info'
 
   # Misc
   alias saythai='say -v Kanya -r 155'

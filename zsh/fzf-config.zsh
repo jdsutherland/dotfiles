@@ -20,14 +20,14 @@ local color0D='#81a2be'
 local color0E='#b294bb'
 local color0F='#a3685a'
 
-# export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow -g "!{.git,node_modules}/*"'
-# export FZF_CTRL_R_OPTS="--preview-window  --sort right:30% --preview 'echo {}'"
-export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden --bind '\:toggle-preview'"
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:5:hidden --bind ';:toggle-preview'"
 export FZF_CTRL_T_OPTS="--select-1 --exit-0"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+# export FZF_ALT_C_COMMAND="bfs -type d -nohidden"
 
 export FZF_DEFAULT_OPTS="
+  --bind ctrl-a:select-all,ctrl-r:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all,ctrl-f:toggle+down
   --reverse --ansi
   --height 100%
   --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D

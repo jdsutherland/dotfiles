@@ -37,7 +37,7 @@ KEYTIMEOUT=1
 # R - handle ASCII color escapes
 # X - Don't send clear screen signal
 export LESSOPEN="| src-hilite-lesspipe.sh %s"
-export LESS="ij.5FKMRX"
+export LESS="ij.5KMRX"
 
 # Show grep results in white text on a red background
 export GREP_COLOR='1;37;41'

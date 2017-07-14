@@ -27,7 +27,7 @@ agv () {
   if [ ! -z "$CHOICE" ]; then
     # Open vim at the selected file and line, but also run the Ag scan
     # the ! on Ag! stops Ag jumping to the first match, and the wincmd gives the editor window focus
-    nvim $( echo "$CHOICE" | awk 'BEGIN { FS=":" } { printf "+%d %s\n", $2, $1 } ') +"Ag! '$*'" "+wincmd k"
+    vim $( echo "$CHOICE" | awk 'BEGIN { FS=":" } { printf "+%d %s\n", $2, $1 } ') +"Ag! '$*'" "+wincmd k"
   fi
 }
 
@@ -280,7 +280,7 @@ uberp() {
 
 # opens a google map direction age given a destination
 mdir() {
-  ${(z)BROWSER} "https://www.google.com/maps/dir/$(getloc)/${1}"
+  ${(z)BROWSER} "https://www.google.com/maps/dir/$(getloc)/$@"
 }
 
 # colorized less output
@@ -349,7 +349,7 @@ ref() {
 
 # gets the total running time of videos recursively from the working dir
 vidtime() {
-  exiftool -n -q -p '${Duration;our $sum;$_=ConvertDuration($sum+=$_)}' **/*.(mp4|webm|mkv|mov) | tail -n1
+  exiftool -n -q -p '${Duration;our $sum;$_=ConvertDuration($sum+=$_)}' **/*.(mp4|webm|mkv|mov|m4v) | tail -n1
 }
 
 unpackvid() {
@@ -365,12 +365,20 @@ mp() {
   mpv $(pbpaste) &
 }
 
+ytn() {
+  mpv --no-video --ytdl-format=bestaudio ytdl://ytsearch10:"'$*'"
+}
+
+yts() {
+  mpv ytdl://ytsearch10:"'$*'"
+}
+
 # recursively run detox to fix filenames in all dirs
 fixnames() {
   for i in **/*;do detox $i; done
 }
 
-detoxl() { for i in *; do detox $i; done }
+detoxr() { for i in **/*; do detox $i; done }
 
 2digit0pad() {
   for i in [0-9]-*; do mv "$i" "0$i"; done
@@ -398,17 +406,13 @@ Gt() {
   BROWSER=w3m googler $@
 }
 
-npmexport() {
-  npm list --global --parseable --depth=0 | sed '1d' | awk '{gsub(/\/.*\//,"",$1); print}' > ~/.dotfiles/Npmfile
-}
-
 F() {
   find . -type d -name "*$1*" -print 2>/dev/null
 }
 
 # resumes at given index
 ydlps() {
-  youtube-dl --restrict-filenames -cio "%(autonumber)s-%(title)s.%(ext)s" --playlist-start $2 --autonumber-start $2 $1
+  youtube-dl --restrict-filenames -f '(mp4)[height<1280]' -cio "%(autonumber)s-%(title)s.%(ext)s" --playlist-start $2 --autonumber-start $2 $1
 }
 
 ydlm() {
@@ -417,7 +421,7 @@ ydlm() {
 
 # downloads playlist in medium format
 ydlpm() {
-  youtube-dl --restrict-filenames -f '(mp4)[height<1280]' -cio "%(autonumber)s-%(title)s.%(ext)s" $@
+  youtube-dl --restrict-filenames --download-archive archive.txt -f '(mp4)[height<1280]' -cio "%(autonumber)s-%(title)s.%(ext)s" $@
 }
 
 ## Docker
@@ -427,7 +431,7 @@ dstop() { docker stop $(docker ps -a -q); }
 drm() { docker rm $(docker ps -a -q); }
 # Remove all images
 dri() { docker rmi $(docker images -q); }
-# Dockerfile build, e.g., $dbu tcnksm/test 
+# Dockerfile build, e.g., $dbu tcnksm/test
 dbu() { docker build -t=$1 .; }
 # Show all alias related docker
 dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
@@ -476,7 +480,7 @@ finde() {
 }
 
 ps_latest() {
-  http https://www.pluralsight.com/browse | pup ".search-result__title a text{}" 
+  http https://www.pluralsight.com/browse | pup ".search-result__title a text{}"
   echo
   echo "Open in browser?"
   read -r response
@@ -538,6 +542,11 @@ mf() {
   mpv $(ag -g . | find . -type d ! -path "*.git*" ! -path "*node_modules*" | fzf -e -m) > /dev/null 2>&1 &
 }
 
+# find files fzf
+fz() {
+  ag -g $@ | fzf
+}
+
 # search a directory name to begin fzf with
 Fmpv() {
   mpv $(F $@ | fzf -m) > /dev/null 2>&1 &
@@ -562,4 +571,13 @@ dlmag() { aria2c -c -x 10 -s 10 `cat $@` }
 notify() {
   text=${1:=Something finished}
   osascript -e "display notification \"$text\" with title \"Alert\""
+}
+
+gcn() {
+  name="$(basename $1)-$2"
+  git clone $1 $name && cd $name
+}
+
+gcd() {
+  git clone $1 && cd $(basename $1)
 }

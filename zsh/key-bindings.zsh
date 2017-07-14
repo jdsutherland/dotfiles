@@ -55,7 +55,6 @@ bindkey "^F" menu-complete
 zle     -N   fzf-cd-widget
 bindkey '^]' fzf-cd-widget
 
-bindkey -s '^p' ' vim -O $(fzf-down-full -m --preview "(highlight -O ansi {} || cat {}) 2> /dev/null");^m'
 
 zstyle ':completion:*' menu select
 zmodload zsh/complist
@@ -101,6 +100,24 @@ tmux-man-for-current-word() {
 zle -N tmux-man-for-current-word
 bindkey '^Q' tmux-man-for-current-word
 
-bindkey '^O' ranger-cd
+# ins_help() { BUFFER="$BUFFER--help"; CURSOR=$#BUFFER }; zle -N ins_help; bindkey "^A^H" ins_help
 
-ins_help() { BUFFER="$BUFFER--help"; CURSOR=$#BUFFER }; zle -N ins_help; bindkey "^A^H" ins_help
+# vim
+vim-fzf-preview() {
+  local files
+  IFS=$'\n' files=($(fzf --query="$1" --preview-window=right:57% --multi --select-1 --exit-0 --preview "(highlight -O ansi {} || cat {}) 2> /dev/null"))
+  [[ -n "$files" ]] && ${EDITOR:-vim} -O "${files[@]}" && print -l "$files[@]"
+}
+bindkey -s '^p' ' vim-fzf-preview\n'
+
+# ranger
+ranger-cd() {
+    tempfile="$(mktemp -t tmp.XXXXXX)"
+    /usr/local/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
+    test -f "$tempfile" &&
+    if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
+        cd -- "$(cat "$tempfile")"
+    fi
+    rm -f -- "$tempfile"
+}
+bindkey -s '^O' ' ranger-cd\n'
