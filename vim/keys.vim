@@ -461,3 +461,8 @@ nmap cV cvgpO<esc>kdd
 nmap cpp cpil
 " exchange to end of line
 nmap cX cx$
+
+imap <c-y><c-y> <Plug>(emmet-expand-abbr)
+
+" HACK: karabiner map <c-i>=>F6 to allow seperate <tab> & <c-i> maps
+nnoremap <F6> <C-i>

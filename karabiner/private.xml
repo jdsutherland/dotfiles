@@ -92,6 +92,18 @@
     </autogen>
   </item>
 
+   <item>
+     <name>CTRL-I to F6 in terminal</name>
+     <appendix>Bring the Tab/CTRL-I combo kicking and screaming into the 21st century.</appendix>
+     <identifier>private.terminal</identifier>
+     <only>TERMINAL, VI</only>
+     <autogen>
+       __KeyToKey__ KeyCode::I,
+       MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
+       KeyCode::F6
+     </autogen>
+   </item>
+
   <item>
     <name>Tap opt-l for tmux git diff</name>
     <appendix>Tap opt_l for tmux git diff in terminal.</appendix>
