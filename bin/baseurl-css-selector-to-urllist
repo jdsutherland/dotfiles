@@ -14,5 +14,5 @@ prepend_baseurl_to_each_url() {
 	sed -i -e "s|^|$baseurl|" "$fout"
 }
 
-phantomjs phantomjs-get-urllist-via-selector.js "$baseurl" "$selector" > "$fout"
+phantomjs ~/.dotfiles/bin/phantomjs-get-urllist-via-selector.js "$baseurl" "$selector" > "$fout"
 prepend_baseurl_to_each_url

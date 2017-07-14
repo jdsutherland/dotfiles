@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+# show ranger buffer
+
+for e in $argv; do
+	echo "$e"
+done

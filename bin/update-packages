@@ -30,6 +30,8 @@ update_all_gems() {
 }
 
 update_all_global_packages() {
+  tldr --update
+
   echo "Update all packages for: pip, pip3, go, yarn, and rubygems"
   echo
 
@@ -49,11 +51,11 @@ update_all_global_packages() {
   esac
 
   echo
-  echo "Update yarn?"
+  echo "Update gems?"
   read -r response
   case $response in
     [yY])
-      update_all_yarn
+      update_all_gems
   esac
 
   echo
@@ -65,11 +67,11 @@ update_all_global_packages() {
   esac
 
   echo
-  echo "Update gems?"
+  echo "Update yarn?"
   read -r response
   case $response in
     [yY])
-      update_all_gems
+      update_all_yarn
   esac
 
   echo

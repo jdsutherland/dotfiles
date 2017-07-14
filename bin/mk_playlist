@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+# generate m3u playlist file
+# mk_playlist <file(s)> <playlist name>
+
+PLAYLIST_DIR=$HOME/Media/config/playlists
+PLAYLIST_NAME="$argv[-1].m3u"
+PLAYLIST_FULLPATH=$PLAYLIST_DIR/$PLAYLIST_NAME
+
+for file in $argv[0,-2]; do
+	echo "$file" >> "$PLAYLIST_FULLPATH"
+done
