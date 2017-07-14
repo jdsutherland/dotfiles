@@ -74,10 +74,7 @@ endif
 
 " colorscheme base16-tomorrow-night
 colorscheme base16-default-dark
-
-" colorscheme hybrid_reverse
-" let g:hybrid_custom_term_colors = 1
-" let g:enable_bold_font = 1
+highlight Comment cterm=italic
 
 " Display extra whitespace
 set listchars=tab:→\ ,trail:∙,nbsp:•
