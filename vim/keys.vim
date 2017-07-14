@@ -15,6 +15,7 @@ inoremap <expr> <C-F> pumvisible() \|\| &omnifunc == '' ?
 \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
 \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
 inoremap <C-D> <C-P>
+inoremap <C-B> <C-P>
 
 " Reselect pasted text. Mnem: 'Get pasted'
 nnoremap gp '[v']
@@ -73,6 +74,8 @@ imap <M-u> _
 imap <M-o> -
 nmap <M-n> <plug>(scratch-insert-reuse)
 
+" nmap <C-G> <Plug>GazetteerEchoLocation
+
 " easymotion
 nmap <space>w <M-u>w
 nmap <space>b <M-u>b
@@ -102,16 +105,21 @@ nnoremap <silent>,cn :let @* = expand("%:t")<CR>
 " replace with system clipboard
 nmap ,gr "*gr
 
-nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
+nnoremap <silent><space><space> :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
+xnoremap ,* :<C-u>call VisualStarSearchSet('/')<CR>/<C-R>=@/<CR><CR>
 
 " Mappings for quick search & replace. Global set to default
 " Do a / search first, then leave pattern empty in :s// to use previous
-nnoremap <Leader>sub :%s///<left><left>
-vnoremap <Leader>sub :s///<left><left>
+nnoremap <Leader>sub :%s///<left>
+vnoremap <Leader>sub :s///<left>
+" Abolish
+nnoremap <Leader>abs :%S/
+nnoremap <Leader>abb :%S// **/*<left><left><left><left><left><left>
+
 " hack to write a file that needs sudo
 nnoremap <Leader>sud :w !sudo tee %<cr>
-nnoremap <leader>wub :%s/<C-r><C-w>//c<left><left><left>
-nnoremap <Leader>pub :cfdo %s///c<left><left><left>
+nnoremap <leader>wub :%s/<C-r><C-w>//c<left><left>
+nnoremap <Leader>pub :cfdo %s///gc<left><left><left>
 nnoremap <cr>l :s///<left>
 nnoremap <cr>r :s/<C-r><C-w>//<left>
 
@@ -123,9 +131,9 @@ imap ,. />
 
 " ---NAVIGATION---
 " open prev buffer
-nnoremap <c-b> <C-^>
+nnoremap <C-B> <C-^>
 nnoremap <silent> ,f <C-]>zz
-nnoremap <silent>,T :tab split <CR>:exec("tag ".expand("<cword>"))<CR>
+nnoremap <silent>,ft :tab split <CR>:exec("tag ".expand("<cword>"))<CR>
 nnoremap <silent> ,fs :sp<CR>:exec("tag ".expand("<cword>"))<CR>zz<C-w><C-p>
 nnoremap <silent> ,fv :vsp <CR>:exec("tag ".expand("<cword>"))<CR>zz<C-w><C-p>
 nnoremap <silent> <space>ll :exec("ptag ".expand("<cword>"))<CR>:set sb<CR>
@@ -137,7 +145,6 @@ nnoremap <space>z za
 nnoremap <leader>N :set nonumber!<CR>:set norelativenumber!<CR>
 
 nnoremap <leader>hp :!open -a Google\ Chrome %<CR><CR>
-nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 nnoremap <silent> ,u :UndotreeToggle<CR>
 nnoremap <leader>L :set list!<CR>
 
@@ -246,7 +253,7 @@ nnoremap <silent> ,gl :FzfCommits<CR>
 nnoremap <silent> ,ga :FzfBCommits<CR>
 nnoremap <silent> ,gs :FzfGFiles?<CR>
 nnoremap <silent> ,ft :FzfFiletypes<CR>
-nnoremap <silent> ,m :FzfMap<CR>
+" nnoremap <silent> ,m :FzfMap<CR>
 nnoremap <silent> K :call SearchWordWithRg()<CR>
 vnoremap <silent> K :call SearchVisualSelectionWithRg()<CR>
 nnoremap ,gg :FzfAg<CR>
@@ -297,7 +304,7 @@ nmap <cr>is viiga<space>gvgs
 nnoremap <cr>q :VtrSendCommandToRunner<space>
 " useful for move up and down paragraph (reading w goyo)
 nnoremap <cr><tab> {kzz
-nnoremap <tab> }jzz
+nnoremap <space><tab> }jzz
 " surround current line with newlines
 map <cr><space> [<space>]<space>
 map <cr>v viW
@@ -341,7 +348,7 @@ nmap <CR>f :VtrSendLineToRunner<cr>
 vmap <CR>f <Esc>:VtrSendSelectedToRunner<cr>
 
 " javascript
-nnoremap <leader>nr :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'node'}<cr>
+" nnoremap <leader>nr :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'node'}<cr>
 nmap ,cl yiwoconsole.log('<c-r>"', <c-r>");<Esc>^
 " ||=
 nmap <leader>\| yiWA<space>=<space><C-R>"<space>\|\|<space>
@@ -356,7 +363,7 @@ nmap <cr>t yiWithis.<esc>A<space>=<space><C-R>";<esc>
 " require to import
 nnoremap r2i :<C-U>s/\(const\) \(\w*\)\s*=\srequire(\('.*'\))/import \2 from \3<CR>
 nmap g2p cvf/ffvBcPlug<space><esc>wviWS'
-nnoremap <M-\> :exec &conceallevel ? "set conceallevel=0" : "set conceallevel=1"<CR>
+nnoremap <silent><cr><cr> :exec &conceallevel ? "set conceallevel=0" : "set conceallevel=2"<CR>
 
 " splitjoin
 nnoremap sj :SplitjoinSplit<cr>
@@ -368,7 +375,7 @@ map ?  <Plug>(incsearch-backward)
 " map g/ <Plug>(incsearch-stay)
 
 " characterize
-nmap gA <Plug>(characterize)
+nmap <c-f> <Plug>(characterize)
 
 " lldb
 nmap <A-b> <Plug>LLBreakSwitch
@@ -399,6 +406,7 @@ map <cr>g griw
 map <cr>G gr$
 " replace line with under cursor
 nmap <cr>C yiwcc<c-r>0<esc>
+nnoremap <silent><space>L :Limelight!!<cr>
 nnoremap <space>- :TabooRename<space>
 nnoremap <space>1 :PrettyJSON<cr>
 nnoremap <space>2 :Goyo<cr>
@@ -407,7 +415,7 @@ nnoremap <space>4 :Autoformat<cr>
 nnoremap <space>5 :FZFMru<cr>
 nnoremap <space>6 :Rooter<cr>
 nnoremap <space>7 :ALEFix<cr>
-nnoremap <space>8 :ALEFixSuggest<cr>
+nnoremap <space>8 :ChromaticaToggle<cr>
 nnoremap <space>0 :ALEToggle<cr>
 
 nmap f <Plug>(clever-f-f)
@@ -466,3 +474,8 @@ imap <c-y><c-y> <Plug>(emmet-expand-abbr)
 
 " HACK: karabiner map <c-i>=>F6 to allow seperate <tab> & <c-i> maps
 nnoremap <F6> <C-i>
+
+nmap <leader>m <Plug>GrepOperatorOnCurrentDirectory
+vmap <leader>m <Plug>GrepOperatorOnCurrentDirectory
+nmap <leader><leader>m <Plug>GrepOperatorWithFilenamePrompt
+vmap <leader><leader>m <Plug>GrepOperatorWithFilenamePrompt

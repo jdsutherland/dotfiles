@@ -4,20 +4,20 @@ filetype plugin indent on
 syntax on
 runtime macros/matchit.vim
 set shell=/bin/zsh
-set nocompatible
 set modelines=0
 set smarttab
 set expandtab
 set shiftwidth=2
 set softtabstop=2
+set noshowmode
+set shortmess+=c " don't show completion number in status
+set pumheight=20
 set tabstop=2
 set mouse=
-" for pangloss
-set conceallevel=1
+set conceallevel=2
 set autoindent
 set encoding=utf-8
 set scrolloff=3
-set showmode
 set showcmd
 set hidden
 set wildmenu
@@ -34,12 +34,11 @@ set updatetime=750 " https://www.reddit.com/r/vim/comments/3ql651/what_do_you_se
 set laststatus=2
 " show filename rather than full path
 set statusline=%t
-nnoremap / /\v
-vnoremap / /\v
 set ignorecase
 set smartcase
 set gdefault
 set incsearch
+set inccommand=nosplit
 set showmatch
 set hlsearch
 set wrap
@@ -53,7 +52,8 @@ set spellfile=~/.vim/spell/en.utf-8.add
 set thesaurus=~/.vim/spell/thesaurus/mthesaur.txt
 set noswapfile
 " Set the tag file search order
-set tags=./tags;
+set tags=tags
+set path=.
 " Session settings
 set ssop-=options    " do not store global and local values in a session
 set ssop-=folds      " do not store folds
@@ -72,14 +72,13 @@ endif
 " set background=dark
 " set termguicolors
 
-" colorscheme base16-tomorrow-night
 colorscheme base16-default-dark
 highlight Comment cterm=italic
 
 " Display extra whitespace
 set listchars=tab:→\ ,trail:∙,nbsp:•
 
-" Ag
+" Rg
 set grepprg=rg\ --vimgrep
 
 " persistent undo

@@ -16,7 +16,6 @@ autocmd TabNew * AirlineToggle
 
 " Without this, vim breaks in the middle of words when wrapping
 autocmd FileType markdown setlocal nolist wrap lbr
-autocmd FileType markdown let b:dispatch = 'octodown --live-reload %'
 au BufRead,BufNewFile *.json set filetype=json
 au BufRead,BufNewFile *.babelrc set filetype=json
 au BufRead,BufNewFile *.eslintrc set filetype=json
@@ -36,9 +35,6 @@ endfunction
 " autocmd BufRead,BufNewFile *.tex* setlocal spell complete+=kspell
 autocmd FileType gitcommit setlocal spell complete+=kspell
 
-" rainbow parens around cursor
-" au! cursormoved * silent! call PoppyInit()
-
 " writing
 " au FileType markdown,text,tex DittoOn  " Turn on Ditto's autocmds
 
@@ -52,11 +48,14 @@ autocmd FileType javascript,jsx nnoremap <buffer> ,fs :TernDefSplit<cr>
 autocmd FileType javascript,jsx nnoremap <buffer> T :TernType<cr>
 autocmd FileType javascript,jsx nnoremap <buffer> <space>ll :TernDefPreview<cr><c-o>
 
+" c
+" au FileType c,cpp  nmap ,f <Plug>(clang_complete_goto_declaration)
+
 " js conceal expand
-autocmd FileType javascript,jsx inoremap <silent> @ <C-r>=syntax_expand#expand("@", "this")<CR>
-autocmd FileType javascript,jsx inoremap <silent> # <C-r>=syntax_expand#expand("#", "prototype")<CR>
-autocmd FileType javascript,jsx inoremap <silent> < <C-r>=syntax_expand#expand_head("<", "return")<CR>
-autocmd FileType javascript,jsx set concealcursor=n
+" autocmd FileType javascript,jsx inoremap <silent> @ <C-r>=syntax_expand#expand("@", "this")<CR>
+" autocmd FileType javascript,jsx inoremap <silent> # <C-r>=syntax_expand#expand("#", "prototype")<CR>
+" autocmd FileType javascript,jsx inoremap <silent> < <C-r>=syntax_expand#expand_head("<", "return")<CR>
+" autocmd FileType javascript,jsx set concealcursor=n
 
 " omnisharp
 autocmd FileType cs nnoremap ,f :OmniSharpGotoDefinition<cr>
@@ -97,7 +96,7 @@ endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
-" vim-pencil - advanced init
+" " vim-pencil - advanced init
 function! Prose()
   call pencil#init()
   call lexical#init()
@@ -143,10 +142,10 @@ command! -nargs=0 Prose call Prose()
 " vim-pencil - high-granular
 augroup pencil
   autocmd!
-  autocmd FileType mkd call pencil#init()
+  autocmd FileType markdown,mkd call pencil#init()
                             \ | call litecorrect#init()
-                            \ | setl spell spl=en_us fdl=4 noru nonu nornu
                             \ | setl fdo+=search
+                            \ | setl fdl=4 noru nonu nornu
   autocmd Filetype git,gitsendemail,*commit*,*COMMIT*
                             \ | call litecorrect#init()
                             \ | setl spell spl=en_us et sw=2 ts=2 noai
@@ -157,3 +156,15 @@ augroup pencil
                             \ | call litecorrect#init()
                             \ | setl spell spl=en_us et sw=2 ts=2
 augroup END
+
+" attempt to load directory with ranger.vim
+augroup ranger
+    au!
+    au VimEnter * sil! au! FileExplorer *
+    au BufEnter * if s:isdir(expand('%')) | bd | exe 'Ranger' | endif
+augroup END
+
+fu! s:isdir(dir) abort
+    return !empty(a:dir) && (isdirectory(a:dir) ||
+                \ (!empty($SYSTEMDRIVE) && isdirectory('/'.tolower($SYSTEMDRIVE[0]).a:dir)))
+endfu

@@ -14,10 +14,29 @@ let g:deoplete#omni#functions.javascript = [
   \ 'jspc#omni'
 \]
 
+if !exists('g:deoplete#omni#functions')
+    let g:deoplete#omni#functions = {}
+endif
+
+" deoplete-github
+let g:deoplete#sources = {}
+let g:deoplete#sources.gitcommit=['github']
+let g:deoplete#keyword_patterns = {}
+let g:deoplete#keyword_patterns.gitcommit = '.+'
+let g:deoplete#omni#input_patterns = {}
+let g:deoplete#omni#input_patterns.gitcommit = '.+'
+
+let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+let g:deoplete#ignore_sources.php = ['omni']
+
+" webcomplete
+" set completefunc=webcomplete#complete
+" set omnifunc=webcomplete#complete
+
 " omnifuncs
 augroup omnifuncs
   autocmd!
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
   autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
@@ -53,7 +72,7 @@ let g:grep_cmd_opts = '--line-numbers --noheading'
 augroup Poppy
   au!
 augroup END
-nnoremap <silent><leader>\  :call clearmatches() \| let g:poppy = -get(g:,'poppy',-1) \|
+nnoremap <silent><c-p> :call clearmatches() \| let g:poppy = -get(g:,'poppy',-1) \|
       \ exe 'au! Poppy CursorMoved *' . (g:poppy > 0 ? ' call PoppyInit()' : '') <cr>
 
 " ale linting
@@ -63,6 +82,10 @@ let g:ale_linters = {
       \ }
 let g:ale_fixers.javascript = ['prettier', 'eslint']
 let g:ale_javascript_prettier_options = '--no-bracket-spacing --single-quote'
+
+let g:ale_fixers.ruby = [
+      \ 'remove_trailing_lines',
+      \ 'rubocop']
 
 let g:ale_fixers.python = [
       \ 'remove_trailing_lines',
@@ -102,14 +125,21 @@ let g:OmniSharp_selector_ui = 'fzf'    " Use fzf.vim
 " let g:OmniSharp_server_type = 'roslyn'
 let g:OmniSharp_timeout = 100
 
-" monster - ruby
-let g:monster#completion#rcodetools#backend = "async_rct_complete"
+" " monster - ruby
+let g:monster#completion#rcodetools#backend = 'async_rct_complete'
 let g:deoplete#sources#omni#input_patterns = {
 \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
 \}
-
 " ruby textobj
 let g:textobj_ruby_more_mappings = 1
+" ruby omni
+let g:rubycomplete_rails = 1
+let g:rubycomplete_buffer_loading = 1
+let g:rubycomplete_classes_in_global = 1
+let g:rubycomplete_load_gemfile = 1
+let ruby_operators = 1
+let ruby_space_errors = 1
+let ruby_minlines = 150
 
 " tmux runner
 let g:VtrUseVtrMaps = 1
@@ -120,8 +150,9 @@ let g:VtrPercentage = 30
 let g:rspec_command = "call VtrSendCommand('rspec {spec}')"
 
 " snippets
-let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit='vertical'
 let g:UltiSnipsListSnippets='<C-s>'
+let g:UltiSnipsJumpForwardTrigger='<C-J>'
 
 " editorconfig
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
@@ -163,7 +194,7 @@ let g:fzf_commits_log_options =
 
 let g:rg_command = 'rg --hidden --follow --column --line-number --no-heading -j 8 --smart-case --color "always"
 \ -g "!{.git,node_modules,vendor,build,plugged,lib,dist}/*"
-\ -g "*.{js,jsx,json,php,md,styl,jade,html,css,config,py,cpp,c,go,hs,rb,erb,conf,hbs,sh,vim}"
+\ -g "*.{lua,js,ts,coffee,jsx,json,php,md,styl,jade,html,css,config,py,cpp,c,go,hs,rb,erb,conf,hbs,sh,vim}"
 \ -g "!*.{lock,min.js,swp,o,zip}" '
 
 " TODO?(if desired): whitelist of filetypes
@@ -246,6 +277,9 @@ let g:titlecase_map_keys = 0
 " vim-markdown
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_new_list_item_indent = 2
+let g:vim_markdown_toc_autofit = 1
+let g:vim_markdown_autowrite = 1
+
 let g:vim_markdown_fenced_languages = ['psql=sql', 'js=javascript', 'rb=ruby', 'erb=eruby', 'py=python', 'csharp=cs']
 
 " vim-switch
@@ -287,15 +321,19 @@ let g:javascript_plugin_flow = 1
 let g:javascript_plugin_jsdoc = 1
 
 let g:javascript_conceal_function             = "ƒ"
-let g:javascript_conceal_null                 = "ø"
+let g:javascript_conceal_null                 = "∅"
 let g:javascript_conceal_this                 = "@"
 let g:javascript_conceal_return               = "⇚"
 let g:javascript_conceal_undefined            = "¿"
 let g:javascript_conceal_NaN                  = "ℕ"
+let g:javascript_conceal_equality             = "≡"
 let g:javascript_conceal_prototype            = "¶"
-" let g:javascript_conceal_static               = "•"
-" let g:javascript_conceal_super                = "Ω"
+let g:javascript_conceal_static               = "∬"
+let g:javascript_conceal_super                = "Ω"
 let g:javascript_conceal_arrow_function       = "⇒"
+let g:javascript_conceal_arrow_function       = "⇒"
+let g:javascript_conceal_noarg_arrow_function = "⇴"
+let g:javascript_conceal_underscore_arrow_function = "⇴"
 
 " jsx
 let g:vim_jsx_pretty_colorful_config = 1
@@ -339,3 +377,39 @@ let g:rooter_manual_only = 1
 " conflicted
 let g:diffget_local_map = ',dgl'
 let g:diffget_upstream_map = ',dgu'
+
+nmap <leader>G <Plug>GrepOperatorOnCurrentDirectory
+vmap <leader>G <Plug>GrepOperatorOnCurrentDirectory
+
+" make consistant with UltiSnips jump trigger
+let g:user_emmet_next_key = '<C-j>'
+
+" let g:chromatica#enable_at_startup=1
+let g:chromatica#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+
+let g:echodoc_enable_at_startup = 1
+
+let g:tagbar_compact = 1
+
+if has('nvim')
+  let g:far#source = 'agnvim'
+endif
+let g:far#file_mask_favorites = ['.', '%']
+" let g:far#window_layout='tab'
+let g:far#auto_preview = 0
+" let g:far#highlight_match = 0
+let g:far#auto_write_undo_buffers = 1
+let g:far#debug = 1
+
+" TODO: set maps
+
+let g:ranger_map_keys = 0
+let g:LoupeHighlightGroup='Error'
+" let g:LoupeCenterResults=0
+
+let g:pymode_options = 0
+let g:pymode_folding = 1
+let g:pymode_doc_bind = ',K'
+let g:pymode_lint = 0
+
+let g:grep_operator_set_search_register = 1
