@@ -141,7 +141,7 @@ bind 9:${hyper}   resize -10% +0 top-right
 bind 0:${hyper}   resize +10% +0 top-right
 bind -:${hyper}   resize -10% +0
 bind =:${hyper}   resize +10% +0
-bind tab:${hyper} switch
+# bind tab:${hyper} switch
 
 ## App bindings
 # These are laid out on the left hand
@@ -152,6 +152,8 @@ bind g:${hyper}     focus 'Finder'
 bind p:${hyper}     focus 'Preview'
 # bind m:${hyper}     focus ${music}
 bind m:${hyper}     focus 'Marked 2'
+bind r:${hyper}     focus 'Reeder'
+bind tab:${hyper}   focus 'Pocket'
 bind e:${hyper}     focus ${email}
 bind e:${hyper}     focus 'Electron'
 bind v:${hyper}     focus 'mpv'
