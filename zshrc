@@ -59,3 +59,7 @@ autoload -U promptinit; promptinit
 source /usr/local/share/zsh/site-functions/_aws
 export PATH="/usr/local/bin:$PATH"
 # export PATH="/usr/local/include:$PATH"
+
+ # added for npm-completion https://github.com/Jephuff/npm-bash-completion
+PATH_TO_NPM_COMPLETION="/usr/local/lib/node_modules/npm-completion"
+source $PATH_TO_NPM_COMPLETION/npm-completion.sh

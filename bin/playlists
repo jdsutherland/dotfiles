@@ -5,7 +5,8 @@
 find ~/Media/config/playlists -type f | fzf --exact --height 100% \
 	--preview "(cat {} | xargs -E '\n' basename) 2> /dev/null" \
 	--preview-window=right:40% \
-	--prompt="^p:ql ^f ↵ " \
+	--prompt="^p:ql ^f ^d ↵ " \
 	--bind "ctrl-m:execute: mpv --quiet {} 2>&1 /dev/null &" \
 	--bind "ctrl-f:execute: clear" \
-	--bind "ctrl-p:execute: cat {} | xargs qlmanage -p 2> /dev/null"
+	--bind "ctrl-p:execute: cat {} | xargs qlmanage -p 2> /dev/null" \
+	--bind "ctrl-d:execute: rm {}"
