@@ -8,14 +8,14 @@ Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'Shougo/vimproc.vim'
 " Plug 'Shougo/neco-syntax'
 Plug 'Shougo/neco-vim' " vimscript
-Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
-Plug 'zchee/deoplete-go'
+" Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
+Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'zchee/deoplete-jedi'
 Plug 'zchee/deoplete-zsh'
 " Plug 'SevereOverfl0w/deoplete-github'
 Plug 'fszymanski/deoplete-abook'
 " Plug 'thalesmello/webcomplete.vim'
-Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp', 'objc'] }
+" Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp', 'objc'] }
 Plug 'wokalski/autocomplete-flow'
 " Plug 'landaire/deoplete-swift', { 'for': 'swift' }
 
@@ -30,7 +30,8 @@ Plug 'Cypher1/nvim-rappel'
 Plug 'sjl/vitality.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/switch.vim'
-Plug 'Chiel92/vim-autoformat'
+" Plug 'Chiel92/vim-autoformat'
+Plug 'sbdchd/neoformat'
 Plug 'FooSoft/vim-argwrap'
 Plug 'PeterRincker/vim-argumentative'
 Plug 'SirVer/ultisnips' | Plug 'jdsutherland/vim-snippets'
@@ -48,18 +49,19 @@ Plug 'dietsche/vim-lastplace'
 Plug 'dzeban/vim-log-syntax'
 Plug 'easymotion/vim-easymotion'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'gcmt/taboo.vim'
+" Plug 'gcmt/taboo.vim'
 Plug 'janko-m/vim-test'
 " Plug 'jbarbero/doctabs.vim'
 Plug 'jeetsukumaran/vim-gazetteer'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-journal'
-Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-indent' | Plug 'kana/vim-textobj-entire' | Plug 'kana/vim-textobj-line' | Plug 'nelstrom/vim-textobj-rubyblock' | Plug 'Chun-Yang/vim-textobj-chunk' | Plug 'jceb/vim-textobj-uri' | Plug 'lucapette/vim-textobj-underscore'
+Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-indent' | Plug 'kana/vim-textobj-entire' | Plug 'kana/vim-textobj-line' | Plug 'nelstrom/vim-textobj-rubyblock' | Plug 'Chun-Yang/vim-textobj-chunk' | Plug 'jceb/vim-textobj-uri'
+ " | Plug 'lucapette/vim-textobj-underscore'
 Plug 'majutsushi/tagbar'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'pbrisbin/vim-mkdir'
-Plug 'rondale-sc/vim-spacejam'
+" Plug 'rondale-sc/vim-spacejam'
 Plug 'sickill/vim-pasta'
 " Plug 'skwp/greplace.vim'
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -70,6 +72,7 @@ Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-rake'
@@ -108,13 +111,15 @@ Plug 'francoiscabrol/ranger.vim' | Plug 'rbgrouleff/bclose.vim'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'wesQ3/vim-windowswap'
 Plug 'inside/vim-grep-operator'
-" Plug 'brooth/far.vim' TODO: slow
-" Plug 'dahu/SearchParty'
 Plug 'chrisbra/NrrwRgn'
 Plug 'junegunn/heytmux'
 Plug 'wincent/terminus'
 Plug 'wincent/loupe'
 Plug 'ervandew/supertab'
+Plug 'ntpeters/vim-better-whitespace'
+
+" Plug 'Yggdroot/indentLine' TODO: doesn't work with existing conceal
+" Plug 'brooth/far.vim' TODO: slow
 " Plug 'hkupty/iron.nvim' TODO breaks cp mapping
 " Plug 'mitermayer/vim-prettier' TODO: maybe?
 
@@ -155,7 +160,6 @@ Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'rhysd/github-complete.vim'
 Plug 'tpope/vim-fugitive'
-" Plug 'int3/vim-extradite'
 Plug 'moll/vim-bbye'
 Plug 'junegunn/vim-github-dashboard'
 Plug 'google/vim-searchindex'
@@ -182,8 +186,8 @@ Plug 'nono/vim-handlebars'
 Plug 'othree/jspc.vim', { 'for': ['javascript', 'jsx'] }
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 " typescript
-Plug 'mhartington/nvim-typescript'
-Plug 'leafgarland/typescript-vim'
+" Plug 'mhartington/nvim-typescript'
+" Plug 'leafgarland/typescript-vim'
 
 " html/css
 " Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
@@ -200,9 +204,10 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'othree/csscomplete.vim'
 
 " ruby
+" Plug 'jgdavey/vim-blockle', { 'for': ['ruby', 'eruby', 'yaml'] }
 Plug 'ecomba/vim-ruby-refactoring', { 'for': ['ruby', 'eruby', 'yaml'] }
 Plug 'fishbullet/deoplete-ruby', { 'for': ['ruby', 'uby', 'yaml'] }
-Plug 'osyo-manga/vim-monster', { 'for': ['ruby', 'eruby', 'yaml'] }
+" Plug 'osyo-manga/vim-monster', { 'for': ['ruby', 'eruby', 'yaml'] }
 Plug 'rhysd/vim-textobj-ruby', { 'for': ['ruby', 'eruby', 'yaml'] }
 Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby', 'yaml'] }
 Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'eruby', 'yaml'] }
@@ -216,9 +221,10 @@ Plug 'powerman/vim-plugin-AnsiEsc'
 
 " c
 Plug 'Shougo/neoinclude.vim', { 'for': ['c', 'cpp', 'h', 'objc'] }
-Plug 'dbgx/lldb.nvim'
+" Plug 'dbgx/lldb.nvim'
 Plug 'justinmk/vim-syntax-extra'
-Plug 'arakashic/chromatica.nvim'
+Plug 'vim-scripts/a.vim', { 'for': ['c', 'cpp', 'h', 'objc'] }
+" Plug 'arakashic/chromatica.nvim'
 
 " csharp
 Plug 'OrangeT/vim-csharp', { 'for': 'cs' }
@@ -226,12 +232,14 @@ Plug 'OmniSharp/omnisharp-vim', { 'for': 'cs', 'do': 'cd server && xbuild' }
 Plug 'https://gitlab.com/mixedCase/deoplete-omnisharp.git', { 'for': 'cs' }
 
 " python
-" Plug 'ehamberg/vim-cute-python', { 'for': ['python'] }
 Plug 'vim-python/python-syntax', { 'for': ['python'] }
 " Plug 'python-mode/python-mode', { 'for': ['python'] }
 
+" php
+Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
+
 " swift
-Plug 'keith/swift.vim'
+Plug 'keith/swift.vim', { 'for': 'swift' }
 
 " other apps
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -245,9 +253,9 @@ Plug 'exu/pgsql.vim'
 Plug 'mattn/vdbi-vim', { 'for': ['sql', 'psql'] }
 Plug 'vim-scripts/dbext.vim', { 'for': ['sql', 'psql'] }
 Plug 'moskytw/nginx-contrib-vim'
-Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'plasticboy/vim-markdown'
-Plug 'itspriddle/vim-marked'
+" Plug 'itspriddle/vim-marked' TODO: slow
 Plug 'tmux-plugins/vim-tmux'
 Plug 'ekalinin/Dockerfile.vim'

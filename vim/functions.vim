@@ -1,10 +1,11 @@
-function! Fzf_statusline()
+function! s:fzf_statusline()
   " Override statusline as you like
   highlight fzf1 ctermfg=161 ctermbg=251
   highlight fzf2 ctermfg=23 ctermbg=251
   highlight fzf3 ctermfg=237 ctermbg=251
   setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
 endfunction
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 " function! SearchWordWithAg()
 "   execute 'FzfAg' expand('<cword>')
@@ -182,3 +183,13 @@ command! OpenTmuxGitFileFullHistory :call <sid>OpenTmuxGitFileFullHistory()
 "   %s/function\s*()/\(\) \=>/g
 " endfunction
 " command! ES6js :call <sid>ES6js()
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! BuildGoFiles()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction

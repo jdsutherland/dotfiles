@@ -7,7 +7,7 @@ autocmd BufLeave,FocusLost * silent! wall
 autocmd FileType vim setlocal keywordprg=:help " Open vim help under cursor
 
 " fix bug between taboo and airline
-autocmd TabNew * AirlineToggle
+" autocmd TabNew * AirlineToggle
 
 " set unnamed buffer to sh (useful for using vim run shell command)
 " if @% == ""
@@ -48,6 +48,21 @@ autocmd FileType javascript,jsx nnoremap <buffer> ,fs :TernDefSplit<cr>
 autocmd FileType javascript,jsx nnoremap <buffer> T :TernType<cr>
 autocmd FileType javascript,jsx nnoremap <buffer> <space>ll :TernDefPreview<cr><c-o>
 
+" go
+autocmd FileType go inoremap <buffer> ; :
+autocmd FileType go inoremap <buffer> : ;
+autocmd FileType go nnoremap <buffer> ,f :GoDef<cr>
+autocmd FileType go nnoremap <buffer> ,fs :GoDoc<cr>
+autocmd FileType go nnoremap <buffer> <silent> K :call SearchWordWithRg()<cr>
+autocmd FileType go nnoremap <buffer> <c-g> :GoInfo<cr>
+autocmd FileType go nnoremap <buffer> T :GoDescribe<cr>
+autocmd FileType go nnoremap <buffer> <m-b> :GoRun<cr>
+autocmd FileType go nnoremap <buffer> <space>tc :GoCoverageToggle<cr>
+autocmd FileType go nnoremap <buffer> <space>ts :<C-u>call BuildGoFiles()<CR>
+autocmd FileType go nnoremap <buffer> <space>tt :GoTestFunc<cr>
+autocmd FileType go nnoremap <buffer> <space>ll :GoDefStack<cr>
+autocmd FileType go nnoremap <buffer> <space>lc :GoDefStackClear<cr>
+
 " c
 " au FileType c,cpp  nmap ,f <Plug>(clang_complete_goto_declaration)
 
@@ -62,9 +77,6 @@ autocmd FileType cs nnoremap ,f :OmniSharpGotoDefinition<cr>
 
 " auto js template str html
 " autocmd FileType javascript JsPreTmpl html
-
-" fzf
-autocmd! User FzfStatusLine call Fzf_statusline()
 
 " ruby
 augroup rubypath
@@ -87,7 +99,7 @@ endfunction
 function! s:goyo_leave()
   silent !tmux set status on
   " silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-  set showmode
+  " set showmode
   set showcmd
   set scrolloff=5
   Limelight!
@@ -168,3 +180,6 @@ fu! s:isdir(dir) abort
     return !empty(a:dir) && (isdirectory(a:dir) ||
                 \ (!empty($SYSTEMDRIVE) && isdirectory('/'.tolower($SYSTEMDRIVE[0]).a:dir)))
 endfu
+
+autocmd BufEnter * EnableStripWhitespaceOnSave
+autocmd BufNewFile,BufRead * setlocal formatoptions-=cro

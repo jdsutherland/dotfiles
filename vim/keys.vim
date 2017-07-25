@@ -36,16 +36,18 @@ nnoremap ` '
 nnoremap 0 ^
 nnoremap ^ 0
 " 4 goes to end of line
-nnoremap 4 $
-nnoremap $ ea<space>
-" insert argument (uses argumentative)
-nmap <leader>aa ],i,<space>
-nnoremap <space>a ea<space>
-vnoremap 4 $
+nnoremap 4 g_
+vnoremap 4 g_
 vnoremap $ 4
 " move vertically by visual line
 nnoremap j gj
 nnoremap k gk
+
+nnoremap $ ea<space>
+nnoremap <space>a ea<space>
+
+" insert argument (uses argumentative)
+nmap <leader>aa ],i,<space>
 
 " META. NOTE: tmux uses: [b,j,l,k,p,i,p,`,E,c,C]
 " others: [a]
@@ -64,7 +66,7 @@ nnoremap <M-w> :FzfWindows<CR>
 nnoremap <M-/> :FzfMarks<CR>
 " nnoremap <M-\> :TmuxNavigatePrevious<cr>
 " nnoremap <M-S-E> :TmuxNavigatePrevious<cr>
-nnoremap <M-t> :ToggleGStatus<cr><C-E><C-E><C-E>zz
+nnoremap <silent> <M-t> :ToggleGStatus<cr><C-E><C-E><C-E>zz
 nnoremap <silent><M-9> :tabprev<cr>
 nnoremap <silent><M-0> :tabnext<cr>
 " hacky way to lookup dot chain native modules easily in Dash
@@ -87,6 +89,8 @@ nmap <space>j <M-u>j
 nnoremap <cr>d :nohls<CR>
 nnoremap <silent> <space>dd :call CloseWindowOrKillBuffer()<CR>
 nnoremap <silent><leader>w :%s/\t/  /<cr>
+" remove multiple blank lines
+nnoremap <silent><leader>W :%!cat -s
 " remove semicolons
 nnoremap <silent><cr>; :%s/;//<cr>
 nnoremap <silent> \e :Errors<CR>
@@ -107,6 +111,8 @@ nmap ,gr "*gr
 
 nnoremap <silent><space><space> :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
 xnoremap ,* :<C-u>call VisualStarSearchSet('/')<CR>/<C-R>=@/<CR><CR>
+" upcase current word
+inoremap <c-u> <esc>viwUe
 
 " Mappings for quick search & replace. Global set to default
 " Do a / search first, then leave pattern empty in :s// to use previous
@@ -361,8 +367,7 @@ nmap <cr>t yiWithis.<esc>A<space>=<space><C-R>";<esc>
 " require to import
 nnoremap r2i :<C-U>s/\(const\) \(\w*\)\s*=\srequire(\('.*'\))/import \2 from \3<CR>
 nmap g2p cvf/ffvBcPlug<space><esc>wviWS'
-nnoremap <silent><cr><cr> :exec &conceallevel ? "set conceallevel=0" : "set conceallevel=2"<CR>
-nnoremap <silent><tab> :exec &conceallevel ? "set conceallevel=0" : "set conceallevel=2"<CR>
+nnoremap <silent><c-f> :exec &conceallevel ? "set conceallevel=0" : "set conceallevel=2"<CR>
 
 " splitjoin
 nnoremap sj :SplitjoinSplit<cr>
@@ -374,7 +379,7 @@ map ?  <Plug>(incsearch-backward)
 " map g/ <Plug>(incsearch-stay)
 
 " characterize
-nmap <c-f> <Plug>(characterize)
+nmap <cr><cr> <Plug>(characterize)
 
 " lldb
 nmap <A-b> <Plug>LLBreakSwitch
@@ -406,16 +411,19 @@ map <cr>G gr$
 " replace line with under cursor
 nmap <cr>C yiwcc<c-r>0<esc>
 nnoremap <silent><space>L :Limelight!!<cr>
-nnoremap <space>- :TabooRename<space>
+" nnoremap <space>` :Limelight!!<cr>
+nnoremap <space>- :VtrAttachToPane<cr>
 nnoremap <space>1 :PrettyJSON<cr>
 nnoremap <space>2 :Goyo<cr>
-nnoremap <space>3 :MarkedOpen<cr>
-nnoremap <space>4 :Autoformat<cr>
+nnoremap <space>3 :!open %<cr>
+nnoremap <space>4 :Neoformat<cr>
 nnoremap <space>5 :FZFMru<cr>
 nnoremap <space>6 :Rooter<cr>
-nnoremap <space>7 :ALEFix<cr>
 nnoremap <space>8 :ChromaticaToggle<cr>
-nnoremap <space>0 :ALEToggle<cr>
+nnoremap <space>7 :ALEFix<cr>
+nnoremap <space>9 :ALEInfo<CR>
+nnoremap <space>0 :ALEDetail<CR>
+nnoremap <silent><tab> :ALEToggle<cr>
 
 nmap f <Plug>(clever-f-f)
 xmap f <Plug>(clever-f-f)

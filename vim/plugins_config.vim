@@ -6,7 +6,8 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#file#enable_buffer_path = 1
 let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
-let g:deoplete#sources#clang#clang_header = '/Library/Developer/CommandLineTools/usr/lib/clang'
+" let g:deoplete#sources#clang#clang_header = '/Library/Developer/CommandLineTools/usr/lib/clang/include'
+let g:deoplete#sources#clang#clang_header = '/usr/local/Cellar/llvm/HEAD-0193305/lib/clang/5.0.0/include/'
 let g:deoplete#sources#clang#sort_algo = 'priority'
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.javascript = [
@@ -72,10 +73,11 @@ let g:grep_cmd_opts = '--line-numbers --noheading'
 augroup Poppy
   au!
 augroup END
-nnoremap <silent><c-p> :call clearmatches() \| let g:poppy = -get(g:,'poppy',-1) \|
+nnoremap <c-p> :call clearmatches() \| let g:poppy = -get(g:,'poppy',-1) \|
       \ exe 'au! Poppy CursorMoved *' . (g:poppy > 0 ? ' call PoppyInit()' : '') <cr>
 
 " ale linting
+let g:airline#extensions#ale#enabled = 1
 let g:ale_fixers = {}
 let g:ale_linters = {
       \ 'javascript': ['eslint', 'flow']
@@ -94,6 +96,9 @@ let g:ale_fixers.python = [
       \ 'autopep8',
       \ 'yapf']
 
+let g:ale_c_clang_options = '-std=c11 -Wall -c -O0 -I. -I./src -I./include'
+let g:ale_c_gcc_options = '-std=c99 -pedantic -Wall -Wextra -Werror -Wundef -Wunreachable-code -Wpointer-arith -Wfloat-equal -Wswitch-default -Wconversion -Wshadow -fstack-protector-all -Wformat -Wformat-security -Werror=format-security'
+let g:ale_linters.c = ['clang', 'gcc']
 " TODO do i want this?
 let g:ale_ruby_rubocop_options = '--rails --display-style-guide'
 
@@ -238,6 +243,7 @@ endfunction
 
 " airline
 " let g:airline_theme='base16_default'
+let g:airline#extensions#tagbar#enabled = 0
 let g:airline_powerline_fonts = 1
 let g:airline_detect_modified=1
 let g:airline_detect_paste=1
@@ -413,3 +419,97 @@ let g:pymode_doc_bind = ',K'
 let g:pymode_lint = 0
 
 let g:grep_operator_set_search_register = 1
+
+" let g:indentLine_fileTypeExclude = ['terminal', 'fzf', 'help', 'json']
+" let g:indentLine_setColors = 0
+" let g:indentLine_color_term = 59
+" let g:indentLine_setConceal = 0
+" let g:indentLine_char = '│'
+" let g:indentLine_enabled = 1
+" let g:indentLine_faster = 1
+
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
+" go
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_fail_silently = 1
+
+let g:projectionist_heuristics = {
+      \   '*': {
+      \     '*.c': {
+      \       'alternate': '{}.h',
+      \       'type': 'source'
+      \     },
+      \     '*.h': {
+      \       'alternate': '{}.c',
+      \       'type': 'header'
+      \     },
+      \     '*.js': {
+      \       'alternate': [
+      \         '{dirname}/{basename}.test.js',
+      \         '{dirname}/__tests__/{basename}-test.js',
+      \         '{dirname}/__tests__/{basename}-mocha.js'
+      \       ],
+      \       'type': 'source'
+      \     },
+      \     '*.test.js': {
+      \       'alternate': '{basename}.js',
+      \       'type': 'test',
+      \     },
+      \     '**/__tests__/*-mocha.js': {
+      \       'alternate': '{dirname}/{basename}.js',
+      \       'type': 'test'
+      \     },
+      \     '**/__tests__/*-test.js': {
+      \       'alternate': '{dirname}/{basename}.js',
+      \       'type': 'test'
+      \     },
+      \     'package.json&spec/javascripts/*': {
+      \       'client/assets/javascripts/*.jsx': {
+      \         'type': 'src',
+      \         'alternate': 'spec/javascripts/{}-test.js'
+      \       },
+      \       'client/assets/javascripts/*.js': {
+      \         'type': 'src',
+      \         'alternate': 'spec/javascripts/{}-test.js'
+      \       },
+      \       'spec/javascripts/components/*-test.js': {
+      \         'type': 'test',
+      \         'alternate': 'client/assets/javascripts/components/{}.jsx'
+      \       },
+      \       'spec/javascripts/*-test.js': {
+      \         'type': 'test',
+      \         'alternate': 'client/assets/javascripts/{}.js'
+      \       },
+      \     },
+      \     '*.py': {
+      \       'alternate': 'tests/test_{basename}.py',
+      \       'type': 'source'
+      \     },
+      \     'tests/test_*.py': {
+      \       'alternate': '{}.py',
+      \       'type': 'test'
+      \     },
+      \     'app/*.rb' : {
+      \         'alternate': 'spec/{}_spec.rb',
+      \          'type': 'app'
+      \     },
+      \     'lib/*.rb' : {
+      \       'alternate': 'spec/{}_spec.rb',
+      \       'type' : 'lib'
+      \     },
+      \     '*.go': {
+      \       'alternate': '{}_test.go',
+      \       'type': 'source'
+      \     },
+      \     '*_test.go': {
+      \         'alternate': '{}.go',
+      \         'type': 'test'
+      \     },
+      \   }
+      \ }

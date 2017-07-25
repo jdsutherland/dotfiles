@@ -8,10 +8,10 @@ runtime macros/matchit.vim
 set shell=/bin/zsh
 set modelines=0
 set smarttab
+set autowrite
 set expandtab
 set shiftwidth=2
 set softtabstop=2
-set noshowmode
 set shortmess+=c " don't show completion number in status
 set pumheight=20
 set tabstop=2
@@ -45,6 +45,7 @@ set wrap
 set linebreak
 set nolist
 set formatoptions=qrn1
+set formatoptions-=cro
 if exists('+spelllang')
   set spelllang=en_us
 endif
@@ -59,7 +60,7 @@ set sessionoptions-=options " don't store global and local values in a session
 set sessionoptions-=folds   " don't store folds
 set splitbelow
 set splitright
-set statusline+=%{ConflictedVersion()} " TODO: add to airline
+" set statusline+=%{ConflictedVersion()} " TODO: add to airline
 set diffopt+=vertical
 
 " base16 vim
@@ -84,3 +85,5 @@ set grepprg=rg\ --vimgrep
 " persistent undo
 set undodir=~/.config/nvim/undodir
 set undofile
+
+set noshowmode
