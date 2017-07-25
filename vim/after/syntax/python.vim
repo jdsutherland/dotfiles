@@ -57,6 +57,7 @@ syntax match pythonFunction "\.push" conceal cchar=«
 syntax match pythonFunction "\.pop()\|\.pop" conceal cchar=»
 
 syntax keyword pyNiceStatement lambda conceal cchar=λ
+syntax match pyNiceStatement "->" conceal cchar=→
 syntax keyword pyNiceStatement None conceal cchar=∅
 
 syntax keyword pythonBuiltinFunc super conceal cchar=Ω

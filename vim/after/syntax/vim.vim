@@ -6,7 +6,7 @@ syntax match vimCommand "fu\w*" conceal cchar=ƒ
 syntax match vimCommand "endfu\w*" conceal cchar=}
 syntax match vimCommand "endfo\w*" conceal
 syntax match vimCommand "end[iw]\w*" conceal
-syntax match vimCommand "ret\(urn\)\?" conceal cchar=⇚
+syntax match vimCommand "\<ret\(urn\)\?\>" conceal cchar=⇚
 syntax match vimCommand "norm\(al\)\?" conceal cchar=ɴ
 
 syntax match vimOper "\.\.\." conceal cchar=…

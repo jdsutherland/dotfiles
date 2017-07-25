@@ -9,8 +9,8 @@ syntax match rubySymbol "!=" conceal cchar=≠
 syntax match rubySymbol "=\~" conceal cchar=≅
 syntax match rubySymbol "!\~" conceal cchar=≆
 
-syntax match rbNiceOperator " \* "  conceal cchar=×
-syntax match rbNiceOperator " \/ "  conceal cchar=÷
+syntax match rbNiceOperator " \zs\*\ze "  conceal cchar=×
+syntax match rbNiceOperator " \zs\/\ze "  conceal cchar=÷
 
 syntax keyword rbNiceOperator not conceal cchar=¬
 syntax match rbNiceOperator "\s\+\zs!\ze[! ]\@!" conceal cchar=¬
@@ -35,11 +35,13 @@ syntax match rubyOperator "<=>" conceal cchar=⇔
 syntax keyword rubyPseudoVariable nil conceal cchar=∅
 syntax keyword rubyPseudoVariable self conceal cchar=@
 " syntax match rubyString "\:\:" conceal cchar=∷
-syntax match rbNiceOperator "\.new" conceal cchar=μ
+" syntax match rbNiceOperator "\.new" conceal cchar=μ
+" syntax match rubyDefine "\s\?\<end\>" conceal
 
 " syntax match rbNiceOperator '\.'
 
 syntax match rbDelimiter  "(\|)\|\[\|\]\|,\|;\|{\|}"
+syntax match rubyOperator "\s\+\zs\.\ze"  conceal cchar=｡
 
 hi link rbNiceOperator Operator
 hi link rbDelimiter Delimiter

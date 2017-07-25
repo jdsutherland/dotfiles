@@ -45,10 +45,9 @@ syntax match jsOperator "\<not\>" conceal cchar=¬
 syntax keyword jsOperator in conceal cchar=∈
 syntax keyword jsExtendsKeyword extends conceal cchar=<
 syntax keyword jsOperator new conceal cchar=μ
-syntax match jsOperator "=\@<!===\@!" conceal cchar=≡
+syntax match jsOperator "=\@<!===\@!" conceal cchar=≈
 syntax match jsOperator "=\@<!====\@!" conceal cchar=≣
 syntax match jsOperator "\s\+!=\s\+" conceal cchar=≠
-syntax match jsOperator "\s\+\zs!==\ze\s\+" conceal cchar=≢
 syntax match jsOperator "\s\+\zs!==\ze\s\+" conceal cchar=≢
 
 " syntax match jsOperator "\s^\s" conceal cchar=⊻
