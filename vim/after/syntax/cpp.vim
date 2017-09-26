@@ -41,15 +41,15 @@ if s:extraConceal
   " syntax keyword cppNiceKeyword for conceal cchar=∀
   " syntax keyword cppNiceKeyword if conceal cchar=⁇
   syntax keyword cppNiceKeyword override conceal cchar=⎆
-  syntax keyword cppNiceKeyword public conceal cchar=▶
+  syntax keyword cppNiceKeyword public conceal
   syntax keyword cppNiceKeyword protected conceal cchar=◈
-  syntax keyword cppNiceKeyword private conceal cchar=▣
+  syntax keyword cppNiceKeyword private conceal cchar=○
   syntax keyword cppNiceKeyword return conceal cchar=⇚
   syntax keyword cppNiceKeyword sizeof conceal cchar=#
 	syntax keyword cppNiceKeyword enum conceal cchar=∈
 	syntax keyword cppNiceKeyword union conceal cchar=⋃
 	syntax keyword cppNiceKeyword struct conceal cchar=⊇
-  syntax keyword cppNiceKeyword static conceal cchar=∬
+  syntax keyword cppNiceKeyword static conceal cchar=∙
   " syntax keyword cppNiceKeyword switch conceal cchar=⋔
   syntax keyword cppNiceKeyword virtual conceal cchar=ⅵ
 
@@ -65,6 +65,15 @@ if s:extraConceal
   " syntax keyword cppNiceType int64 conceal cchar=ⅱ
   " syntax keyword cppNiceType uint32 conceal cchar=Ⅰ
   " syntax keyword cppNiceType uint64 conceal cchar=Ⅱ
+  syntax keyword cppNiceType void conceal cchar=∅
+  syntax keyword cppNiceType bool conceal cchar=ƀ
+  syntax keyword cppNiceType string conceal cchar=⟆
+  syntax keyword cppNiceType int conceal cchar=ℤ
+  syntax keyword cppNiceType int32 conceal cchar=ⅰ
+  syntax keyword cppNiceType int64 conceal cchar=ⅱ
+  syntax keyword cppNiceType uint32 conceal cchar=Ⅰ
+  syntax keyword cppNiceType uint64 conceal cchar=Ⅱ
+
 
   syntax match cppHiddenOperator /\S\zs()\ze\(\S\| [^{]\)/ conceal
   syntax match cppHiddenOperator /^\s*}$/ conceal

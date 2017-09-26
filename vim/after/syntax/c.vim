@@ -30,7 +30,7 @@ syntax keyword cOperator sizeof conceal cchar=#
 
 " syntax match cStatement "#include" conceal cchar=ɪ
 syntax keyword cStatement return conceal cchar=⇚
-syntax keyword cStatement break conceal cchar=↴
+syntax keyword cStatement break conceal cchar=↯
 syntax keyword cStatement continue conceal cchar=↰
 syntax keyword cStatement goto conceal cchar=↷
 
@@ -46,10 +46,10 @@ syntax keyword cType unsigned conceal cchar=ℕ
 syntax keyword cNiceBoolean true conceal cchar=T
 syntax keyword cNiceBoolean false conceal cchar=F
 
-syntax match cppHiddenOperator /\S\zs()\ze\(\S\| [^{]\)/ conceal
-syntax match cHiddenOperator /^\s*}$/ conceal
-syntax match cHiddenOperator /\(^\s*\)\@<=}\s*/ conceal
-syntax match cHiddenOperator /\ *{$/ conceal
+" syntax match cppHiddenOperator /\S\zs()\ze\(\S\| [^{]\)/ conceal
+" syntax match cHiddenOperator /^\s*}$/ conceal
+" syntax match cHiddenOperator /\(^\s*\)\@<=}\s*/ conceal
+" syntax match cHiddenOperator /\ *{$/ conceal
 syntax match cHiddenOperator /;$/ conceal
 
 hi link cNiceOperator Operator

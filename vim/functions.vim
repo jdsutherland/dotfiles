@@ -193,3 +193,18 @@ function! BuildGoFiles()
     call go#cmd#Build(0)
   endif
 endfunction
+
+" Don't use gutentags for go (gotags)
+function! MyCustomGutentagsEnableFunc(path) abort
+    return fnamemodify(a:path, ':e') != 'go'
+endfunction
+let g:gutentags_enabled_user_func = 'MyCustomGutentagsEnableFunc'
+
+" Remove `#` style comments (useful for rails generators)
+function! RemoveRubyComments()
+  execute '%s/^\s*#.*\n//g'
+  execute '%s/\(\n\n\)\n\+/\1/g'
+  execute 'nohl'
+  norm! gg
+endfunction
+command! RemoveRubyComments :call <sid>RemoveRubyComments()

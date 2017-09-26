@@ -31,13 +31,20 @@ syntax match pyNiceKeyword "\<\%(math\.\)\?pi\>" conceal cchar=π
 syntax match pyNiceOperator "\<\%(math\.\|\)ceil\>" conceal cchar=⌈
 syntax match pyNiceOperator "\<\%(math\.\|\)floor\>" conceal cchar=⌊
 
+" syntax match pyNiceOperator "\"\"\"" conceal cchar=‴
+syntax match pyNiceOperator "\.\.\." conceal cchar=…
+
 syntax keyword pythonBuiltinObj int conceal cchar=ℤ
 syntax keyword pythonBuiltinObj float conceal cchar=ℝ
+syntax keyword pythonBuiltinObj bool conceal cchar=ƀ
 syntax keyword pythonBuiltinObj complex conceal cchar=ℂ
-" syntax keyword pythonBuiltinObj str conceal cchar=Ｓ
+syntax keyword pythonBuiltinObj str conceal cchar=⟆
 
 " syntax match pyNiceOperator " \* " conceal cchar=∙
-syntax match pyNiceOperator " / " conceal cchar=÷
+" syntax match pyNiceOperator " \zs/\ze " conceal cchar=÷
+syntax match pyNiceOperator " \zs\*\ze " conceal cchar=⨉
+syntax match pyNiceOperator " \zs\/\ze "  conceal cchar=÷
+" syntax match pyNiceOperator "\w\?\s+\zs\*\zs\w+" conceal cchar=⁕
 " The following are special cases where it /may/ be okay to ignore PEP8
 syntax match pyNiceOperator "\( \|\)\*\*\( \|\)2\>" conceal cchar=²
 syntax match pyNiceOperator "\( \|\)\*\*\( \|\)3\>" conceal cchar=³
@@ -45,6 +52,8 @@ syntax match pyNiceOperator "\( \|\)\*\*\( \|\)n\>" conceal cchar=ⁿ
 
 " Your background, and taste, may affect whether you like # for cardinality ;)
 syntax keyword pyNiceBuiltin len conceal cchar=#
+syntax keyword pyNiceBuiltin del conceal cchar=✗
+syntax keyword pyNiceBuiltin break conceal cchar=↯
 syntax keyword pythonClassVar self conceal cchar=@
 syntax keyword pyNiceStatement return conceal cchar=⇚
 
@@ -53,8 +62,10 @@ syntax keyword pythonBoolean False conceal cchar=F
 syntax keyword pythonImport import conceal cchar=ɪ
 syntax keyword pythonImport from conceal cchar=ｆ
 
-syntax match pythonFunction "\.push" conceal cchar=«
+syntax match pythonFunction "\.append()\|.append" conceal cchar=«
 syntax match pythonFunction "\.pop()\|\.pop" conceal cchar=»
+" syntax match pythonImport "\<re\>" conceal cchar=ʀ
+" syntax match pyNiceStatement "__" conceal cchar=＿ FIXME: ya
 
 syntax keyword pyNiceStatement lambda conceal cchar=λ
 syntax match pyNiceStatement "->" conceal cchar=→
@@ -62,7 +73,10 @@ syntax keyword pyNiceStatement None conceal cchar=∅
 
 syntax keyword pythonBuiltinFunc super conceal cchar=Ω
 syntax match pythonDecorator "@staticmethod" conceal cchar=∬
+syntax match pythonDecorator "@classmethod" conceal cchar=Ɱ
 syntax match pythonDecorator "@property" conceal cchar=¶
+" syntax match pyNiceOperator "\v\w+\zs\:\ze" conceal cchar=꞉
+syntax match pyNiceOperator "\v\zs:\ze\s+\S+" conceal cchar=⁝
 
 hi link pyNiceOperator Operator
 hi link pyNiceStatement Statement

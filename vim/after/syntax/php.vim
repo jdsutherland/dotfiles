@@ -65,7 +65,7 @@ syntax keyword phpType array conceal cchar=▤
 " syntax keyword phpType private conceal cchar=×
 " syntax keyword phpType protected conceal cchar=-
 
-syntax keyword phpNiceKeyword break conceal cchar=↴
+syntax keyword phpNiceKeyword break conceal cchar=↯
 syntax keyword phpNiceKeyword continue conceal cchar=↰
 
 " distinguish lines beginning with method chains

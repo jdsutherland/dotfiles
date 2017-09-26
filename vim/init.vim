@@ -7,5 +7,3 @@ source ~/.vim/general.vim
 source ~/.vim/functions.vim
 source ~/.vim/autocmds.vim
 source ~/.vim/keys.vim
-
-set statusline+=%{ConflictedVersion()}

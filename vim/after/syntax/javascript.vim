@@ -30,8 +30,8 @@ syntax keyword jsFuncCall push conceal cchar=«
 syntax keyword jsFuncCall pop conceal cchar=»
 syntax keyword jsFuncCall setTimeout conceal cchar=◴
 
-syntax keyword jsOperator typeof conceal cchar=¤
-syntax keyword jsOperator delete conceal cchar=☒
+syntax keyword jsOperator typeof conceal cchar=₪
+syntax keyword jsOperator delete conceal cchar=✗
 
 " rest/spread
 syntax match jsOperator "\.\.\." conceal cchar=…
@@ -40,7 +40,7 @@ syntax match jsRestExpression "\.\.\." conceal cchar=…
 
 syntax match jsOperator "\s\zs<=\ze\s" conceal cchar=≤
 syntax match jsOperator "\s\zs>=\ze\s" conceal cchar=≥
-syntax match jsOperator /![^=]/me=e-1 conceal cchar=¬
+" syntax match jsOperator /![^=]/me=e-1 conceal cchar=¬
 syntax match jsOperator "\<not\>" conceal cchar=¬
 syntax keyword jsOperator in conceal cchar=∈
 syntax keyword jsExtendsKeyword extends conceal cchar=<
@@ -58,7 +58,7 @@ syntax keyword jsBooleanFalse false conceal cchar=F
 syntax keyword jsStorageClass const conceal cchar=𝔠
 syntax keyword jsStorageClass let conceal cchar=ʟ
 " syntax keyword jsStorageClass var conceal cchar=ⱽ
-" syntax keyword jsKeyword static conceal cchar=∬
+syntax keyword jsClassMethodType static conceal cchar=∬
 syntax keyword jsGlobalObjects Promise conceal cchar=Ᵽ
 
 syntax keyword jsAsyncKeyword async conceal cchar=Å
@@ -86,7 +86,7 @@ syntax match   jsGlobalObjects  "\<require" conceal cchar=ʀ
 syntax match jsNoise /;$/ conceal
 " syntax match jsNoise /,$/ conceal
 
-syntax keyword jsStatement break conceal cchar=↴
+syntax keyword jsStatement break conceal cchar=↯
 syntax keyword jsStatement continue conceal cchar=↰
 
 hi! link Conceal Operator

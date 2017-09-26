@@ -15,6 +15,7 @@ set softtabstop=2
 set shortmess+=c " don't show completion number in status
 set pumheight=20
 set tabstop=2
+" attempt to disable inadvertent trackpad clicks
 set mouse=
 set conceallevel=2
 set autoindent
@@ -30,7 +31,7 @@ set lazyredraw
 set ruler
 set backspace=indent,eol,start
 set history=500
-set updatetime=750 " https://www.reddit.com/r/vim/comments/3ql651/what_do_you_set_your_updatetime_to/
+set updatetime=250 " https://www.reddit.com/r/vim/comments/3ql651/what_do_you_set_your_updatetime_to/
 set laststatus=2
 " show filename rather than full path
 set statusline=%t
@@ -58,6 +59,7 @@ set path=.
 " Session settings
 set sessionoptions-=options " don't store global and local values in a session
 set sessionoptions-=folds   " don't store folds
+set foldmethod=marker
 set splitbelow
 set splitright
 " set statusline+=%{ConflictedVersion()} " TODO: add to airline
@@ -77,7 +79,7 @@ colorscheme base16-default-dark
 highlight Comment cterm=italic
 
 " Display extra whitespace
-set listchars=tab:→\ ,trail:∙,nbsp:•
+set listchars=tab:→\ ,trail:∙,nbsp:•,eol:¶
 
 " Rg
 set grepprg=rg\ --vimgrep
