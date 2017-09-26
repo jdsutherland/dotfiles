@@ -156,6 +156,7 @@ bind r:${hyper}     focus 'Reeder'
 bind tab:${hyper}   focus 'Pocket'
 bind e:${hyper}     focus ${email}
 bind e:${hyper}     focus 'Electron'
+bind z:${hyper}     focus 'iBooks'
 bind v:${hyper}     focus 'mpv'
 bind z:${hyper}     focus 'Caprine'
 # NOTE: mapped the following in Karabiner (doesn't work here)
