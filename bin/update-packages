@@ -3,11 +3,12 @@
 set -euo pipefail
 
 update_all_pip() {
-  sudo pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip install -U
+  # TODO: figure out 'six' errors -- HACK: ignore for now
+  sudo pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip install -U --ignore-installed six
 }
 
 update_all_pip3() {
-  sudo pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip install -U
+  sudo pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip install -U --ignore-installed six
 }
 
 update_all_go() {

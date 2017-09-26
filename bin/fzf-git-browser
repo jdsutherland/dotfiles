@@ -1,9 +1,19 @@
 #!/bin/sh
 
-git log --graph --color=always \
+show_merges_if_given_any_args() {
+  if [[ -z "$1" ]]; then
+    git_log_cmd="git log --no-merges --graph --color=always"
+  else
+    git_log_cmd="git log --graph --color=always"
+  fi
+}
+show_merges_if_given_any_args "$@"
+
+$git_log_cmd \
   --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" |
 fzf --ansi --no-sort --reverse --tiebreak=index --height 100% --bind=ctrl-o:toggle-sort \
-  --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always --format="" | diff-so-fancy' \
+  --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always --date=format:"%Y-%m-%d %H:%M:%S" --patch-with-stat --format="%Cblue%an <%ae> %C(yellow)%ad %C(bold)(%ar)%Creset%n%Cblue%n %C(bold cyan)%s%Creset%n%n%C(italic cyan)%b%Creset" | diff-so-fancy' \
+  --preview-window=right:55% \
   --bind "ctrl-m:execute:
             (grep -o '[a-f0-9]\{7,\}' | head -1 |
             xargs -I % sh -c 'git show --color=always --notes % | diff-so-fancy | less -R ') << 'FZF-EOF'
