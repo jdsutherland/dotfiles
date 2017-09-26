@@ -35,7 +35,6 @@ zstyle ':prezto:load' pmodule \
   'completion' \
   'homebrew' \
   'osx' \
-  'ruby' \
   'rails' \
   'python' \
   'node' \
@@ -115,8 +114,8 @@ zstyle ':prezto:module:prompt' theme 'pure'
 #
 
 # Auto switch the Ruby version on directory change.
-zstyle ':prezto:module:ruby:chruby' auto-switch 'yes'
-zstyle ':prezto:module:ruby:info:version' format 'version:%v'
+# zstyle ':prezto:module:ruby:chruby' auto-switch 'yes'
+# zstyle ':prezto:module:ruby:info:version' format 'version:%v'
 
 zstyle ':prezto:module:node:info:version' format 'version:%v'
 zstyle ':prezto:module:python:info:virtualenv' format 'virtualenv:%v'

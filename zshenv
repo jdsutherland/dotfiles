@@ -8,12 +8,9 @@ export PATH="$HOME/.bin:$PATH"
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export GOPATH=~/go
 export PATH=$PATH:$GOPATH/bin
-export PATH="/usr/local/Cellar/node/7.2.0/bin:$PATH"
+# export PATH="/usr/local/Cellar/node/7.2.0/bin:$PATH"
 export PATH="~/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH="~/.rbenv/shims:$PATH"
-export PROMPT="$node_info[version]:$PROMPT"
-export PROMPT="$ruby_info[version]:$PROMPT"
-export PROMPT="$python_info[version]:$PROMPT"
+# export PATH="~/.rbenv/shims:$PATH"
 
 export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
 

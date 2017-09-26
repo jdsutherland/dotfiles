@@ -29,11 +29,13 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 
 # Show contents of directory after cd-ing into it
 chpwd() {
-  ls -lrthG
+  # ls -lrthG
+  exa --long --git --sort=accessed --group-directories-first
 }
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-eval "$(rbenv init - --no-rehash)"
+# export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 
 # Variables
 export s8="/Volumes/seag8"
@@ -55,11 +57,25 @@ source ~/.private/private.sh
 # /usr/local/bin/git-tip
 export PATH="/usr/local/opt/curl/bin:$PATH"
 
-autoload -U promptinit; promptinit
+# autoload -U promptinit; promptinit TODO: why was this here?
 source /usr/local/share/zsh/site-functions/_aws
-export PATH="/usr/local/bin:$PATH"
-# export PATH="/usr/local/include:$PATH"
+source /usr/local/share/zsh/site-functions/_psql
+# export PATH="/usr/local/bin:$PATH"
 
  # added for npm-completion https://github.com/Jephuff/npm-bash-completion
 PATH_TO_NPM_COMPLETION="/usr/local/lib/node_modules/npm-completion"
 source $PATH_TO_NPM_COMPLETION/npm-completion.sh
+
+export WORKON_HOME=~/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+
+# TODO: fix vim-vint python
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+export PATH="/usr/local/lib/python3.6/site-packages:$PATH"
+
+# https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit#macos-sierra-1012-el-capitan-1011-and-yosemite-1010
+export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

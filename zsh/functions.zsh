@@ -148,6 +148,10 @@ Th() {
   tree -a -I 'node_modules' $1 -C | fzf
 }
 
+tdz() {
+  tree -d -L 1 | fzf
+}
+
 # trees - tree with size and depth param (useful for media)
 trees() {
   if [ "$1" -gt 0 ]; then
@@ -224,10 +228,16 @@ ngh() {
 }
 
 # sets up airbnb eslint for project
-setup_airbnb() {
+setup_airbnb_eslint_yarn() {
   yarn add dev eslint
   npm info eslint-config-airbnb@latest peerDependencies --json | command sed 's/[\{\},]//g ; s/: /@/g' | xargs yarn add --dev eslint-config-airbnb@latest
   echo '{\n  "extends": "airbnb"\n}' > .eslintrc.json
+}
+
+setup_airbnb_eslint_npm() {
+  npm install --save-dev eslint
+  npm info eslint-config-airbnb@latest peerDependencies --json | command sed 's/[\{\},]//g ; s/: /@/g' | xargs npm install --save-dev eslint-config-airbnb@latest
+echo '{\n  "extends": "airbnb"\n}' > .eslintrc.json
 }
 
 setup_babel() {
@@ -317,7 +327,7 @@ fp() {
 
 # ripgrep with paging
 r() {
-  rg -j 8 -p "$@" | less -RFX
+  rg -Sj 8 -p "$@" | less -RFX
 }
 
 # ripgrep hidden
@@ -349,7 +359,7 @@ ref() {
 
 # gets the total running time of videos recursively from the working dir
 vidtime() {
-  exiftool -n -q -p '${Duration;our $sum;$_=ConvertDuration($sum+=$_)}' **/*.(mp4|webm|mkv|mov|m4v) | tail -n1
+  exiftool -n -q -p '${Duration;our $sum;$_=ConvertDuration($sum+=$_)}' **/*.(mp4|webm|mkv|mov|m4v|avi) | tail -n1
 }
 
 unpackvid() {
@@ -360,29 +370,12 @@ unpackudc() {
   uz && dz && detox -r * && vidtime && mv -n */* . && rmdir *
 }
 
-# open clipboard link with mpv
-mp() {
-  mpv $(pbpaste) &
-}
-
-ytn() {
-  mpv --no-video --ytdl-format=bestaudio ytdl://ytsearch10:"'$*'"
-}
-
-yts() {
-  mpv ytdl://ytsearch10:"'$*'"
-}
-
 # recursively run detox to fix filenames in all dirs
 fixnames() {
   for i in **/*;do detox $i; done
 }
 
 detoxr() { for i in **/*; do detox $i; done }
-
-2digit0pad() {
-  for i in [0-9]-*; do mv "$i" "0$i"; done
-}
 
 imv() {
   local src dst
@@ -407,21 +400,57 @@ Gt() {
 }
 
 F() {
-  find . -type d -name "*$1*" -print 2>/dev/null
+  find . -type d -iname "*$1*" -print 2>/dev/null
+}
+
+ydl() {
+  url="$1"
+  youtube-dl --embed-subs --no-mtime --no-overwrites --restrict-filenames -ci "$url"
+}
+
+ydlp() {
+  url="$1"
+  youtube-dl --embed-subs --no-mtime --no-overwrites --restrict-filenames --ignore-errors --download-archive archive.txt --output "%(autonumber)s-%(title)s.%(ext)s" "$url"
 }
 
 # resumes at given index
 ydlps() {
-  youtube-dl --restrict-filenames -f '(mp4)[height<1280]' -cio "%(autonumber)s-%(title)s.%(ext)s" --playlist-start $2 --autonumber-start $2 $1
+  url="$1"
+  youtube-dl --embed-subs --no-mtime --no-overwrites --restrict-filenames -f '(mp4)[height<1280]' -cio "%(autonumber)s-%(title)s.%(ext)s" --playlist-start $2 --autonumber-start $2 "$url"
 }
 
 ydlm() {
-  youtube-dl --restrict-filenames -f '(mp4)[height<1280]' -cio "%(title)s.%(ext)s" $@
+  url="$1"
+  youtube-dl --embed-subs --no-mtime --no-overwrites --restrict-filenames -f '(mp4)[height<1280]' -cio "%(title)s.%(ext)s" "$url"
 }
 
 # downloads playlist in medium format
 ydlpm() {
-  youtube-dl --restrict-filenames --download-archive archive.txt -f '(mp4)[height<1280]' -cio "%(autonumber)s-%(title)s.%(ext)s" $@
+  url="$1"
+  youtube-dl --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt -f '(mp4)[height<1280]' -cio "%(autonumber)s-%(title)s.%(ext)s" "$url"
+}
+
+# open clipboard link with mpv
+mp() {
+  mpv $(pbpaste) &
+}
+
+ytn() {
+  mpv --no-video --ytdl-format=bestaudio ytdl://ytsearch10:"'$*'"
+}
+
+yts() {
+  mpv ytdl://ytsearch10:"'$*'"
+}
+
+# Pipe to this to quote filenames with spaces
+alias quote="sed 's/.*/\"&\"/'"
+# Files created today
+alias today="days 0"
+# Created in last n days
+days(){
+  local query="kMDItemFSCreationDate>\$time.today(-$1) && kMDItemContentType != public.folder"
+  mdfind -onlyin . "$query" | quote
 }
 
 ## Docker
@@ -452,8 +481,13 @@ rlocal() {
 }
 
 backup-seag8-to-silver() {
-  rlocal ~/Development /Volumes/seag8/
-  rsync -avhW --no-compress --delete /Volumes/seag8/ /Volumes/seag8silver/
+  rlocal ~/Development /Volumes/seag8blak/
+  # rsync -avhW --no-compress --delete /Volumes/seag8silver/ /Volumes/seag8blak/
+  rsync -avhW --no-compress /Volumes/seag8silver/ /Volumes/seag8blak/
+  rsync -avhW --no-compress /Volumes/seag8silver/media/dev-learning/upcase /Volumes/seag8blak/media/dev-learning/upcase
+  # rsync -avhW --no-compress /Volumes/seag8/Media/dev-learning/upcase /Volumes/seag8silver/Media/dev-learning/upcase
+  # rsync -avhW --no-compress /Volumes/seag8/Media/dev-learning/pluralsight /Volumes/seag8silver/Media/dev-learning/pluralsight
+  # rsync -avhW --no-compress /Volumes/seag8/Media/dev-learning/refactoring /Volumes/seag8silver/Media/dev-learning/refactoring
 }
 
 bo() {
@@ -501,35 +535,17 @@ brewS() {
 }
 
 fzf-git-reverse() {
-  git log --oneline --reverse --color=always \
+  git log --no-merges --oneline --reverse --color=always \
     --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" |
   fzf --ansi --no-sort --reverse --tiebreak=index --height 100% --bind=ctrl-o:toggle-sort \
-    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always --format="" | diff-so-fancy' \
+    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always --date=format:"%Y-%m-%d %H:%M:%S" --patch-with-stat --format="%Cblue%an <%ae> %C(yellow)%ad %C(bold)(%ar)%Creset%n%Cblue%n %C(bold cyan)%s%Creset%n%n%C(italic cyan)%b%Creset" | diff-so-fancy' \
+    --preview-window=right:55% \
     --bind "ctrl-m:execute:
               (grep -o '[a-f0-9]\{7,\}' | head -1 |
               xargs -I % sh -c 'git show --color=always --notes % | diff-so-fancy | less -R ') << 'FZF-EOF'
               {}
   FZF-EOF"
   clear
-}
-
-ftpane() {
-  local panes current_window current_pane target target_window target_pane
-  panes=$(tmux list-panes -s -F '#I:#P - #{pane_current_path} #{pane_current_command}')
-  current_pane=$(tmux display-message -p '#I:#P')
-  current_window=$(tmux display-message -p '#I')
-
-  target=$(echo "$panes" | grep -v "$current_pane" | fzf +m --reverse) || return
-
-  target_window=$(echo $target | awk 'BEGIN{FS=":|-"} {print$1}')
-  target_pane=$(echo $target | awk 'BEGIN{FS=":|-"} {print$2}' | cut -c 1)
-
-  if [[ $current_window -eq $target_window ]]; then
-    tmux select-pane -t ${target_window}.${target_pane}
-  else
-    tmux select-pane -t ${target_window}.${target_pane} &&
-    tmux select-window -t $target_window
-  fi
 }
 
 # fuzzy mpv
@@ -544,7 +560,7 @@ mf() {
 
 # find files fzf
 fz() {
-  ag -g $@ | fzf
+  ag -g "$1" | fzf
 }
 
 # search a directory name to begin fzf with
@@ -566,18 +582,57 @@ restart-postgres() {
 
 bn() { basename "$@" }
 
-dlmag() { aria2c -c -x 10 -s 10 `cat $@` }
+dlmag() { aria2c --file-allocation=falloc -c -x 10 -s 10 `cat $@` && rm "$1" }
 
-notify() {
-  text=${1:=Something finished}
-  osascript -e "display notification \"$text\" with title \"Alert\""
-}
+# notify() {
+#   text=${1:=Something finished}
+#   osascript -e "display notification \"$text\" with title \"Alert\""
+# }
 
+# git clone append name
 gcn() {
   name="$(basename $1)-$2"
   git clone $1 $name && cd $name
 }
 
+# git clone cd
 gcd() {
   git clone $1 && cd $(basename $1)
+}
+
+# list new vids
+llnv() {
+  count=${1:-20}
+  gfind . -regex '.*\.\(mp4\|webm\|mkv\|mov\|m4v\)' -exec stat -f '%c%t%Sm %N' {} + | sort -n | cut -d ' ' -f5- | tail -r -n "$count" | sed 's#.*/##' | less
+}
+
+# list new vids
+lnv() {
+  count=${1:-20}
+  gfind . -regex '.*\.\(mp4\|webm\|mkv\|mov\|m4v\)' -exec stat -f '%c%t%Sm %N' {} + | sort -n | cut -d ' ' -f5- | tail -r -n "$count" | awk '{print $0,"\n"}' | less
+}
+
+profile_vim() {
+  $HOME/Tools/vim-profiler/vim-profiler.py -p -r 10 nvim
+}
+
+# https://github.com/cgag/loc/issues/18 fix asp.net error
+loc_hack() {
+  loc $(git ls-files)
+}
+
+loc() {
+  /usr/local/bin/loc $(git ls-files)
+}
+
+gauthor() {
+  git log --topo-order --stat --patch "--author=$@"
+}
+
+subr() {
+  for f in **/*.(mp4|webm|mkv|mov|m4v|avi); do subliminal download -l en $f; done
+}
+
+pdfg() {
+  pdfgrep --color always -i "$1" **/*.pdf | less -R
 }

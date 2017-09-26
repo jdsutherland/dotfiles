@@ -25,9 +25,12 @@ if [[ -o interactive ]]; then
   alias fw='{ alias; functions; } | fzf'
 
   # Directories
-  alias vids='cd /Volumes/seag8/vids'
+  alias vids='cd /Volumes/seag8silver/vids'
+  alias books='cd ~/Books'
   alias cdl='cd ~/Downloads'
+  alias ctil='cd ~/Notes/til'
   alias cdoc='cd ~/Documents'
+  alias cgo='cd $GOPATH/src'
   alias notes='cd ~/Notes'
   alias desk='cd ~/Desktop'
   alias dev='cd ~/Development'
@@ -60,6 +63,7 @@ if [[ -o interactive ]]; then
   alias mpvi='e ~/.dotfiles/config/mpv/input.conf'
   alias mpvr="mpv --script-opts=radiostart=true"
   alias se='e ~/.dotfiles/slate'
+  alias me='e ~/.dotfiles/config/mpv/mpv.conf'
   alias ke='e ~/.dotfiles/karabiner/private.xml'
   alias sshe='e ~/.ssh/config'
   alias te='e ~/.dotfiles/tmux.conf'
@@ -99,10 +103,13 @@ if [[ -o interactive ]]; then
   alias gst='git status -s .'
   alias gstats='git-bstats'
   alias gsum='git-summary | head -n 27'
-  alias ginfo='gsum && echo "---------------------- churn ----------------------" && gch'
+  alias ginfo='gsum && gch && loc_hack'
+
   eval "$(hub alias -s)"
 
   # App
+  alias mongostart='brew services start mongodb'
+  alias eclim="/Applications/Eclipse\ Java.app/Contents/Eclipse/eclimd &"
   alias G6='googler -c com -l en -t m6'
   alias G='googler -c com -l en'
   alias Gd='googler -c com -l en -n 3 define'
@@ -111,8 +118,10 @@ if [[ -o interactive ]]; then
   alias ack='nocorrect ack'
   alias bash='/usr/local/bin/bash'
   alias brewa='brewu && brewc && caskc'
+  alias brewumpv='brew reinstall --with-vapoursynth --with-libarchive --with-bundle --HEAD mpv'
   alias copyloc='locateme -f "{LAT} {LON}" | pbc'
   alias ctag='ctags -R --exclude=.git --exclude=log *'
+  alias gtag='gotags -R --exclude=.git --exclude=log *'
   alias dm='docker-machine'
   alias doc='docker'
   alias f60='find -mmin -60'
@@ -129,10 +138,12 @@ if [[ -o interactive ]]; then
   alias nosleep=caffeinate
   alias npmimport='xargs npm install --global < ~/.dotfiles/Npmfile'
   alias nvimu='brew reinstall --HEAD neovim'
-  alias playall='mpv **/*.(mp4|webm|mkv|mov|m4v) > /dev/null 2>&1 &'
+  alias playall='mpv **/*.(mp4|webm|mkv|mov|m4v|avi) > /dev/null 2>&1 &'
   alias ra='ranger-cd'
   alias Ra='ranger'
+  alias rcup="command rcup -v | grep -v identical"
   alias rr='rails'
+  alias rrdb='rails dbconsole'
   alias rsync='rsync'
   alias st='speedtest'
   alias syt='mpsyt'
@@ -149,19 +160,20 @@ if [[ -o interactive ]]; then
   alias tw='timew'
   alias twitter='rainbowstream'
   alias reddit='BROWSER=rtv_browser rtv'
-  alias py='ptpython'
+  alias py2='python2 -m ptpython'
+  alias py3='python3 -m ptpython'
   alias vim='nvim'
   alias vs='vim -S Session.vim'
+  alias vsql='e -c "setf sql"'
   alias wale='whalebrew'
   alias wh='which'
   alias wifi='airport -s'
   alias diswifi='sudo /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -z'
-  alias ydl='youtube-dl --restrict-filenames -ci'
-  alias ydlp='youtube-dl --restrict-filenames --ignore-errors --download-archive archive.txt --output "%(autonumber)s-%(title)s.%(ext)s"'
+  alias ydm='youtube-dl --embed-subs --no-mtime --no-overwrites --restrict-filenames -f "(mp4)[height<1280]" -cio "%(title)s.%(ext)s"'
   alias you='mpsyt'
   alias hp='http-prompt'
   alias ariachrome='aria2c -c -x 10 -s 10 --enable-rpc --rpc-listen-all=true --rpc-allow-origin-all=true'
-  alias aria='aria2c -c -x 10 -s 10'
+  alias aria='aria2c --file-allocation=falloc -c -x 10 -s 10'
   alias cplay='cd ~/Media/config/playlists'
   alias chromext='cd ~/Library/Application\ Support/Google/Chrome/Default'
   alias quicklook='qlmanage -p "$@" >& /dev/null'
@@ -170,10 +182,15 @@ if [[ -o interactive ]]; then
   alias bsyncall='browser-sync start --server --files . > /dev/null 2>&1 &'
   alias jn='jupyter notebook'
   alias brewn='brew info'
+  alias brews='brew search --desc'
   alias caskn='brew cask info'
+  alias le='exa --long --git --sort=created --group-directories-first'
+  alias x=''
 
   # Misc
   alias saythai='say -v Kanya -r 155'
+  alias topen='today | xargs nvim'
+  alias epoch="date -r"
 
   ## Docker
   # Get latest container ID
@@ -203,6 +220,10 @@ if [[ -o interactive ]]; then
   alias be='bundle exec'
   alias bi='bundle install'
   alias bu='bundle update'
+
+  # python
+  alias workoff='deactivate'
+  alias vew='virtualenvwrapper'
 
   # Yarn
   alias y='yarn'
