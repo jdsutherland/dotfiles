@@ -24,6 +24,9 @@
   df = diff --word-diff --color-words
   patch = !git --no-pager diff --no-color
   pb = log --patch --follow
+  deleted = log --topo-order --stat --patch --diff-filter=D
+  added = log --topo-order --stat --patch --diff-filter=A
+  renamed = log --topo-order --stat --patch --diff-filter=R
   pbr = log --patch --reverse --follow
   dsf = "!f() { [ \"$GIT_PREFIX\" != \"\" ] && cd "$GIT_PREFIX"; git diff --color $@ | diff-so-fancy | less --tabs=4 -RFX; }; f"
   fall = "!for remote in $(git remote); do echo "Fetching $remote"; git fetch "$remote"; done"

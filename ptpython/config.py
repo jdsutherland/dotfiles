@@ -4,12 +4,13 @@ Configuration example for ``ptpython``.
 Copy this file to ~/.ptpython/config.py
 """
 from __future__ import unicode_literals
+
+from pygments.token import Token
+from ptpython.layout import CompletionVisualisation
+
+from prompt_toolkit.keys import Keys
 from prompt_toolkit.filters import ViInsertMode
 from prompt_toolkit.key_binding.input_processor import KeyPress
-from prompt_toolkit.keys import Keys
-from pygments.token import Token
-
-from ptpython.layout import CompletionVisualisation
 
 __all__ = (
     'configure',
@@ -33,7 +34,7 @@ def configure(repl):
     repl.show_meta_enter_message = True
 
     # Show completions. (NONE, POP_UP, MULTI_COLUMN or TOOLBAR)
-    repl.completion_visualisation = CompletionVisualisation.POP_UP
+    repl.completion_visualisation = CompletionVisualisation.MULTI_COLUMN
 
     # When CompletionVisualisation.POP_UP has been chosen, use this
     # scroll_offset in the completion menu.
@@ -105,7 +106,7 @@ def configure(repl):
 
     # Enable 24bit True color. (Not all terminals support this. -- maybe check
     # $TERM before changing.)
-    repl.true_color = True
+    repl.true_color = False
 
     # Install custom colorscheme named 'my-colorscheme' and use it.
     """
