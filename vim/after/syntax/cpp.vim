@@ -4,9 +4,10 @@ endif
 
 syntax keyword cppType int32 uint32 int64 uint64
 
-syntax match cppNiceOperator "*" conceal cchar=⁕
+" syntax match cNiceOperator "\w+\s\zs\*\ze\s\w+" conceal cchar=⁕
+syntax match cppNiceOperator " \zs\*\ze" conceal cchar=⁕
 syntax match cppNiceOperator "&" conceal cchar=&
-syntax match cppNiceOperator "==" conceal cchar=≟
+syntax match cppNiceOperator "==" conceal cchar=≡
 syntax match cppNiceOperator "!=" conceal cchar=≠
 syntax match cppNiceOperator "<=" conceal cchar=≤
 syntax match cppNiceOperator ">=" conceal cchar=≥
@@ -18,7 +19,7 @@ syntax match cppNiceOperator "<<" conceal cchar=≪
 syntax match cppNiceOperator ">>" conceal cchar=≫
 " syntax match cppNiceOperator "\:\:" conceal cchar=∷
 syntax match cppNiceOperator "->" conceal cchar=→
-syntax match cppNiceOperator " \zs\*\ze " conceal cchar=⨉
+" syntax match cppNiceOperator " \zs\*\ze " conceal cchar=⨉
 
 syntax match cppNiceFunction "EXPECT_TRUE" conceal cchar=Ƭ
 syntax match cppNiceFunction "EXPECT_FALSE" conceal cchar=ƒ
@@ -75,10 +76,10 @@ if s:extraConceal
   syntax keyword cppNiceType uint64 conceal cchar=Ⅱ
 
 
-  syntax match cppHiddenOperator /\S\zs()\ze\(\S\| [^{]\)/ conceal
-  syntax match cppHiddenOperator /^\s*}$/ conceal
-  syntax match cppHiddenOperator /\(^\s*\)\@<=}\s*/ conceal
-  syntax match cppHiddenOperator /\ *{$/ conceal
+  " syntax match cppHiddenOperator /\S\zs()\ze\(\S\| [^{]\)/ conceal
+  " syntax match cppHiddenOperator /^\s*}$/ conceal
+  " syntax match cppHiddenOperator /\(^\s*\)\@<=}\s*/ conceal
+  " syntax match cppHiddenOperator /\ *{$/ conceal
   syntax match cppHiddenOperator /;$/ conceal
 endif
 
@@ -90,5 +91,6 @@ hi link cppNiceOperator Operator
 hi link cppNiceType Type
 
 hi! link Conceal Operator
-hi! Conceal ctermbg=Black ctermfg=Green
+" hi! Conceal ctermbg=Black ctermfg=LightRed
+hi! Conceal ctermbg=Black ctermfg=LightRed
 "setlocal conceallevel=2

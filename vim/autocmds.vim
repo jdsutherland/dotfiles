@@ -1,5 +1,3 @@
-autocmd VimResized * :wincmd =
-
 " autosave when lose focus
 autocmd BufLeave,FocusLost * silent! wall
 
@@ -55,26 +53,29 @@ autocmd FileType markdown nnoremap <buffer> <space>ll :Toct<cr>
 " TODO: add more as needed
 autocmd FileType javascript UltiSnipsAddFiletypes javascript-node
 autocmd FileType javascript UltiSnipsAddFiletypes javascript-jasmine
-autocmd FileType html,css,javascript.jsx EmmetInstall
+autocmd FileType html,eruby,htmldjango,scss,handlebars,less,css,javascript.jsx EmmetInstall
+autocmd BufNewFile,BufRead *.ng EmmetInstall
 autocmd FileType javascript,jsx nnoremap <buffer> ,f :TernDef<cr>
 autocmd FileType javascript,jsx nnoremap <buffer> ,fs :TernDefSplit<cr>
 autocmd FileType javascript,jsx nnoremap <buffer> T :TernType<cr>
 autocmd FileType javascript,jsx nnoremap <buffer> <space>ll :TernDefPreview<cr><c-o>
+autocmd FileType javascript nmap ,cl yiwoconsole.log("<c-r>"\n", <c-r>");<Esc>^
+autocmd FileType javascript nmap ,db odebugger;<esc>^
 
 " python
 autocmd filetype python nnoremap <buffer> ,f  :call jedi#goto()<CR>
 autocmd FileType python nnoremap <buffer> <leader>gj :call jedi#goto_assignments()<CR>
-autocmd filetype python nmap <leader>bp ofrom ptpdb import set_trace<cr>set_trace()<esc>^
+autocmd filetype python nnoremap <leader>bp ofrom ptpdb import set_trace<cr>set_trace()<esc>^
+autocmd FileType python nmap ,cl yiwoprint("<c-r>"; {}".format(<c-r>"))<Esc>^
 
 " go
-autocmd FileType go,python,ruby,elixir,javascript inoremap <buffer> ; :
-autocmd FileType go,python,ruby,elixir,javascript inoremap <buffer> : ;
+autocmd FileType go,python,ruby,eruby,elixir inoremap <buffer> ; :
+autocmd FileType go,python,ruby,eruby,elixir inoremap <buffer> : ;
 
 autocmd FileType go nnoremap <buffer> ,f :GoDef<cr>
-autocmd FileType go nnoremap <buffer> ,fs :GoDoc<cr>
 autocmd FileType go nnoremap <buffer> <silent> K :call SearchWordWithRg()<cr>
-autocmd FileType go nnoremap <buffer> <c-g> :GoInfo<cr>
 autocmd FileType go nnoremap <buffer> ,gec :GoErrCheck<cr>
+autocmd FileType go nnoremap <buffer> <space>gdo :GoDoc<cr>
 autocmd FileType go nnoremap <buffer> <space>gdd :GoDescribe<cr>
 autocmd FileType go nnoremap <buffer> <space>gdi :GoImplements<cr>
 autocmd FileType go nnoremap <buffer> <space>gde :GoWhicherrs<cr>
@@ -87,12 +88,15 @@ autocmd FileType go vnoremap <buffer> <space>gdp :GoChannelPeers<cr>
 autocmd FileType go vnoremap <buffer> <space>gdf :GoFreevars<cr>
 autocmd FileType go nnoremap <buffer> <space>ggr :GoRename<space>
 autocmd FileType go nnoremap <buffer> <space>ggi :GoImpl<space>
+autocmd FileType go nnoremap <buffer> <space>gim :GoImport<space>
+autocmd FileType go nnoremap <buffer> <space>G :GoInfo<cr>
 autocmd FileType go nnoremap <buffer> B :GoRun<cr><esc>
 autocmd FileType go nnoremap <buffer> <space>tc :GoCoverageToggle<cr>
-autocmd FileType go nnoremap <buffer> <space>ts :<C-u>call BuildGoFiles()<CR>
-autocmd FileType go nnoremap <buffer> <space>tt :GoTestFunc<cr>
-autocmd FileType go nnoremap <buffer> <space>ll :GoDefStack<cr>
-autocmd FileType go nnoremap <buffer> <space>lc :GoDefStackClear<cr>
+autocmd FileType go nnoremap <buffer> <space>gts :<C-u>call BuildGoFiles()<CR>
+autocmd FileType go nnoremap <buffer> <space>gtt :GoTestFunc<cr>
+" autocmd FileType go nnoremap <buffer> <space>ll :GoDefStack<cr>
+" autocmd FileType go nnoremap <buffer> <space>lc :GoDefStackClear<cr>
+autocmd FileType go nmap ,cl yiwofmt.Printf("\t<c-r>"; \n%+v\n", <c-r>")<Esc>^
 " alternates
 autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
 autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
@@ -102,15 +106,15 @@ autocmd Filetype go set foldmethod=syntax
 
 " c
 " au FileType c,cpp  nmap ,f <Plug>(clang_complete_goto_declaration)
+autocmd BufEnter *.cpp,*.h,*.hpp,*.hxx let g:ale_cpp_clang_options = join(ncm_clang#compilation_info()['args'], ' ')
+autocmd FileType cpp,c set path=.,/usr/include,/usr/local/include,/usr/include/c++/4.2.1,/usr/local/include/glib-2.0
+autocmd FileType cpp,c nmap ,cl yiwoprintf("\t<c-r>": %s\n", <c-r>");<Esc>^
 
 " js conceal expand
 " autocmd FileType javascript,jsx inoremap <silent> @ <C-r>=syntax_expand#expand("@", "this")<CR>
 " autocmd FileType javascript,jsx inoremap <silent> # <C-r>=syntax_expand#expand("#", "prototype")<CR>
 " autocmd FileType javascript,jsx inoremap <silent> < <C-r>=syntax_expand#expand_head("<", "return")<CR>
 " autocmd FileType javascript,jsx set concealcursor=n
-
-" omnisharp
-autocmd FileType cs nnoremap ,f :OmniSharpGotoDefinition<cr>
 
 " auto js template str html
 " autocmd FileType javascript JsPreTmpl html
@@ -121,6 +125,13 @@ augroup rubypath
   autocmd FileType ruby setlocal suffixesadd+=.rb
 augroup END
 autocmd FileType ruby setlocal path+=lib
+autocmd FileType ruby noremap <leader>R :VtrSendCommandToRunner rake<cr>
+autocmd FileType ruby map <leader>bp orequire "pry": binding.pry<esc>^
+autocmd FileType ruby map <leader>bpr orequire "pry-remote": binding.remote_pry<esc>^
+" hack for constructor assignment
+autocmd FileType ruby map <cr>c yiWi@<esc>A<space>=<space><C-R>"<esc>
+" vim-ruby
+autocmd FileType ruby compiler ruby
 
 " Goyo
 function! s:goyo_enter()
@@ -183,24 +194,6 @@ endfunction
 
 " invoke manually by command for other file types
 command! -nargs=0 Prose call Prose()
-
-" vim-pencil - high-granular
-" augroup pencil
-"   autocmd!
-"   autocmd FileType markdown,mkd call pencil#init()
-"                             \ | call litecorrect#init()
-"                             \ | setl fdo+=search
-"                             \ | setl fdl=4 noru nonu nornu
-"   autocmd Filetype git,gitsendemail,*commit*,*COMMIT*
-"                             \ | call litecorrect#init()
-"                             \ | setl spell spl=en_us et sw=2 ts=2 noai
-"   autocmd Filetype mail         call pencil#init({'wrap': 'hard', 'textwidth': 60})
-"                             \ | call litecorrect#init()
-"                             \ | setl spell spl=en_us et sw=2 ts=2 noai nonu nornu
-"   autocmd Filetype html,xml     call pencil#init({'wrap': 'soft'})
-"                             \ | call litecorrect#init()
-"                             \ | setl spell spl=en_us et sw=2 ts=2
-" augroup END
 
 " attempt to load directory with ranger.vim
 augroup ranger

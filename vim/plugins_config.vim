@@ -14,27 +14,15 @@ let g:deoplete#omni#functions.javascript = [
   \ 'tern#Complete',
   \ 'jspc#omni'
 \]
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+let g:deoplete#sources#go#pointer = 1
 
 let g:clang_library_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
 
 if !exists('g:deoplete#omni#functions')
     let g:deoplete#omni#functions = {}
 endif
-
-" deoplete-github
-" let g:deoplete#sources = {}
-" let g:deoplete#sources.gitcommit=['github']
-" let g:deoplete#keyword_patterns = {}
-" let g:deoplete#keyword_patterns.gitcommit = '.+'
-" let g:deoplete#omni#input_patterns = {}
-" let g:deoplete#omni#input_patterns.gitcommit = '.+'
-
-" let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
-" let g:deoplete#ignore_sources.php = ['omni']
-
-" webcomplete
-" set completefunc=webcomplete#complete
-" set omnifunc=webcomplete#complete
 
 set completefunc=autoprogramming#complete
 
@@ -79,19 +67,39 @@ augroup Poppy
 augroup END
 nnoremap <silent><c-p> :call clearmatches() \| let g:poppy = -get(g:,'poppy',-1) \|
       \ exe 'au! Poppy CursorMoved *' . (g:poppy > 0 ? ' call PoppyInit()' : '') <cr>
-let g:poppyhigh = ["special", "keyword", "string", "Error", "MatchParen"]
+
+" neoformat
+
+let g:easy_align_delimiters = {
+\ '/': { 'pattern': '/[/*]/' },
+\ '>': { 'pattern': '>>\|=>\|>' },
+\ }
+
 
 " ale linting
 let g:ale_enabled = 0
 let g:airline#extensions#ale#enabled = 1
+let g:ale_javascript_eslint_use_global = 1
+" let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_fixers = {
-      \ 'javascript': ['prettier', 'eslint'],
+      \ 'javascript': ['prettier_eslint', 'eslint'],
+      \ 'java': ['google_java_format'],
+      \ 'json': ['prettier'],
       \ 'solidity': 'solium',
+      \ 'go': ['gofmt'],
+      \ 'ruby': ['rubocop'],
       \ }
 let g:ale_linters = {
       \ 'javascript': ['eslint', 'flow'],
+      \ 'java': ['javac'],
+      \ 'cs': ['mcs'],
+      \ 'c': ['cppcheck', 'clang'],
+      \ 'cpp': ['cppcheck', 'clang'],
       \ 'go': ['gometalinter'],
+      \ 'ruby': ['ruby', 'rubocop', 'reek'],
+      \ 'eruby': ['erubis'],
       \ }
+
 let g:ale_fixers.javascript = ['prettier', 'eslint']
 let g:ale_javascript_prettier_options = '--no-bracket-spacing --single-quote'
 
@@ -140,11 +148,6 @@ let g:OmniSharp_selector_ui = 'fzf'    " Use fzf.vim
 " let g:OmniSharp_server_type = 'roslyn'
 let g:OmniSharp_timeout = 100
 
-" " monster - ruby
-let g:monster#completion#rcodetools#backend = 'async_rct_complete'
-let g:deoplete#sources#omni#input_patterns = {
-\   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
-\}
 " ruby textobj
 let g:textobj_ruby_more_mappings = 1
 " ruby omni
@@ -156,7 +159,7 @@ let g:ruby_operators = 1
 " let ruby_space_errors = 1
 let g:ruby_minlines = 150
 
-let g:ruby_hl_lvar_hl_group = 'rubyRegexpSpecial'
+let g:ruby_hl_lvar_hl_group = 'rubyLocalVariable'
 let g:ruby_hl_lvar_auto_enable = 1
 
 " tmux runner
@@ -173,9 +176,19 @@ let g:UltiSnipsListSnippets='<C-s>'
 let g:UltiSnipsJumpForwardTrigger='<C-J>'
 
 " nvim-completion-manager ultisnips
+au User CmSetup call cm#register_source({'name' : 'cm-css',
+        \ 'priority': 9,
+        \ 'scoping': 1,
+        \ 'scopes': ['css','scss'],
+        \ 'abbreviation': 'css',
+        \ 'word_pattern': '[\w\-]+',
+        \ 'cm_refresh_patterns':['[\w\-]+\s*:\s+'],
+        \ 'cm_refresh': {'omnifunc': 'csscomplete#CompleteCSS'},
+        \ })
+
 " let g:UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)"
 " inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
-let g:AutoPairsMapCR = 0
+let g:AutoPairsMapCR = 1
 
 " editorconfig
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
@@ -216,9 +229,9 @@ let g:fzf_commits_log_options =
 \ '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
 let g:rg_command = '
-\ rg --column --line-number --no-heading --fixed-strings --smart-case --no-ignore --hidden --follow --color "always"
+\ rg --no-hidden --column --line-number --no-heading --fixed-strings --smart-case --follow --color "always"
 \ -g "!{.git,node_modules,vendor,build,plugged,lib,dist}/*"
-\ -g "*.{lua,js,ts,coffee,jsx,json,php,md,styl,jade,html,css,config,py,cpp,c,go,hs,rb,erb,conf,hbs,sh,vim,sql,sol}" '
+\ -g "*.{lua,js,ts,coffee,jsx,json,php,styl,jade,html,css,scss,config,py,cpp,c,cs,h,go,hs,rb,erb,conf,hbs,sh,sql,sol,java}" '
 
 " let g:rg_command = '
 " \ -g "!*.{lock,min.js,swp,o,zip}"
@@ -238,7 +251,7 @@ command! -bang -nargs=* Rg
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 let g:fzf_files_options =
-  \ '--preview "(coderay {} || cat {}) 2> /dev/null"'
+  \ '--preview "(bat --theme=TwoDark --color=always {}) 2> /dev/null"'
 
 " fzf mru files
 command! FZFMru call fzf#run({
@@ -269,6 +282,7 @@ let g:goyo_height = 100
 " airline
 " let g:airline_theme='base16_default'
 let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tagbar#flags = 'fs'
 let g:airline_powerline_fonts = 1
 let g:airline_detect_modified=1
@@ -283,7 +297,7 @@ let g:airline#extensions#tmuxline#enabled = 1
 let g:airline#extensions#obsession#enabled = 1
 let g:airline#extensions#obsession#indicator_text = '$'
 
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline#extensions#tabline#formatter = 'jsformatter'
 let g:airline#extensions#taboo#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#hunks#enabled = 1
@@ -320,6 +334,7 @@ let g:switch_mapping = "-"
 " vim-test
 let test#strategy = 'vtr'
 let g:test#preserve_screen = 1
+let g:test#go#gotest#options = '-v'
 
 " togglelist
 let g:toggle_list_no_mappings = 1 " Disable default mappings.
@@ -362,10 +377,10 @@ let g:javascript_conceal_equality             = "≡"
 let g:javascript_conceal_prototype            = "¶"
 let g:javascript_conceal_static               = "∬"
 let g:javascript_conceal_super                = "Ω"
-let g:javascript_conceal_arrow_function       = "⇒"
-let g:javascript_conceal_arrow_function       = "⇒"
-let g:javascript_conceal_noarg_arrow_function = "⇴"
-let g:javascript_conceal_underscore_arrow_function = "⇴"
+" let g:javascript_conceal_arrow_function       = "⇒"
+" let g:javascript_conceal_arrow_function       = "⇒"
+" let g:javascript_conceal_noarg_arrow_function = "⁢"
+" let g:javascript_conceal_underscore_arrow_function = "⁢"
 
 " jsx
 let g:vim_jsx_pretty_colorful_config = 1
@@ -374,24 +389,34 @@ let g:vim_jsx_pretty_colorful_config = 1
 let g:flow#autoclose = 1
 
 " Rappel
-let g:rappel#term       = 'vsp | term '
-" let g:rappel#term = ' VtrSendCommandToRunner cd $(dirname %:p); '
+" let g:rappel#term       = 'vsp | term '
+let g:rappel#term = ' VtrSendCommandToRunner cd $(dirname %:p) > /dev/null; echo;'
 let g:rappel#launch     = 'chrome %'
 let g:rappel#default    = g:rappel#term
 
 let g:rappel#custom_repls = {
 \ 'ruby': {
-\   'repl': 'pry',
-\   'run':  'ruby %',
+\   'repl': 'pry %:p',
+\   'run': 'ruby %:p',
 \ },
 \ 'python': {
-\   'repl': 'ptpython',
-\   'run': 'python %',
+\   'repl': 'ptpython %:p',
+\   'run': 'python %:p',
+\ },
+\ 'go': {
+\   'repl': 'dlv debug %:p',
+\   'run': 'go run %:p',
 \ },
 \ 'c': {
 \   'compiler': 'gcc % -Wall -g',
-\   'run': 'make debug && make dgb || sudo cgdb a.out',
+\   'run': 'gcc %:p -Wall && ./a.out',
+\   'repl': 'make debug && make dgb || sudo cgdb a.out',
 \   'launch': './a.out',
+\ },
+\ 'javascript': {
+\   'repl': 'node --inspect -b --eval %:p',
+\   'run': 'babel-node %:p',
+\   'launch': 'ndb %:p',
 \ },
 \}
 
@@ -400,9 +425,6 @@ let g:scratch_no_mappings = 1
 
 " autopairs
 let g:AutoPairsShortcutJump = ''
-
-" incsearch
-" let g:incsearch#auto_nohlsearch = 1
 
 let g:rooter_manual_only = 1
 
@@ -416,15 +438,19 @@ vmap ,G <Plug>GrepOperatorOnCurrentDirectory
 " make consistant with UltiSnips jump trigger
 let g:user_emmet_next_key = '<C-j>'
 
-" let g:chromatica#enable_at_startup=1
-let g:chromatica#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
-
 let g:echodoc_enable_at_startup = 1
+" let g:echodoc#type = 'signature'
 
+" tagbar
 let g:tagbar_compact = 1
-" let g:tagbar_indent = 2
+let g:tagbar_zoomwidth = 0
+let g:tagbar_indent = 1
+let g:tagbar_width = 35
 let g:tagbar_expand = 1
+" let g:tagbar_hide_nonpublic = 1
+let g:tagbar_map_previewwin= "O"
 let g:tagbar_iconchars = ['▸', '▾']
+let g:tagbar_sort = 0
 
 let g:gutentags_define_advanced_commands = 1
 " tagbar language config {{{1 "
@@ -497,17 +523,6 @@ let g:tagbar_type_markdown = {
 
 " 1}}} "
 
-if has('nvim')
-  let g:far#source = 'agnvim'
-endif
-let g:far#file_mask_favorites = ['.', '%']
-" let g:far#window_layout='tab'
-let g:far#auto_preview = 0
-" let g:far#highlight_match = 0
-let g:far#auto_write_undo_buffers = 1
-let g:far#debug = 1
-
-" TODO: set maps
 
 let g:ranger_map_keys = 0
 let g:LoupeHighlightGroup='Error'
@@ -520,22 +535,17 @@ let g:pymode_lint = 0
 
 let g:grep_operator_set_search_register = 1
 
-" let g:indentLine_fileTypeExclude = ['terminal', 'fzf', 'help', 'json']
-" let g:indentLine_setColors = 0
-" let g:indentLine_color_term = 59
-" let g:indentLine_setConceal = 0
-" let g:indentLine_char = '│'
-" let g:indentLine_enabled = 1
-" let g:indentLine_faster = 1
-
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 " go
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_generate_tags = 1
 let g:go_fmt_fail_silently = 1
@@ -551,6 +561,10 @@ let g:TerminusMouse=0
 let g:projectionist_heuristics = {
       \   '*': {
       \     '*.c': {
+      \       'alternate': '{}.h',
+      \       'type': 'source'
+      \     },
+      \     '*.cpp': {
       \       'alternate': '{}.h',
       \       'type': 'source'
       \     },
@@ -650,7 +664,6 @@ let g:jedi#goto_assignments_command = ''  " dynamically done for ft=python.
 let g:jedi#goto_definitions_command = ''  " dynamically done for ft=python.
 let g:jedi#use_tabs_not_buffers = 0  " current default is 1.
 let g:jedi#rename_command = '<Leader>gR'
-let g:jedi#usages_command = '<space>ll'
 let g:jedi#completions_enabled = 0
 let g:jedi#smart_auto_mappings = 1
 let g:jedi#documentation_command = '<Leader>_K'
@@ -664,6 +677,7 @@ let g:mta_filetypes = {
     \ 'eruby' : 1,
     \}
 
-let g:vinarise_enable_auto_detect=1
+let g:vinarise_enable_auto_detect=0
 
-let g:vim_current_word#highlight_current_word = 0
+let g:vim_current_word#highlight_only_in_focused_window = 0
+let g:vim_current_word#enabled = 0

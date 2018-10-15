@@ -170,11 +170,23 @@ function! s:OpenTmuxGitFileFollowHistory()
 endfunction
 command! OpenTmuxGitFileFollowHistory :call <sid>OpenTmuxGitFileFollowHistory()
 
+function! s:OpenTmuxGitFileFollowHistoryReverse()
+  let filepath=shellescape(expand('%'))
+  call system("tmux splitw -h -c '#{pane_current_path}' 'git log --patch --reverse --follow " . filepath . "; read'")
+endfunction
+command! OpenTmuxGitFileFollowHistoryReverse :call <sid>OpenTmuxGitFileFollowHistoryReverse()
+
 function! s:OpenTmuxGitFileFullHistory()
   let filepath=shellescape(expand('%'))
   call system("tmux splitw -h -c '#{pane_current_path}' 'git log --patch --full-diff " . filepath . "; read'")
 endfunction
 command! OpenTmuxGitFileFullHistory :call <sid>OpenTmuxGitFileFullHistory()
+
+function! s:OpenTmuxGitFileFullHistoryReverse()
+  let filepath=shellescape(expand('%'))
+  call system("tmux splitw -h -c '#{pane_current_path}' 'git log --patch --reverse --full-diff " . filepath . "; read'")
+endfunction
+command! OpenTmuxGitFileFullHistoryReverse :call <sid>OpenTmuxGitFileFullHistoryReverse()
 
 " TODO - how to make this work?
 " function! ES6js()
@@ -201,10 +213,22 @@ endfunction
 let g:gutentags_enabled_user_func = 'MyCustomGutentagsEnableFunc'
 
 " Remove `#` style comments (useful for rails generators)
-function! RemoveRubyComments()
+function! s:RemoveRubyComments()
   execute '%s/^\s*#.*\n//g'
   execute '%s/\(\n\n\)\n\+/\1/g'
   execute 'nohl'
   norm! gg
 endfunction
 command! RemoveRubyComments :call <sid>RemoveRubyComments()
+
+function! ResizeMin()
+  if line('$') < winheight(winnr()) | exe 'resize ' . line('$') | endif
+endfunction
+command! ResizeMin :call <sid>ResizeMin()
+
+function! s:SysPasteTrimNewlines()
+  execute "normal \<Plug>SystemPaste"
+  execute '%s/\r/\r'
+  execute 'nohl'
+endfunction
+command! Ptrim :call <sid>SysPasteTrimNewlines()

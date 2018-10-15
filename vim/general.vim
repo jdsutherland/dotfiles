@@ -12,12 +12,14 @@ set autowrite
 set expandtab
 set shiftwidth=2
 set softtabstop=2
-set shortmess+=c " don't show completion number in status
+" set shortmess+=c " don't show completion number in status
+set shortmess=aoOtIc
 set pumheight=20
 set tabstop=2
 " attempt to disable inadvertent trackpad clicks
 set mouse=
 set conceallevel=2
+set smartindent
 set autoindent
 set scrolloff=3
 set hidden
@@ -82,7 +84,7 @@ highlight Comment cterm=italic
 set listchars=tab:→\ ,trail:∙,nbsp:•,eol:¶
 
 " Rg
-set grepprg=rg\ --vimgrep
+set grepprg=rg\ --smart-case\ --vimgrep
 
 " persistent undo
 set undodir=~/.config/nvim/undodir

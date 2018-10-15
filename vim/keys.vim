@@ -7,26 +7,13 @@ nmap <space>P <Plug>yankstack_substitute_newer_paste
 " ---GENERAL---
 map Q @q
 
-" inoremap <expr><c-f> (pumvisible()?(empty(v:completed_item)?"\<C-n>\<C-y>":"\<C-y>"):"\<CR>")
-inoremap <expr> <C-F> pumvisible() \|\| &omnifunc == '' ?
-\ "\<lt>C-n>" :
-\ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
-\ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
-\ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
-
-" Remap ctrl-c for deoplete/ncm completion menu bug
-" https://github.com/Shougo/deoplete.nvim/issues/460
-inoremap <C-c> <Esc>
-
-inoremap <C-D> <C-P>
-inoremap <C-B> <C-P>
 
 " Reselect pasted text. Mnem: 'Get pasted'
 nnoremap gp '[v']
 " Go to position of last edit. Mnem: 'Go to Edit'
 nnoremap ge `.
 
-" ---SWITCHEROOs---
+" ---swaps---
 " default to unimpaired paste auto indent
 nnoremap <leader>p :call <SNR>96_putline(']p', 'Below')<CR>=']
 nnoremap <leader>P :call <SNR>96_putline('[p', 'Above')<CR>=']
@@ -46,6 +33,9 @@ vnoremap $ 4
 " move vertically by visual line
 nnoremap j gj
 nnoremap k gk
+" swap?
+" nnoremap G <c-g>
+" nnoremap <c-g> G
 
 nnoremap $ ea<space>
 nnoremap <space>a ea<space>
@@ -55,16 +45,20 @@ nmap <leader>aa ],i,<space>
 
 " META. NOTE: tmux uses: [b,j,l,k,p,i,p,`,E,c,C]
 " others: [a]
-nmap <M-;> A;<ESC>
+nmap <M-;> ]sz=
 inoremap <M-a> <ESC>f<space>a
+nnoremap <silent> <space>o :FzfOutline<CR>
 inoremap <M-t> <C-O>:FzfSnippets<CR>
-noremap <M-t> :FzfSnippets<CR>
+" noremap <M-t> :FzfSnippets<CR>
 nnoremap <M-e> :VtrFocusRunner<cr>
 " delete a chunk
 map <M-d> vacjd
 nnoremap <M-f> :FzfFiles<CR>
+
+" shortcut to mapping a temp runner with
+nnoremap ,tb :nnoremap ,t :VtrSendCommandToRunner<space>
 nnoremap <M-h> :VtrSendCommandToRunner<space>
-nnoremap <M-y> :VtrSendCommandToRunner<space><cr>
+nnoremap <silent><M-y> :w<esc>:VtrSendCommandToRunner<space><cr>
 nnoremap <M-r> :VtrOpenRunner {'orientation': 'v', 'percentage': 20}<cr>
 nnoremap <M-q> :VtrKillRunner<cr>
 nnoremap <M-w> :FzfWindows<CR>
@@ -79,7 +73,7 @@ map <M-m> viwf.ey;Dash <C-R>"<CR>
 nnoremap <M-g> :Rg<CR>
 imap <M-u> _
 imap <M-o> -
-nmap <M-n> <plug>(scratch-insert-reuse)
+nnoremap <silent><M-n> :ScratchPreview<cr>
 
 " nmap <C-G> <Plug>GazetteerEchoLocation
 
@@ -91,7 +85,7 @@ nmap <space>f <M-u>f
 nmap <space>k <M-u>k
 nmap <space>j <M-u>j
 
-nnoremap <cr>d :nohls<CR>
+nnoremap <silent><cr>d :nohls<CR>
 nnoremap <silent> <space>dd :call CloseWindowOrKillBuffer()<CR>
 nnoremap <silent><leader>w :%s/\t/  /<cr>
 " remove multiple blank lines
@@ -128,6 +122,10 @@ inoremap <c-u> <esc>viwUe
 " Do a / search first, then leave pattern empty in :s// to use previous
 nnoremap <Leader>sub :%s///<left>
 vnoremap <Leader>sub :s///<left>
+
+" search unicode chars
+nnoremap <Leader>sun /\v[^\x00-\x7F]+<cr>
+
 " Abolish
 nnoremap <Leader>abs :%S/
 nnoremap <Leader>abb :%S// **/*<left><left><left><left><left><left>
@@ -136,7 +134,8 @@ nnoremap <Leader>abb :%S// **/*<left><left><left><left><left><left>
 nnoremap <Leader>sud :w !sudo tee %<cr>
 nnoremap <leader>wub :%s/<C-r><C-w>//c<left><left>
 nnoremap <Leader>pub :cfdo %s///gc<left><left><left>
-nnoremap <cr>l :s///<left>
+nnoremap <cr>l :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr> :s///<left>
+nnoremap <cr>L :s///<left>
 nnoremap <cr>r :s/<C-r><C-w>//<left>
 
 " ---INSERTs---
@@ -151,7 +150,11 @@ imap ,. />
 nnoremap <c-b> <C-^>
 " jump between previous split
 nnoremap <M-b> <c-w><c-p>
+nnoremap <cr>B <c-w><c-p> :bd!<cr>
 nnoremap <silent> ,f <C-]>zz
+nnoremap <c-o> <c-o>zz
+nnoremap <c-i> <c-i>zz
+nnoremap gD :split<cr>gd<c-e><c-e><c-e><c-e><c-e>
 nnoremap <silent> <c-t> <c-t>zz
 nnoremap <silent>,ft :tab split <CR>:exec("tag ".expand("<cword>"))<CR>
 nnoremap <silent> ,fs :sp<CR>:exec("tag ".expand("<cword>"))<CR>zz<C-w><C-p>
@@ -167,7 +170,7 @@ nnoremap <expr> <leader>Z &foldlevel ? 'zM' :'zR'
 nnoremap <expr> <leader>z 'zR'
 
 nnoremap <space>D :bd<CR>
-nnoremap <leader>N :set nonumber!<CR>:set norelativenumber!<CR>
+nnoremap <tab>n :set nonumber!<CR>:set norelativenumber!<CR>
 
 nnoremap <leader>hp :!open -a Google\ Chrome %<CR><CR>
 nnoremap <silent> ,u :UndotreeToggle<CR>
@@ -181,13 +184,15 @@ noremap <c-w>-  <c-w>t<c-w>K
 " horizontal to vertical ( -- -> | )
 noremap <c-w>\|  <c-w>t<c-w>H
 noremap <c-w>\  <c-w>t<c-w>H
-noremap <c-w>/  <c-w>t<c-w>H
+noremap <c-w>/ :windo wincmd H<cr>
 
 " tabs
 nnoremap <silent> <space>tc :tabclose<CR>gT
 nnoremap <leader>wn :tabnew%<cr>
-nnoremap t :ZoomWinTabToggle<CR>
-nnoremap T :tabclo<cr>gT
+nnoremap <silent><cr>z :ZoomWinTabToggle<CR>
+nnoremap <silent><m-t> :ZoomWinTabToggle<CR>
+nnoremap <silent>M :ZoomWinTabToggle<CR>
+" nnoremap T :tabclo<cr>gT
 " Go to tab by number
 noremap <leader>1 1gt
 noremap <leader>2 2gt
@@ -205,13 +210,13 @@ noremap <leader>9 9gt
 nnoremap <space>T :JsPreTmpl html<cr>
 nnoremap <space>Y :JsPreTmplClear<cr>
 " fugitive git bindings
-nnoremap <space>ga :Git add %:p<CR><CR>
+nnoremap <space>ga :Git add %<CR>:x<cr>
 nnoremap <space>gA :Git add .<CR>
 nnoremap <space>gc :Gcommit -v -q<CR>
 nnoremap <space>gt :Gcommit -v -q %:p<CR>
 nnoremap <space>gb :Gblame<CR>
 nnoremap <space>gB :Gbrowse<CR>
-nnoremap <space>gp :Git add --patch<CR>
+nnoremap <space>gp :Git add --patch<CR>I
 nnoremap <space>ge :Gedit<CR>
 nnoremap <space>gr :Gread<CR>
 nnoremap <space>gw :Gwrite<CR><CR>
@@ -227,7 +232,7 @@ command! GdiffInTab tabedit %|Gdiff
 " nnoremap <space>g :Gdiff<cr>
 " close a fugitive :Gdiff
 nnoremap <space>G <c-w>h<c-w>c
-" nnoremap <space>gd :GdiffInTab<cr>
+nnoremap <space>gd :GdiffInTab<cr>
 nnoremap <space>dt :diffthis<cr>
 nnoremap <leader>du :diffupdate<CR>
 nnoremap <leader>dp :diffput<space>
@@ -241,8 +246,8 @@ nnoremap <space>N :!ls %:p<cr>
 
 " tagbar
 nnoremap <silent> <M-z> :TagbarToggle<CR>
-nnoremap <silent> ,xx :TagbarOpen fj<CR>
-nnoremap <silent> ,zz :TagbarTogglePause<CR>
+nnoremap <silent> ,zz :TagbarOpen fj<CR>
+nnoremap <silent> ,zx :TagbarTogglePause<CR>
 
 " dash
 nnoremap gk :Dash<CR>
@@ -257,11 +262,16 @@ nmap <leader>gt <Plug>Titlecase
 vmap <leader>gt <Plug>Titlecase
 nmap <leader>gT <Plug>TitlecaseLine
 
-" fzf
-" Mapping selecting mappings
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
+" -- COMPLETION --
+" inoremap <expr><c-f> (pumvisible()?(empty(v:completed_item)?"\<C-n>\<C-y>":"\<C-y>"):"\<CR>")
+" more finger friendly line complete
+inoremap <c-l> <c-x><c-l>
+inoremap <expr> <C-F> pumvisible() \|\| &omnifunc == '' ?
+\ "\<lt>C-n>" :
+\ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+\ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+\ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+
 " imap <c-s><c-k> <plug>(fzf-complete-word)
 inoremap <expr> <c-s><c-k> fzf#vim#complete#word({'left': '15%'})
 nnoremap <expr> <c-s><c-k> fzf#vim#complete#word({'left': '15%'})
@@ -269,15 +279,28 @@ nnoremap <expr> <c-s><c-k> fzf#vim#complete#word({'left': '15%'})
 imap <c-s><c-f> <plug>(fzf-complete-path)
 imap <c-s><c-j> <plug>(fzf-complete-file-ag)
 imap <c-s><c-l> <plug>(fzf-complete-line)
+
+" Remap ctrl-c for deoplete/ncm completion menu bug
+" https://github.com/Shougo/deoplete.nvim/issues/460
+inoremap <C-c> <Esc>
+inoremap <C-D> <C-P>
+inoremap <C-B> <C-P>
+
+" fzf
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
 " force top correction on most recent misspelling
 " fix nearest spelling error
 nmap <buffer> <c-s><c-s> [s1z=<c-o>
 imap <buffer> <c-s> <c-g>u<Esc>[s1z=`]A<c-g>u
 
-nnoremap <silent> <cr>b :FzfBuffers<CR>
+" nnoremap <silent> <cr>b :FzfBuffers<CR>
+nnoremap <silent> t :FzfBuffers<CR>
 nnoremap <silent> ,ss :FzfSnippets<CR>
 nnoremap <silent> ,fw :FzfWindows<CR>
-nnoremap <silent> ,bl :FzfLines<CR>
+nnoremap <silent> ,bl :call fzf#vim#lines("", fzf#vim#with_preview())<cr>
 nnoremap <silent> ,bL :FzfBLines<CR>
 nnoremap <silent> ,o :FzfBTags<CR>
 nnoremap <silent> ,O :FzfTags<CR>
@@ -287,7 +310,7 @@ nnoremap <silent> ,? :FzfHistory<CR>
 nnoremap <silent> ,gl :FzfCommits<CR>
 nnoremap <silent> ,ga :FzfBCommits<CR>
 nnoremap <silent> ,gs :FzfGFiles?<CR>
-nnoremap <silent> ,ft :FzfFiletypes<CR>
+" nnoremap <silent> ,ft :FzfFiletypes<CR>
 " nnoremap <silent> ,m :FzfMap<CR>
 nnoremap <silent> K :call SearchWordWithRg()<CR>
 vnoremap <silent> K :call SearchVisualSelectionWithRg()<CR>
@@ -299,9 +322,9 @@ nnoremap ,ad :Ag 'def<space>
 nnoremap <silent> ,ag :Ag <cword><CR>
 vnoremap ,ag :<C-U>execute "Ag " . GetVisual()<CR>
 
-nnoremap <space>re :RappelRepl<CR>
-nnoremap <space>rr :RappelRun<CR>
-nnoremap <space>rl :RappelLaunch<CR>
+nnoremap <space>re :w<cr>:RappelRepl<CR>
+nnoremap <space>rr :w<cr>:RappelRun<CR>
+nnoremap <space>rl :w<cr>:RappelLaunch<CR>
 
 " vim-resize - resizes splits
 nnoremap <silent> <left> :CmdResizeLeft<cr>
@@ -349,7 +372,7 @@ map <cr>W ciW
 nnoremap <cr>x :xall<cr>
 nnoremap <cr>D :qall!
 
-nnoremap <space>o :only<cr>
+nnoremap <space>O :only<cr>
 
 map <space>v bvE
 
@@ -361,12 +384,6 @@ nnoremap <cr>0 /\r<cr>s<cr><esc>df<space>
 " tmuxnav
 nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 
-" ruby
-nnoremap <leader>R :VtrSendCommandToRunner rake<cr>
-nmap <leader>bp orequire "pry": binding.pry<esc>^
-nmap <leader>bpr orequire "pry-remote": binding.remote_pry<esc>^
-" hack for constructor assignment
-nmap <cr>c yiWi@<esc>A<space>=<space><C-R>"<esc>
 nnoremap <cr>aa :AV<cr>
 
 " test bindings
@@ -391,14 +408,17 @@ nmap <CR>f gv<leader>sl
 vmap <CR>f <leader>sl
 " useful resending sql
 nmap <cr>F vap<leader>sl
+" fix formating
+" nnoremap ,` vae= TODO: decide map?
 
 " javascript
 " nnoremap <leader>nr :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'node'}<cr>
-nmap ,cl yiwoconsole.log('<c-r>"', <c-r>");<Esc>^
+nmap ,cl yiwofmt.Printf("<c-r>:::: %s\n", <c-r>");<Esc>^
 " ||=
 nmap <leader>\| yiWA<space>=<space><C-R>"<space>\|\|<space>
 nmap <leader>; A;<ESC>
 nmap <leader>, A,<ESC>
+nmap <space>: ea:<space>
 nmap \| A<space>\<ESC>
 " open current file in devtool chrome debugger
 nnoremap <leader>jsd :! devtool % &<CR>
@@ -456,7 +476,8 @@ map <cr>g griw
 " replace to end of line
 map <cr>G gr$
 " replace next search with current yanked register
-map <cr>n cgn<c-r>0<esc>
+map <cr>n cgn
+map <cr>N cgn<c-r>0<esc>
 " replace line with under cursor
 nmap <cr>C yiwcc<c-r>0<esc>
 nnoremap <silent><space>L :Limelight!!<cr>
@@ -468,10 +489,13 @@ nnoremap <space>3 :!open %<cr>
 nnoremap <space>4 :Neoformat<cr>
 nnoremap <space>5 :FZFMru<cr>
 nnoremap <space>6 :Rooter<cr>
-nnoremap <space>8 :ChromaticaToggle<cr>
 nnoremap <space>7 :ALEFix<cr>
+nnoremap <silent><space>8 :ALEFix<cr>
+nnoremap <silent>sd :VimCurrentWordToggle<cr>
+nnoremap <silent>df :w<cr>
 nnoremap <space>9 :ALEInfo<CR>
 nnoremap <space>0 :ALEDetail<CR>
+nnoremap <space>= :UnstackFromTmux<CR>
 nnoremap <silent><tab> :ALEToggle<cr>
 
 nmap f <Plug>(clever-f-f)
@@ -537,3 +561,22 @@ vmap <leader>m <Plug>GrepOperatorOnCurrentDirectory
 nmap <leader><leader>m <Plug>GrepOperatorWithFilenamePrompt
 vmap <leader><leader>m <Plug>GrepOperatorWithFilenamePrompt
 
+nmap <leader>he <Plug>(ruby_hl_lvar-enable)
+nmap <leader>hd <Plug>(ruby_hl_lvar-disable)
+" nmap <cr><cr> <Plug>(ruby_hl_lvar-refresh)
+nnoremap <leader>S :call vim_seq_diag#Generate_diagram()<CR>
+
+nnoremap <silent><cr><cr> <c-w>=
+" autoformat
+nnoremap <silent><tab>v vae=
+
+" Now you can leave the terminal-mode with <Esc>.
+" https://stackoverflow.com/questions/47871857/vim-fugitive-with-neovim-terminal-emulator
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-v><Esc> <Esc>
+
+" quick yank inner line to reg 'y'
+" nnoremap <cr>y "yyil
+" nnoremap <space>y "ygril
+
+nnoremap <silent> <cr>m :call ResizeMin()<CR>

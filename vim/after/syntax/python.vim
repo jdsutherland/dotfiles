@@ -69,6 +69,7 @@ syntax match pythonFunction "\.pop()\|\.pop" conceal cchar=»
 
 syntax keyword pyNiceStatement lambda conceal cchar=λ
 syntax match pyNiceStatement "->" conceal cchar=→
+syntax match pythonStatement "assert" conceal cchar=✓
 syntax keyword pyNiceStatement None conceal cchar=∅
 
 syntax keyword pythonBuiltinFunc super conceal cchar=Ω
@@ -77,11 +78,12 @@ syntax match pythonDecorator "@classmethod" conceal cchar=Ɱ
 syntax match pythonDecorator "@property" conceal cchar=¶
 " syntax match pyNiceOperator "\v\w+\zs\:\ze" conceal cchar=꞉
 syntax match pyNiceOperator "\v\zs:\ze\s+\S+" conceal cchar=⁝
+" syntax match pyNiceOperator "\v\zs:\ze\s+\S+" conceal cchar=⇛
 
 hi link pyNiceOperator Operator
 hi link pyNiceStatement Statement
 hi link pyNiceKeyword Keyword
 hi link pyNiceBuiltin Builtin
-hi! Conceal ctermbg=Black ctermfg=Magenta
+hi! Conceal ctermbg=Black ctermfg=LightRed
 
 "setlocal conceallevel=1

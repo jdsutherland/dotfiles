@@ -1,0 +1,82 @@
+if !has('conceal') || &enc != 'utf-8'
+  finish
+endif
+
+syn keyword clojureConcealLambda defn fn conceal cchar=λ
+syn keyword clojureConcealLambdaPriv defn- conceal cchar=Λ
+"syn match   clojureConcealLambda /\v#\(/me=e-1 conceal cchar=λ
+syn keyword clojureConcealTrue true conceal cchar=T
+
+syn keyword clojureConcealFalse false conceal cchar=F
+
+syn keyword clojureConcealKeys      :keys conceal   cchar=ӄ
+syn match clojureConcealNil       /\vnil\?*/ conceal     cchar=Ø
+"syn keyword clojureConcealNil       nil conceal     cchar=Ø
+syn keyword clojureConcealPartial   partial conceal cchar=∂
+syn keyword clojureConcealComp      comp conceal    cchar=∘
+syn keyword clojureConcealJuxt      juxt conceal    cchar=×
+syn keyword clojureConcealCond      cond conceal    cchar=¿
+syn keyword clojureConcealFn1       alpha conceal   cchar=α
+syn keyword clojureConcealApply     apply conceal   cchar=$
+" http://en.wikipedia.org/wiki/Function_application
+syn keyword clojureConcealMap       map conceal   cchar=⚨
+syn keyword clojureConcealReduce    reduce conceal   cchar=ρ  " same as rename
+syn keyword clojureConcealFilter    filter conceal   cchar=∿
+syn keyword clojureConcealPartition partition conceal   cchar=∥
+syn keyword clojureConcealFormat    format conceal   cchar=~
+syn keyword clojureConcealReplace   clojure.string/replace conceal   cchar=σ
+
+syn match clojureConcealParam    /%/ conceal   cchar=ⅰ
+syn match clojureConcealParam    /%2/ conceal   cchar=ⅱ
+syn match clojureConcealParam    "%3" conceal   cchar=ⅲ
+
+"syn keyword clojureConcealCons    cons conceal   cchar=
+
+syn keyword clojureConcealFn2       beta conceal   cchar=β
+syn keyword clojureConcealFn3       delta conceal   cchar=γ
+syn keyword clojureConcealNoOp      no-op conceal   cchar=ε
+
+syn keyword clojureConcealThread2   ->> conceal   cchar=⇒
+syn keyword clojureConcealThread1   -> conceal   cchar=→
+syn keyword clojureConcealNotEqual  not= conceal   cchar=≠
+syn keyword clojureConcealNot       not conceal   cchar=¬
+syn keyword clojureConcealInto      into conceal   cchar=←
+syn keyword clojureConcealFor       for conceal   cchar=∀
+syn keyword clojureConcealInc       inc upper-case conceal   cchar=↑
+syn keyword clojureConcealDec       dec lower-case conceal   cchar=↓
+"syn keyword clojureConcealContain   contains? conceal   cchar=∋
+syn keyword clojureConcealContain   contains? conceal   cchar=∈
+syn keyword clojureConcealSqrt      sqrt conceal   cchar=√
+"syn keyword clojureConcealSquare    square conceal   cchar=²
+syn keyword clojureConcealSquare    expt conceal   cchar=²
+syn keyword clojureConcealOr        or conceal   cchar=∨
+syn keyword clojureConcealAnd       and conceal   cchar=∧
+syn keyword clojureConcealLessEq    <= conceal   cchar=≤
+syn keyword clojureConcealGreaterEq >= conceal   cchar=≥
+syn keyword clojureConcealDivision  / conceal   cchar=÷
+syn keyword clojureConcealBitXor    bit-xor conceal   cchar=⊕
+syn keyword clojureConcealFloor     floor conceal   cchar=⌊
+syn keyword clojureConcealCeil      ceil conceal   cchar=⌈
+syn keyword clojureConcealPow       Math/pow conceal   cchar=↑
+syn keyword clojureConcealPi        Math/PI conceal cchar=π
+
+" Sets
+syn keyword clojureConcealProject      project       conceal cchar=π
+syn keyword clojureConcealSelect       select        conceal cchar=σ
+syn keyword clojureConcealRename       join          conceal cchar=⋈
+syn keyword clojureConcealUnion        union         conceal cchar=∪
+syn keyword clojureConcealIntersection intersection  conceal cchar=∩
+syn keyword clojureConcealDifference   difference    conceal cchar=∖
+syn keyword clojureConcealRename       rename        conceal cchar=ρ
+syn keyword clojureConcealIndex        index         conceal cchar=☞
+  " or :
+syn keyword clojureConcealSubset       subset?       conceal cchar=⊂
+syn keyword clojureConcealSuperset     superset?     conceal cchar=⊃
+
+syn keyword clojureConcealAtom     atom     conceal cchar=⚛
+
+hi link clojureConcealLambda Define
+hi! link Conceal Operator
+
+hi! Conceal ctermbg=Black ctermfg=Magenta
+"hi! link Conceal Operator

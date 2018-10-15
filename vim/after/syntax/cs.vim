@@ -3,7 +3,8 @@ if exists('g:no_java_conceal') || !has('conceal') || &enc != 'utf-8'
 endif
 
 syntax match javaNiceOperator "*" conceal cchar=⁕
-syntax match javaNiceOperator "==" conceal cchar=≟
+syntax match goNiceOperator "==" conceal cchar=≡
+syntax match csEnclosed "\[\]" conceal cchar=⌑
 syntax match javaNiceOperator "!=" conceal cchar=≠
 syntax match javaNiceOperator "<=" conceal cchar=≤
 syntax match javaNiceOperator ">=" conceal cchar=≥
@@ -19,17 +20,14 @@ syntax match javaNiceFunction "assertEquals" conceal cchar=≡
 
 let s:extraConceal = 1
 if s:extraConceal
-  syntax keyword javaNiceConstant null conceal cchar=∅
-
+  syntax keyword csConstant null conceal cchar=∅
   syntax keyword javaNiceKeyword break conceal cchar=↯
   " syntax keyword javaNiceKeyword continue conceal cchar=↟
   " syntax keyword javaNiceKeyword else conceal cchar=⦂
   " syntax keyword javaNiceKeyword case conceal cchar=↳
   " syntax keyword javaNiceKeyword class conceal cchar=₡
   " syntax keyword javaNiceKeyword const conceal cchar=𝔠
-  syntax keyword javaNiceKeyword final conceal cchar=𝔠
-  " syntax keyword javaNiceKeyword public conceal cchar=▶
-  " syntax keyword javaNiceKeyword public conceal cchar=+
+  syntax keyword javaNiceKeyword const conceal cchar=𝔠
   syntax keyword javaNiceKeyword public conceal cchar=ॱ
   syntax keyword javaNiceKeyword protected conceal cchar=ॱ
   syntax keyword javaNiceKeyword private conceal cchar=·
@@ -39,27 +37,46 @@ if s:extraConceal
   syntax keyword javaNiceKeyword return conceal cchar=⇚
   " syntax keyword javaNiceKeyword static conceal cchar=∙
   syntax keyword javaNiceKeyword static conceal cchar=∬
+  " syntax keyword javaNiceKeyword virtual conceal
+  " syntax keyword javaNiceKeyword abstract conceal
+  syntax match csType "\v<var " conceal cchar=@
+
+  " syntax keyword javaNiceKeyword break conceal cchar=↯
+  " " syntax keyword javaNiceKeyword continue conceal cchar=↟
+  " " syntax keyword javaNiceKeyword else conceal cchar=⦂
+  " " syntax keyword javaNiceKeyword case conceal cchar=↳
+  " " syntax keyword javaNiceKeyword class conceal cchar=₡
+  " " syntax keyword javaNiceKeyword const conceal cchar=𝔠
+  " syntax keyword javaNiceKeyword final conceal cchar=𝔠
+  " " syntax keyword javaNiceKeyword public conceal cchar=▶
+  " " syntax keyword javaNiceKeyword public conceal cchar=+
+  " syntax keyword javaNiceKeyword public conceal cchar=·
+  " syntax keyword javaNiceKeyword protected conceal cchar=◈
+  " syntax keyword javaNiceKeyword private conceal cchar=-
+  " syntax keyword javaNiceKeyword return conceal cchar=⇚
+  " syntax keyword javaNiceKeyword static conceal cchar=∙
+  " syntax keyword javaNiceKeyword virtual conceal cchar=ⅵ
+  " syntax match goVar "\v<var " conceal cchar=@
 
   syntax keyword javaClassDecl extends conceal cchar=<
   syntax keyword javaClassDecl implements conceal cchar=:
 
-  syntax keyword javaTypeDef new conceal cchar=μ
-  syntax keyword javaTypeDef this conceal cchar=@
-  syntax keyword javaExternal import conceal cchar=ɪ
+  syntax keyword csNewDecleration new conceal cchar=μ
+  syntax keyword csUnspecifiedStatement this conceal cchar=@
+  syntax keyword javaExternal using conceal cchar=ɪ
 
   syntax keyword javaBoolean true conceal cchar=T
   syntax keyword javaBoolean false conceal cchar=F
 
-  syntax keyword javaType void conceal cchar=∅
-  syntax keyword javaType char conceal cchar=ċ
-  " syntax keyword javaType void conceal cchar=_
-  syntax keyword javaType boolean conceal cchar=ƀ
-  syntax keyword javaType String conceal cchar=⟆
-  syntax keyword javaType int conceal cchar=ℤ
-  syntax keyword javaType float double conceal cchar=ℝ
-  syntax keyword javaType byte conceal cchar=฿
-  syntax keyword javaType long conceal cchar=ʟ
-  syntax keyword javaMethodDecl synchronized conceal cchar=☯
+  syntax keyword csType void conceal cchar=∅
+  syntax keyword csType decimal conceal cchar=$
+  syntax keyword csType char conceal cchar=ċ
+  syntax keyword csType bool conceal cchar=ƀ
+  syntax keyword csType string conceal cchar=⟆
+  syntax keyword csType int conceal cchar=ℤ
+  syntax keyword csType float double conceal cchar=ℝ
+  syntax keyword csType byte conceal cchar=฿
+  syntax keyword csType long conceal cchar=ʟ
 
   " syntax match javaHiddenOperator /\S\zs()\ze\(\S\| [^{]\)/ conceal
   " syntax match javaHiddenOperator /^\s*}$/ conceal
