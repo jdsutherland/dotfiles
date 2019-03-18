@@ -1,6 +1,6 @@
 #!/bin/sh
 
-git log --graph --color=always \
+git log master --graph --color=always \
   --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" |
 fzf --ansi --no-sort --reverse --tiebreak=index --height 100% --bind=ctrl-o:toggle-sort \
   --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git log --name-status | diff-so-fancy' \

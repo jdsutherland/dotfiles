@@ -312,7 +312,7 @@ def main():
 
     # Command (default = vim)
     if args.cmd == []:
-        args.cmd = "vim"
+        args.cmd = "nvim"
 
     # Run analysis
     analyzer = StartupAnalyzer(args)

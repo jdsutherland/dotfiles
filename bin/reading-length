@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+# reading-length <title>
+
+# readinglength.com requires a POST and redirect on form submission to access the page (target URL is ISBN)
+# - this is a workaround for quickly searching
+
+baseurl="$(http --ignore-stdin POST https://www.readinglength.com/book-search query=$1 | xargs -I{} basename {})" && open "https://www.readinglength.com/book/$baseurl"
