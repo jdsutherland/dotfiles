@@ -11,9 +11,10 @@
 .vagrant
 .vimrc.local
 /tags
-tags*
+/* tags* */
 Thumbs.db*
 log/
 .tern-port
 node_modules/
 Session.vim
+__Scratch__

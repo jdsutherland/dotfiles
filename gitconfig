@@ -34,6 +34,7 @@
   full-commit = !git cat-file -p $(git rev-parse HEAD)
   glog = log -E -i --grep
   issues = !hub browse -- issues
+  pulls = !hub browse -- pulls
   lnames = !git --no-pager show --name-only $1
   master = checkout master
   mb = !git merge-base HEAD $1
@@ -53,6 +54,7 @@
   rom = remote add origin
   root = rev-list --max-parents=0 HEAD
   rpo = remote prune origin
+  rr = remote rename jdsutherland fork
   sal = !git sla # Accepting that I will continue to mistype this
   sdot = status . --short --branch
   search = log -S
@@ -118,3 +120,5 @@
   newHighlight = "green bold 22"
 [diff-so-fancy]
   markEmptyLines = false
+[ghi]
+  token = !security find-internet-password -a jdsutherland -s github.com -l 'ghi token' -w
