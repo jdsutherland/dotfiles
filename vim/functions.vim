@@ -231,4 +231,4 @@ function! s:SysPasteTrimNewlines()
   execute '%s/\r/\r'
   execute 'nohl'
 endfunction
-command! Ptrim :call <sid>SysPasteTrimNewlines()
+command! PPP :call <sid>SysPasteTrimNewlines()

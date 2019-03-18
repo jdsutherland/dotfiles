@@ -2,7 +2,7 @@ function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
 
-" {{{nc2 completion manager
+" {{{ncm2 completion manager
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
 
@@ -27,9 +27,10 @@ Plug 'ncm2/ncm2-tagprefix'
 " Plug 'filipekiss/ncm2-look.vim'
 " }}}
 
+
 " delete?
 " Plug 'sjl/vitality.vim'
-" Plug 'sbdchd/neoformat'
+Plug 'sbdchd/neoformat'
 " Plug 'whatyouhide/vim-lengthmatters'
 " Plug 'haya14busa/vim-auto-programming' " TODO: check
 " Plug 'junegunn/heytmux'
@@ -69,10 +70,13 @@ Plug 'tommcdo/vim-lion'
 Plug 'junegunn/vim-journal'
 Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-indent' | Plug 'kana/vim-textobj-entire' | Plug 'kana/vim-textobj-line' | Plug 'nelstrom/vim-textobj-rubyblock' | Plug 'Chun-Yang/vim-textobj-chunk' | Plug 'jceb/vim-textobj-uri'
 Plug 'kana/vim-textobj-function' | Plug 'thinca/vim-textobj-function-javascript'
+" Plug 'machakann/vim-textobj-delimited' TODO
 Plug 'majutsushi/tagbar'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'sickill/vim-pasta'
+Plug 'AndrewRadev/whitespaste.vim' " claims integrates with vim-pasta TODO: verify
+Plug 'AndrewRadev/undoquit.vim'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-abolish'
@@ -196,13 +200,13 @@ Plug 'jvanja/vim-bootstrap4-snippets'
 " ruby
 " Plug 'ecomba/vim-ruby-refactoring', { 'for': ['ruby', 'eruby', 'yaml'] }
 " Plug 'rhysd/vim-textobj-ruby', { 'for': ['ruby', 'eruby', 'yaml'] } TODO: slow?
-Plug 'nelstrom/vim-textobj-rubyblock'
-Plug 'sunaku/vim-ruby-minitest', { 'for': ['ruby', 'eruby', 'yaml'] }
-Plug 'tpope/vim-bundler'
+" Plug 'nelstrom/vim-textobj-rubyblock'
+" Plug 'sunaku/vim-ruby-minitest', { 'for': ['ruby', 'eruby', 'yaml'] }
+" Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby', 'yaml'] }
-Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'eruby', 'yaml'] }
-Plug 'todesking/ruby_hl_lvar.vim', { 'for': 'ruby' }
-Plug 'rlue/vim-fold-rspec', { 'for': 'ruby' }
+" Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'eruby', 'yaml'] }
+" Plug 'todesking/ruby_hl_lvar.vim', { 'for': 'ruby' }
+" Plug 'rlue/vim-fold-rspec', { 'for': 'ruby' }
 
 " style/color
 Plug 'vim-airline/vim-airline'
@@ -249,8 +253,6 @@ Plug 'clojure-vim/async-clj-omni', { 'for': 'clojure' }
 " golang
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'ivy/vim-ginkgo'
-" Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-" TODO: nsf/gocode deprecated - switch to this fork eventually
 Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 " Plug 'sebdah/vim-delve'
 
@@ -260,13 +262,14 @@ Plug 'junegunn/fzf.vim'
 Plug 'rizzatti/dash.vim'
 
 " misc lang
-" Plug 'fsharp/vim-fsharp', { 'for': 'fsharp', 'do': 'make fsautocomplete' }
+Plug 'fsharp/vim-fsharp', { 'for': 'fsharp', 'do': 'make fsautocomplete' }
 " Plug 'exu/pgsql.vim', { 'for': ['sql', 'psql'] }
 Plug 'shmup/vim-sql-syntax'
 Plug 'cespare/vim-toml'
 " Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 Plug 'chr4/nginx.vim'
 Plug 'tmux-plugins/vim-tmux'
+Plug 'Shirk/vim-gas' " ASM
 
 Plug 'tpope/vim-dadbod'
 Plug 'plasticboy/vim-markdown'
@@ -281,3 +284,20 @@ Plug 'fncll/wordnet.vim'
 Plug 'chrisbra/csv.vim'
 Plug 'xavierchow/vim-sequence-diagram'
 Plug 'gabebw/vim-github-link-opener'
+Plug 'mhinz/vim-grepper'
+" Plug 'sheerun/vim-polyglot'
+Plug 'christoomey/vim-quicklink'
+Plug 'wellle/visual-split.vim'
+Plug 'AndrewRadev/exercism.vim'
+
+Plug 'vim-scripts/Mark--Karkat'
+
+Plug 'bkad/CamelCaseMotion'
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+map <silent> ge <Plug>CamelCaseMotion_ge
+sunmap w
+sunmap b
+sunmap e
+sunmap ge

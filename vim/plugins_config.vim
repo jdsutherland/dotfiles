@@ -105,10 +105,10 @@ nmap <silent> ]r <Plug>(ale_next_wrap)
 " certain events, either when I stop interacting or when entering / leaving
 " insert mode
 set updatetime=1000
-autocmd CursorHold * call ale#Lint()
-autocmd CursorHoldI * call ale#Lint()
-autocmd InsertLeave * call ale#Lint()
-autocmd TextChanged * call ale#Lint()
+" autocmd CursorHold * call ale#Queue(0)
+" autocmd CursorHoldI * call ale#Queue(0)
+" autocmd InsertLeave * call ale#Queue(0)
+" autocmd TextChanged * call ale#Queue(0)
 let g:ale_lint_on_text_changed = 0
 let g:ale_linter_aliases = {
       \ 'zsh': 'sh'
@@ -174,10 +174,17 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 let g:EditorConfig_core_mode = 'external_command'
 
 " fzf
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+
 let g:fzf_layout = { 'window': '-tabnew' }
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_buffers_jump = 1
 let g:fzf_action = {
+  \ 'ctrl-q': function('s:build_quickfix_list'),
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit' }
@@ -661,3 +668,11 @@ let g:vinarise_enable_auto_detect=0
 
 let g:vim_current_word#highlight_only_in_focused_window = 0
 let g:vim_current_word#enabled = 0
+
+" let g:ncm2_pyclang#library_path = '/usr/local/Cellar/llvm/6.0.1/lib'
+" autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
+
+let g:undotree_SetFocusWhenToggle = 1
+
+" dont ask to delete whitespace
+let g:strip_whitespace_confirm = 0

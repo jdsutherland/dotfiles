@@ -37,6 +37,9 @@ nnoremap k gk
 " nnoremap G <c-g>
 " nnoremap <c-g> G
 
+" show selected line count
+vnoremap <c-g> g<c-g>
+
 nnoremap $ ea<space>
 nnoremap <space>a ea<space>
 
@@ -65,7 +68,7 @@ nnoremap <M-w> :FzfWindows<CR>
 nnoremap <M-/> :FzfMarks<CR>
 " nnoremap <M-\> :TmuxNavigatePrevious<cr>
 " nnoremap <M-S-E> :TmuxNavigatePrevious<cr>
-nnoremap <silent> <M-s> :ToggleGStatus<cr><C-E><C-E><C-E>zz
+nnoremap <silent> <M-s> :ToggleGStatus<cr><C-E><C-E><C-E>zt
 nnoremap <silent><M-9> :tabprev<cr>
 nnoremap <silent><M-0> :tabnext<cr>
 " hacky way to lookup dot chain native modules easily in Dash
@@ -87,7 +90,6 @@ nmap <space>j <M-u>j
 
 nnoremap <silent><cr>d :nohls<CR>
 nnoremap <silent> <space>dd :call CloseWindowOrKillBuffer()<CR>
-nnoremap <silent><leader>w :%s/\t/  /<cr>
 " remove multiple blank lines
 nnoremap <silent><leader>W :%!cat -s
 " remove semicolons
@@ -112,7 +114,7 @@ nnoremap <silent> <space><space> :call InterestingWords('n')<cr>
 nnoremap <silent> <space>n :call WordNavigation('forward')<cr>
 nnoremap <silent> <space>N :call WordNavigation('backward')<cr>
 " nnoremap <silent> <space>i :call InterestingWords('n')<cr>
-nnoremap <silent> <space>I :call UncolorAllWords()<cr>
+" nnoremap <silent> <space>I :call UncolorAllWords()<cr>
 nnoremap <silent><space>i :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
 xnoremap ,* :<C-u>call VisualStarSearchSet('/')<CR>/<C-R>=@/<CR><CR>
 " upcase current word
@@ -140,6 +142,7 @@ nnoremap <cr>r :s/<C-r><C-w>//<left>
 
 " ---INSERTs---
 imap ,rr =>
+imap ,rp &;
 imap ,aa ->
 imap ,zz <-
 imap ,uu __
@@ -157,8 +160,8 @@ nnoremap <c-i> <c-i>zz
 nnoremap gD :split<cr>gd<c-e><c-e><c-e><c-e><c-e>
 nnoremap <silent> <c-t> <c-t>zz
 nnoremap <silent>,ft :tab split <CR>:exec("tag ".expand("<cword>"))<CR>
-nnoremap <silent> ,fs :sp<CR>:exec("tag ".expand("<cword>"))<CR>zz<C-w><C-p>
-nnoremap <silent> ,fv :vsp <CR>:exec("tag ".expand("<cword>"))<CR>zz<C-w><C-p>
+nnoremap <silent> ,fs :sp<CR>:exec("tag ".expand("<cword>"))<CR>zt<C-w><C-p>
+nnoremap <silent> ,fv :vsp <CR>:exec("tag ".expand("<cword>"))<CR>zt<C-w><C-p>
 nnoremap <silent> <space>ll :exec("ptag ".expand("<cword>"))<CR>:set sb<CR>
 nnoremap <silent> <space>lc :pclose<CR>
 nnoremap <silent> ,vs   :vert stag<space>
@@ -298,7 +301,7 @@ xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 " force top correction on most recent misspelling
 " fix nearest spelling error
-nmap <buffer> <c-s><c-s> [s1z=<c-o>
+nnoremap <buffer> <c-s><c-s> [s1z=<c-o>
 imap <buffer> <c-s> <c-g>u<Esc>[s1z=`]A<c-g>u
 
 " nnoremap <silent> <cr>b :FzfBuffers<CR>
@@ -409,12 +412,15 @@ nnoremap <leader>pry :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd'
 nnoremap <leader>sd :VtrSendCtrlD<cr>
 " use Vtr plugin defined <leader>sl mapping
 nmap ,sL vae<leader>sl
-nmap <CR>f gv<leader>sl
+" nmap <CR>f gv<leader>sl TODO: new map
 vmap <CR>f <leader>sl
 " useful resending sql
 nmap <cr>F vap<leader>sl
 " fix formating
 " nnoremap ,` vae= TODO: decide map?
+
+" surround a word w function
+nmap <CR>f saiwf
 
 " javascript
 " nnoremap <leader>nr :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'node'}<cr>
@@ -496,8 +502,8 @@ nnoremap <space>5 :FZFMru<cr>
 nnoremap <space>6 :Rooter<cr>
 nnoremap <space>7 :ALEFix<cr>
 nnoremap <silent><space>8 :ALEFix<cr>
-nnoremap <silent>sd :VimCurrentWordToggle<cr>
-nnoremap <silent>df :w<cr>
+nnoremap <silent><space>sd :VimCurrentWordToggle<cr>
+" nnoremap <silent><space>df :w<cr>
 nnoremap <space>9 :ALEInfo<CR>
 nnoremap <space>0 :ALEDetail<CR>
 nnoremap <space>= :UnstackFromTmux<CR>
@@ -585,3 +591,5 @@ tnoremap <C-v><Esc> <Esc>
 " nnoremap <space>y "ygril
 
 nnoremap <silent> <cr>m :call ResizeMin()<CR>
+
+cnoremap %% <C-R>=expand(%:h).'/'<cr>

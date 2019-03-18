@@ -59,14 +59,14 @@ autocmd FileType javascript,jsx nnoremap <buffer> ,f :TernDef<cr>
 autocmd FileType javascript,jsx nnoremap <buffer> ,fs :TernDefSplit<cr>
 autocmd FileType javascript,jsx nnoremap <buffer> T :TernType<cr>
 autocmd FileType javascript,jsx nnoremap <buffer> <space>ll :TernDefPreview<cr><c-o>
-autocmd FileType javascript nmap ,cl yiwoconsole.log("<c-r>"\n", <c-r>");<Esc>^
+autocmd FileType javascript nmap ,cl yiWoconsole.log("<c-r>"\n", <c-r>");<Esc>^
 autocmd FileType javascript nmap ,db odebugger;<esc>^
 
 " python
 autocmd filetype python nnoremap <buffer> ,f  :call jedi#goto()<CR>
 autocmd FileType python nnoremap <buffer> <leader>gj :call jedi#goto_assignments()<CR>
 autocmd filetype python nnoremap <leader>bp ofrom ptpdb import set_trace<cr>set_trace()<esc>^
-autocmd FileType python nmap ,cl yiwoprint("<c-r>"; {}".format(<c-r>"))<Esc>^
+autocmd FileType python nmap ,cl yiWoprint("<c-r>"; {}".format(<c-r>"))<Esc>^
 
 " go
 autocmd FileType go,python,ruby,eruby,elixir inoremap <buffer> ; :
@@ -90,7 +90,7 @@ autocmd FileType go nnoremap <buffer> <space>ggr :GoRename<space>
 autocmd FileType go nnoremap <buffer> <space>ggi :GoImpl<space>
 autocmd FileType go nnoremap <buffer> <space>gim :GoImport<space>
 autocmd FileType go nnoremap <buffer> <space>G :GoInfo<cr>
-autocmd FileType go nnoremap <buffer> B :GoRun<cr><esc>
+autocmd FileType go nnoremap <buffer> <space>B :GoRun<cr><esc>
 autocmd FileType go nnoremap <buffer> <space>tc :GoCoverageToggle<cr>
 autocmd FileType go nnoremap <buffer> <space>gts :<C-u>call BuildGoFiles()<CR>
 autocmd FileType go nnoremap <buffer> <space>gtt :GoTestFunc<cr>
@@ -106,8 +106,9 @@ autocmd Filetype go set foldmethod=syntax
 
 " c
 " au FileType c,cpp  nmap ,f <Plug>(clang_complete_goto_declaration)
-autocmd BufEnter *.cpp,*.h,*.hpp,*.hxx let g:ale_cpp_clang_options = join(ncm_clang#compilation_info()['args'], ' ')
-autocmd FileType cpp,c set path=.,/usr/include,/usr/local/include,/usr/include/c++/4.2.1,/usr/local/include/glib-2.0
+" autocmd BufEnter *.cpp,*.h,*.hpp,*.hxx let g:ale_cpp_clang_options = join(ncm_clang#compilation_info()['args'], ' ')
+" autocmd FileType cpp,c set path=.,/usr/include,/usr/local/include,/usr/include/c++/4.2.1,/usr/local/include/glib-2.0
+autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
 autocmd FileType cpp,c nmap ,cl yiwoprintf("\t<c-r>": %s\n", <c-r>");<Esc>^
 
 " js conceal expand
@@ -130,6 +131,7 @@ autocmd FileType ruby map <leader>bp orequire "pry": binding.pry<esc>^
 autocmd FileType ruby map <leader>bpr orequire "pry-remote": binding.remote_pry<esc>^
 " hack for constructor assignment
 autocmd FileType ruby map <cr>c yiWi@<esc>A<space>=<space><C-R>"<esc>
+autocmd FileType ruby nmap ,cl yiwoputs "<c-r>"; #{<c-r>".inspect<Esc>^
 " vim-ruby
 autocmd FileType ruby compiler ruby
 
@@ -212,3 +214,22 @@ autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 " autocmd BufWritePre *.py ImpSort!
 autocmd FileType python,haml,coffee BracelessEnable +indent +fold
 autocmd FileType yaml,ruby BracelessEnable +fold
+
+" nc2 completion
+" wrap existing omnifunc
+" Note that omnifunc does not run in background and may probably block the
+" editor. If you don't want to be blocked by omnifunc too often, you could
+" add 180ms delay before the omni wrapper:
+"  'on_complete': ['ncm2#on_complete#delay', 180,
+"               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+au User Ncm2Plugin call ncm2#register_source({
+        \ 'name' : 'css',
+        \ 'priority': 9,
+        \ 'subscope_enable': 1,
+        \ 'scope': ['css','scss'],
+        \ 'mark': 'css',
+        \ 'word_pattern': '[\w\-]+',
+        \ 'complete_pattern': ':\s*',
+        \ 'on_complete': ['ncm2#on_complete#delay', 180,
+                   \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+        \ })
