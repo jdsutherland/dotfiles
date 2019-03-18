@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <root>
   <devicevendordef>
-      <vendorname>LOGITECH</vendorname>
-      <vendorid>0x046d</vendorid>
+      <vendorname>SEMICO</vendorname>
+      <vendorid>0x413c</vendorid>
   </devicevendordef>
   <deviceproductdef>
     <productname>LOGITECH_K120</productname>
-    <productid>0xc31c</productid>
+    <productid>0x2113</productid>
   </deviceproductdef>
   <item>
-    <name>Logitech K120 regular</name>
+    <name>SEMICO K120 regular</name>
     <identifier>private.logitech_k120</identifier>
     <block>
-      <device_only>DeviceVendor::LOGITECH, DeviceProduct::LOGITECH_K120</device_only>
+      <device_only>DeviceVendor::SEMICO, DeviceProduct::LOGITECH_K120</device_only>
       <!-- cmd/tab tap -->
       <autogen>
           --KeyOverlaidModifier--
@@ -31,14 +31,21 @@
           ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
           KeyCode::TAB, ModifierFlag::COMMAND_R
       </autogen>
+
+      <!-- media keys -->
+      <autogen>__KeyToKey__ KeyCode::PAGEUP,         ModifierFlag::SHIFT_L, KeyCode::VK_CONSUMERKEY_VOLUME_UP</autogen>
+      <autogen>__KeyToKey__ KeyCode::PAGEDOWN,       ModifierFlag::SHIFT_L, KeyCode::VK_CONSUMERKEY_VOLUME_DOWN</autogen>
+      <autogen>__KeyToKey__ KeyCode::HOME,           ModifierFlag::SHIFT_L, KeyCode::VK_CONSUMERKEY_MUSIC_PLAY</autogen>
+      <autogen>__KeyToKey__ KeyCode::HELP,           ModifierFlag::SHIFT_L, KeyCode::VK_CONSUMERKEY_MUSIC_PREV</autogen>
+      <autogen>__KeyToKey__ KeyCode::FORWARD_DELETE, ModifierFlag::SHIFT_L, KeyCode::VK_CONSUMERKEY_MUSIC_NEXT</autogen>
     </block>
   </item>
   <item>
-    <name>Logitech K120 terminal</name>
+    <name>SEMICO K120 terminal</name>
     <identifier>private.logitech_k120.terminal</identifier>
     <only>TERMINAL</only>
     <block>
-      <device_only>DeviceVendor::LOGITECH, DeviceProduct::LOGITECH_K120</device_only>
+      <device_only>DeviceVendor::SEMICO, DeviceProduct::LOGITECH_K120</device_only>
       <!-- tmux zoom -->
       <autogen>
           --KeyOverlaidModifier--
@@ -74,7 +81,7 @@
       <!-- git diff staged -->
       <autogen>
           --KeyOverlaidModifier--
-          KeyCode::COMMAND_R,
+          KeyCode::CONTROL_R,
 
           KeyCode::OPTION_R,
           KeyCode::C, ModifierFlag::OPTION_L | ModifierFlag::CONTROL_L
@@ -82,11 +89,11 @@
     </block>
   </item>
   <item>
-    <name>Logitech K120 NOT terminal</name>
+    <name>SEMICO K120 NOT terminal</name>
     <identifier>private.logitech_k120.not.terminal</identifier>
     <not>TERMINAL</not>
     <block>
-      <device_only>DeviceVendor::LOGITECH, DeviceProduct::LOGITECH_K120</device_only>
+      <device_only>DeviceVendor::SEMICO, DeviceProduct::LOGITECH_K120</device_only>
       <!-- swap left/right cmd/alt -->
       <autogen>__KeyToKey__ KeyCode::OPTION_L, KeyCode::COMMAND_L</autogen>
       <autogen>__KeyToKey__ KeyCode::OPTION_R, KeyCode::COMMAND_R</autogen>
@@ -108,58 +115,6 @@
           KeyCode::C, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L
       </autogen>
     </block>
-  </item>
-
-  <appdef>
-    <appname>STARCRAFT</appname>
-    <equal>com.blizzard.Starcraft</equal>
-  </appdef>
-  <item>
-    <name>Starcraft cmd, opt swap, center unit on tap</name>
-    <identifier>com.starcraft.cmd-center</identifier>
-    <only>STARCRAFT</only>
-    <autogen>
-        --KeyOverlaidModifier--
-        KeyCode::COMMAND_L,
-
-        KeyCode::OPTION_L,
-        KeyCode::C, ModifierFlag::OPTION_L
-    </autogen>
-  </item>
-  <item>
-    <name>Starcraft SHIFT_L key tap select location</name>
-    <appendix>SHIFT_L tap select location f4</appendix>
-    <identifier>com.starcraft.shift-l</identifier>
-    <only>STARCRAFT</only>
-    <autogen>
-        --KeyOverlaidModifier--
-        KeyCode::SHIFT_L,
-
-        KeyCode::SHIFT_L,
-        KeyCode::F4
-    </autogen>
-  </item>
-  <item>
-    <name>Starcraft SHIFT_R key tap goto location</name>
-    <appendix>SHIFT_L tap goto location f4</appendix>
-    <identifier>com.starcraft.shift-r</identifier>
-    <only>STARCRAFT</only>
-    <autogen>
-        --KeyOverlaidModifier--
-        KeyCode::SHIFT_R,
-
-        KeyCode::SHIFT_R,
-        KeyCode::F4, ModifierFlag::SHIFT_L
-    </autogen>
-  </item>
-  <item>
-    <name>Starcraft swap F1 - 9</name>
-    <appendix>Swap F1 with 9</appendix>
-    <identifier>com.starcraft.f1-9</identifier>
-    <only>STARCRAFT</only>
-    <autogen>
-      __KeyToKey__ KeyCode::F1, KeyCode::9
-    </autogen>
   </item>
 
   <appdef>
