@@ -64,7 +64,7 @@ layout 1monitor 'Google Play Music Desktop Player':REPEAT                       
 # 1 Monitor 3/4 term - browser (1dev)
 layout 1dev 'iTerm2':MAIN_FIRST                                                          ${leftmost}
 layout 1dev 'Google Chrome':REPEAT                                                       ${rightless}
-layout 1dev 'Google Chrome Canary':REPEAT                                                ${rightless}
+layout 1dev 'Google Chrome Canary':REPEAT                                                ${leftmost}
 layout 1dev 'Microsoft OneNote':REPEAT                                                   ${rightless}
 layout 1dev 'Dash':REPEAT                                                                ${rightless}
 layout 1dev 'Marked 2':REPEAT                                                            ${rightless}
@@ -73,9 +73,9 @@ layout 1dev 'WhatsApp':REPEAT                                                   
 layout 1dev 'Preview':REPEAT                                                             ${rightless}
 
 # 1 Monitor 3/4 pdf - term (1pdf)
-layout 1pdf 'Preview':MAIN_FIRST                                                         ${leftmost}
+layout 1pdf 'Preview':REPEAT                                                             ${leftmost}
 layout 1pdf 'Google Chrome':REPEAT                                                       ${leftmost}
-layout 1pdf 'Google Chrome Canary':REPEAT                                                ${leftmost}
+layout 1pdf 'Google Chrome Canary':REPEAT                                                ${rightless}
 layout 1pdf 'mpv':REPEAT                                                                 ${leftmost}
 layout 1pdf 'iTerm2':REPEAT                                                              ${rightless}
 layout 1pdf 'Dash':REPEAT                                                                ${rightless}
