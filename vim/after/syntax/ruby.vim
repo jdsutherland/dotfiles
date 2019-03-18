@@ -29,19 +29,21 @@ syntax match rbNiceOperator " \zs\*\ze " conceal cchar=⨉
 syntax keyword rubyBoolean true conceal cchar=T
 syntax keyword rubyBoolean false conceal cchar=F
 
-syntax match rubySymbol "==" conceal cchar=≡
+" syntax match rubySymbol "===" conceal cchar=≡
+syntax match rubySymbol "=\@<!===\@!" conceal cchar=≈
+syntax match rubySymbol "=\@<!====\@!" conceal cchar=≣
 syntax match rubySymbol "!=" conceal cchar=≠
 syntax match rubySymbol "<=\ze[^<>]" conceal cchar=≤
 syntax match rubySymbol ">=\ze[^<>]" conceal cchar=≥
 syntax match rubySymbol "\s\zs<<\ze\s" conceal cchar=« " make sure we don't break heredocs
 syntax match rubySymbol ">>" conceal cchar=»
-syntax match rbNiceOperator "\.pop()\|\.pop" conceal cchar=»
+" syntax match rbNiceOperator "\.pop()\|\.pop" conceal cchar=»
 syntax match rubyOperator "<=>" conceal cchar=⇔
 syntax keyword rubyPseudoVariable nil conceal cchar=∅
 syntax keyword rubyPseudoVariable self conceal cchar=@
 " syntax match rubyString "\:\:" conceal cchar=∷
 syntax match rubyOperator "\v\.new>" conceal cchar=ミ
-" syntax match rubyDefine "\s\?\<end\>" conceal
+syntax match rubyDefine "\s\?\<end\>" conceal
 
 " syntax match rbNiceOperator '\.'
 

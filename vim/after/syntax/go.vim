@@ -17,8 +17,12 @@ syntax match goNiceOperator "\[\]" conceal cchar=⌑
 syntax match goNiceOperator ":=" conceal cchar=≔
 syntax match goNiceOperator "||" conceal cchar=∨
 syntax match goNiceOperator "&&" conceal cchar=∧
+
 syntax match goNiceOperator /err == nil/ conceal cchar=✓
 syntax match goNiceOperator /err != nil/ conceal cchar=✗
+
+syntax match goNiceOperator /!= ""/ conceal cchar=✓
+syntax match goNiceOperator /== ""/ conceal cchar=∅
 
 syntax match goNiceOperator "*" conceal cchar=⁕
 syntax match goNiceOperator "\zs&\ze\w\+" conceal cchar=&
@@ -43,7 +47,7 @@ syntax match goVar "\v<var " conceal cchar=@
 syntax keyword goPredefinedIdentifiers nil conceal cchar=∅
 
 syntax keyword goType interface conceal cchar=𐊭
-syntax keyword goType chan conceal cchar=ċ
+" syntax keyword goType chan conceal cchar=ċ
 syntax keyword goType bool conceal cchar=ƀ
 syntax keyword goType byte conceal cchar=฿
 syntax keyword goType rune conceal cchar=ʀ
@@ -62,8 +66,8 @@ syntax keyword goType error conceal cchar=ɇ
 " syntax keyword goStatement go conceal cchar=ğ
 
 syntax keyword goStatement return conceal cchar=⇚
-syntax keyword goStatement break conceal cchar=↯
-syntax keyword goStatement continue conceal cchar=↰
+" syntax keyword goStatement break conceal cchar=↯
+" syntax keyword goStatement continue conceal cchar=↰
 syntax keyword goStatement goto conceal cchar=↷
 syntax keyword goBoolean true conceal cchar=T
 syntax keyword goBoolean false conceal cchar=F

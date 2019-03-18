@@ -13,6 +13,12 @@ syntax match cNiceOperator "<=" conceal cchar=≤
 syntax match cNiceOperator "[a-zA-Z]\s\zs\*\ze\s\%[a-zA-Z]" conceal cchar=⁕
 syntax match cNiceOperator " \zs\*\ze" conceal cchar=⁕
 syntax match cNiceOperator "\zs&\ze\w\+" conceal cchar=&
+syntax match cNiceOperator "\zs&\ze\w\+" conceal cchar=&
+syntax match cNiceOperator /) != -1/ conceal cchar=✓
+syntax match cNiceOperator /) < 0/ conceal cchar=✗
+syntax match cNiceOperator /) == -1/ conceal cchar=✗
+syntax match cNiceOperator /) != 0/ conceal cchar=✗
+syntax match cNiceOperator /) == 0/ conceal cchar=✓
 " syntax match cNiceOperator " \zs\*\ze " conceal cchar=⨉
 " syntax match cNiceOperator " \zs\/\ze "  conceal cchar=÷
 
@@ -31,7 +37,7 @@ syntax keyword cStructure struct conceal cchar=⊇
 syntax keyword cOperator sizeof conceal cchar=#
 
 " syntax match cStatement "#include" conceal cchar=ɪ
-syntax keyword cStatement return conceal cchar=⇚
+" syntax keyword cStatement return conceal cchar=⇚
 syntax keyword cStatement break conceal cchar=↯
 syntax keyword cStatement continue conceal cchar=↰
 syntax keyword cStatement goto conceal cchar=↷

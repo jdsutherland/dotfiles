@@ -58,7 +58,7 @@ syntax keyword jsBooleanFalse false conceal cchar=F
 
 syntax keyword jsStorageClass const conceal cchar=𝔠
 syntax keyword jsStorageClass let conceal cchar=ʟ
-" syntax keyword jsStorageClass var conceal cchar=ⱽ
+syntax keyword jsStorageClass var conceal cchar=ⱽ
 syntax keyword jsClassMethodType static conceal cchar=∬
 syntax keyword jsGlobalObjects Promise conceal cchar=Ᵽ
 

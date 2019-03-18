@@ -42,9 +42,9 @@ if s:extraConceal
   " syntax keyword cppNiceKeyword for conceal cchar=∀
   " syntax keyword cppNiceKeyword if conceal cchar=⁇
   syntax keyword cppNiceKeyword override conceal cchar=⎆
-  syntax keyword cppNiceKeyword public conceal
+  syntax keyword cppNiceKeyword public conceal cchar=+
   syntax keyword cppNiceKeyword protected conceal cchar=◈
-  syntax keyword cppNiceKeyword private conceal cchar=○
+  syntax keyword cppNiceKeyword private conceal cchar=-
   syntax keyword cppNiceKeyword return conceal cchar=⇚
   syntax keyword cppNiceKeyword sizeof conceal cchar=#
 	syntax keyword cppNiceKeyword enum conceal cchar=∈
