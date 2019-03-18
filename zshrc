@@ -63,13 +63,12 @@ source /usr/local/share/zsh/site-functions/_psql
 # export PATH="/usr/local/bin:$PATH"
 
  # added for npm-completion https://github.com/Jephuff/npm-bash-completion
-PATH_TO_NPM_COMPLETION="/usr/local/lib/node_modules/npm-completion"
-source $PATH_TO_NPM_COMPLETION/npm-completion.sh
+# PATH_TO_NPM_COMPLETION="/usr/local/lib/node_modules/npm-completion"
+# source $PATH_TO_NPM_COMPLETION/npm-completion.sh
 
 export WORKON_HOME=~/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
+# source /usr/local/bin/virtualenvwrapper.sh
 
-# TODO: fix vim-vint python
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="/usr/local/lib/python3.6/site-packages:$PATH"
 
@@ -79,3 +78,6 @@ export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+PATH_TO_NPM_COMPLETION="/private/tmp/node_modules/npm-completion"
+PATH_TO_NPM_COMPLETION="/Users/jeff/.nvm/versions/node/v6.11.5/lib/node_modules/npm-completion"

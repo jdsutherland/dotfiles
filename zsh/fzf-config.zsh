@@ -20,16 +20,26 @@ local color0D='#81a2be'
 local color0E='#b294bb'
 local color0F='#a3685a'
 
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+_fzf_compgen_path() {
+  rg --files "$1" | with-dir "$1"
+}
+
+# Use rg to generate the list for directory completion
+_fzf_compgen_dir() {
+  rg --files "$1" | only-dir "$1"
+}
+
+export FZF_DEFAULT_COMMAND='rg --files --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:30:hidden --bind ';:toggle-preview'"
-export FZF_CTRL_T_OPTS="--select-1 --exit-0 --preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
-export FZF_ALT_C_OPTS="--select-1 --exit-0 --preview 'tree -C {} | head -200'"
+export FZF_CTRL_T_OPTS="--select-1 --exit-0 --preview '(highlight -O ansi {} 2> /dev/null || cat {} || tree -a -C -I '{.git,node_modules}' {}) 2> /dev/null | head -200'"
+export FZF_ALT_C_OPTS="--select-1 --exit-0 --preview 'tree -C -I '{.git,node_modules}' {} | head -200'"
 # export FZF_ALT_C_COMMAND="bfs -type d -nohidden"
 
 export FZF_DEFAULT_OPTS="
-  --bind ctrl-a:select-all,ctrl-r:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all,ctrl-f:toggle+down
+  --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all,ctrl-f:toggle+down,ctrl-o:select-all
   --reverse --ansi
   --height 100%
+  --toggle-sort=ctrl-w
   --black
   --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D
   --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C

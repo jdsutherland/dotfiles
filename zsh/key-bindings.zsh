@@ -12,6 +12,12 @@ fzf-gitfile-widget() {
 zle     -N   fzf-gitfile-widget
 bindkey '^y' fzf-gitfile-widget
 
+fzf-gittag-widget() {
+  local result=$(fzf-gittag | join-lines); zle reset-prompt; LBUFFER+=$result
+}
+zle     -N   fzf-gittag-widget
+bindkey '^x^t' fzf-gittag-widget
+
 fzf-gitbranch-widget() {
   local result=$(fzf-gitbranch | join-lines); zle reset-prompt; LBUFFER+=$result
 }
@@ -37,6 +43,7 @@ bindkey '^_' fzf-git-browser-widget
 fzf-git-reverse-widget() { fzf-git-reverse; zle reset-prompt }
 zle     -N   fzf-git-reverse-widget
 bindkey '^x^g' fzf-git-reverse-widget
+
 # end fzf git bindings
 #
 
@@ -95,10 +102,15 @@ bindkey '^Q' tmux-man-for-current-word
 
 # ins_help() { BUFFER="$BUFFER--help"; CURSOR=$#BUFFER }; zle -N ins_help; bindkey "^A^H" ins_help
 
+v(){
+  local files
+  IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0 --preview='bat --color=always {}'))
+  [[ -n "$files" ]] && $VISUAL "${files[@]}"
+}
 # vim
 vim-fzf-preview() {
   local files
-  IFS=$'\n' files=($(fzf --query="$1" --preview-window=right:57% --multi --select-1 --exit-0 --preview "(coderay {} || cat {}) 2> /dev/null"))
+  IFS=$'\n' files=($(fzf --query="$1" --preview-window=right:57% --multi --select-1 --exit-0 --preview 'bat --theme=TwoDark --color=always {}'))
   [[ -n "$files" ]] && ${EDITOR:-vim} -O "${files[@]}" && print -l "$files[@]"
 }
 bindkey -s '^p' ' vim-fzf-preview\n'

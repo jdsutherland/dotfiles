@@ -8,7 +8,7 @@ clip() { [ -t 0 ] && pbpaste || pbcopy;}
 
 fzf-vim-open() {
   local file
-  file=$(fzf --height 100% --preview "(coderay {} || cat {}) 2> /dev/null")
+  file=$(fzf --height 100% --preview "bat --theme=TwoDark --color=always {}")
 
   if [[ -n $file ]]; then
      </dev/tty > /dev/tty 2>&1 vim $file
@@ -17,7 +17,7 @@ fzf-vim-open() {
 
 # open vim with preview
 vp() {
-  files=$(fzf-down-full -m --select-1 --exit-0 --preview "(coderay {} || cat {}) 2> /dev/null")
+  files=$(fzf-down-full -m --select-1 --exit-0 --preview "bat --theme=TwoDark --color=always {}")
   [[ -n "$files" ]] && vim "${files[@]}"
 }
 
@@ -27,7 +27,7 @@ agv () {
   if [ ! -z "$CHOICE" ]; then
     # Open vim at the selected file and line, but also run the Ag scan
     # the ! on Ag! stops Ag jumping to the first match, and the wincmd gives the editor window focus
-    vim $( echo "$CHOICE" | awk 'BEGIN { FS=":" } { printf "+%d %s\n", $2, $1 } ') +"Ag! '$*'" "+wincmd k"
+    vim $( echo "$CHOICE" | awk 'BEGIN { FS=":" } { printf "+%d %s\n", $2, $1 } ') +"Rg '$*'" "+wincmd k"
   fi
 }
 
@@ -222,9 +222,12 @@ gldft() {
   git log --follow --patch -- "*.${1}"
 }
 
-# open gh page of an npm package
-ngh() {
-  b "http://ghub.io/${1}"
+gfwd() {
+  git log --reverse --pretty=%H master | grep -A 1 $(git rev-parse HEAD) | tail -n1 | xargs git checkout
+}
+
+gfirst() {
+  git rev-list --max-parents=0 HEAD | xargs git checkout
 }
 
 # sets up airbnb eslint for project
@@ -327,7 +330,7 @@ fp() {
 
 # ripgrep with paging
 r() {
-  rg -Sj 8 -p "$@" | less -RFX
+  rg -S -p "$@" | less -RFX
 }
 
 # ripgrep hidden
@@ -405,29 +408,29 @@ F() {
 
 ydl() {
   url="$1"
-  youtube-dl --embed-subs --no-mtime --no-overwrites --restrict-filenames -ci "$url"
+  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -ci "$url"
 }
 
 ydlp() {
   url="$1"
-  youtube-dl --embed-subs --no-mtime --no-overwrites --restrict-filenames --ignore-errors --download-archive archive.txt --output "%(autonumber)s-%(title)s.%(ext)s" "$url"
+  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --ignore-errors --download-archive archive.txt --output "%(autonumber)s-%(title)s.%(ext)s" "$url"
 }
 
 # resumes at given index
 ydlps() {
   url="$1"
-  youtube-dl --embed-subs --no-mtime --no-overwrites --restrict-filenames -f '(mp4)[height<1280]' -cio "%(autonumber)s-%(title)s.%(ext)s" --playlist-start $2 --autonumber-start $2 "$url"
+  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -f '(mp4)[height<1280]' -cio "%(autonumber)s-%(title)s.%(ext)s" --playlist-start $2 --autonumber-start $2 "$url"
 }
 
 ydlm() {
   url="$1"
-  youtube-dl --embed-subs --no-mtime --no-overwrites --restrict-filenames -f '(mp4)[height<1280]' -cio "%(title)s.%(ext)s" "$url"
+  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -f '(mp4)[height<1280]' -cio "%(title)s.%(ext)s" "$url"
 }
 
 # downloads playlist in medium format
 ydlpm() {
   url="$1"
-  youtube-dl --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt -f '(mp4)[height<1280]' -cio "%(autonumber)s-%(title)s.%(ext)s" "$url"
+  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt -f '(mp4)[height<1280]' -cio "%(autonumber)s-%(title)s.%(ext)s" "$url"
 }
 
 # open clipboard link with mpv
@@ -481,13 +484,11 @@ rlocal() {
 }
 
 backup-seag8-to-silver() {
-  rlocal ~/Development /Volumes/seag8blak/
-  # rsync -avhW --no-compress --delete /Volumes/seag8silver/ /Volumes/seag8blak/
-  rsync -avhW --no-compress /Volumes/seag8silver/ /Volumes/seag8blak/
-  rsync -avhW --no-compress /Volumes/seag8silver/media/dev-learning/upcase /Volumes/seag8blak/media/dev-learning/upcase
-  # rsync -avhW --no-compress /Volumes/seag8/Media/dev-learning/upcase /Volumes/seag8silver/Media/dev-learning/upcase
-  # rsync -avhW --no-compress /Volumes/seag8/Media/dev-learning/pluralsight /Volumes/seag8silver/Media/dev-learning/pluralsight
-  # rsync -avhW --no-compress /Volumes/seag8/Media/dev-learning/refactoring /Volumes/seag8silver/Media/dev-learning/refactoring
+  rlocal ~/Development /Volumes/seag8blu/ --delete
+  rlocal ~/Books /Volumes/seag8blu/ --delete
+  rlocal ~/Development /Volumes/seag8silver/ --delete
+  rlocal ~/Books /Volumes/seag8silver/ --delete
+  rsync -avhW --no-compress --delete /Volumes/seag8silver/ /Volumes/seag8blu
 }
 
 bo() {
@@ -532,6 +533,10 @@ change_screenshot_format() {
 brewS() {
   brew search "$@"
   brew cask search "$@"
+}
+
+brewcd() {
+  cd `brew --prefix "$1"`
 }
 
 fzf-git-reverse() {
@@ -582,7 +587,15 @@ restart-postgres() {
 
 bn() { basename "$@" }
 
-dlmag() { aria2c --file-allocation=falloc -c -x 10 -s 10 `cat $@` && rm "$1" }
+dlmag() {
+  if [[ $# -eq 0 ]]; then
+    for e in *.magnet; do
+      aria2c --file-allocation=falloc --seed-time=0 -c -x 10 -s 10 `cat $e` && rm -f "$e"
+    done
+  else
+    aria2c --file-allocation=falloc --seed-time=0 -c -x 10 -s 10 `cat $@` && rm -f "$1"
+  fi
+}
 
 # notify() {
 #   text=${1:=Something finished}
@@ -629,6 +642,31 @@ gauthor() {
   git log --topo-order --stat --patch "--author=$@"
 }
 
+gcommits() {
+  hub browse -- "commit/$1"
+}
+
+gissues() {
+  hub browse -- "issues/$1"
+}
+
+gpulls() {
+  if [[ $1 ]]; then
+    hub browse -- "pull/$1"
+  else
+    hub browse -- "pulls"
+  fi
+}
+
+# opens pr page given sha
+# gpr-sha <sha>
+gpr-sha() {
+  # TODO: use upstream env var: https://github.com/$GITHUB_UPSTREAM/${PWD##*/}/pull/%
+  # http://joey.aghion.com/find-the-github-pull-request-for-a-commit/
+  pr_num=`git log --merges --ancestry-path --oneline $1..master | grep 'pull request' | tail -n1 | awk '{print $5}' | cut -c2-`
+  hub browse -- "pull/$pr_num"
+}
+
 subr() {
   for f in **/*.(mp4|webm|mkv|mov|m4v|avi); do subliminal download -l en $f; done
 }
@@ -636,3 +674,34 @@ subr() {
 pdfg() {
   pdfgrep --color always -i "$1" **/*.pdf | less -R
 }
+
+# most recent photobooth vid
+rvid() {
+  vidpath="/Users/$USER/Pictures/Photo Booth Library/Pictures"
+  vid=$(ls -Art "$vidpath" | tail -n 1) && mpv --player-operation-mode=pseudo-gui "$vidpath/$vid" &
+}
+
+longcode() {
+  wc -l **/*.(js|go|rb|py|jsx|c|java|cs|cpp) | sort | tail -n 20 | sed '$d'
+}
+
+golong() {
+  find . -not -path './vendor/*' -iname *.go -exec wc -l {} + | sort | tail -n 20 | sed '$d'
+}
+
+lnew1() { for d in `ls`;do (cd $d > /dev/null 2>&1 && lnew); done }
+
+# trim protocol from copied url for go get
+gogh() {
+  package_path=$(echo "$1" | sed -E 's|https?://||g')
+  go get "$package_path"
+}
+
+# open a github pr in diff-so-fancy e.g.) https://github.com/exercism/cli/pull/756/files
+dif-pr() {
+  url="$(dirname $1).patch"
+  curl -L "$url" | diff-so-fancy | less -r
+}
+
+# cd dirname
+cdd() { cd `dirname "$1"` }
