@@ -1,30 +1,9 @@
 " ag
 let g:ag_prg='true ; f(){ ag --column "$@" \| cut -c 1-'.(&columns - 6).' }; f'
 
-" deoplete
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#file#enable_buffer_path = 1
-let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
-" let g:deoplete#sources#clang#clang_header = '/Library/Developer/CommandLineTools/usr/lib/clang/include'
-let g:deoplete#sources#clang#clang_header = '/usr/local/Cellar/llvm/HEAD-0193305/'
-let g:deoplete#sources#clang#sort_algo = 'priority'
-let g:deoplete#omni#functions = {}
-let g:deoplete#omni#functions.javascript = [
-  \ 'tern#Complete',
-  \ 'jspc#omni'
-\]
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-let g:deoplete#sources#go#pointer = 1
-
-let g:clang_library_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
-
-if !exists('g:deoplete#omni#functions')
-    let g:deoplete#omni#functions = {}
-endif
-
-set completefunc=autoprogramming#complete
+" nc2
+autocmd BufEnter * call ncm2#enable_for_buffer()
+set completeopt=noinsert,menuone,noselect
 
 " omnifuncs
 augroup omnifuncs
@@ -279,7 +258,7 @@ let g:goyo_width = 100
 let g:goyo_height = 100
 
 
-" airline
+" {{{airline
 " let g:airline_theme='base16_default'
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline#extensions#tabline#show_splits = 0
@@ -313,6 +292,7 @@ let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#right_sep = ''
 let g:airline#extensions#tabline#right_alt_sep = ''
+" }}}
 
 " vim-todo
 let g:simple_todo_map_keys = 0

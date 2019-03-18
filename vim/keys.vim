@@ -280,11 +280,16 @@ imap <c-s><c-f> <plug>(fzf-complete-path)
 imap <c-s><c-j> <plug>(fzf-complete-file-ag)
 imap <c-s><c-l> <plug>(fzf-complete-line)
 
-" Remap ctrl-c for deoplete/ncm completion menu bug
-" https://github.com/Shougo/deoplete.nvim/issues/460
-inoremap <C-c> <Esc>
 inoremap <C-D> <C-P>
 inoremap <C-B> <C-P>
+" nc2 stuff
+" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+inoremap <c-c> <ESC>
+
+" When the <Enter> key is pressed while the popup menu is visible, it only
+" hides the menu. Use this mapping to close the menu and also start a new
+" line.
+" inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 
 " fzf
 " Mapping selecting mappings
