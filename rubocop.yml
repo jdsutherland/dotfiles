@@ -280,7 +280,7 @@ Style/OneLineConditional:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#ternary-operator'
   Enabled: false
 
-Style/OpMethod:
+Naming/BinaryOperatorParameter:
   Description: 'When defining binary operators, name the argument other.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#other-arg'
   Enabled: false
@@ -356,17 +356,17 @@ Style/StringLiterals:
   EnforcedStyle: double_quotes
   Enabled: false
 
-Style/TrailingCommaInArguments:
-  Description: 'Checks for trailing comma in argument lists.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas'
-  EnforcedStyleForMultiline: comma
-  Enabled: false
+# Style/TrailingCommaInArguments:
+#   Description: 'Checks for trailing comma in argument lists.'
+#   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas'
+#   EnforcedStyleForMultiline: comma
+#   Enabled: false
 
-Style/TrailingCommaInLiteral:
-  Description: 'Checks for trailing comma in array and hash literals.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas'
-  EnforcedStyleForMultiline: comma
-  Enabled: false
+# Style/TrailingCommaInLiteral:
+#   Description: 'Checks for trailing comma in array and hash literals.'
+#   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas'
+#   EnforcedStyleForMultiline: comma
+#   Enabled: false
 
 Style/TrivialAccessors:
   Description: 'Prefer attr_* methods to trivial readers/writers.'
@@ -453,11 +453,11 @@ Lint/HandleExceptions:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#dont-hide-exceptions'
   Enabled: false
 
-Lint/InvalidCharacterLiteral:
-  Description: >-
-                 Checks for invalid character literals with a non-escaped
-                 whitespace character.
-  Enabled: false
+# Lint/InvalidCharacterLiteral:
+#   Description: >-
+#                  Checks for invalid character literals with a non-escaped
+#                  whitespace character.
+#   Enabled: false
 
 Style/InitialIndentation:
   Description: >-
