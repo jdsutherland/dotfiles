@@ -227,7 +227,7 @@ endfunction
 command! ResizeMin :call <sid>ResizeMin()
 
 function! s:SysPasteTrimNewlines()
-  execute "normal \<Plug>SystemPaste"
+  execute "normal \<Plug>SystemPasteLine"
   execute '%s/\r/\r'
   execute 'nohl'
 endfunction
