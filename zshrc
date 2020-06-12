@@ -80,4 +80,4 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 PATH_TO_NPM_COMPLETION="/private/tmp/node_modules/npm-completion"
-PATH_TO_NPM_COMPLETION="/Users/jeff/.nvm/versions/node/v6.11.5/lib/node_modules/npm-completion"
+# PATH_TO_NPM_COMPLETION="/Users/jeff/.nvm/versions/node/v6.11.5/lib/node_modules/npm-completion"

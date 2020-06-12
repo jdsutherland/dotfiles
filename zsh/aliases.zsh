@@ -216,6 +216,7 @@ if [[ -o interactive ]]; then
   alias topen='today | xargs nvim'
   alias epoch="date -r"
   alias fnptr='rg -p "\(\*\w+\)\(" | less -RFX'
+  alias urlsg='rg "(http|https)://[^/"]+"'
 
   ## Docker
   # Get latest container ID

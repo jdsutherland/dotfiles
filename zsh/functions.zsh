@@ -489,6 +489,13 @@ backup-seag8-to-silver() {
   rlocal ~/Development /Volumes/seag8silver/ --delete
   rlocal ~/Books /Volumes/seag8silver/ --delete
   rsync -avhW --no-compress --delete /Volumes/seag8silver/ /Volumes/seag8blu
+  # rsync -avhW --no-compress /Volumes/seag8silver/Media/dev-learning/upcase /Volumes/seag8blu/Media/dev-learning/upcase
+  # rsync -avhW --no-compress /Volumes/seag8silver/Media/dev-learning/destroy-all-software /Volumes/seag8blu/Media/dev-learning/destroy-all-software
+  # rsync -avhW --no-compress /Volumes/seag8silver/Media/dev-learning/ruby-tapas /Volumes/seag8blu/Media/dev-learning/ruby-tapas
+  # rsync -avhW --no-compress /Volumes/seag8silver/Media/dev-learning/pluralsight /Volumes/seag8blu/Media/dev-learning/pluralsight
+  # rsync -avhW --no-compress /Volumes/seag8/Media/dev-learning/upcase /Volumes/seag8silver/Media/dev-learning/upcase
+  # rsync -avhW --no-compress /Volumes/seag8/Media/dev-learning/pluralsight /Volumes/seag8silver/Media/dev-learning/pluralsight
+  # rsync -avhW --no-compress /Volumes/seag8/Media/dev-learning/refactoring /Volumes/seag8silver/Media/dev-learning/refactoring
 }
 
 bo() {
@@ -629,7 +636,7 @@ profile_vim() {
   $HOME/Tools/vim-profiler/vim-profiler.py -p -r 10 nvim
 }
 
-# https://github.com/cgag/loc/issues/18 fix asp.net error
+# https://github.com/cgag/loc/issues/18
 loc_hack() {
   loc $(git ls-files)
 }
@@ -697,7 +704,7 @@ gogh() {
   go get "$package_path"
 }
 
-# open a github pr in diff-so-fancy e.g.) https://github.com/exercism/cli/pull/756/files
+# open a github pr in diff-so-fancy
 dif-pr() {
   url="$(dirname $1).patch"
   curl -L "$url" | diff-so-fancy | less -r
@@ -705,3 +712,12 @@ dif-pr() {
 
 # cd dirname
 cdd() { cd `dirname "$1"` }
+
+# send to background no output
+bkg() { "$@" > /dev/null 2>&1 & }
+
+# get the root dirname of search
+frootdir()  { ag -g "$1" | xargs -I {} dirname {} | cut -d '/' -f1 | uniq }
+
+ajaxh() { http "$@" X-Requested-With:XMLHttpRequest }
+
