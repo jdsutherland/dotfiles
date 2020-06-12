@@ -27,7 +27,11 @@ Plug 'ncm2/ncm2-tagprefix'
 " Plug 'filipekiss/ncm2-look.vim'
 " }}}
 
+" Plug 'Yggdroot/indentLine', { 'for': ['html', 'pug'] }
+" let g:indentLine_enabled = 0
+Plug 'terryma/vim-expand-region'
 
+Plug 'skywind3000/asyncrun.vim'
 " delete?
 " Plug 'sjl/vitality.vim'
 Plug 'sbdchd/neoformat'
@@ -58,18 +62,18 @@ Plug 'christoomey/vim-titlecase'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'christoomey/vim-tmux-runner'
 Plug 'christoomey/vim-quicklink'
+Plug 'christoomey/vim-rfactory'
 Plug 'dietsche/vim-lastplace'
 Plug 'dzeban/vim-log-syntax'
 Plug 'easymotion/vim-easymotion'
-Plug 'editorconfig/editorconfig-vim'
 Plug 'janko-m/vim-test'
 Plug 'jeetsukumaran/vim-gazetteer'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-easy-align'
 Plug 'tommcdo/vim-lion'
 Plug 'junegunn/vim-journal'
-Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-indent' | Plug 'kana/vim-textobj-entire' | Plug 'kana/vim-textobj-line' | Plug 'nelstrom/vim-textobj-rubyblock' | Plug 'Chun-Yang/vim-textobj-chunk' | Plug 'jceb/vim-textobj-uri'
-Plug 'kana/vim-textobj-function' | Plug 'thinca/vim-textobj-function-javascript'
+Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-indent' | Plug 'kana/vim-textobj-entire' | Plug 'kana/vim-textobj-line' | Plug 'nelstrom/vim-textobj-rubyblock' | Plug 'Chun-Yang/vim-textobj-chunk' | Plug 'jceb/vim-textobj-uri' | Plug 'reedes/vim-textobj-sentence'
+Plug 'kana/vim-textobj-function' | Plug 'thinca/vim-textobj-function-javascript' | Plug 'reedes/vim-textobj-quote'
 " Plug 'machakann/vim-textobj-delimited' TODO
 Plug 'majutsushi/tagbar'
 Plug 'maxbrunsfeld/vim-yankstack'
@@ -140,8 +144,6 @@ Plug 'junegunn/vim-emoji'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'reedes/vim-pencil'
-Plug 'reedes/vim-textobj-quote'
-Plug 'reedes/vim-textobj-sentence'
 Plug 'dbmrq/vim-ditto'
 Plug 'reedes/vim-wordy'
 Plug 'rhysd/vim-grammarous'
@@ -183,7 +185,8 @@ Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': 'javascript' }
 " Plug 'othree/yajs.vim', { 'for': ['javascript', 'jsx'] }
 " typescript
 " Plug 'mhartington/nvim-typescript'
-" Plug 'leafgarland/typescript-vim'
+Plug 'leafgarland/typescript-vim', {'for': ['typescript', 'typescript.tsx']}
+Plug 'peitalin/vim-jsx-typescript', {'for': ['typescript', 'typescript.tsx']}
 
 " html/css
 Plug 'ap/vim-css-color', { 'for': ['scss', 'less', 'css', 'eruby'] }
@@ -270,14 +273,16 @@ Plug 'cespare/vim-toml'
 Plug 'chr4/nginx.vim'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'Shirk/vim-gas' " ASM
+Plug 'wlangstroth/vim-racket'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'enomsg/vim-haskellConcealPlus'
 
 Plug 'tpope/vim-dadbod'
 Plug 'plasticboy/vim-markdown'
 Plug 'Shougo/vinarise.vim' " hex
 Plug 'junegunn/vader.vim'
-Plug 'dominikduda/vim_current_word'
-Plug 'baverman/vial', { 'for': 'http' }
-Plug 'baverman/vial-http', { 'for': 'http' }
+Plug 'baverman/vial'
+Plug 'baverman/vial-http'
 Plug 'vim-scripts/SyntaxAttr.vim'
 Plug 'rhysd/open-pdf.vim'
 Plug 'fncll/wordnet.vim'
@@ -292,12 +297,12 @@ Plug 'AndrewRadev/exercism.vim'
 
 Plug 'vim-scripts/Mark--Karkat'
 
-Plug 'bkad/CamelCaseMotion'
-map <silent> w <Plug>CamelCaseMotion_w
-map <silent> b <Plug>CamelCaseMotion_b
-map <silent> e <Plug>CamelCaseMotion_e
-map <silent> ge <Plug>CamelCaseMotion_ge
-sunmap w
-sunmap b
-sunmap e
-sunmap ge
+" Plug 'bkad/CamelCaseMotion'
+" map <silent> w <Plug>CamelCaseMotion_w
+" map <silent> b <Plug>CamelCaseMotion_b
+" map <silent> e <Plug>CamelCaseMotion_e
+" map <silent> ge <Plug>CamelCaseMotion_ge
+" sunmap w
+" sunmap b
+" sunmap e
+" sunmap ge

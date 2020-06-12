@@ -216,7 +216,7 @@ let g:fzf_commits_log_options =
 
 let g:rg_command = '
 \ rg --no-hidden --column --line-number --no-heading --fixed-strings --smart-case --follow --color "always"
-\ -g "!{.git,node_modules,vendor,build,plugged,lib,dist}/*"
+\ -g "!{.git,node_modules,vendor,build,plugged,dist,package-lock.json}"
 \ -g "*.{lua,js,ts,coffee,jsx,json,php,styl,jade,html,css,scss,config,py,cpp,c,cs,h,go,hs,rb,erb,conf,hbs,sh,sql,sol,java}" '
 
 " let g:rg_command = '
@@ -323,6 +323,10 @@ let test#strategy = 'vtr'
 let g:test#preserve_screen = 1
 let g:test#go#gotest#options = '-v'
 
+" let g:test#javascript#mocha#options = {
+"   \ 'all':   '--compilers js:babel-core/register',
+" \}
+
 " togglelist
 let g:toggle_list_no_mappings = 1 " Disable default mappings.
 
@@ -401,8 +405,8 @@ let g:rappel#custom_repls = {
 \   'launch': './a.out',
 \ },
 \ 'javascript': {
-\   'repl': 'node --inspect -b --eval %:p',
-\   'run': 'babel-node %:p',
+\   'repl': 'node --inspect --eval %:p',
+\   'run': 'node %:p',
 \   'launch': 'ndb %:p',
 \ },
 \}
@@ -669,7 +673,7 @@ let g:vinarise_enable_auto_detect=0
 let g:vim_current_word#highlight_only_in_focused_window = 0
 let g:vim_current_word#enabled = 0
 
-" let g:ncm2_pyclang#library_path = '/usr/local/Cellar/llvm/6.0.1/lib'
+let g:ncm2_pyclang#library_path = '/usr/local/Cellar/llvm/6.0.1/lib'
 " autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
 
 let g:undotree_SetFocusWhenToggle = 1
