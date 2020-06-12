@@ -49,6 +49,9 @@ autocmd FileType gitcommit setlocal spell complete+=kspell
 autocmd FileType markdown setlocal nolist wrap lbr
 autocmd FileType markdown nnoremap <buffer> <space>ll :Toct<cr>
 
+" vim
+autocmd FileType vim nmap ,cl yiWoechom <c-r>"<Esc>
+
 " javascript
 " TODO: add more as needed
 autocmd FileType javascript UltiSnipsAddFiletypes javascript-node
@@ -59,19 +62,22 @@ autocmd FileType javascript,jsx nnoremap <buffer> ,f :TernDef<cr>
 autocmd FileType javascript,jsx nnoremap <buffer> ,fs :TernDefSplit<cr>
 autocmd FileType javascript,jsx nnoremap <buffer> T :TernType<cr>
 autocmd FileType javascript,jsx nnoremap <buffer> <space>ll :TernDefPreview<cr><c-o>
-autocmd FileType javascript nmap ,cl yiWoconsole.log("<c-r>"\n", <c-r>");<Esc>^
+autocmd FileType javascript nmap ,cl yiWoconsole.log("<c-r>"", <c-r>");<Esc>^
 autocmd FileType javascript nmap ,db odebugger;<esc>^
+autocmd FileType javascript imap ,tt this.
 
 " python
 autocmd filetype python nnoremap <buffer> ,f  :call jedi#goto()<CR>
 autocmd FileType python nnoremap <buffer> <leader>gj :call jedi#goto_assignments()<CR>
 autocmd filetype python nnoremap <leader>bp ofrom ptpdb import set_trace<cr>set_trace()<esc>^
 autocmd FileType python nmap ,cl yiWoprint("<c-r>"; {}".format(<c-r>"))<Esc>^
+autocmd FileType python imap ,tt self.
+
+" misc
+autocmd FileType go,python,ruby,eruby,elixir,haskell inoremap <buffer> ; :
+autocmd FileType go,python,ruby,eruby,elixir,haskell inoremap <buffer> : ;
 
 " go
-autocmd FileType go,python,ruby,eruby,elixir inoremap <buffer> ; :
-autocmd FileType go,python,ruby,eruby,elixir inoremap <buffer> : ;
-
 autocmd FileType go nnoremap <buffer> ,f :GoDef<cr>
 autocmd FileType go nnoremap <buffer> <silent> K :call SearchWordWithRg()<cr>
 autocmd FileType go nnoremap <buffer> ,gec :GoErrCheck<cr>
@@ -96,7 +102,8 @@ autocmd FileType go nnoremap <buffer> <space>gts :<C-u>call BuildGoFiles()<CR>
 autocmd FileType go nnoremap <buffer> <space>gtt :GoTestFunc<cr>
 " autocmd FileType go nnoremap <buffer> <space>ll :GoDefStack<cr>
 " autocmd FileType go nnoremap <buffer> <space>lc :GoDefStackClear<cr>
-autocmd FileType go nmap ,cl yiwofmt.Printf("\t<c-r>"; \n%+v\n", <c-r>")<Esc>^
+autocmd FileType go nmap ,cl yiwofmt.Printf("<c-r>"; %+v\n", <c-r>")<Esc>^
+autocmd FileType go nmap ,cL yiwofmt.Fprintf(os.Stderr, "<c-r>"; %+v\n", <c-r>")<Esc>^
 " alternates
 autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
 autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
@@ -109,7 +116,8 @@ autocmd Filetype go set foldmethod=syntax
 " autocmd BufEnter *.cpp,*.h,*.hpp,*.hxx let g:ale_cpp_clang_options = join(ncm_clang#compilation_info()['args'], ' ')
 " autocmd FileType cpp,c set path=.,/usr/include,/usr/local/include,/usr/include/c++/4.2.1,/usr/local/include/glib-2.0
 autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
-autocmd FileType cpp,c nmap ,cl yiwoprintf("\t<c-r>": %s\n", <c-r>");<Esc>^
+autocmd FileType cpp,c nmap ,cl yiwoprintf("<c-r>": %s\n", <c-r>");<Esc>^
+autocmd FileType cpp,c nmap ,cL yiwofprintf(stderr, "<c-r>": %s\n", <c-r>");<Esc>^
 
 " js conceal expand
 " autocmd FileType javascript,jsx inoremap <silent> @ <C-r>=syntax_expand#expand("@", "this")<CR>
@@ -132,7 +140,10 @@ autocmd FileType ruby map <leader>bpr orequire "pry-remote": binding.remote_pry<
 " hack for constructor assignment
 autocmd FileType ruby map <cr>c yiWi@<esc>A<space>=<space><C-R>"<esc>
 autocmd FileType ruby nmap ,cl yiwoputs "<c-r>"; #{<c-r>".inspect<Esc>^
-" vim-ruby
+autocmd FileType ruby imap ,rs &;
+autocmd FileType ruby imap ,rS <=>
+autocmd FileType ruby imap ,tt self
+
 autocmd FileType ruby compiler ruby
 
 " Goyo
@@ -233,3 +244,5 @@ au User Ncm2Plugin call ncm2#register_source({
         \ 'on_complete': ['ncm2#on_complete#delay', 180,
                    \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
         \ })
+
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
