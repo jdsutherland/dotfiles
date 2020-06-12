@@ -61,6 +61,7 @@ nnoremap <M-f> :FzfFiles<CR>
 " shortcut to mapping a temp runner with
 nnoremap ,tb :nnoremap ,t :VtrSendCommandToRunner<space>
 nnoremap <M-h> :VtrSendCommandToRunner<space>
+nnoremap ,tc :VtrSendCommandToRunner<space>cd `dirname <c-r>%`<cr>
 nnoremap <silent><M-y> :w<esc>:VtrSendCommandToRunner<space><cr>
 nnoremap <M-r> :VtrOpenRunner {'orientation': 'v', 'percentage': 20}<cr>
 nnoremap <M-q> :VtrKillRunner<cr>
@@ -141,12 +142,13 @@ nnoremap <cr>L :s///<left>
 nnoremap <cr>r :s/<C-r><C-w>//<left>
 
 " ---INSERTs---
-imap ,rr =>
-imap ,rp &;
-imap ,aa ->
-imap ,zz <-
-imap ,uu __
-imap ,. />
+inoremap ,rr =>
+inoremap ,aa ->
+inoremap ,zz <-
+inoremap ,uu __
+inoremap ,. />
+inoremap <c-g> <backspace>
+" imap ,qq |>
 
 " ---NAVIGATION---
 " open prev buffer
@@ -213,7 +215,8 @@ noremap <leader>9 9gt
 nnoremap <space>T :JsPreTmpl html<cr>
 nnoremap <space>Y :JsPreTmplClear<cr>
 " fugitive git bindings
-nnoremap <space>ga :Git add %<CR>:x<cr>
+" nnoremap <space>ga :Git add %<CR>:x<cr>
+nnoremap <space>ga :Git add %<CR>
 nnoremap <space>gA :Git add .<CR>
 nnoremap <space>gc :Gcommit -v -q<CR>
 nnoremap <space>gt :Gcommit -v -q %:p<CR>
@@ -374,10 +377,11 @@ nnoremap <cr><tab> {kzz
 nnoremap <space><tab> }jzz
 " surround current line with newlines
 map <cr><space> [<space>]<space>
-map <cr>v viWS"
+" visual from pos to EOL
+map <cr>v v4
 map <cr>w ciw
 map <cr>W ciW
-nnoremap <cr>x :xall<cr>
+" nnoremap <cr>x :xall<cr>
 nnoremap <cr>D :qall!
 
 nnoremap <space>O :only<cr>
@@ -416,16 +420,14 @@ nmap ,sL vae<leader>sl
 vmap <CR>f <leader>sl
 " useful resending sql
 nmap <cr>F vap<leader>sl
-" fix formating
-" nnoremap ,` vae= TODO: decide map?
+" TODO: send textobj-chunk to runner
+nmap <cr>c vac<leader>sl
 
 " surround a word w function
 nmap <CR>f saiwf
 
 " javascript
 " nnoremap <leader>nr :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'node'}<cr>
-nmap ,cl yiwofmt.Printf("<c-r>:::: %s\n", <c-r>");<Esc>^
-" ||=
 nmap <leader>\| yiWA<space>=<space><C-R>"<space>\|\|<space>
 nmap <leader>; A;<ESC>
 nmap <leader>, A,<ESC>
@@ -473,8 +475,7 @@ nnoremap <silent> <cr>\ :redraw!<cr>
 " nnoremap <S-F11> :LL finish<CR>
 
 " make common changes faster
-map <leader>ww ciw
-map <leader>vv viW
+" map <leader>ww ciw
 map <leader>vv viW
 map <leader>cx cxiw
 map <leader>ct ct_
@@ -502,12 +503,13 @@ nnoremap <space>5 :FZFMru<cr>
 nnoremap <space>6 :Rooter<cr>
 nnoremap <space>7 :ALEFix<cr>
 nnoremap <silent><space>8 :ALEFix<cr>
-nnoremap <silent><space>sd :VimCurrentWordToggle<cr>
+" display all lines containing word under cursor
+nnoremap <silent><space>sd [I
 " nnoremap <silent><space>df :w<cr>
 nnoremap <space>9 :ALEInfo<CR>
 nnoremap <space>0 :ALEDetail<CR>
 nnoremap <space>= :UnstackFromTmux<CR>
-nnoremap <silent><tab> :ALEToggle<cr>
+nnoremap <tab><tab> :ALEToggle<cr>
 
 nmap f <Plug>(clever-f-f)
 xmap f <Plug>(clever-f-f)
@@ -574,12 +576,14 @@ vmap <leader><leader>m <Plug>GrepOperatorWithFilenamePrompt
 
 nmap <leader>he <Plug>(ruby_hl_lvar-enable)
 nmap <leader>hd <Plug>(ruby_hl_lvar-disable)
-" nmap <cr><cr> <Plug>(ruby_hl_lvar-refresh)
+
+" dup line and move W
+nnoremap <cr><cr> :t.<cr>W
+
 nnoremap <leader>S :call vim_seq_diag#Generate_diagram()<CR>
 
-nnoremap <silent><cr><cr> <c-w>=
 " autoformat
-nnoremap <silent><tab>v vae=
+nnoremap <silent><tab> :normal gg=G''
 
 " Now you can leave the terminal-mode with <Esc>.
 " https://stackoverflow.com/questions/47871857/vim-fugitive-with-neovim-terminal-emulator
@@ -593,3 +597,11 @@ tnoremap <C-v><Esc> <Esc>
 nnoremap <silent> <cr>m :call ResizeMin()<CR>
 
 cnoremap %% <C-R>=expand(%:h).'/'<cr>
+
+" TODO: vimscript
+" execute visual selection (works for functions)
+vnoremap <c-x> "xy:execute substitute(@x,"\n\\",'','g')<cr>
+nnoremap <space>x :execute getline('.')<cr>
+
+" TODO: react
+nnoremap ,jx mzbi<<esc>ea/><esc>`z
