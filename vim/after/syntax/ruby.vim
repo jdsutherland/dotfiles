@@ -18,11 +18,11 @@ syntax match rbNiceOperator " \zs\/\ze "  conceal cchar=÷
 syntax keyword rbNiceOperator not conceal cchar=¬
 syntax match rbNiceOperator "\s\+\zs!\ze[! ]\@!" conceal cchar=¬
 syntax match rubyOperator "||=" conceal cchar=⊫
-syntax match rbNiceOperator "&&" conceal cchar=∧
-syntax match rbNiceOperator "||=\@!" conceal cchar=∨
+" syntax match rbNiceOperator "&&" conceal cchar=∧
+" syntax match rbNiceOperator "||=\@!" conceal cchar=∨
 syntax match rbNiceOperator "&&\@!" conceal cchar=&
-syntax match rbNiceOperator " \zs\*\ze[a-zA-Z]" conceal cchar=⁕
-syntax match rbNiceOperator " \zs\*\ze " conceal cchar=⨉
+" syntax match rbNiceOperator " \zs\*\ze[a-zA-Z]" conceal cchar=⁕
+" syntax match rbNiceOperator " \zs\*\ze " conceal cchar=⨉
 " syntax keyword rbNiceOperator and conceal cchar=∧
 " syntax keyword rbNiceOperator or conceal cchar=∨
 
@@ -38,17 +38,18 @@ syntax match rubySymbol ">=\ze[^<>]" conceal cchar=≥
 syntax match rubySymbol "\s\zs<<\ze\s" conceal cchar=« " make sure we don't break heredocs
 syntax match rubySymbol ">>" conceal cchar=»
 " syntax match rbNiceOperator "\.pop()\|\.pop" conceal cchar=»
-syntax match rubyOperator "<=>" conceal cchar=⇔
+" syntax match rubyOperator "<=>" conceal cchar=⇔
 syntax keyword rubyPseudoVariable nil conceal cchar=∅
 syntax keyword rubyPseudoVariable self conceal cchar=@
 " syntax match rubyString "\:\:" conceal cchar=∷
 syntax match rubyOperator "\v\.new>" conceal cchar=ミ
-syntax match rubyDefine "\s\?\<end\>" conceal
+" syntax match rubyDefine "\s\?\<end\>" conceal
 
 " syntax match rbNiceOperator '\.'
 
 syntax match rbDelimiter  "(\|)\|\[\|\]\|,\|;\|{\|}"
-syntax match rubyOperator "\s\+\zs\.\ze"  conceal cchar=｡
+syntax match rubyOperator "\s\+\zs\.\ze" conceal cchar=｡
+syntax match rubyOperator "\.$" conceal cchar=｡
 
 hi link rbNiceOperator Operator
 hi link rbDelimiter Delimiter

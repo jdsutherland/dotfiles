@@ -15,8 +15,8 @@ syntax match goNiceOperator " \zs\/\ze " conceal cchar=÷
 syntax match goNiceOperator "==" conceal cchar=≡
 syntax match goNiceOperator "\[\]" conceal cchar=⌑
 syntax match goNiceOperator ":=" conceal cchar=≔
-syntax match goNiceOperator "||" conceal cchar=∨
-syntax match goNiceOperator "&&" conceal cchar=∧
+" syntax match goNiceOperator "||" conceal cchar=∨
+" syntax match goNiceOperator "&&" conceal cchar=∧
 
 syntax match goNiceOperator /err == nil/ conceal cchar=✓
 syntax match goNiceOperator /err != nil/ conceal cchar=✗
@@ -37,10 +37,10 @@ syntax match goNiceOperator "\.\.\." conceal cchar=…
 
 syntax keyword goNiceOperator lambda conceal cchar=λ
 syntax keyword goNiceOperator proc conceal cchar=π
-" syntax keyword goNiceOperator function conceal cchar=ƒ contained
+syntax keyword goNiceOperator function conceal cchar=ƒ contained
 " syntax match goType /\<func\>/ conceal cchar=ƒ
 " syntax match goDeclaration /^func\>/ conceal cchar=ƒ
-" syntax keyword goDeclaration func conceal cchar=ƒ
+syntax keyword goDeclaration func conceal cchar=ƒ
 
 syntax keyword goConst const conceal cchar=𝔠
 syntax match goVar "\v<var " conceal cchar=@
@@ -57,10 +57,10 @@ syntax keyword goType float64 conceal cchar=ℝ
 syntax keyword goType complex64 conceal cchar=ℂ
 syntax keyword goType complex128 conceal cchar=ℂ
 syntax keyword goType int conceal cchar=ℤ
-syntax keyword goType int32 conceal cchar=ⅰ
+syntax keyword goType int16 int32 conceal cchar=ⅰ
 syntax keyword goType int64 conceal cchar=ⅱ
-syntax keyword goType uint32 conceal cchar=Ⅰ
-syntax keyword goType uint64 conceal cchar=Ⅱ
+syntax keyword goType uint16 uint32 conceal cchar=Ⅰ
+syntax keyword goType uint uint64 conceal cchar=Ⅱ
 syntax keyword goType error conceal cchar=ɇ
 
 " syntax keyword goStatement go conceal cchar=ğ

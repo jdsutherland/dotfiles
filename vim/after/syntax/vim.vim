@@ -14,7 +14,7 @@ syntax keyword vimCommand in conceal cchar=∈
 syntax keyword vimCommand let conceal cchar=ʟ
 syntax keyword vimCommand setlocal conceal cchar=𐊖
 syntax keyword vimMapModKey silent conceal cchar=♪
-syntax match vimCommand " \zs\.\ze " conceal cchar=+
+" syntax match vimCommand " \zs\.\ze " conceal cchar=+
 " syntax match vimOper "\_\\\_" conceal
 
 syntax match vimOper "=\@<!===\@!" conceal cchar=≡
@@ -26,8 +26,8 @@ syntax match vimOper "=\~" conceal cchar=≆
 syntax match vimOper "\s\zs<=\ze\s" conceal cchar=≤
 syntax match vimOper "\s\zs>=\ze\s" conceal cchar=≥
 
-syntax match vimOper "&&" conceal cchar=∧
-syntax match vimOper "||=\@!" conceal cchar=∨
+" syntax match vimOper "&&" conceal cchar=∧
+" syntax match vimOper "||=\@!" conceal cchar=∨
 
 " hi! link vimNice Operator
 hi! link Conceal Operator

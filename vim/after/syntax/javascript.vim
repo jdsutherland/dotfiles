@@ -7,32 +7,33 @@ syntax match jsOperator "=\~" conceal cchar=≅
 syntax match jsOperator "!\~" conceal cchar=≆
 syntax match jsOperator "++" conceal cchar=Δ
 syntax match jsOperator "--" conceal cchar=∇
-syntax match jsOperator "&&" conceal cchar=∧
-syntax match jsOperator "||=\@!" conceal cchar=∨
-syntax match jsOperator "||=" conceal cchar=⊫
+" syntax match jsOperator "&&" conceal cchar=∧
+" syntax match jsOperator "||=\@!" conceal cchar=∨
+" syntax match jsOperator "||=" conceal cchar=⊫
 " syntax match jsOperator " \zs\*\ze " conceal cchar=⨉
 " syntax match jsOperator " \zs\/\ze "  conceal cchar=÷
 
 " distinguish lines beginning with method chains
 syntax match jsOperator "\s\+\zs\.\ze"  conceal cchar=｡
 
-syntax match jsGenerator "*" conceal cchar=⁕
+" syntax match jsGenerator "*" conceal cchar=⁕
 
 " FOO.length => FOO#
 syntax keyword jsfuncCall length conceal cchar=#
-syntax keyword jsFuncCall forEach conceal cchar=∀
+" syntax keyword jsFuncCall forEach conceal cchar=∀
 " syntax keyword jsFuncCall filter conceal cchar=∿
 " syntax keyword jsFuncCall reduce conceal cchar=λ
 " syntax keyword jsFuncCall map conceal cchar=⚨
 syntax keyword jsFuncCall assert conceal cchar=✓
-syntax keyword jsFuncCall every conceal cchar=∀
-syntax keyword jsFuncCall some conceal cchar=∃
-syntax keyword jsFuncCall push conceal cchar=«
-syntax keyword jsFuncCall pop conceal cchar=»
-syntax keyword jsFuncCall setTimeout conceal cchar=◴
+syntax match jsOperator "assert" conceal cchar=✓
+" syntax keyword jsFuncCall every conceal cchar=∀
+" syntax keyword jsFuncCall some conceal cchar=∃
+" syntax keyword jsFuncCall push conceal cchar=«
+" syntax keyword jsFuncCall pop conceal cchar=»
+" syntax keyword jsFuncCall setTimeout conceal cchar=◴
 
 syntax keyword jsOperator typeof conceal cchar=₪
-syntax keyword jsOperator delete conceal cchar=✗
+" syntax keyword jsOperator delete conceal cchar=✗
 
 " rest/spread
 syntax match jsOperator "\.\.\." conceal cchar=…
@@ -58,7 +59,7 @@ syntax keyword jsBooleanFalse false conceal cchar=F
 
 syntax keyword jsStorageClass const conceal cchar=𝔠
 syntax keyword jsStorageClass let conceal cchar=ʟ
-syntax keyword jsStorageClass var conceal cchar=ⱽ
+syntax keyword jsStorageClass var conceal cchar=v
 syntax keyword jsClassMethodType static conceal cchar=∬
 syntax keyword jsGlobalObjects Promise conceal cchar=Ᵽ
 
@@ -83,7 +84,7 @@ syntax keyword jsNumber Infinity conceal cchar=∞
 syntax match jsNumber "\<infinity\>" conceal cchar=∞
 
 syntax keyword jsGlobalNodeObjects module conceal cchar=ᴍ
-syntax match   jsGlobalObjects  "\<require" conceal cchar=ʀ
+syntax match   jsGlobalObjects  "\<require\>" conceal cchar=ʀ
 
 syntax match jsNoise /;$/ conceal
 " syntax match jsNoise /,$/ conceal
@@ -94,4 +95,5 @@ syntax keyword jsStatement continue conceal cchar=↰
 hi! link Conceal Operator
 " hi! Conceal ctermbg=Black ctermfg=Magenta
 hi! Conceal ctermbg=Black ctermfg=LightRed
+" hi! Conceal ctermbg=Black ctermfg=239
 "setlocal conceallevel=2
