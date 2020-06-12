@@ -213,7 +213,7 @@ main_prompt() {
   read -r response
   case $response in
     *)
-      echo "You gotta open the apps and do it manually, b"
+      echo "You gotta open the apps and do it manually"
   esac
 
   echo
@@ -224,11 +224,6 @@ main_prompt() {
   echo
   cecho "===================================================" "$white"
   cecho " Reminder: Alfred probably didn't save your snippets" "$magenta"
-  cecho "===================================================" "$white"
-
-  echo
-  cecho "===================================================" "$white"
-  cecho " Reminder: You might need to install weechat scripts (see weechat/README.md)" "$magenta"
   cecho "===================================================" "$white"
 
   _setup_karabiner
