@@ -409,6 +409,10 @@ let g:rappel#custom_repls = {
 \   'run': 'node %:p',
 \   'launch': 'ndb %:p',
 \ },
+\ 'elixir': {
+\   'repl': 'iex %:p',
+\   'run': 'elixir %:p',
+\ },
 \}
 
 " scratch
