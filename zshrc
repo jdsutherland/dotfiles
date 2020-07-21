@@ -29,7 +29,6 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 
 # Show contents of directory after cd-ing into it
 chpwd() {
-  # ls -lrthG
   exa --long --git --sort=accessed --group-directories-first
 }
 
@@ -40,7 +39,6 @@ eval "$(rbenv init -)"
 # Variables
 export s8="/Volumes/seag8"
 export xc="/Volumes/seag8/screencasts"
-export xcp="/Volumes/seag8/pluralsight"
 
 # truecolors
 # export TERM=xterm-256color

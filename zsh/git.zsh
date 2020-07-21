@@ -168,7 +168,7 @@ fzf-githash() {
 # -------------
 # end GIT fzf
 
-fzshow() {  
+fzshow() {
   hash=$(git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |  fzf | awk '{print $1}')
   echo $hash | pbcopy
 }

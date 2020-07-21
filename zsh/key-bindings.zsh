@@ -56,7 +56,7 @@ bindkey -v
 
 bindkey "^N" insert-last-word
 # bindkey "^R" history-incremental-search-backward
-bindkey "^F" menu-complete
+bindkey "^f" menu-complete
 
 # additional mapping for alt-c cd
 zle     -N   fzf-cd-widget
@@ -110,7 +110,7 @@ v(){
 # vim
 vim-fzf-preview() {
   local files
-  IFS=$'\n' files=($(fzf --query="$1" --preview-window=right:57% --multi --select-1 --exit-0 --preview 'bat --theme=TwoDark --color=always {}'))
+  IFS=$'\n' files=($(fzf --query="$1" --preview-window=right:57% --multi --select-1 --exit-0 --preview 'bat --color=always {}'))
   [[ -n "$files" ]] && ${EDITOR:-vim} -O "${files[@]}" && print -l "$files[@]"
 }
 bindkey -s '^p' ' vim-fzf-preview\n'
