@@ -1,23 +1,16 @@
-# Ensure that a non-login, non-interactive shell has a defined environment.
-f [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprofile"
-fi
+# i - Vim's smart case
+# j.5 - Center search results
+# F - Quit if the content is <1 screen
+# K - Quit on CTRL-C
+# M - Longer prompt
+# R - handle ASCII color escapes
+# X - Don't send clear screen signal
+export LESS="ij.5KMRX"
 
-export PATH="$HOME/.bin:$PATH"
+# Add homebrew binaries
+export PATH="/usr/local/bin:$PATH"
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-export GOPATH=~/go
-export PATH=$PATH:$GOPATH/bin
-# export PATH="/usr/local/Cellar/node/7.2.0/bin:$PATH"
-export PATH="~/.config/yarn/global/node_modules/.bin:$PATH"
-# export PATH="~/.rbenv/shims:$PATH"
+# Add my custom commands
+export PATH="$HOME/bin:$PATH"
 
-export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
-
-PATH="/Users/jeff/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/Users/jeff/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/Users/jeff/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/Users/jeff/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/Users/jeff/perl5"; export PERL_MM_OPT;
-
-# eval "$(pyenv init -)"
+export PATH="$HOME/.npm-packages/bin:$PATH"

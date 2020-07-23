@@ -1,81 +1,52 @@
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
+source ~/.zplug/init.zsh
 
-BASE="$HOME/.zsh"
+zplug 'sindresorhus/pure'
+zplug 'zsh-users/zsh-syntax-highlighting', defer:2
+zplug 'zsh-users/zsh-completions', defer:2
+zplug 'mafredri/zsh-async'
+zplug 'ael-code/zsh-colored-man-pages'
+zplug "modules/directory", from:prezto # for d stack
+zplug 'skywind3000/z.lua'
+zplug 'wfxr/forgit' # TODO: consider aliases
+# zplug "kiurchv/asdf.plugin.zsh", defer:2
 
-load_all_files_in() {
-  if [ -d "$BASE" ]; then
-    for file in "$BASE"/*.zsh; do
-      source "$file"
-    done
-  fi
-}
-load_all_files_in
+zplug load
 
-# set colorscheme
-BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+for zsh_source in $HOME/.zsh/configs/*.zsh; do
+  source $zsh_source
+done
 
-# autorun tmux
-# _not_inside_tmux() { [[ -z "$TMUX" ]] }
-# ensure_tmux_is_running() {
-#   if _not_inside_tmux; then
-#     tat
-#   fi
-# }
-# ensure_tmux_is_running
+ensure_tmux_is_running
+
+export EDITOR="nvim"
+alias e=$EDITOR
+alias vim="nvim"
+alias vi="nvim"
+
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+. /usr/local/etc/bash_completion.d
+
+export PATH="$HOME/.bin:$PATH"
+source /Users/j/.asdf/asdf.sh
 
 # Show contents of directory after cd-ing into it
 chpwd() {
   exa --long --git --sort=accessed --group-directories-first
 }
 
+r() {
+  rg -S -p "$@" | less -RFX
+}
+
+unsetopt correctall
+# Allow [ or ] wherever you want
+# (Prevents "zsh: no matches found: ...")
+unsetopt nomatch
+
+# https://github.com/gabebw/dotfiles/pull/15
+unsetopt multios
+
+KEYTIMEOUT=25
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-
-# Variables
-export s8="/Volumes/seag8"
-export xc="/Volumes/seag8/screencasts"
-
-# truecolors
-# export TERM=xterm-256color
-
- #zsh-navigation-tools
-source /usr/local/share/zsh-navigation-tools/zsh-navigation-tools.plugin.zsh
-
-# private
-source ~/.private/private.sh
-
-# tabtab source for yarn package
-# uninstall by removing these lines or running `tabtab uninstall yarn`
-[[ -f /usr/local/lib/node_modules/yarn-completions/node_modules/tabtab/.completions/yarn.zsh ]] && . /usr/local/lib/node_modules/yarn-completions/node_modules/tabtab/.completions/yarn.zsh
-# /usr/local/bin/git-tip
-export PATH="/usr/local/opt/curl/bin:$PATH"
-
-# autoload -U promptinit; promptinit TODO: why was this here?
-source /usr/local/share/zsh/site-functions/_aws
-source /usr/local/share/zsh/site-functions/_psql
-# export PATH="/usr/local/bin:$PATH"
-
- # added for npm-completion https://github.com/Jephuff/npm-bash-completion
-# PATH_TO_NPM_COMPLETION="/usr/local/lib/node_modules/npm-completion"
-# source $PATH_TO_NPM_COMPLETION/npm-completion.sh
-
-export WORKON_HOME=~/.virtualenvs
-# source /usr/local/bin/virtualenvwrapper.sh
-
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-export PATH="/usr/local/lib/python3.6/site-packages:$PATH"
-
-# https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit#macos-sierra-1012-el-capitan-1011-and-yosemite-1010
-export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-PATH_TO_NPM_COMPLETION="/private/tmp/node_modules/npm-completion"
-# PATH_TO_NPM_COMPLETION="/Users/jeff/.nvm/versions/node/v6.11.5/lib/node_modules/npm-completion"

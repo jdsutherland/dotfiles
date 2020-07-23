@@ -31,14 +31,13 @@ _fzf_compgen_dir() {
 
 export FZF_DEFAULT_COMMAND='rg --files --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:30:hidden --bind ';:toggle-preview'"
-export FZF_CTRL_T_OPTS="--select-1 --exit-0 --preview '(highlight -O ansi {} 2> /dev/null || cat {} || tree -a -C -I '{.git,node_modules}' {}) 2> /dev/null | head -200'"
+export FZF_CTRL_T_OPTS="--select-1 --exit-0 --preview '(bat --color=always {} 2> /dev/null || cat {} || tree -a -C -I '{.git,node_modules}' {}) 2> /dev/null | head -200'"
 export FZF_ALT_C_OPTS="--select-1 --exit-0 --preview 'tree -C -I '{.git,node_modules}' {} | head -200'"
 # export FZF_ALT_C_COMMAND="bfs -type d -nohidden"
 
 export FZF_DEFAULT_OPTS="
   --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all,ctrl-f:toggle+down,ctrl-o:select-all
   --reverse --ansi
-  --height 100%
   --toggle-sort=ctrl-w
   --black
   --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D
