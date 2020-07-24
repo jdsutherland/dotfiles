@@ -1,0 +1,40 @@
+{
+  "title": "r_cmd hyper / cmd-tab tap",
+  "rules": [
+    {
+      "description": "Change cmd_r to hyper / cmd-tabjtap",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_command",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_shift",
+              "modifiers": [
+                "left_command",
+                "left_control",
+                "left_option"
+              ]
+            }
+          ],
+          "to_if_alone": [
+            {
+              "hold_down_milliseconds": 100,
+              "key_code": "tab",
+              "modifiers": [
+                "left_command"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
