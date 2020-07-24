@@ -1,7 +1,0 @@
-#!/bin/bash
-# Usage: json [<files>...]
-#
-# Pretty-print JSON input.
-set -e
-
-cat "$@" | python -m json.tool

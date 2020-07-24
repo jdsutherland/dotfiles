@@ -1,3 +1,0 @@
-#!/bin/sh
-
-(cd "/Users/jeff/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album" && youtube-dl -x --audio-format mp3 "$@")
