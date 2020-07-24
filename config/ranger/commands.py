@@ -241,17 +241,3 @@ class show_files_in_finder(Command):
         script = "osascript -e '{0}' -e '{1}'".format(reveal_script, activate_script)
         self.fm.notify(script)
         subprocess.check_output(["osascript", "-e", reveal_script, "-e", activate_script])
-
-
-class fasd(Command):
-    """
-    :fasd
-
-    Jump to directory using fasd
-    """
-    def execute(self):
-        import subprocess
-        arg = self.rest(1)
-        if arg:
-            directory = subprocess.check_output(["fasd", "-d"]+arg.split(), universal_newlines=True).strip()
-            self.fm.cd(directory)

@@ -24,7 +24,7 @@ install_osx() {
   # click through the stuff
   brew install gifsicle
   brew install imagemagick
-  
+
   # I had a weird problem with Convert/imagemagick where I had to do:
   # ln -s /usr/local/Cellar/libtool/2.4.2/lib/libltdl.7.dylib libltdl.7.dylib
 }

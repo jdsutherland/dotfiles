@@ -11,8 +11,6 @@ config focusCheckWidthMax 3000
 config windowHintsShowIcons true
 config windowHintsIgnoreHiddenWindows false
 config windowHintsSpread true
-# config windowHintsDuration 5
-# config windowHintsOrder persist
 
 # # Monitor Aliases
 alias mon-laptop 0
@@ -58,14 +56,14 @@ layout 1monitor 'Marked 2':REPEAT                                               
 layout 1monitor 'Preview':REPEAT                                                         ${1-right}
 layout 1monitor 'mpv':REPEAT                                                             ${1-right}
 layout 1monitor 'Finder':REPEAT                                                          ${rightless}
-layout 1monitor 'Microsoft OneNote':REPEAT                                               ${1-right}
+layout 1monitor 'Evernote':REPEAT                                               ${1-right}
 layout 1monitor 'Google Play Music Desktop Player':REPEAT                                ${1-full}
 
 # 1 Monitor 3/4 term - browser (1dev)
 layout 1dev 'iTerm2':MAIN_FIRST                                                          ${leftmost}
 layout 1dev 'Google Chrome':REPEAT                                                       ${rightless}
 layout 1dev 'Google Chrome Canary':REPEAT                                                ${leftmost}
-layout 1dev 'Microsoft OneNote':REPEAT                                                   ${rightless}
+layout 1dev 'Evernote':REPEAT                                                   ${rightless}
 layout 1dev 'Dash':REPEAT                                                                ${rightless}
 layout 1dev 'Marked 2':REPEAT                                                            ${rightless}
 layout 1dev 'mpv':REPEAT                                                                 ${rightless}
@@ -81,14 +79,14 @@ layout 1pdf 'iTerm2':REPEAT                                                     
 layout 1pdf 'Dash':REPEAT                                                                ${rightless}
 layout 1pdf 'Marked 2':REPEAT                                                            ${rightless}
 layout 1pdf 'WhatsApp':REPEAT                                                            ${rightless}
-layout 1pdf 'Microsoft OneNote':REPEAT                                                   ${rightless}
+layout 1pdf 'Evernote':REPEAT                                                   ${rightless}
 
 # 1 Monitor 3/4 mpv - onenote (1mpv)
 layout 1mpv 'mpv':MAIN_FIRST                                                             ${leftmost}
 layout 1mpv 'Preview':REPEAT                                                             ${leftmost}
 layout 1mpv 'Google Chrome':REPEAT                                                       ${rightless}
 layout 1mpv 'Google Chrome Canary':REPEAT                                                ${rightless}
-layout 1mpv 'Microsoft OneNote':REPEAT                                                   ${rightless}
+layout 1mpv 'Evernote':REPEAT                                                   ${rightless}
 layout 1mpv 'Dash':REPEAT                                                                ${rightless}
 layout 1mpv 'Marked 2':REPEAT                                                            ${rightless}
 layout 1mpv 'WhatsApp':REPEAT                                                            ${rightless}
@@ -111,17 +109,14 @@ bind 1:${hyper} layout 2monitors
 bind 2:${hyper} sequence layout 1monitor | focus 'Google Chrome' | focus 'Google Chrome'
 bind 3:${hyper} sequence layout 1dev | focus 'iTerm2' | focus 'Dash'
 bind 4:${hyper} sequence layout 1pdf | focus 'Preview' | focus 'iTerm2'
-bind 5:${hyper} sequence layout 1mpv | focus 'mpv' | focus 'Microsoft OneNote'
-bind 8:${hyper} sequence activate-snapshot random | focus 'Microsoft OneNote' | focus 'mpv'
+bind 5:${hyper} sequence layout 1mpv | focus 'mpv' | focus 'Evernote'
+bind 8:${hyper} sequence activate-snapshot random | focus 'Evernote' | focus 'mpv'
 bind 9:${hyper} snapshot random save-to-disk
 bind space:${hyper} hide 'current'
 
 ## Application aliases
 alias browser  'Google Chrome'
-alias editor   'MacVim'
-alias terminal 'iTerm2'
-alias music    'Google Play Music Desktop Player'
-alias email    'Inbox by Google'
+alias editor   'Code'
 
 ## Focus Bindings
 bind a:${hyper}  focus left
@@ -141,25 +136,17 @@ bind 9:${hyper}   resize -10% +0 top-right
 bind 0:${hyper}   resize +10% +0 top-right
 bind -:${hyper}   resize -10% +0
 bind =:${hyper}   resize +10% +0
-# bind tab:${hyper} switch
 
 ## App bindings
-# These are laid out on the left hand
-# bind space:${hyper} focus  ${editor}
 bind w:${hyper}     focus 'WhatsApp'
+bind t:${hyper}     focus 'Alacritty'
 bind q:${hyper}     focus 'Dash'
 bind g:${hyper}     focus 'Finder'
 bind p:${hyper}     focus 'Preview'
-# bind m:${hyper}     focus ${music}
 bind m:${hyper}     focus 'Marked 2'
 bind r:${hyper}     focus 'Reeder'
 bind tab:${hyper}   focus 'Pocket'
-bind e:${hyper}     focus ${email}
-bind e:${hyper}     focus 'Electron'
+bind e:${hyper}     focus 'Evernote'
 bind z:${hyper}     focus 'iBooks'
 bind v:${hyper}     focus 'mpv'
-bind z:${hyper}     focus 'Caprine'
-# NOTE: mapped the following in Karabiner (doesn't work here)
-# bind b:${hyper}     focus ${browser}
-# bind t:${hyper}     focus 'iTerm2'
-# bind n:${hyper}     focus 'OneNote'
+bind b:${hyper}     focus ${browser}

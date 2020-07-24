@@ -40,6 +40,18 @@ try() { output=$(eval '"$@"'); }
 # writes the output of the previously used "try" command
 dump() { /bin/echo "$output"; }
 
+bat_preview() {
+     COLORTERM=8bit bat \
+        --paging never \
+        --color always \
+        --decorations always \
+        --style numbers,changes \
+        --wrap character \
+        --terminal-width "$width" \
+        --line-range "0:$maxln" \
+        "$@"
+}
+
 # a common post-processing function used after most commands
 trim() { head -n "$maxln"; }
 
@@ -49,12 +61,8 @@ safepipe() { "$@"; test $? = 0 -o $? = 141; }
 # Image previews, if enabled in ranger.
 if [ "$preview_images" = "True" ]; then
     case "$mimetype" in
-        # Image previews for SVG files, disabled by default.
-        ###image/svg+xml)
-        ###   convert "$path" "$cached" && exit 6 || exit 1;;
-        # Image previews for image files. w3mimgdisplay will be called for all
-        # image files (unless overriden as above), but might fail for
-        # unsupported types.
+        image/svg+xml)
+           convert "$path" "$cached" && exit 6 || exit 1;;
         image/*)
             exit 7;;
         # Image preview for video, disabled by default.:
@@ -71,6 +79,8 @@ case "$extension" in
         try acat "$path" && { dump | trim; exit 3; }
         try bsdtar -lf "$path" && { dump | trim; exit 0; }
         exit 1;;
+    csv)
+        sed "s/\(.*\".*\),\(.*\".*\)/\1~\2/;s/,/\t/g;s/~/,/g;s/\t\"/\t/g;s/\"\t/\t/g" "$path" && { dump| trim; exit 0; } || exit 1;;
     rar)
         # avoid password prompt by providing empty password
         try unrar -p- lt "$path" && { dump | trim; exit 0; } || exit 1;;
@@ -79,8 +89,9 @@ case "$extension" in
         try 7z -p l "$path" && { dump | trim; exit 0; } || exit 1;;
     # PDF documents:
     pdf)
-        try pdftotext -l 10 -nopgbrk -q "$path" - && \
-            { dump | trim | fmt -s -w $width; exit 0; } || exit 1;;
+        try pdftoppm -jpeg -singlefile "$path" "${cached//.jpg}" && exit 6 || exit 1;;
+        #try pdftotext -l 10 -nopgbrk -q "$path" - && \
+            #{ dump | trim | fmt -s -w $width; exit 0; } || exit 1;;
     # BitTorrent Files
     torrent)
         try transmission-show "$path" && { dump | trim; exit 5; } || exit 1;;
@@ -89,27 +100,20 @@ case "$extension" in
         try odt2txt "$path" && { dump | trim; exit 5; } || exit 1;;
     # HTML Pages:
     htm|html|xhtml)
-        try w3m    -dump "$path" && { dump | trim | fmt -s -w $width; exit 4; }
-        try lynx   -dump "$path" && { dump | trim | fmt -s -w $width; exit 4; }
-        try elinks -dump "$path" && { dump | trim | fmt -s -w $width; exit 4; }
+        try w3m    -dump "$path" && { dump | trim | fmt -s -w "$width"; exit 4; }
+        try lynx   -dump "$path" && { dump | trim | fmt -s -w "$width"; exit 4; }
+        try elinks -dump "$path" && { dump | trim | fmt -s -w "$width"; exit 4; }
         ;; # fall back to highlight/cat if the text browsers fail
+    # JSON data
+    json)
+        try jq . "$path" && { dump | bat_preview --language json; exit 4; }
+        ;;
 esac
-
-# https://www.apt-browse.org/browse/debian/wheezy/main/all/highlight-common/3.9-1+deb7u1/file/usr/share/highlight/themes
-HIGHLIGHT_THEME="molokai"
 
 case "$mimetype" in
     # Syntax highlight for text files:
     text/* | */xml)
-        if [ "$(tput colors)" -ge 256 ]; then
-            pygmentize_format=256
-            highlight_format="xterm256 --style=$HIGHLIGHT_THEME"
-        else
-            pygmentize_format=terminal
-            highlight_format=ansi
-        fi
-        try safepipe highlight --out-format=${highlight_format} "$path" && { dump | trim; exit 5; }
-        try safepipe pygmentize "$path" && { dump | trim; exit 5; }
+        bat_preview "$path" && { exit 4; }
         exit 2;;
     # Ascii-previews of images:
     image/*)
@@ -122,3 +126,14 @@ case "$mimetype" in
 esac
 
 exit 1
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
