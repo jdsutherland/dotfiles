@@ -250,25 +250,10 @@
   </item>
 
   <item>
-    <name>FN key tap madruby execute macro</name>
-    <appendix>FN execute macro</appendix>
-    <identifier>fn-execute-macro</identifier>
-    <not>TERMINAL</not>
-    <uielementrole_not>AXTextField, AXTextArea</uielementrole_not>
-    <autogen>
-        --KeyOverlaidModifier--
-        KeyCode::FN,
-
-        KeyCode::FN,
-        KeyCode::8, ModifierFlag::COMMAND_R, ModifierFlag::SHIFT_L, ModifierFlag::CONTROL_L
-    </autogen>
-  </item>
-
-  <item>
     <name>SHIFT_L key tap screenshot</name>
     <appendix>SHIFT_L screenshot</appendix>
     <identifier>SHIFT_L-tap-screenshot</identifier>
-    <not>TERMINAL, STARCRAFT</not>
+    <not>TERMINAL</not>
     <uielementrole_not>AXTextField, AXTextArea</uielementrole_not>
     <autogen>
         --KeyOverlaidModifier--
@@ -283,7 +268,7 @@
     <name>SHIFT_R key tap cycle same app windows</name>
     <appendix>SHIFT_R is COMMAND_L+`</appendix>
     <identifier>SHIFT_R-tap-cycle</identifier>
-    <not>TERMINAL, STARCRAFT</not>
+    <not>TERMINAL</not>
     <uielementrole_not>AXTextField, AXTextArea</uielementrole_not>
     <autogen>
         --KeyOverlaidModifier--
