@@ -68,17 +68,18 @@ set splitright
 set diffopt+=vertical
 
 " base16 vim
-if filereadable(expand('~/.vimrc_background'))
-  let g:base16colorspace=256
-  source ~/.vimrc_background
-endif
+" if filereadable(expand('~/.vimrc_background'))
+"   let g:base16colorspace=256
+"   source ~/.vimrc_background
+" endif
 
 " color
-" set background=dark
-" set termguicolors
+set background=dark
+set termguicolors
 
-colorscheme base16-default-dark
-highlight Comment cterm=italic
+colorscheme base16-tomorrow-night
+highlight Comment cterm=italic gui=italic
+
 
 " Display extra whitespace
 set listchars=tab:→\ ,trail:∙,nbsp:•,eol:¶

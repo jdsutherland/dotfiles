@@ -51,7 +51,7 @@ nmap <leader>aa ],i,<space>
 nmap <M-;> ]sz=
 inoremap <M-a> <ESC>f<space>a
 nnoremap <silent> <space>o :FzfOutline<CR>
-inoremap <M-t> <C-O>:FzfSnippets<CR>
+inoremap <c-t> <C-O>:FzfSnippets<CR>
 " noremap <M-t> :FzfSnippets<CR>
 nnoremap <M-e> :VtrFocusRunner<cr>
 " delete a chunk
@@ -109,6 +109,7 @@ nnoremap <silent>,cf :let @* = expand("%:~")<CR>
 nnoremap <silent>,cn :let @* = expand("%:t")<CR>
 
 " replace with system clipboard
+
 nmap ,gr "*gr
 
 nnoremap <silent> <space><space> :call InterestingWords('n')<cr>
@@ -171,8 +172,8 @@ nnoremap <silent> ,vs   :vert stag<space>
 nmap <expr> <space>z foldclosed('.') != -1 ? 'za' : 'zc'
 
 " toggle all folds
-nnoremap <expr> <leader>Z &foldlevel ? 'zM' :'zR'
-nnoremap <expr> <leader>z 'zR'
+nnoremap <expr> <leader>z &foldlevel ? 'zM' :'zR'
+nnoremap <expr> <leader>Z 'zR'
 
 nnoremap <space>D :bd<CR>
 nnoremap <tab>n :set nonumber!<CR>:set norelativenumber!<CR>
@@ -195,7 +196,7 @@ noremap <c-w>/ :windo wincmd H<cr>
 nnoremap <silent> <space>tc :tabclose<CR>gT
 nnoremap <leader>wn :tabnew%<cr>
 nnoremap <silent><cr>z :ZoomWinTabToggle<CR>
-nnoremap <silent><m-t> :ZoomWinTabToggle<CR>
+" nnoremap <silent><m-t> :ZoomWinTabToggle<CR>
 nnoremap <silent>M :ZoomWinTabToggle<CR>
 " nnoremap T :tabclo<cr>gT
 " Go to tab by number
@@ -482,7 +483,7 @@ map <leader>ct ct_
 map <leader>dd daW
 map <leader>da vacjd
 map <leader>df dip
-map <leader>cc ,vvc
+map <leader>cc ciW
 map gy yiw
 map <cr>g griw
 " replace to end of line
@@ -521,11 +522,17 @@ omap F <Plug>(clever-f-F)
 " karabiner coupled hacks
 nnoremap <M-S-z> :OpenTmuxGitFileFollowHistory<cr>
 nnoremap <M-S-x> :OpenTmuxGitFileFullHistory<cr>
+" HACK: karabiner map <c-i>=>F6 to allow seperate <tab> & <c-i> maps
+nnoremap <F6> <C-i>
 
 " ----SURROUND----
 " ,# Surround a word with #{ruby interpolation}
 map ,# ysiw}i#<esc>E
 vmap ,# c#{<C-R>"}<ESC>
+
+" ,$ Surround a word with ${js interpolation}
+map ,$ ysiw}i$<esc>E
+vmap ,$ c${<C-R>"}<ESC>
 
 " ," Surround a word with "quotes"
 map ," ysiw"
@@ -559,15 +566,13 @@ map ,<space> ysiw<space><space>
 
 " paste system clip without added newline above
 nmap cV cvgpO<esc>kdd
+nmap cv <Plug>SystemPasteLine
 nmap cpp cpil
 nmap <space>c cp$
 " exchange to end of line
 nmap cX cx$
 
 imap <c-y><c-y> <Plug>(emmet-expand-abbr)
-
-" HACK: karabiner map <c-i>=>F6 to allow seperate <tab> & <c-i> maps
-nnoremap <F6> <C-i>
 
 nmap <leader>m <Plug>GrepOperatorOnCurrentDirectory
 vmap <leader>m <Plug>GrepOperatorOnCurrentDirectory

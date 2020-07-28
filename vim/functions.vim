@@ -1,32 +1,7 @@
-function! s:fzf_statusline()
-  " Override statusline as you like
-  highlight fzf1 ctermfg=161 ctermbg=251
-  highlight fzf2 ctermfg=23 ctermbg=251
-  highlight fzf3 ctermfg=237 ctermbg=251
-  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-endfunction
-autocmd! User FzfStatusLine call <SID>fzf_statusline()
-
-" function! SearchWordWithAg()
-"   execute 'FzfAg' expand('<cword>')
-" endfunction
-
 function! SearchWordWithRg()
   let l:word = expand('<cword>')
   execute 'Rg' l:word
 endfunction
-
-" function! SearchVisualSelectionWithAg() range
-"   let old_reg = getreg('"')
-"   let old_regtype = getregtype('"')
-"   let old_clipboard = &clipboard
-"   set clipboard&
-"   normal! ""gvy
-"   let selection = getreg('"')
-"   call setreg('"', old_reg, old_regtype)
-"   let &clipboard = old_clipboard
-"   execute 'FzfAg' selection
-" endfunction
 
 function! SearchVisualSelectionWithRg() range
   let old_reg = getreg('"')
@@ -187,14 +162,6 @@ function! s:OpenTmuxGitFileFullHistoryReverse()
   call system("tmux splitw -h -c '#{pane_current_path}' 'git log --patch --reverse --full-diff " . filepath . "; read'")
 endfunction
 command! OpenTmuxGitFileFullHistoryReverse :call <sid>OpenTmuxGitFileFullHistoryReverse()
-
-" TODO - how to make this work?
-" function! ES6js()
-"   %s/var/const/g
-"   %s/\"/\'/g
-"   %s/function\s*()/\(\) \=>/g
-" endfunction
-" command! ES6js :call <sid>ES6js()
 
 " run :GoBuild or :GoTestCompile based on the go file
 function! BuildGoFiles()

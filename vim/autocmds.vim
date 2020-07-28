@@ -52,6 +52,9 @@ autocmd FileType markdown nnoremap <buffer> <space>ll :Toct<cr>
 " vim
 autocmd FileType vim nmap ,cl yiWoechom <c-r>"<Esc>
 
+" elixir
+autocmd FileType elixir inoremap ,tt \|>
+
 " javascript
 " TODO: add more as needed
 autocmd FileType javascript UltiSnipsAddFiletypes javascript-node
@@ -115,7 +118,6 @@ autocmd Filetype go set foldmethod=syntax
 " au FileType c,cpp  nmap ,f <Plug>(clang_complete_goto_declaration)
 " autocmd BufEnter *.cpp,*.h,*.hpp,*.hxx let g:ale_cpp_clang_options = join(ncm_clang#compilation_info()['args'], ' ')
 " autocmd FileType cpp,c set path=.,/usr/include,/usr/local/include,/usr/include/c++/4.2.1,/usr/local/include/glib-2.0
-autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
 autocmd FileType cpp,c nmap ,cl yiwoprintf("<c-r>": %s\n", <c-r>");<Esc>^
 autocmd FileType cpp,c nmap ,cL yiwofprintf(stderr, "<c-r>": %s\n", <c-r>");<Esc>^
 
@@ -136,38 +138,11 @@ augroup END
 autocmd FileType ruby setlocal path+=lib
 autocmd FileType ruby noremap <leader>R :VtrSendCommandToRunner rake<cr>
 autocmd FileType ruby map <leader>bp orequire "pry": binding.pry<esc>^
-autocmd FileType ruby map <leader>bpr orequire "pry-remote": binding.remote_pry<esc>^
-" hack for constructor assignment
-autocmd FileType ruby map <cr>c yiWi@<esc>A<space>=<space><C-R>"<esc>
 autocmd FileType ruby nmap ,cl yiwoputs "<c-r>"; #{<c-r>".inspect<Esc>^
 autocmd FileType ruby imap ,rs &;
 autocmd FileType ruby imap ,rS <=>
 autocmd FileType ruby imap ,tt self
-
 autocmd FileType ruby compiler ruby
-
-" Goyo
-function! s:goyo_enter()
-  silent !tmux set status off
-  " silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-  set noshowmode
-  set noshowcmd
-  set scrolloff=999
-  " Limelight
-  " ...
-endfunction
-
-function! s:goyo_leave()
-  silent !tmux set status on
-  " silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-  " set showmode
-  set showcmd
-  set scrolloff=3
-  Limelight!
-  " ...
-endfunction
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " " vim-pencil - advanced init
 function! Prose()
@@ -208,41 +183,8 @@ endfunction
 " invoke manually by command for other file types
 command! -nargs=0 Prose call Prose()
 
-" attempt to load directory with ranger.vim
-augroup ranger
-    au!
-    au VimEnter * sil! au! FileExplorer *
-    au BufEnter * if s:isdir(expand('%')) | bd | exe 'Ranger' | endif
-augroup END
-fu! s:isdir(dir) abort
-    return !empty(a:dir) && (isdirectory(a:dir) ||
-                \ (!empty($SYSTEMDRIVE) && isdirectory('/'.tolower($SYSTEMDRIVE[0]).a:dir)))
-endfu
-
-autocmd BufEnter * EnableStripWhitespaceOnSave
+" autocmd BufEnter * EnableStripWhitespaceOnSave
 autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 
-" autocmd BufWritePre *.py ImpSort!
-autocmd FileType python,haml,coffee BracelessEnable +indent +fold
-autocmd FileType yaml,ruby BracelessEnable +fold
-
-" nc2 completion
-" wrap existing omnifunc
-" Note that omnifunc does not run in background and may probably block the
-" editor. If you don't want to be blocked by omnifunc too often, you could
-" add 180ms delay before the omni wrapper:
-"  'on_complete': ['ncm2#on_complete#delay', 180,
-"               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-au User Ncm2Plugin call ncm2#register_source({
-        \ 'name' : 'css',
-        \ 'priority': 9,
-        \ 'subscope_enable': 1,
-        \ 'scope': ['css','scss'],
-        \ 'mark': 'css',
-        \ 'word_pattern': '[\w\-]+',
-        \ 'complete_pattern': ':\s*',
-        \ 'on_complete': ['ncm2#on_complete#delay', 180,
-                   \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-        \ })
-
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+" resize when closing tmux pane
+autocmd VimResized * wincmd =

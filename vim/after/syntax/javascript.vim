@@ -45,8 +45,8 @@ syntax match jsOperator "\s\zs>=\ze\s" conceal cchar=≥
 " syntax match jsOperator /![^=]/me=e-1 conceal cchar=¬
 syntax match jsOperator "\<not\>" conceal cchar=¬
 syntax keyword jsOperator in conceal cchar=∈
-syntax keyword jsExtendsKeyword extends conceal cchar=<
-syntax keyword jsOperator new conceal cchar=μ
+syntax keyword jsStatement extends conceal cchar=<
+syntax keyword jsStatement new conceal cchar=μ
 syntax match jsOperator "=\@<!===\@!" conceal cchar=≈
 syntax match jsOperator "=\@<!====\@!" conceal cchar=≣
 syntax match jsOperator "\s\zs!=\ze\s" conceal cchar=≠
@@ -66,8 +66,8 @@ syntax keyword jsGlobalObjects Promise conceal cchar=Ᵽ
 syntax keyword jsAsyncKeyword async conceal cchar=Å
 syntax keyword jsAsyncKeyword await conceal cchar=å
 
-syntax keyword jsExport export conceal cchar=E
-syntax keyword jsImport import conceal cchar=ɪ
+syntax keyword jsStatement export conceal cchar=E
+syntax keyword jsStatement import conceal cchar=ɪ
 " syntax keyword jsArguments arguments conceal cchar=ȁ
 
 syntax keyword jsGlobalObjects Boolean conceal cchar=ƀ
@@ -94,6 +94,7 @@ syntax keyword jsStatement continue conceal cchar=↰
 
 hi! link Conceal Operator
 " hi! Conceal ctermbg=Black ctermfg=Magenta
-hi! Conceal ctermbg=Black ctermfg=LightRed
+hi! Conceal guifg=#f1fa8c
+
 " hi! Conceal ctermbg=Black ctermfg=239
 "setlocal conceallevel=2
