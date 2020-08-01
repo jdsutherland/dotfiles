@@ -138,8 +138,9 @@ bind -:${hyper}   resize -10% +0
 bind =:${hyper}   resize +10% +0
 
 ## App bindings
-bind w:${hyper}     focus 'WhatsApp'
 bind t:${hyper}     focus 'Alacritty'
+# HACK: coupled to karabiner remap hyper+w b/c triggers WiFiDiagnostic
+bind `:${hyper}     focus 'WhatsApp'
 bind q:${hyper}     focus 'Dash'
 bind g:${hyper}     focus 'Finder'
 bind p:${hyper}     focus 'Preview'
