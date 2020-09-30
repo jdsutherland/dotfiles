@@ -2,45 +2,251 @@ function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
 
-" TODO: try
-" Plug 'metakirby5/codi.vim' " repl
-" Plug 'pechorin/any-jump.vim'
-" Plug 'liuchengxu/vista.vim' " replaces tagbar
-" Plug 'liuchengxu/vim-which-key'
-" Plug 'rhysd/git-messenger.vim'
-" Plug 'RRethy/vim-hexokinase' see if this replaces vim-css-color - supposedly faster
-" Plug 'pechorin/any-jump.vim'
-" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " vim browser textarea
+" TODO: see if this replaces rappel
+Plug 'thinca/vim-quickrun'
 
-" CoC
-Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install() }}
-Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-solargraph'
+" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " browser textarea
+" Plug 'chaoren/vim-wordmotion'
+Plug 'ianding1/leetcode.vim'
+let g:leetcode_browser = "chrome"
+
+Plug 'Shougo/echodoc.vim'
+" let g:echodoc#type = 'virtual'
+" let g:echodoc#type = 'floating'
+let g:echodoc_enable_at_startup = 1
+
+Plug 'vim-utils/vim-man'
+map ,K <Plug>(Vman)<m-b>
+
+Plug '907th/vim-auto-save'
+let g:auto_save        = 0
+let g:auto_save_silent = 1
+let g:auto_save_events = ["InsertLeave", "TextChanged", "FocusLost"]
+
+" {{{ sideways.vim
+Plug 'AndrewRadev/sideways.vim'
+nnoremap <, :SidewaysLeft<cr>
+nnoremap >, :SidewaysRight<cr>
+omap aa <Plug>SidewaysArgumentTextobjA
+xmap aa <Plug>SidewaysArgumentTextobjA
+omap ia <Plug>SidewaysArgumentTextobjI
+xmap ia <Plug>SidewaysArgumentTextobjI
+nmap ,aa <Plug>SidewaysArgumentAppendAfter
+nmap ,aj <Plug>SidewaysArgumentAppendLast
+" uses rhysd/vim-textobj-anyblock to append str
+" useful to append html attr (class etc)
+nmap ,as vib<esc>a<space>
+nmap s,i <Plug>SidewaysArgumentInsertBefore
+nmap s,a <Plug>SidewaysArgumentAppendAfter
+nmap s,I <Plug>SidewaysArgumentInsertFirst
+nmap s,A <Plug>SidewaysArgumentAppendLast
+" }}}
+
+Plug 'pechorin/any-jump.vim'
+nnoremap <m-a> :AnyJump<CR>
+nnoremap <tab>l :AnyJumpLastResults<CR>
+
+Plug 'rhysd/git-messenger.vim'
+nmap <space>m <Plug>(git-messenger)
+" let g:git_messenger_include_diff = 'current'
+let g:git_messenger_always_into_popup = v:true
+
+" {{{ vista
+Plug 'liuchengxu/vista.vim' " replaces tagbar
+let g:vista_default_executive = 'coc'
+let g:vista_finder_alternative_executives = ['coc', 'ctags']
+let g:vista_stay_on_open = 0
+" let g:vista_keep_fzf_colors = 1
+" use ctags here?
+nnoremap <silent> <space>o :Vista finder coc<CR>
+nnoremap <silent> <space>O :Vista finder ctags<CR>
+nnoremap <silent> <M-z> :Vista!!<CR>
+" }}}
+
+Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
+let g:Hexokinase_ftEnabled = ['css', 'html', 'javascript', 'javascriptreact', 'typescript.tsx', 'typescriptreact', 'eruby', 'scss', 'sass']
+let g:Hexokinase_highlighters = ['backgroundfull']
+
+" {{{ CoC
+hi CocErrorSign  ctermfg=Red guifg=#cc6666
+hi CocWarningSign  ctermfg=Brown guifg=#f0c674
+hi CocInfoSign  ctermfg=Yellow guifg=#bababa
+Plug 'neoclide/coc.nvim', {'commit': '4f40c16a15336b589b1b5b509df4e00300d755eb'}
+Plug 'antoinemadec/coc-fzf'
+let g:coc_fzf_preview= 'right:50%'
+let g:coc_global_extensions = [
+  \ 'coc-css',
+  \ 'coc-snippets',
+  \ 'coc-json',
+  \ 'coc-tsserver',
+  \ 'coc-elixir',
+  \ 'coc-html',
+  \ 'coc-yaml',
+  \ 'coc-vimlsp',
+  \ 'coc-svg',
+  \ 'coc-actions',
+  \ 'coc-lists',
+  \ 'coc-json',
+  \ 'coc-solargraph',
+  \ 'coc-yank',
+  \ 'coc-sh',
+  \ 'coc-jest',
+  \ 'coc-emmet',
+  \ 'coc-todolist',
+  \ 'coc-clangd',
+  \ 'coc-react-refactor',
+  \ 'coc-sql',
+  \ 'coc-db',
+  \ ]
+
+nnoremap ,sS :CocList -A snippets<cr>
+nnoremap ,SS :CocFzfList snippets<cr>
+nnoremap <silent> ,ss :CocCommand snippets.editSnippets<cr>
+
+" nnoremap <silent> <space>p :<C-u>CocList -A --normal yank<cr>
+nnoremap <silent> <space>p :<C-u>CocFzfList yank<cr>
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+  let g:coc_global_extensions += ['coc-prettier']
+endif
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+  let g:coc_global_extensions += ['coc-eslint']
+endif
+
+function! s:check_eslint()
+  if !isdirectory('./node_modules') || !isdirectory('./node_modules/eslint')
+    call coc#config('eslint', {
+    \ 'enable': v:false,
+    \ })
+  endif
+endfunction
+autocmd BufEnter *.{js,jsx,ts,tsx} :call <SID>check_eslint()
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" TODO: keep?
+inoremap <expr> <tab> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<tab>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" TODO: verify - emmet-move-prev doesn't seem to work
+" imap <expr> <c-j> pumvisible() ? '<C-n>' : '<plug>(emmet-move-next)'
+" imap <expr> <c-k> pumvisible() ? '<C-p>' : '<plug>(emmet-move-prev)'
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <tab> <Plug>(coc-snippets-select)
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+" Use <C-j> for both expand and jump (make expand higher priority.)
+" imap <C-j> <Plug>(coc-snippets-expand-jump)
+inoremap <silent><expr> <c-f>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<c-f>" :
+      \ coc#refresh()
+
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" TODO: broke <cr>g map
+" Remap keys for gotos
+nmap <silent> <cr>gd <Plug>(coc-definition)
+nmap <silent> <cr>gy <Plug>(coc-type-definition)
+nmap <silent> <cr>gi <Plug>(coc-implementation)
+nmap <silent> <cr>gr <Plug>(coc-references)
+
+" show documentation
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> <space><space> :call <SID>show_documentation()<CR>
+
+" common editor actions
+nmap <leader>rn <Plug>(coc-rename)
+" xmap <tab>f <Plug>(coc-format-selected)
+" nmap <tab>f <Plug>(coc-format-selected)
+nmap <leader>do <Plug>(coc-codeaction)
+
+augroup cocgroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Fix autofix problem of current line
+nmap <space>f <Plug>(coc-fix-current)
+
+" Create mappings for function text object, requires document symbols feature of languageserver.
+
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Show all diagnostics
+nnoremap <silent> <tab>d :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <tab>e :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <tab>c :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <tab>o :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <tab>s :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <tab>j :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <tab>k :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <tab>p :<C-u>CocListResume<CR>
+
+nnoremap <space>C :cclose<cr>:pclose<cr>:call coc#util#float_hide()<cr>
+nnoremap <space>R :silent CocRestart<cr>
+" }}}
 
 " general
 Plug 'AndrewRadev/linediff.vim'
-Plug 'machakann/vim-highlightedyank'
-Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'dietsche/vim-lastplace'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'wellle/targets.vim'
 Plug 'sickill/vim-pasta'
-Plug 'AndrewRadev/whitespaste.vim' " claims integrates with vim-pasta TODO: verify
+Plug 'AndrewRadev/whitespaste.vim'
 Plug 'AndrewRadev/undoquit.vim'
 Plug 'tommcdo/vim-exchange'
 Plug 'wesQ3/vim-windowswap'
-Plug 'tpope/vim-abolish'
+Plug 'flw-cn/vim-markdown'
+Plug 'jdsutherland/bracey.vim', {'do': 'npm install --prefix server', 'branch': 'postcss-and-remove-csslint'}
+Plug 'mogelbrod/vim-jsonpath'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'markonm/traces.vim'
+Plug 'chriskempson/base16-vim'
 Plug 'tpope/vim-apathy'
-Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-dotenv'
@@ -51,57 +257,158 @@ Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-surround'
+Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-dadbod'
+Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'diepm/vim-rest-console'
 Plug 'rizzatti/dash.vim'
-Plug 'FooSoft/vim-argwrap'
-Plug 'PeterRincker/vim-argumentative'
+Plug 'honza/vim-snippets'
+Plug 'jhkersul/vim-jest-snippets'
+Plug 'dsznajder/vscode-es7-javascript-react-snippets', { 'do': 'yarn install --frozen-lockfile && yarn compile' }
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-quicklink'
+Plug 'christoomey/vim-sort-motion'
+Plug 'christoomey/vim-system-copy'
+Plug 'sunaku/vim-hicterm'
+Plug 'vim-scripts/SyntaxAttr.vim'
+Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'vim-scripts/BufOnly.vim'
+Plug 'machakann/vim-sandwich'
+Plug 'troydm/zoomwintab.vim'
+Plug 'triglav/vim-visual-increment'
+Plug 'mattboehm/vim-unstack'
+Plug 'mattboehm/vim-accordion'
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'duff/vim-ddldbl'
+Plug 'kassio/neoterm'
+
+" {{{ titlecase
+Plug 'christoomey/vim-titlecase'
+let g:titlecase_map_keys = 0
+nmap <leader>gt <Plug>Titlecase
+vmap <leader>gt <Plug>Titlecase
+nmap <leader>gT <Plug>TitlecaseLine
+" }}}
+
+Plug 'tpope/vim-abolish'
+nnoremap <Leader>abs :%S/
+nnoremap <Leader>abb :%S// **/*<left><left><left><left><left><left>
+
+Plug 'tpope/vim-characterize'
+nmap <cr><space><space> <Plug>(characterize)
+
+" vim-surround {{{
+Plug 'tpope/vim-surround'
+" x Surround jsx
+autocmd FileType javascriptreact,typescriptreact,typescript.tsx let b:surround_120 = "<\r />"
+nmap ,x ysiwxe
+
+" ,# Surround a word with #{ruby interpolation}
+map ,# ysiw}i#<esc>E;
+vmap ,# c#{<C-R>"}<ESC>
+
+" ,$ Surround a word with ${js interpolation}
+map ,$ ysiw}i$<esc>E
+vmap ,$ c${<C-R>"}<ESC>
+
+" ," Surround a word with "quotes"
+map ," ysiw"
+vmap ," c"<C-R>""<ESC>
+
+" ,' Surround a word with 'single quotes'
+map ,' ysiw'
+vmap ,' c'<C-R>"'<ESC>
+
+" ,) or ,( Surround a word with (parens)
+" The difference is in whether a space is put in
+map ,( ysiw(
+map ,) ysiw)
+vmap ,( c( <C-R>" )<ESC>
+vmap ,) c(<C-R>")<ESC>
+
+" ,[ Surround a word with [brackets]
+map ,] ysiw]
+map ,[ ysiw[
+vmap ,[ c[ <C-R>" ]<ESC>
+vmap ,] c[<C-R>"]<ESC>
+
+" ,{ Surround a word with {braces}
+map ,} ysiw}
+map ,{ ysiw{
+vmap ,} c{ <C-R>" }<ESC>
+vmap ,{ c{<C-R>"}<ESC>
+
+nmap ,` ysiw`
+nmap ,<space> ysiw<space><space>
+" }}}
+
 Plug 'AndrewRadev/splitjoin.vim'
 let g:splitjoin_html_attributes_bracket_on_new_line = 1
 Plug 'AndrewRadev/switch.vim'
 let g:switch_mapping = "-"
 
-" TODO: replace w/ coc-snippets
-Plug 'SirVer/ultisnips' | Plug 'jdsutherland/vim-snippets'
-let g:UltiSnipsEditSplit='vertical'
-let g:UltiSnipsListSnippets='<C-s>'
-let g:UltiSnipsJumpForwardTrigger='<C-J>'
-Plug 'epilande/vim-react-snippets'
-Plug 'jhkersul/vim-jest-snippets'
-
+" {{{ listtoggle
 Plug 'Valloric/ListToggle'
 let g:toggle_list_no_mappings = 1
 let g:lt_location_list_toggle_map = '\d'
 let g:lt_quickfix_list_toggle_map = '\\'
+" }}}
 
+" {{{ resize
 Plug 'breuckelen/vim-resize'
 let g:vim_resize_disable_auto_mappings = 1
+nnoremap <silent> <left> :CmdResizeLeft<cr>
+nnoremap <silent> <down> :CmdResizeDown<cr>
+nnoremap <silent> <up> :CmdResizeUp<cr>
+nnoremap <silent> <right> :CmdResizeRight<cr>
+" }}}
 
-Plug 'christoomey/vim-sort-motion'
-Plug 'christoomey/vim-system-copy'
-
-Plug 'christoomey/vim-titlecase'
-let g:titlecase_map_keys = 0
-
-Plug 'christoomey/vim-tmux-navigator'
+" vim-tmux-runner {{{
 Plug 'christoomey/vim-tmux-runner'
 let g:VtrUseVtrMaps = 1
 let g:VtrGitCdUpOnOpen = 1
+nnoremap <leader>sr :VtrOpenRunner {'orientation': 'h', 'percentage': 50}<cr>
+nnoremap <leader>or :VtrOpenRunner {'orientation': 'v', 'percentage': 20}<cr>
+nnoremap <leader>sf :w<cr>:call SendFileViaVtr()<cr>
+nnoremap <leader>pry :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'pry'}<cr>
+nnoremap <leader>nr :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'node'}<cr>
+nnoremap <leader>sd :VtrSendCtrlD<cr>
+" send everything
+" nmap ,sL vae<leader>sl
+" " nmap <CR>f gv<leader>sl TODO: new map
+vmap <CR>f ,sl
+" " useful resending sql
+nmap <cr>F vap,sl
+" " TODO: send textobj-chunk to runner
+" nmap <cr>c vac<leader>sl
+"
+" }}}
 
-Plug 'christoomey/vim-quicklink'
-
+" {{{ easymotion
 Plug 'easymotion/vim-easymotion'
 let g:EasyMotion_leader_key = '<M-u>'
+nmap <space>w <M-u>w
+nmap <space>b <M-u>b
+nmap <space>e <M-u>e
+" nmap <space>f <M-u>f
+nmap <space>k <M-u>k
+nmap <space>j <M-u>j
+" }}}
 
+" {{{ vim-test
 Plug 'janko-m/vim-test'
 let test#strategy = 'vtr'
 let g:test#preserve_screen = 1
 let g:test#go#gotest#options = '-v'
+nnoremap <silent> <space>tt :TestNearest<CR>
+nnoremap <silent> <space>ts :TestSuite<CR>
+nnoremap <silent> <space>tf :TestFile<CR>
+nnoremap <silent> <space>tl :TestLast<CR>
+nnoremap <silent> <space>tv :vsp<CR>:exec ':TestVisit'<CR>
+" }}}
 
 Plug 'jiangmiao/auto-pairs'
-let g:AutoPairsMapCR = 1
 let g:AutoPairsShortcutJump = ''
 
 Plug 'junegunn/vim-easy-align'
@@ -123,186 +430,181 @@ Plug 'reedes/vim-textobj-sentence'
 Plug 'inside/vim-textobj-jsxattr'
 Plug 'kana/vim-textobj-function' | Plug 'thinca/vim-textobj-function-javascript'
 Plug 'machakann/vim-textobj-delimited'
+Plug 'rhysd/vim-textobj-anyblock'
 " }}}
 
-" tagbar {{{
+" " tagbar {{{
 " Plug 'majutsushi/tagbar'
-let g:tagbar_compact = 1
-let g:tagbar_zoomwidth = 0
-let g:tagbar_indent = 1
-let g:tagbar_width = 35
-let g:tagbar_expand = 1
-let g:tagbar_map_previewwin= "O"
-let g:tagbar_iconchars = ['▸', '▾']
-let g:tagbar_sort = 0
+" " tagbar
+" nnoremap <silent> <M-z> :TagbarToggle<CR>
+" nnoremap <silent> ,zz :TagbarOpen fj<CR>
+" nnoremap <silent> ,zx :TagbarTogglePause<CR>
+" let g:tagbar_compact = 1
+" let g:tagbar_zoomwidth = 0
+" let g:tagbar_indent = 1
+" let g:tagbar_width = 35
+" let g:tagbar_expand = 1
+" let g:tagbar_map_previewwin= "O"
+" let g:tagbar_iconchars = ['▸', '▾']
+" let g:tagbar_sort = 0
 
-let g:tagbar_type_css = {
-\ 'ctagstype' : 'Css',
-    \ 'kinds'     : [
-        \ 'c:classes',
-        \ 's:selectors',
-        \ 'i:identities'
-    \ ]
-\ }
-let g:tagbar_type_elixir = {
-    \ 'ctagstype' : 'elixir',
-   \ 'kinds' : [
-        \ 'f:functions',
-        \ 'functions:functions',
-        \ 'c:callbacks',
-        \ 'd:delegates',
-        \ 'e:exceptions',
-        \ 'i:implementations',
-        \ 'a:macros',
-        \ 'o:operators',
-        \ 'm:modules',
-        \ 'p:protocols',
-        \ 'r:records',
-        \ 't:tests'
-    \ ]
-\ }
-let g:tagbar_type_go = {
-  \ 'ctagstype' : 'go',
-  \ 'kinds'     : [
-    \ 'p:package',
-    \ 'i:imports:1',
-    \ 'c:constants',
-    \ 'v:variables',
-    \ 't:types',
-    \ 'n:interfaces',
-    \ 'w:fields',
-    \ 'e:embedded',
-    \ 'm:methods',
-    \ 'r:constructor',
-    \ 'f:functions'
-  \ ],
-  \ 'sro' : '.',
-  \ 'kind2scope' : {
-    \ 't' : 'ctype',
-    \ 'n' : 'ntype'
-  \ },
-  \ 'scope2kind' : {
-    \ 'ctype' : 't',
-    \ 'ntype' : 'n'
-  \ },
-  \ 'ctagsbin'  : 'gotags',
-  \ 'ctagsargs' : '-sort -silent'
-\ }
-let g:tagbar_type_make = {
-            \ 'kinds':[
-                \ 'm:macros',
-                \ 't:targets'
-            \ ]
-\}
-let g:tagbar_type_markdown = {
-    \ 'ctagstype' : 'markdown',
-    \ 'kinds' : [
-        \ 'h:Heading_L1',
-        \ 'i:Heading_L2',
-        \ 'k:Heading_L3'
-    \ ]
-\ }
-" 1}}} "
+" let g:tagbar_type_css = {
+" \ 'ctagstype' : 'Css',
+"     \ 'kinds'     : [
+"         \ 'c:classes',
+"         \ 's:selectors',
+"         \ 'i:identities'
+"     \ ]
+" \ }
+" let g:tagbar_type_elixir = {
+"     \ 'ctagstype' : 'elixir',
+"    \ 'kinds' : [
+"         \ 'f:functions',
+"         \ 'functions:functions',
+"         \ 'c:callbacks',
+"         \ 'd:delegates',
+"         \ 'e:exceptions',
+"         \ 'i:implementations',
+"         \ 'a:macros',
+"         \ 'o:operators',
+"         \ 'm:modules',
+"         \ 'p:protocols',
+"         \ 'r:records',
+"         \ 't:tests'
+"     \ ]
+" \ }
+" let g:tagbar_type_go = {
+"   \ 'ctagstype' : 'go',
+"   \ 'kinds'     : [
+"     \ 'p:package',
+"     \ 'i:imports:1',
+"     \ 'c:constants',
+"     \ 'v:variables',
+"     \ 't:types',
+"     \ 'n:interfaces',
+"     \ 'w:fields',
+"     \ 'e:embedded',
+"     \ 'm:methods',
+"     \ 'r:constructor',
+"     \ 'f:functions'
+"   \ ],
+"   \ 'sro' : '.',
+"   \ 'kind2scope' : {
+"     \ 't' : 'ctype',
+"     \ 'n' : 'ntype'
+"   \ },
+"   \ 'scope2kind' : {
+"     \ 'ctype' : 't',
+"     \ 'ntype' : 'n'
+"   \ },
+"   \ 'ctagsbin'  : 'gotags',
+"   \ 'ctagsargs' : '-sort -silent'
+" \ }
+" let g:tagbar_type_make = {
+"             \ 'kinds':[
+"                 \ 'm:macros',
+"                 \ 't:targets'
+"             \ ]
+" \}
+" let g:tagbar_type_markdown = {
+"     \ 'ctagstype' : 'markdown',
+"     \ 'kinds' : [
+"         \ 'h:Heading_L1',
+"         \ 'i:Heading_L2',
+"         \ 'k:Heading_L3'
+"     \ ]
+" \ }
+" " 1}}} "
 
+" {{{ interesting words
 Plug 'vasconcelloslf/vim-interestingwords'
-let g:interestingWordsGUIColors = ['#8CCBEA', '#A4E57E', '#FFAA02', '#FF7272', '#FFB3FF', '#9999FF']
-Plug 'sunaku/vim-hicterm'
-Plug 'vim-scripts/SyntaxAttr.vim'
-Plug 'powerman/vim-plugin-AnsiEsc'
-Plug 'junegunn/vim-peekaboo'
-Plug 'vim-scripts/BufOnly.vim'
-Plug 'machakann/vim-sandwich'
-Plug 'troydm/zoomwintab.vim'
-Plug 'triglav/vim-visual-increment'
-" TODO: keep?
-Plug 'mattboehm/vim-unstack'
-" TODO: keep?
-Plug 'mattboehm/vim-accordion'
-" TODO: keep?
-Plug 'dhruvasagar/vim-table-mode'
-Plug 'duff/vim-ddldbl'
-
-" projectionist {{{
-Plug 'tpope/vim-projectionist'
-let g:projectionist_heuristics = {
-      \   '*': {
-      \     '*.c': {
-      \       'alternate': '{}.h',
-      \       'type': 'source'
-      \     },
-      \     '*.cpp': {
-      \       'alternate': '{}.h',
-      \       'type': 'source'
-      \     },
-      \     '*.h': {
-      \       'alternate': '{}.c',
-      \       'type': 'header'
-      \     },
-      \     '*.js': {
-      \       'alternate': [
-      \         '{dirname}/{basename}.test.js',
-      \         '{dirname}/__tests__/{basename}-test.js',
-      \         '{dirname}/__tests__/{basename}-mocha.js'
-      \       ],
-      \       'type': 'source'
-      \     },
-      \     '*.test.js': {
-      \       'alternate': '{basename}.js',
-      \       'type': 'test',
-      \     },
-      \     '**/__tests__/*-test.js': {
-      \       'alternate': '{dirname}/{basename}.js',
-      \       'type': 'test'
-      \     },
-      \     'package.json&spec/javascripts/*': {
-      \       'client/assets/javascripts/*.jsx': {
-      \         'type': 'src',
-      \         'alternate': 'spec/javascripts/{}-test.js'
-      \       },
-      \       'client/assets/javascripts/*.js': {
-      \         'type': 'src',
-      \         'alternate': 'spec/javascripts/{}-test.js'
-      \       },
-      \       'spec/javascripts/components/*-test.js': {
-      \         'type': 'test',
-      \         'alternate': 'client/assets/javascripts/components/{}.jsx'
-      \       },
-      \       'spec/javascripts/*-test.js': {
-      \         'type': 'test',
-      \         'alternate': 'client/assets/javascripts/{}.js'
-      \       },
-      \     },
-      \     '*.py': {
-      \       'alternate': 'tests/test_{basename}.py',
-      \       'type': 'source'
-      \     },
-      \     'tests/test_*.py': {
-      \       'alternate': '{}.py',
-      \       'type': 'test'
-      \     },
-      \     'app/*.rb' : {
-      \         'alternate': 'spec/{}_spec.rb',
-      \          'type': 'app'
-      \     },
-      \     'lib/*.rb' : {
-      \       'alternate': 'spec/{}_spec.rb',
-      \       'type' : 'lib'
-      \     },
-      \     '*.go': {
-      \       'alternate': '{}_test.go',
-      \       'type': 'source'
-      \     },
-      \     '*_test.go': {
-      \         'alternate': '{}.go',
-      \         'type': 'test'
-      \     },
-      \   }
-      \ }
+let g:interestingWordsDefaultMappings = 0
+let g:interestingWordsGUIColors = ['#9999FF', '#FFB3FF', '#FF7272', '#FFAA02', '#8CCBEA', '#A8957E']
+" nnoremap <silent> <space><space> :call InterestingWords('n')<cr>
+nnoremap <silent> <space>h :call InterestingWords('n')<cr>
+nnoremap <silent> <space>H :call UncolorAllWords()<cr>
 " }}}
 
-" TODO: keep?
-Plug 'vitalk/vim-simple-todo'
-let g:simple_todo_map_keys = 0
+Plug 'junegunn/vim-peekaboo'
+let g:peekaboo_ins_prefix = "<c-x>"
+
+" " projectionist {{{
+" Plug 'tpope/vim-projectionist'
+" let g:projectionist_heuristics = {
+"       \   '*': {
+"       \     '*.c': {
+"       \       'alternate': '{}.h',
+"       \       'type': 'source'
+"       \     },
+"       \     '*.cpp': {
+"       \       'alternate': '{}.h',
+"       \       'type': 'source'
+"       \     },
+"       \     '*.h': {
+"       \       'alternate': '{}.c',
+"       \       'type': 'header'
+"       \     },
+"       \     '*.js': {
+"       \       'alternate': [
+"       \         '{dirname}/{basename}.test.js',
+"       \         '{dirname}/__tests__/{basename}-test.js',
+"       \         '{dirname}/__tests__/{basename}-mocha.js'
+"       \       ],
+"       \       'type': 'source'
+"       \     },
+"       \     '*.test.js': {
+"       \       'alternate': '{basename}.js',
+"       \       'type': 'test',
+"       \     },
+"       \     '**/__tests__/*-test.js': {
+"       \       'alternate': '{dirname}/{basename}.js',
+"       \       'type': 'test'
+"       \     },
+"       \     'package.json&spec/javascripts/*': {
+"       \       'client/assets/javascripts/*.jsx': {
+"       \         'type': 'src',
+"       \         'alternate': 'spec/javascripts/{}-test.js'
+"       \       },
+"       \       'client/assets/javascripts/*.js': {
+"       \         'type': 'src',
+"       \         'alternate': 'spec/javascripts/{}-test.js'
+"       \       },
+"       \       'spec/javascripts/components/*-test.js': {
+"       \         'type': 'test',
+"       \         'alternate': 'client/assets/javascripts/components/{}.jsx'
+"       \       },
+"       \       'spec/javascripts/*-test.js': {
+"       \         'type': 'test',
+"       \         'alternate': 'client/assets/javascripts/{}.js'
+"       \       },
+"       \     },
+"       \     '*.py': {
+"       \       'alternate': 'tests/test_{basename}.py',
+"       \       'type': 'source'
+"       \     },
+"       \     'tests/test_*.py': {
+"       \       'alternate': '{}.py',
+"       \       'type': 'test'
+"       \     },
+"       \     'app/*.rb' : {
+"       \         'alternate': 'spec/{}_spec.rb',
+"       \          'type': 'app'
+"       \     },
+"       \     'lib/*.rb' : {
+"       \       'alternate': 'spec/{}_spec.rb',
+"       \       'type' : 'lib'
+"       \     },
+"       \     '*.go': {
+"       \       'alternate': '{}_test.go',
+"       \       'type': 'source'
+"       \     },
+"       \     '*_test.go': {
+"       \         'alternate': '{}.go',
+"       \         'type': 'test'
+"       \     },
+"       \   }
+"       \ }
+" " }}}
 
 Plug 'airblade/vim-rooter'
 let g:rooter_manual_only = 1
@@ -312,6 +614,7 @@ let g:clever_f_not_overwrites_standard_mappings=1
 
 Plug 'mbbill/undotree'
 let g:undotree_SetFocusWhenToggle = 1
+nnoremap <silent> ,u :UndotreeToggle<CR>
 
 " poppy - rainbow parens  {{{
 Plug 'bounceme/poppy.vim'
@@ -337,19 +640,19 @@ fu! s:isdir(dir) abort
 endfu
 " }}}
 
+" {{{ grep-operator
 Plug 'inside/vim-grep-operator'
 let g:grep_operator_set_search_register = 1
 nmap ,G <Plug>GrepOperatorOnCurrentDirectory
 vmap ,G <Plug>GrepOperatorOnCurrentDirectory
+" }}}
+
 " TODO: keep?
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'wincent/loupe'
-let g:LoupeHighlightGroup='Error'
+" let g:LoupeHighlightGroup='Error'
 Plug 'bronson/vim-visual-star-search'
-
-" TODO: keep?
-Plug 'ervandew/supertab'
 
 " vim-better-whitespace {{{
 Plug 'ntpeters/vim-better-whitespace'
@@ -361,21 +664,15 @@ let g:better_whitespace_guicolor='#cc6666'
 " }}}
 
 " TODO: keep?
-" Plug 'djdt/pyparens.nvim', {do: ':UpdateRemotePlugins'}
-
-" MatchTagAlways {{{
-Plug 'Valloric/MatchTagAlways'
-let g:mta_filetypes = {
-    \ 'html' : 1,
-    \ 'xhtml' : 1,
-    \ 'xml' : 1,
-    \ 'handlebars' : 1,
-    \ 'eruby' : 1,
-    \}
+" " MatchTagAlways {{{
+Plug 'alex-shamshurin/MatchTagAlways'
+" let g:mta_filetypes = {
+"     \ 'html' : 1,
+"     \ 'xhtml' : 1,
+"     \ 'xml' : 1,
+"     \ 'eruby' : 1,
+"     \}
 " }}}
-
-" TODO: keep?
-Plug 'kassio/neoterm'
 
 " limelight/goyo {{{
 Plug 'junegunn/limelight.vim'
@@ -422,11 +719,53 @@ vnoremap <c-s><c-t> y:ThesaurusQueryReplace <C-r>"<CR>
 
 " git
 Plug 'airblade/vim-gitgutter'
+
+" {{{ conflicted
 Plug 'christoomey/vim-conflicted'
+set statusline+=%{ConflictedVersion()} " TODO: add to airline
 let g:diffget_local_map = ',dgl'
 let g:diffget_upstream_map = ',dgu'
+" }}}
+
+" gutentags {{{
 Plug 'ludovicchabant/vim-gutentags'
-let g:gutentags_define_advanced_commands = 1
+" TODO: needed?
+" let g:gutentags_define_advanced_commands = 1
+" " workaround https://github.com/ludovicchabant/vim-gutentags/issues/178
+" let g:gutentags_add_default_project_roots = 0
+" let g:gutentags_project_root  = ['package.json', '.git', '.hg', '.svn']
+" let g:gutentags_cache_dir = expand('~/.gutentags_cache')
+" let g:gutentags_exclude_filetypes = ['gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail', 'git']
+" let g:gutentags_generate_on_new = 1
+" let g:gutentags_generate_on_missing = 1
+" let g:gutentags_generate_on_write = 1
+" let g:gutentags_generate_on_empty_buffer = 0
+" let g:gutentags_ctags_extra_args = ['--tag-relative=yes', '--fields=+ailmnS']
+" let g:gutentags_ctags_exclude = [
+" \  '*.git', '*.svn', '*.hg',
+" \  'cache', 'build', 'dist', 'bin', 'node_modules', 'bower_components',
+" \  '*-lock.json',  '*.lock',
+" \  '*.min.*',
+" \  '*.bak',
+" \  '*.zip',
+" \  '*.pyc',
+" \  '*.class',
+" \  '*.sln',
+" \  '*.csproj', '*.csproj.user',
+" \  '*.tmp',
+" \  '*.cache',
+" \  '*.vscode',
+" \  '*.pdb',
+" \  '*.exe', '*.dll', '*.bin',
+" \  '*.mp3', '*.ogg', '*.flac',
+" \  '*.swp', '*.swo',
+" \  '.DS_Store', '*.plist',
+" \  '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png', '*.svg',
+" \  '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
+" \  '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx', '*.xls',
+" \]
+" }}}
+
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'tpope/vim-fugitive'
@@ -441,6 +780,7 @@ Plug 'moll/vim-node'
 Plug 'jparise/vim-graphql'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main', 'for': ['typescript.tsx', 'typescriptreact', 'javascriptreact'] }
 Plug 'MaxMEllon/vim-jsx-pretty'
 let g:vim_jsx_pretty_colorful_config = 1
 Plug 'pangloss/vim-javascript'
@@ -457,14 +797,13 @@ let g:javascript_conceal_super          = "Ω"
 let g:javascript_conceal_arrow_function = "⇒"
 " }}}
 
-" html/css
-Plug 'ap/vim-css-color'
-Plug 'elzr/vim-json'
 Plug 'mattn/emmet-vim'
 let g:user_emmet_next_key = '<C-j>'
+imap <c-y><c-y> <Plug>(emmet-expand-abbr)
+
 Plug 'othree/html5.vim'
 Plug 'tpope/vim-jdaddy'
-Plug 'hail2u/vim-css3-syntax'
+Plug 'elzr/vim-json'
 
 " ruby {{{
 Plug 'tpope/vim-rake'
@@ -551,10 +890,10 @@ Plug 'tmux-plugins/vim-tmux'
 Plug 'justinmk/vim-syntax-extra' " improved c syntax
 
 " vim styles {{{
-Plug 'chriskempson/base16-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 let g:airline_theme='base16_shell'
+" let g:airline_highlighting_cache = 1
 let g:airline_powerline_fonts = 1
 let g:airline_detect_modified=1
 let g:airline_detect_paste=1
@@ -563,10 +902,14 @@ let g:airline_section_c = '%t'
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tagbar#enabled = 0
+let g:airline#extensions#vista#enabled = 0
 let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline#extensions#coc#enabled = 1
+let g:airline#extensions#coc#error_symbol = '!!'
+let g:airline#extensions#coc#warning_symbol = '!'
 let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
@@ -620,28 +963,15 @@ let g:fzf_colors =
 let g:fzf_commits_log_options =
 \ '--graph --color=always --format="%C(auto)%h%d %s %C(#373b41)%C(bold)%cr"'
 
-" " TODO: verify below is better
-" let g:rg_command = '
-" \ rg --no-hidden --column --line-number --no-heading --fixed-strings --smart-case --follow --color "always"
-" \ -g "!{.git,node_modules,vendor,build,plugged,dist,package-lock.json}"
-" \ -g "*.{lua,js,ts,coffee,jsx,json,php,styl,jade,html,css,scss,config,py,cpp,c,cs,h,go,hs,rb,erb,conf,hbs,sh,sql,sol,java}" '
-" " Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
-" command! -bang -nargs=* Rg
-"   \ call fzf#vim#grep(
-"   \   g:rg_command . shellescape(<q-args>), 1,
-"   \   <bang>0 ? fzf#vim#with_preview('up:70%:hidden')
-"   \           : fzf#vim#with_preview('right:50%', ';'),
-"   \   <bang>0)
-
 " TODO: verify this is better than above and uses .ignore file
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   'rg --ignore-file ~/.ignore --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
 
 " :RG calls rg each onChange (rather than single search with fzf filtering onChange)
 function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let command_fmt = 'rg --ignore-file ~/.ignore --column --line-number --no-heading --color=always --smart-case -- %s || true'
   let initial_command = printf(command_fmt, shellescape(a:query))
   let reload_command = printf(command_fmt, '{q}')
   let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
@@ -649,13 +979,6 @@ function! RipgrepFzf(query, fullscreen)
 endfunction
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
-" command! -bang -nargs=? -complete=dir Files
-"   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-" let g:fzf_files_options =
-"   \ '--preview "(bat --theme=TwoDark --color=always {}) 2> /dev/null"'
-
-" command! -bang -nargs=? -complete=dir Files
-"     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
 command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
@@ -674,7 +997,6 @@ endfunction
 
 " }}}
 
-" TODO: replace with codi.vim?
 " rappel {{{
 Plug 'Cypher1/nvim-rappel'
 " let g:rappel#term       = 'vsp | term '
@@ -686,40 +1008,34 @@ let g:rappel#custom_repls = {
 \   'repl': 'pry %:p',
 \   'run': 'ruby %:p',
 \ },
-\ 'python': {
-\   'repl': 'ptpython %:p',
-\   'run': 'python %:p',
-\ },
-\ 'go': {
-\   'repl': 'dlv debug %:p',
-\   'run': 'go run %:p',
-\ },
-\ 'c': {
-\   'compiler': 'gcc % -Wall -g',
-\   'run': 'gcc %:p -Wall && ./a.out',
-\   'repl': 'make debug && make dgb || sudo cgdb a.out',
-\   'launch': './a.out',
-\ },
-\ 'javascript': {
-\   'repl': 'node --inspect --eval %:p',
-\   'run': 'node %:p',
-\   'launch': 'ndb %:p',
-\ },
 \ 'elixir': {
 \   'repl': 'iex %:p',
 \   'run': 'elixir %:p',
 \ },
+\ 'go': {
+\   'run': 'go run %:p',
+\ },
+\ 'java': {
+\   'compiler': 'javac %',
+\   'run': 'java %',
+\ },
 \}
 " }}}
 
-Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
-let g:vim_markdown_toc_autofit = 0
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_new_list_item_indent = 2
-let g:vim_markdown_autowrite = 1
+Plug 'godlygeek/tabular'
+
+" {{{ mark
+" TODO: mark colors
+Plug 'inkarkat/vim-mark' | Plug 'inkarkat/vim-ingo-library'
+let g:mw_no_mappings = 1
+let g:mwDefaultHighlightingPalette = 'maximum'
+nmap <space>I <Plug>MarkSet
+" }}}
 
 Plug 'rhysd/open-pdf.vim'
 Plug 'chrisbra/csv.vim'
-Plug 'AndrewRadev/exercism.vim'
 Plug 'terryma/vim-expand-region'
 Plug 'xavierchow/vim-sequence-diagram'
+
+Plug 'AndrewRadev/exercism.vim'
+cnoreabbrev exercism Exercism
