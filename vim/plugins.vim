@@ -2,6 +2,8 @@ function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
 
+Plug 'bergercookie/vim-debugstring'
+
 " TODO: see if this replaces rappel
 Plug 'thinca/vim-quickrun'
 
@@ -68,9 +70,6 @@ let g:Hexokinase_ftEnabled = ['css', 'html', 'javascript', 'javascriptreact', 't
 let g:Hexokinase_highlighters = ['backgroundfull']
 
 " {{{ CoC
-hi CocErrorSign  ctermfg=Red guifg=#cc6666
-hi CocWarningSign  ctermfg=Brown guifg=#f0c674
-hi CocInfoSign  ctermfg=Yellow guifg=#bababa
 Plug 'neoclide/coc.nvim', {'commit': '4f40c16a15336b589b1b5b509df4e00300d755eb'}
 Plug 'antoinemadec/coc-fzf'
 let g:coc_fzf_preview= 'right:50%'
@@ -262,7 +261,6 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'diepm/vim-rest-console'
-Plug 'rizzatti/dash.vim'
 Plug 'honza/vim-snippets'
 Plug 'jhkersul/vim-jest-snippets'
 Plug 'dsznajder/vscode-es7-javascript-react-snippets', { 'do': 'yarn install --frozen-lockfile && yarn compile' }
@@ -275,13 +273,21 @@ Plug 'vim-scripts/SyntaxAttr.vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'machakann/vim-sandwich'
-Plug 'troydm/zoomwintab.vim'
 Plug 'triglav/vim-visual-increment'
 Plug 'mattboehm/vim-unstack'
 Plug 'mattboehm/vim-accordion'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'duff/vim-ddldbl'
 Plug 'kassio/neoterm'
+
+Plug 'rizzatti/dash.vim'
+nnoremap gk :Dash<CR>
+" hacky way to lookup dot chain native modules easily in Dash
+map <cr>k viwf.ey;Dash <C-R>"<CR>
+
+Plug 'troydm/zoomwintab.vim'
+nnoremap <silent><cr>z :ZoomWinTabToggle<CR>
+nnoremap <silent>M :ZoomWinTabToggle<CR>
 
 " {{{ titlecase
 Plug 'christoomey/vim-titlecase'
@@ -300,6 +306,9 @@ nmap <cr><space><space> <Plug>(characterize)
 
 " vim-surround {{{
 Plug 'tpope/vim-surround'
+" surround a word w function
+nmap <CR>f saiwf
+
 " x Surround jsx
 autocmd FileType javascriptreact,typescriptreact,typescript.tsx let b:surround_120 = "<\r />"
 nmap ,x ysiwxe
@@ -343,8 +352,13 @@ nmap ,` ysiw`
 nmap ,<space> ysiw<space><space>
 " }}}
 
+" {{{ splitjoin
 Plug 'AndrewRadev/splitjoin.vim'
+nnoremap sj :SplitjoinSplit<cr>
+nnoremap sk :SplitjoinJoin<cr>
 let g:splitjoin_html_attributes_bracket_on_new_line = 1
+" }}}
+
 Plug 'AndrewRadev/switch.vim'
 let g:switch_mapping = "-"
 
@@ -609,8 +623,16 @@ let g:peekaboo_ins_prefix = "<c-x>"
 Plug 'airblade/vim-rooter'
 let g:rooter_manual_only = 1
 
+" {{{ clever-f
 Plug 'rhysd/clever-f.vim'
 let g:clever_f_not_overwrites_standard_mappings=1
+nmap f <Plug>(clever-f-f)
+xmap f <Plug>(clever-f-f)
+omap f <Plug>(clever-f-f)
+nmap F <Plug>(clever-f-F)
+xmap F <Plug>(clever-f-F)
+omap F <Plug>(clever-f-F)
+" }}}
 
 Plug 'mbbill/undotree'
 let g:undotree_SetFocusWhenToggle = 1
@@ -645,6 +667,11 @@ Plug 'inside/vim-grep-operator'
 let g:grep_operator_set_search_register = 1
 nmap ,G <Plug>GrepOperatorOnCurrentDirectory
 vmap ,G <Plug>GrepOperatorOnCurrentDirectory
+nmap <leader>m <Plug>GrepOperatorOnCurrentDirectory
+vmap <leader>m <Plug>GrepOperatorOnCurrentDirectory
+nmap <leader><leader>m <Plug>GrepOperatorWithFilenamePrompt
+vmap <leader><leader>m <Plug>GrepOperatorWithFilenamePrompt
+
 " }}}
 
 " TODO: keep?
@@ -766,9 +793,36 @@ Plug 'ludovicchabant/vim-gutentags'
 " \]
 " }}}
 
+" {{{ fugitive
+Plug 'tpope/vim-fugitive'
+" fugitive git bindings
+nnoremap <space>ga :Git add %<CR>
+nnoremap <space>gA :Git add .<CR>
+nnoremap <space>gc :vert Gcommit -v -q<CR>
+nnoremap <space>gt :vert Gcommit -v -q %:p<CR>
+nnoremap <space>gb :Gblame<CR>
+nnoremap <space>gB :Gbrowse<CR>
+nnoremap <space>gp :vert Git add --patch<CR>
+nnoremap <space>ge :Gedit!<CR>
+nnoremap <space>gr :Gread<CR>
+nnoremap <space>gw :Gwrite<CR><CR>
+nnoremap <space>gl :silent! 0Glog<CR>
+nnoremap <space>gL :GitLog<space>
+nnoremap <space>gP :Ggrep<Space>
+nnoremap <space>gm :Gmove<Space>
+nnoremap <space>gbr :Git branch<Space>
+nnoremap <space>go :Git checkout<Space>
+nnoremap <space>gps :Dispatch! git push<CR>
+nnoremap <space>gpl :Dispatch! git pull<CR>
+nnoremap <space>G <c-w>h<c-w>c
+nnoremap <space>dt :diffthis<cr>
+nnoremap <leader>du :diffupdate<CR>
+nnoremap <leader>dp :diffput<space>
+nnoremap <leader>dg :diffget<space>
+" }}}
+
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'moll/vim-bbye'
 Plug 'junegunn/vim-github-dashboard'
@@ -928,6 +982,32 @@ let g:airline_section_y = '' " hide [utf-8 unix]
 " fzf {{{
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+nnoremap <silent> t :FzfBuffers<CR>
+nnoremap <silent> ,fw :FzfWindows<CR>
+nnoremap <silent> ,bl :call fzf#vim#lines("", fzf#vim#with_preview())<cr>
+nnoremap <silent> ,bL :FzfBLines<CR>
+nnoremap <silent> ,o :FzfBTags<CR>
+nnoremap <silent> ,O :FzfTags<CR>
+nnoremap <silent> ,ht :FzfHelptags<CR>
+nnoremap <silent> ,/ :FzfHistory/<CR>
+nnoremap <silent> ,? :FzfHistory<CR>
+nnoremap <silent> ,gl :FzfCommits<CR>
+nnoremap <silent> ,ga :FzfBCommits<CR>
+nnoremap <silent> ,gs :FzfGFiles?<CR>
+nnoremap <silent> K :call SearchWordWithRg()<CR>
+vnoremap <silent> K :call SearchVisualSelectionWithRg()<CR>
+
+" imap <c-s><c-k> <plug>(fzf-complete-word)
+" fzf dictionary
+inoremap <expr> <c-s><c-k> fzf#vim#complete#word()
+" inoremap <expr> <c-x><c-h> fzf#complete('cat ~/.vim/spell/thesaurus/mthesaur.txt')
+imap <c-s><c-f> <plug>(fzf-complete-path)
+imap <c-s><c-j> <plug>(fzf-complete-file-ag)
+imap <c-s><c-l> <plug>(fzf-complete-line)
+
 function! s:build_quickfix_list(lines)
   call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
   copen
@@ -999,6 +1079,9 @@ endfunction
 
 " rappel {{{
 Plug 'Cypher1/nvim-rappel'
+nnoremap <space>re :w<cr>:RappelRepl<CR>
+nnoremap <space>rr :w<cr>:RappelRun<CR>
+nnoremap <space>rl :w<cr>:RappelLaunch<CR>
 " let g:rappel#term       = 'vsp | term '
 let g:rappel#term = ' VtrSendCommandToRunner cd $(dirname %:p) > /dev/null; echo;'
 let g:rappel#launch  = 'chrome %'
