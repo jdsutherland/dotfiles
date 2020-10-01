@@ -70,7 +70,7 @@ font:
     family: Iosevka Term
     style: Medium Italic
 
-  size: 15.5
+  size: 14
 
   offset:
     x: 0
@@ -144,7 +144,7 @@ draw_bold_text_with_bright_colors: false
 #   - Linear
 #
 # Specifying a `duration` of `0` will disable the visual bell.
-visual_bell:
+bell:
   animation: EaseOutExpo
   duration: 0
 
