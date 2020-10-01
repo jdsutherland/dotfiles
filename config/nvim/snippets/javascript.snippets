@@ -28,14 +28,34 @@ snippet $ "template literal" i
 ${${1}}${2}
 endsnippet
 
-snippet tv "target: value" i
+snippet otv "target: value" i
 { target: { value } }
 endsnippet
 
-snippet c "const" b
-const ${1} = ${2};
+snippet etv "event.target.value" i
+event.target.value
 endsnippet
 
-snippet ld "lambda" b
-const ${1} = (${2}) => ${3};
+snippet c "const" b
+const ${1} = ${2}
+endsnippet
+
+snippet cld "const lambda" b
+const ${1} = (${2}) => ${3}
+endsnippet
+
+snippet ld "lambda: () => " i
+($1) => $2
+endsnippet
+
+snippet last "last arr ele" i
+${1:arr}[$1.length - 1]${2}
+endsnippet
+
+snippet range "Array.from(Array(len)) gives [0, 1, .., len-1]" i
+Array.from(Array(${1:len}))$2
+endsnippet
+
+snippet Pres "Promise.resolve" i
+Promise.resolve($1)$2
 endsnippet

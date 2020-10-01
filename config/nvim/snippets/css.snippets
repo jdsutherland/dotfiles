@@ -1,0 +1,68 @@
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+snippet bbf "border-box fix" b
+:root {
+	box-sizing: border-box;
+}
+
+*,
+::before,
+::after {
+	box-sizing: inherit;
+}
+$1
+endsnippet
+
+snippet owl "except 1st child" i
+* + * {
+	$1
+}
+endsnippet
+
+snippet hcenter "horizontally center ele"
+margin: 0 auto;
+endsnippet
+
+snippet b1s "1px solid border"
+border: 1px solid $1
+endsnippet
+
+snippet debug "debug"
+*:not(path):not(g) {
+	color: hsla(210, 100%, 100%, 0.9) !important;
+	background: hsla(210, 100%, 50%, 0.5) !important;
+	outline: solid 0.25rem hsla(210, 100%, 100%, 0.5) !important;
+	box-shadow: none !important;
+}
+endsnippet
+
+snippet xo "debug outline"
+outline: 1px solid #c64242;
+endsnippet
+
+snippet xb "debug background-color"
+background-color: #c64242;
+endsnippet
