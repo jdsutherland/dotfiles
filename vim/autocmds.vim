@@ -1,4 +1,5 @@
-" autosave when lose focus
+" TODO: remove?
+" " autosave when lose focus
 autocmd BufLeave,FocusLost * silent! wall
 
 " Execute macro in q
@@ -57,17 +58,11 @@ autocmd FileType elixir inoremap ,tt \|>
 
 " javascript
 " TODO: add more as needed
-autocmd FileType javascript UltiSnipsAddFiletypes javascript-node
-autocmd FileType javascript UltiSnipsAddFiletypes javascript-jasmine
 autocmd FileType html,eruby,htmldjango,scss,handlebars,less,css,javascript.jsx EmmetInstall
 autocmd BufNewFile,BufRead *.ng EmmetInstall
-autocmd FileType javascript,jsx nnoremap <buffer> ,f :TernDef<cr>
-autocmd FileType javascript,jsx nnoremap <buffer> ,fs :TernDefSplit<cr>
-autocmd FileType javascript,jsx nnoremap <buffer> T :TernType<cr>
-autocmd FileType javascript,jsx nnoremap <buffer> <space>ll :TernDefPreview<cr><c-o>
 autocmd FileType javascript nmap ,cl yiWoconsole.log("<c-r>"", <c-r>");<Esc>^
 autocmd FileType javascript nmap ,db odebugger;<esc>^
-autocmd FileType javascript imap ,tt this.
+autocmd FileType javascript,typescript,typescript.tsx imap ,tt this.
 
 " python
 autocmd filetype python nnoremap <buffer> ,f  :call jedi#goto()<CR>
@@ -77,8 +72,8 @@ autocmd FileType python nmap ,cl yiWoprint("<c-r>"; {}".format(<c-r>"))<Esc>^
 autocmd FileType python imap ,tt self.
 
 " misc
-autocmd FileType go,python,ruby,eruby,elixir,haskell inoremap <buffer> ; :
-autocmd FileType go,python,ruby,eruby,elixir,haskell inoremap <buffer> : ;
+autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescript.tsx inoremap <buffer> ; :
+autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescript.tsx inoremap <buffer> : ;
 
 " go
 autocmd FileType go nnoremap <buffer> ,f :GoDef<cr>
@@ -121,15 +116,6 @@ autocmd Filetype go set foldmethod=syntax
 autocmd FileType cpp,c nmap ,cl yiwoprintf("<c-r>": %s\n", <c-r>");<Esc>^
 autocmd FileType cpp,c nmap ,cL yiwofprintf(stderr, "<c-r>": %s\n", <c-r>");<Esc>^
 
-" js conceal expand
-" autocmd FileType javascript,jsx inoremap <silent> @ <C-r>=syntax_expand#expand("@", "this")<CR>
-" autocmd FileType javascript,jsx inoremap <silent> # <C-r>=syntax_expand#expand("#", "prototype")<CR>
-" autocmd FileType javascript,jsx inoremap <silent> < <C-r>=syntax_expand#expand_head("<", "return")<CR>
-" autocmd FileType javascript,jsx set concealcursor=n
-
-" auto js template str html
-" autocmd FileType javascript JsPreTmpl html
-
 " ruby
 augroup rubypath
   autocmd!
@@ -144,7 +130,7 @@ autocmd FileType ruby imap ,rS <=>
 autocmd FileType ruby imap ,tt self
 autocmd FileType ruby compiler ruby
 
-" " vim-pencil - advanced init
+" {{{ vim-pencil advanced init
 function! Prose()
   call pencil#init()
   call lexical#init()
@@ -174,7 +160,6 @@ function! Prose()
   noremap <silent> <buffer> <F8> :<C-u>NextWordy<cr>
   xnoremap <silent> <buffer> <F8> :<C-u>NextWordy<cr>
   inoremap <silent> <buffer> <F8> <C-o>:NextWordy<cr>
-
 endfunction
 
 " automatically initialize buffer by file type
@@ -182,9 +167,12 @@ endfunction
 
 " invoke manually by command for other file types
 command! -nargs=0 Prose call Prose()
+" }}}
 
 " autocmd BufEnter * EnableStripWhitespaceOnSave
 autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 
 " resize when closing tmux pane
 autocmd VimResized * wincmd =
+
+autocmd FileType help wincmd L

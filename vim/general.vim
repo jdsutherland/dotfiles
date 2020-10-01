@@ -40,7 +40,6 @@ set statusline=%t
 set ignorecase
 set smartcase
 set gdefault
-set incsearch
 set inccommand=nosplit
 set showmatch
 set hlsearch
@@ -64,14 +63,7 @@ set sessionoptions-=folds   " don't store folds
 set foldmethod=marker
 set splitbelow
 set splitright
-" set statusline+=%{ConflictedVersion()} " TODO: add to airline
 set diffopt+=vertical
-
-" base16 vim
-" if filereadable(expand('~/.vimrc_background'))
-"   let g:base16colorspace=256
-"   source ~/.vimrc_background
-" endif
 
 " color
 set background=dark
@@ -79,7 +71,6 @@ set termguicolors
 
 colorscheme base16-tomorrow-night
 highlight Comment cterm=italic gui=italic
-
 
 " Display extra whitespace
 set listchars=tab:→\ ,trail:∙,nbsp:•,eol:¶
