@@ -1,14 +1,13 @@
 source ~/.zplug/init.zsh
 
+zplug 'mafredri/zsh-async'
 zplug 'sindresorhus/pure'
 zplug 'zsh-users/zsh-syntax-highlighting', defer:2
 zplug 'zsh-users/zsh-completions', defer:2
-zplug 'mafredri/zsh-async'
 zplug 'ael-code/zsh-colored-man-pages'
 zplug "modules/directory", from:prezto # for d stack
 zplug 'skywind3000/z.lua'
 zplug 'wfxr/forgit' # TODO: consider aliases
-# zplug "kiurchv/asdf.plugin.zsh", defer:2
 
 zplug load
 
@@ -23,12 +22,21 @@ alias e=$EDITOR
 alias vim="nvim"
 alias vi="nvim"
 
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
+# # export ASDF_DATA_DIR=`brew --prefix asdf`/
+# # source $ASDF_DATA_DIR/asdf.sh
+# . $HOME/.asdf/asdf.sh
+# . $HOME/.asdf/completions/asdf.bash
+. /usr/local/opt/asdf/asdf.sh
+# . /usr/local/opt/asdf/etc/bash_completion.d/asdf.bash
 . /usr/local/etc/bash_completion.d
+export PATH="$(yarn global bin):$PATH"
+
+export GOPATH="${HOME}/.go"
+export GOROOT="$(brew --prefix golang)/libexec"
+export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 
 export PATH="$HOME/.bin:$PATH"
-source /Users/j/.asdf/asdf.sh
+# source /Users/j/.asdf/asdf.sh
 
 # Show contents of directory after cd-ing into it
 chpwd() {
@@ -50,3 +58,4 @@ unsetopt multios
 KEYTIMEOUT=25
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+

@@ -29,14 +29,18 @@ _fzf_compgen_dir() {
   rg --files "$1" | only-dir "$1"
 }
 
-export FZF_DEFAULT_COMMAND='rg --files --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+# export FZF_DEFAULT_COMMAND='rg --files --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+export FZF_DEFAULT_COMMAND='rg --hidden --files --ignore-file ~/.ignore'
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:30:hidden --bind ';:toggle-preview'"
 export FZF_CTRL_T_OPTS="--select-1 --exit-0 --preview '(bat --color=always {} 2> /dev/null || cat {} || tree -a -C -I '{.git,node_modules}' {}) 2> /dev/null | head -200'"
-export FZF_ALT_C_OPTS="--select-1 --exit-0 --preview 'tree -C -I '{.git,node_modules}' {} | head -200'"
-# export FZF_ALT_C_COMMAND="bfs -type d -nohidden"
+# export FZF_ALT_C_OPTS="--select-1 --exit-0 --preview 'tree -C -I '{.git,node_modules}' {} | head -200'"
+# export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+# export FZF_ALT_C_COMMAND="rg --hidden --files -g '!{.git,node_modules,vendor}/*'"
+export FZF_ALT_C_COMMAND='fd --type d ---ignore-file ~/.ignore --hidden --follow'
+export FZF_CTRL_T_COMMAND='fd --ignore-file ~/.ignore --hidden --follow'
 
 export FZF_DEFAULT_OPTS="
-  --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all,ctrl-f:toggle+down,ctrl-o:select-all
+  --bind ctrl-t:toggle-all,ctrl-f:toggle+down,ctrl-o:select-all
   --reverse --ansi
   --toggle-sort=ctrl-w
   --black
@@ -44,6 +48,8 @@ export FZF_DEFAULT_OPTS="
   --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C
   --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D
 "
+
+# export FZF_DEFAULT_OPTS='--ansi --layout=reverse --preview "bat --theme="base16" --style=full --decorations=always --color always {}"'
 
 }
 

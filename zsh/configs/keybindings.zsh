@@ -17,8 +17,8 @@ bindkey "^y" accept-and-hold
 bindkey "^w" backward-kill-word
 bindkey "^n" insert-last-word
 bindkey "^f" menu-complete
-bindkey "^[[A" history-beginning-search-backward
-bindkey "^[[B" history-beginning-search-forward
+bindkey '^[[A' up-line-or-search
+bindkey '^[[B' down-line-or-search
 
 # Copy the most recent command to the clipboard
 function _pbcopy_last_command(){

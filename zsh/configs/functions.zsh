@@ -144,9 +144,9 @@ gldft() {
   git log --follow --patch -- "*.${1}"
 }
 
-gfwd() {
-  git log --reverse --pretty=%H master | grep -A 1 $(git rev-parse HEAD) | tail -n1 | xargs git checkout
-}
+# checkout 1 commit fwd/rev
+gfwd() { git log --reverse --pretty=%H master | grep -A 1 $(git rev-parse HEAD) | tail -n1 | xargs git checkout }
+grev() { git checkout HEAD~ }
 
 gfirst() {
   git rev-list --max-parents=0 HEAD | xargs git checkout
@@ -164,7 +164,7 @@ uberp() {
 
 # opens a google map direction age given a destination
 mdir() {
-  ${(z)BROWSER} "https://www.google.com/maps/dir/$(getloc)/$@"
+  open "https://www.google.com/maps/dir/$(getloc)/$@"
 }
 
 # ripgrep with paging
@@ -248,6 +248,11 @@ yts() {
   mpv ytdl://ytsearch10:"'$*'"
 }
 
+# mpv youtube-dl watch-later
+mpw() {
+  mpv --player-operation-mode=pseudo-gui --ytdl-raw-options="cookies=~/.config/mpv/cookies.txt,playlist-end=${1:-50}" ytdl://:ytwatchlater &
+}
+
 # Pipe to this to quote filenames with spaces
 alias quote="sed 's/.*/\"&\"/'"
 # Files created today
@@ -277,7 +282,7 @@ finde() {
 
 fzf-git-reverse() {
   git log --no-merges --oneline --reverse --color=always \
-    --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" |
+    --format="%C(auto)%h%d %s %C(#373b41)%C(bold)%cr" |
   fzf --ansi --no-sort --reverse --tiebreak=index --height 100% --bind=ctrl-o:toggle-sort \
     --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always --date=format:"%Y-%m-%d %H:%M:%S" --patch-with-stat --format="%Cblue%an <%ae> %C(yellow)%ad %C(bold)(%ar)%Creset%n%Cblue%n %C(bold cyan)%s%Creset%n%n%C(italic cyan)%b%Creset" | diff-so-fancy' \
     --preview-window=right:55% \
@@ -388,12 +393,13 @@ rvid() {
   vid=$(ls -Art "$vidpath" | tail -n 1) && mpv --player-operation-mode=pseudo-gui "$vidpath/$vid" &
 }
 
+# FIXME: doesn't work with arg
 longcode() {
-  wc -l **/*.(js|go|rb|py|js|c) | sort | tail -n 20 | sed '$d'
+  wc -l **/*.(${~1:-"c|go|rb|py|js|ts|jsx|tsx|ex|rs"}) | sort -r | tail -n +2 | head -n 20 | sed '$d'
 }
 
 golong() {
-  find . -not -path './vendor/*' -iname *.go -exec wc -l {} + | sort | tail -n 20 | sed '$d'
+  find . -not -path './vendor/*' -iname *.go -exec wc -l {} + | sort | head -n 20 | sed '$d'
 }
 
 # open a github pr in diff-so-fancy
