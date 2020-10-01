@@ -77,11 +77,12 @@ function! RenameFile()
 endfunction
 
 function! ToggleGStatus()
-    if buflisted(bufname('.git/index'))
-        bd .git/index
-    else
-        Gstatus
-    endif
+  if buflisted(bufname('.git/index'))
+    bd .git/index
+    wincmd p
+  else
+    vert Gstatus
+  endif
 endfunction
 command! ToggleGStatus :call ToggleGStatus()
 
@@ -139,17 +140,17 @@ function! s:PrettyJSON()
 endfunction
 command! PrettyJSON :call <sid>PrettyJSON()
 
-function! s:OpenTmuxGitFileFollowHistory()
+function! s:OpenTmuxGitIndividualFileHistory()
   let filepath=shellescape(expand('%'))
   call system("tmux splitw -h -c '#{pane_current_path}' 'git log --patch --follow " . filepath . "; read'")
 endfunction
-command! OpenTmuxGitFileFollowHistory :call <sid>OpenTmuxGitFileFollowHistory()
+command! OpenTmuxGitIndividualFileHistory :call <sid>OpenTmuxGitIndividualFileHistory()
 
-function! s:OpenTmuxGitFileFollowHistoryReverse()
+function! s:OpenTmuxGitFileIndividualHistoryReverse()
   let filepath=shellescape(expand('%'))
   call system("tmux splitw -h -c '#{pane_current_path}' 'git log --patch --reverse --follow " . filepath . "; read'")
 endfunction
-command! OpenTmuxGitFileFollowHistoryReverse :call <sid>OpenTmuxGitFileFollowHistoryReverse()
+command! OpenTmuxGitFileIndividualHistoryReverse :call <sid>OpenTmuxGitFileIndividualHistoryReverse()
 
 function! s:OpenTmuxGitFileFullHistory()
   let filepath=shellescape(expand('%'))
@@ -190,6 +191,7 @@ command! RemoveRubyComments :call <sid>RemoveRubyComments()
 
 function! ResizeMin()
   if line('$') < winheight(winnr()) | exe 'resize ' . line('$') | endif
+  set winfixheight
 endfunction
 command! ResizeMin :call <sid>ResizeMin()
 
@@ -199,3 +201,19 @@ function! s:SysPasteTrimNewlines()
   execute 'nohl'
 endfunction
 command! PPP :call <sid>SysPasteTrimNewlines()
+
+" fzf delete buffers
+function! s:list_buffers()
+  redir => list
+  silent ls
+  redir END
+  return split(list, "\n")
+endfunction
+function! s:delete_buffers(lines)
+  execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
+endfunction
+command! BD call fzf#run(fzf#wrap({
+  \ 'source': s:list_buffers(),
+  \ 'sink*': { lines -> s:delete_buffers(lines) },
+  \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
+\ }))
