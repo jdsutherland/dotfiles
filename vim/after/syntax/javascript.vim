@@ -58,16 +58,18 @@ syntax keyword jsBooleanTrue true conceal cchar=T
 syntax keyword jsBooleanFalse false conceal cchar=F
 
 syntax keyword jsStorageClass const conceal cchar=𝔠
+" syntax match jsStorageClass "\<const\s\+" conceal
 syntax keyword jsStorageClass let conceal cchar=ʟ
 syntax keyword jsStorageClass var conceal cchar=v
 syntax keyword jsClassMethodType static conceal cchar=∬
-syntax keyword jsGlobalObjects Promise conceal cchar=Ᵽ
+syntax keyword jsGlobalObjects Promise conceal cchar=Ƥ
 
-syntax keyword jsAsyncKeyword async conceal cchar=Å
+syntax keyword jsAsyncKeyword async conceal cchar=ÅⱣ
 syntax keyword jsAsyncKeyword await conceal cchar=å
 
 syntax keyword jsStatement export conceal cchar=E
 syntax keyword jsStatement import conceal cchar=ɪ
+syntax match jsStatement "\sfrom\ze\s" conceal cchar=ｆ
 " syntax keyword jsArguments arguments conceal cchar=ȁ
 
 syntax keyword jsGlobalObjects Boolean conceal cchar=ƀ
@@ -94,7 +96,8 @@ syntax keyword jsStatement continue conceal cchar=↰
 
 hi! link Conceal Operator
 " hi! Conceal ctermbg=Black ctermfg=Magenta
-hi! Conceal guifg=#f1fa8c
+hi! Conceal guifg=LightRed
+" #80c674
 
 " hi! Conceal ctermbg=Black ctermfg=239
 "setlocal conceallevel=2

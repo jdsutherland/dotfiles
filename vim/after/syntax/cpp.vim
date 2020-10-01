@@ -5,7 +5,7 @@ endif
 syntax keyword cppType int32 uint32 int64 uint64
 
 " syntax match cNiceOperator "\w+\s\zs\*\ze\s\w+" conceal cchar=⁕
-syntax match cppNiceOperator " \zs\*\ze" conceal cchar=⁕
+" syntax match cppNiceOperator " \zs\*\ze" conceal cchar=⁕
 syntax match cppNiceOperator "&" conceal cchar=&
 syntax match cppNiceOperator "==" conceal cchar=≡
 syntax match cppNiceOperator "!=" conceal cchar=≠

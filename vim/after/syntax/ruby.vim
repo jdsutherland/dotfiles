@@ -12,11 +12,11 @@ syntax match rubySymbol "!=" conceal cchar=≠
 syntax match rubySymbol "=\~" conceal cchar=≅
 syntax match rubySymbol "!\~" conceal cchar=≆
 
-syntax match rbNiceOperator " \zs\*\ze "  conceal cchar=×
-syntax match rbNiceOperator " \zs\/\ze "  conceal cchar=÷
+" syntax match rbNiceOperator " \zs\*\ze "  conceal cchar=×
+" syntax match rbNiceOperator " \zs\/\ze "  conceal cchar=÷
 
 syntax keyword rbNiceOperator not conceal cchar=¬
-syntax match rbNiceOperator "\s\+\zs!\ze[! ]\@!" conceal cchar=¬
+" syntax match rbNiceOperator "\s\+\zs!\ze[! ]\@!" conceal cchar=¬
 syntax match rubyOperator "||=" conceal cchar=⊫
 " syntax match rbNiceOperator "&&" conceal cchar=∧
 " syntax match rbNiceOperator "||=\@!" conceal cchar=∨
@@ -48,11 +48,10 @@ syntax match rubyOperator "\v\.new>" conceal cchar=ミ
 " syntax match rbNiceOperator '\.'
 
 syntax match rbDelimiter  "(\|)\|\[\|\]\|,\|;\|{\|}"
-syntax match rubyOperator "\s\+\zs\.\ze" conceal cchar=｡
-syntax match rubyOperator "\.$" conceal cchar=｡
+syntax match rubyOperator "^\s*\zs\.\ze" conceal cchar=｡
 
 hi link rbNiceOperator Operator
 hi link rbDelimiter Delimiter
 hi! link Conceal Operator
-hi! Conceal ctermbg=Black ctermfg=16
+" hi! Conceal ctermbg=Black ctermfg=16
 "setlocal conceallevel=2

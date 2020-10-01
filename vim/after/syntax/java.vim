@@ -30,9 +30,10 @@ if s:extraConceal
   syntax keyword javaNiceKeyword final conceal cchar=𝔠
   " syntax keyword javaNiceKeyword public conceal cchar=▶
   " syntax keyword javaNiceKeyword public conceal cchar=+
-  syntax keyword javaNiceKeyword public conceal cchar=ॱ
+  " syntax keyword javaNiceKeyword public conceal cchar=ॱ
+  syntax match javaScopeDecl /\v<public\s/ conceal
   syntax keyword javaNiceKeyword protected conceal cchar=ॱ
-  syntax keyword javaNiceKeyword private conceal cchar=·
+  syntax keyword javaNiceKeyword private conceal cchar=-
   " syntax keyword javaNiceKeyword public conceal cchar=·
   " syntax keyword javaNiceKeyword protected conceal cchar=◈
   " syntax keyword javaNiceKeyword private conceal cchar=-
@@ -61,10 +62,10 @@ if s:extraConceal
   syntax keyword javaType long conceal cchar=ʟ
   syntax keyword javaMethodDecl synchronized conceal cchar=☯
 
-  " syntax match javaHiddenOperator /\S\zs()\ze\(\S\| [^{]\)/ conceal
-  " syntax match javaHiddenOperator /^\s*}$/ conceal
-  " syntax match javaHiddenOperator /\(^\s*\)\@<=}\s*/ conceal
-  " syntax match javaHiddenOperator /\ *{$/ conceal
+  syntax match javaHiddenOperator /\S\zs()\ze\(\S\| [^{]\)/ conceal
+  syntax match javaHiddenOperator /^\s*}$/ conceal
+  syntax match javaHiddenOperator /\(^\s*\)\@<=}\s*/ conceal
+  syntax match javaHiddenOperator /\ *{$/ conceal
   syntax match javaHiddenOperator /;$/ conceal
 endif
 
@@ -82,6 +83,8 @@ hi link javaNiceKeyword Keyword
 hi link javaNiceOperator Operator
 hi link javaNiceBoolean Boolean
 hi link javaNiceType Type
+hi link cJavaNiceKeyword StorageClass
+hi link javaNiceConstant javaConstant
 
 hi! link Conceal Operator
 hi! Conceal ctermbg=Black ctermfg=Magenta

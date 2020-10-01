@@ -42,9 +42,9 @@ syntax keyword pythonBuiltinObj str conceal cchar=⟆
 
 " syntax match pyNiceOperator " \* " conceal cchar=∙
 " syntax match pyNiceOperator " \zs/\ze " conceal cchar=÷
-syntax match pyNiceOperator " \zs\*\ze " conceal cchar=⨉
+" syntax match pyNiceOperator " \zs\*\ze " conceal cchar=⨉
 syntax match pyNiceOperator " \zs\/\ze "  conceal cchar=÷
-" syntax match pyNiceOperator "\w\?\s+\zs\*\zs\w+" conceal cchar=⁕
+syntax match pyNiceOperator "\w\?\s+\zs\*\zs\w+" conceal cchar=⁕
 " The following are special cases where it /may/ be okay to ignore PEP8
 syntax match pyNiceOperator "\( \|\)\*\*\( \|\)2\>" conceal cchar=²
 syntax match pyNiceOperator "\( \|\)\*\*\( \|\)3\>" conceal cchar=³
@@ -53,10 +53,9 @@ syntax match pyNiceOperator "\( \|\)\*\*\( \|\)n\>" conceal cchar=ⁿ
 " Your background, and taste, may affect whether you like # for cardinality ;)
 syntax keyword pyNiceBuiltin len conceal cchar=#
 syntax keyword pyNiceBuiltin del conceal cchar=✗
-syntax keyword pyNiceBuiltin break conceal cchar=↯
-syntax keyword pythonClassVar self conceal cchar=@
-syntax keyword pyNiceStatement return conceal cchar=⇚
+" syntax keyword pyNiceBuiltin break conceal cchar=↯
 
+" TODO
 syntax keyword pythonBoolean True conceal cchar=T
 syntax keyword pythonBoolean False conceal cchar=F
 syntax keyword pythonImport import conceal cchar=ɪ

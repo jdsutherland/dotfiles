@@ -4,7 +4,7 @@ endif
 
 syntax keyword sqlNiceKeyword function conceal cchar=ƒ
 syntax keyword sqlNiceKeyword return conceal cchar=⇚
-syntax keyword sqlNiceKeyword select conceal cchar=𐊖
+syntax keyword sqlNiceKeyword select conceal cchar=s
 syntax keyword sqlNiceKeyword from conceal cchar=ｆ
 syntax keyword sqlNiceKeyword where conceal cchar=ᴡ
 syntax keyword sqlNiceKeyword limit conceal cchar=ʟ
