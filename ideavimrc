@@ -1,0 +1,195 @@
+source ~/.config/nvim/general.vim
+
+let mapleader=','
+
+" Plugins  --------------------------------
+set surround
+set textobj-entire
+set ReplaceWithRegister
+set highlightedyank
+
+set argtextobj
+let g:argtextobj_pairs="[:],(:),<:>"
+
+set easymotion
+nmap <space>w <Plug>(easymotion-w)
+nmap <space>b <Plug>(easymotion-b)
+nmap <space>j <Plug>(easymotion-j)
+nmap <space>k <Plug>(easymotion-k)
+
+set commentary
+" workaround for Commentary in Rider: https://youtrack.jetbrains.com/issue/RIDER-38359
+nnoremap gcc :action CommentByLineComment<cr>
+vnoremap gc :action CommentByLineComment<cr>
+
+set incsearch
+
+" """ Idea specific settings ------------------
+set ideajoin
+set ideastatusicon=gray
+set idearefactormode=keep
+
+" """ Mappings --------------------------------
+
+" splits
+nnoremap <silent> vv <C-w>v
+nnoremap <silent> ss <C-w>s
+" vertical to horizontal ( | -> -- )
+noremap <c-w>-  <c-w>t<c-w>K
+" horizontal to vertical ( -- -> | )
+noremap <c-w>\|  <c-w>t<c-w>H
+noremap <c-w>\  <c-w>t<c-w>H
+
+nmap <c-k> <c-w>k
+nmap <c-j> <c-w>j
+nmap <c-h> <c-w>h
+nmap <c-l> <c-w>l
+nmap <c-b> <C-S-6>
+nmap <space>i *<c-o>
+nnoremap <space>h :action HighlightUsagesInFile<cr>
+nnoremap <left> :action StretchSplitToLeft<cr>
+nnoremap <right> :action StretchSplitToRight<cr>
+nnoremap <up> :action StretchSplitToTop<cr>
+nnoremap <down> :action StretchSplitToBottom<cr>
+nmap / /\v
+" " nnoremap u :action $Undo<cr>
+" ideavim undo is dumb - 1st press moves pos, 2nd reverts
+" workaround: hit u twice. this will be work like vim unless pos hasn't changed (should be rare)
+nnoremap U u
+nnoremap u uu
+
+" unimpaired mappings - from https://github.com/saaguero/ideavimrc/blob/master/.ideavimrc
+nnoremap [<space> O<esc>j
+nnoremap ]<space> o<esc>k
+nnoremap [q :action PreviousOccurence<cr>
+nnoremap ]q :action NextOccurence<cr>
+nnoremap [m :action MethodUp<cr>
+nnoremap ]m :action MethodDown<cr>
+nnoremap [c :action VcsShowPrevChangeMarker<cr>
+nnoremap ]c :action VcsShowNextChangeMarker<cr>
+nmap [e :action MoveLineUp<cr>
+nmap ]e :action MoveLineDown<cr>
+
+" " Building, Running and Debugging
+" nmap ,c :action CompileDirty<cr>
+nmap <space>R :action RunAnything<cr>
+nmap <space>rr :action Run<cr>
+nmap <space>rc :action RunClass<cr>
+nmap <space>db :action Debug<cr>
+nmap <space>dc :action DebugClass<cr>
+nmap <space>tl :action RerunTests<cr>
+nmap <space>tf :action RerunFailedTests<cr>
+
+" CoC
+nmap [g :action GotoPreviousError<cr>
+nmap ]g :action GotoNextError<cr>
+nmap \\rn <Action>(RenameElement)
+nmap \\rg :action Generate<cr>
+nmap \\rc :action InspectCode<cr>
+nmap <space><space> :action ShowErrorDescription<cr>
+vmap <space><space> :action ShowErrorDescription<cr>
+map <space>f :action ShowIntentionActions<cr>
+map <space>F :action Refactorings.QuickListPopupAction<cr>
+map \\dr :action Refactorings.QuickListPopupAction<cr>
+nmap \\F <Action>(ReformatCode)
+nmap ,ss :actionlist<space>
+map \\do :action<space>
+
+nmap gk :action QuickJavaDoc<cr>
+" nmap K :action ExternalJavaDoc<cr>
+" TODO f not working?
+nmap ,ff :action GotoDeclaration<cr>
+nmap ,fv :vs<cr>:action GotoDeclaration<cr>
+nmap ,fs :sp<cr>:action GotoDeclaration<cr>
+nmap <cr>gr :action FindUsages<cr>
+nmap <M-f> :action GotoFile<cr>
+nmap <M-g> :action FindInPath<cr>
+" nmap <leader>c :action GotoClass<cr>
+" nmap ,s :action GotoSymbol<cr>
+map <space>o <Action>(FileStructurePopup)
+nnoremap <cr>aa :<C-u>action GotoTest<CR>
+nnoremap <cr>av :vs<cr>:<C-u>action GotoTest<CR>
+
+nmap M <Action>(ToggleDistractionFreeMode)
+nmap <space>2 <Action>(ToggleZenMode)
+nmap gq :action Unsplit<cr>
+nmap <space>B :action UnsplitAll<cr>
+
+nmap <tab>n :set nu!<cr>
+
+map \\f <Action>(SelectInProjectView)
+nmap <leader>T :action ActivateTerminalToolWindow<cr>
+nmap <leader>M :action ActivateStructureToolWindow<cr>
+nmap <M-o> :action JumpToLastWindow<cr>
+
+map <space>gb <Action>(Annotate)
+map ,gl <Action>(Vcs.ShowTabbedFileHistory)
+map ,bp <Action>(ToggleLineBreakpoint)
+
+" imap <c-'> <ESC>:action HippieCompletion<CR>a
+imap <c-f> <cr>
+nmap t :action RecentLocations<cr>
+
+nnoremap Y y$
+nnoremap <cr>d :nohls<CR>
+nmap ,rc :source ~/.ideavimrc<CR>
+nmap ,gr "*gr
+nnoremap <Leader>sub :%s///<left>
+vnoremap <Leader>sub :s///<left>
+" replace current line
+nnoremap <cr>l *:s///<left>
+nnoremap <cr>r :s/<C-r><C-w>//<left>
+
+map <cr>w ciw
+map <cr>W ciW
+
+map <cr>g griw
+" " replace to end of line
+map <cr>G gr$
+
+" append
+nmap <leader>; A;<ESC>
+nmap <leader>, A,<ESC>
+nmap \| A<space>\<ESC>
+
+" " ---INSERTs---
+inoremap ,rr =>
+inoremap ,ar ()<space>=><space>
+inoremap ,aa ->
+inoremap ,zz <-
+inoremap ,uu __
+inoremap ,. />
+inoremap <c-g> <backspace>
+
+" " ---GENERAL---
+map Q @q
+
+" " Reselect pasted text. Mnem: 'Get pasted'
+nnoremap gp '[v']
+" " Go to position of last edit. Mnem: 'Go to Edit'
+nnoremap ge `.
+
+" " ---swaps---
+nnoremap ; :
+" nnoremap : ;
+" " `` goes to line and column; more useful
+nnoremap ' `
+nnoremap ` '
+" " ^ goes to first character; more useful
+nnoremap 0 ^
+nnoremap ^ 0
+" " 4 goes to end of line
+nnoremap 4 g_
+vnoremap 4 g_
+vnoremap $ 4
+" " move vertically by visual line
+nnoremap j gj
+nnoremap k gk
+
+" append cur param
+nmap ,aa vaa<esc>i<space>
+" rightmost append param
+nmap ,aj f)F,vaa<esc>a,<space>
+
+" dup line and move W
+nnoremap <cr><cr> :t.<cr>W
