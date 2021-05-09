@@ -2,31 +2,15 @@ function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
 
-" TODO try
-Plug 'rlue/vim-fold-js'
+" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " browser textarea
 
-Plug 'carakan/pmv.vim'
+Plug 'carakan/pmv.vim' " packages
 Plug 'zhimsel/vim-stay'
 Plug 'Konfekt/FastFold'
-Plug 'AndrewRadev/tagalong.vim'
-Plug 'jesseleite/vim-agriculture'
-Plug 'OrangeT/vim-csharp'
-
-" try
-Plug 'sodapopcan/vim-twiggy'
 Plug 'dbatten5/vim-macroscope', {'branch': 'main'}
 Plug 'dkarter/bullets.vim' " markdown lists
 let g:bullets_renumber_on_change = 0
-
 Plug 'bergercookie/vim-debugstring'
-
-" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " browser textarea
-
-Plug 'Shougo/echodoc.vim'
-" let g:echodoc#type = 'virtual'
-" let g:echodoc#type = 'floating'
-let g:echodoc_enable_at_startup = 1
-
 Plug '907th/vim-auto-save'
 let g:auto_save        = 0
 let g:auto_save_silent = 1
@@ -156,7 +140,7 @@ nnoremap <silent> <M-z> :Vista!!<CR>
 " }}}
 
 Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
-let g:Hexokinase_ftEnabled = ['css', 'html', 'javascript', 'javascriptreact', 'typescript.tsx', 'typescriptreact', 'eruby', 'scss', 'sass']
+let g:Hexokinase_ftEnabled = ['css', 'html', 'javascriptreact', 'typescript.tsx', 'typescriptreact', 'eruby', 'scss', 'sass']
 let g:Hexokinase_highlighters = ['backgroundfull']
 
 " {{{ CoC
@@ -330,15 +314,20 @@ nnoremap <space>C :cclose<cr>:pclose<cr>:call coc#util#float_hide()<cr>
 nnoremap <space>R :silent CocRestart<cr>
 " }}}
 
-" general
 Plug 'AndrewRadev/linediff.vim'
+Plug 'AndrewRadev/tagalong.vim'
+Plug 'AndrewRadev/whitespaste.vim'
+Plug 'AndrewRadev/undoquit.vim'
+Plug 'AndrewRadev/exercism.vim'
+cnoreabbrev exercism Exercism
+cnoreabbrev exercism Exercism
+Plug 'AndrewRadev/switch.vim'
+let g:switch_mapping = "-"
 Plug 'pbrisbin/vim-mkdir'
 Plug 'dietsche/vim-lastplace'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'wellle/targets.vim'
 Plug 'sickill/vim-pasta'
-Plug 'AndrewRadev/whitespaste.vim'
-Plug 'AndrewRadev/undoquit.vim'
 Plug 'tommcdo/vim-exchange'
 Plug 'wesQ3/vim-windowswap'
 Plug 'flw-cn/vim-markdown'
@@ -393,7 +382,6 @@ map <cr>k viwf.ey;Dash <C-R>"<CR>
 Plug 'troydm/zoomwintab.vim'
 nnoremap <silent><cr>z :ZoomWinTabToggle<CR>
 nnoremap <silent>M :ZoomWinTabToggle<CR>
-
 
 Plug 'tpope/vim-abolish'
 nnoremap <Leader>abs :%S/
@@ -456,9 +444,6 @@ nnoremap sj :SplitjoinSplit<cr>
 nnoremap sk :SplitjoinJoin<cr>
 let g:splitjoin_html_attributes_bracket_on_new_line = 1
 " }}}
-
-Plug 'AndrewRadev/switch.vim'
-let g:switch_mapping = "-"
 
 Plug 'FooSoft/vim-argwrap'
 nmap <silent> <leader>a <Plug>(ArgWrapToggle)
@@ -526,24 +511,6 @@ Plug 'jiangmiao/auto-pairs'
 " disable in markdown
 au Filetype markdown let b:autopairs_loaded=1
 let g:AutoPairsShortcutJump = ''
-" }}}
-
-" {{{ easy-align
-Plug 'junegunn/vim-easy-align'
-let g:easy_align_delimiters = {
-      \ '/': { 'pattern': '/[/*]/' },
-      \ '>': { 'pattern': '>>\|=>\|>' },
-      \ }
-" EasyAlign
-xmap ga <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-" align inner indent
-nmap <cr>i viiga<space>
-" sort inner indent
-nmap <cr>s viigs
-" hack to sort and align current indent (useful css)
-nmap <cr>is viiga<space>gvgs
 " }}}
 
 Plug 'tommcdo/vim-lion'
@@ -817,7 +784,7 @@ let g:gutentags_ctags_exclude = [
 " }}}
 
 " {{{ fugitive
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive' | Plug 'sodapopcan/vim-twiggy'
 nnoremap <space>ga :Git add %<CR>
 nnoremap <space>gA :Git add .<CR>
 nnoremap <space>gc :tab Git commit -v -q<CR>
@@ -942,6 +909,7 @@ Plug 'tweekmonster/braceless.vim' " Python vaP
 let g:braceless_generate_scripts = 1
 autocmd FileType python,haml,coffee BracelessEnable +indent +fold
 autocmd FileType yaml BracelessEnable +fold
+" }}}
 
 " {{{ clojure
 " Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
@@ -979,9 +947,11 @@ Plug 'tmux-plugins/vim-tmux'
 Plug 'justinmk/vim-syntax-extra' " improved c syntax
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'kkvh/vim-docker-tools'
+Plug 'OrangeT/vim-csharp'
 
 Plug 'chriskempson/base16-vim'
 
+" {{{ lualine
 Plug 'jdsutherland/lualine.nvim'
 let g:lualine = {
     \'options' : {
@@ -1049,6 +1019,7 @@ let g:lualine = {
 " fzf {{{
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'jesseleite/vim-agriculture'
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
@@ -1179,7 +1150,6 @@ command! -bang -nargs=* FzfBLinesPreview
     \ call fzf#vim#grep(
     \   'rg --with-filename --column --line-number --no-heading --color=always --smart-case . '.fnameescape(expand('%:p')), 1,
     \   fzf#vim#with_preview({'options': '--layout reverse --query '.shellescape(<q-args>).' --with-nth=4.. --delimiter=":"'}, 'right:50%'))
-
 " }}}
 
 Plug 'thinca/vim-quickrun'
@@ -1221,8 +1191,6 @@ let g:rappel#custom_repls = {
 \}
 " }}}
 
-Plug 'godlygeek/tabular'
-
 " {{{ mark
 " TODO: mark colors
 Plug 'inkarkat/vim-mark' | Plug 'inkarkat/vim-ingo-library'
@@ -1234,6 +1202,3 @@ nmap <space>I <Plug>MarkSet
 Plug 'rhysd/open-pdf.vim'
 Plug 'chrisbra/csv.vim'
 
-Plug 'AndrewRadev/exercism.vim'
-cnoreabbrev exercism Exercism
-cnoreabbrev exercism Exercism
