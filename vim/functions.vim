@@ -1,54 +1,3 @@
-function! SearchWordWithRg()
-  let l:word = expand('<cword>')
-  execute 'Rg' l:word
-endfunction
-
-function! SearchVisualSelectionWithRg() range
-  let old_reg = getreg('"')
-  let old_regtype = getregtype('"')
-  let old_clipboard = &clipboard
-  set clipboard&
-  normal! ""gvy
-  let selection = getreg('"')
-  call setreg('"', old_reg, old_regtype)
-  let &clipboard = old_clipboard
-  execute 'Rg' selection
-endfunction
-
-function! StripTrailingWhitespaces()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Do the business:
-    %s/\s\+$//e
-    " Clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
-endfunction
-
-" Intelligently close a window
-" (if there are multiple windows into the same buffer)
-" or kill the buffer entirely if it's the last window looking into that buffer
-function! CloseWindowOrKillBuffer()
-  let number_of_windows_to_this_buffer = len(filter(range(1, winnr('$')), "winbufnr(v:val) == bufnr('%')"))
-  " We should never bdelete a nerd tree
-  if matchstr(expand("%"), 'NERD') == 'NERD'
-    wincmd c
-    return
-  endif
-
-  if number_of_windows_to_this_buffer > 1
-    wincmd c
-  else
-    bdelete
-  endif
-endfunction
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RemoveFancyCharacters COMMAND
-" Remove smart quotes, etc.
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! RemoveFancyCharacters()
     let typo = {}
     let typo["“"] = '"'
@@ -63,9 +12,6 @@ function! RemoveFancyCharacters()
 endfunction
 command! RemoveFancyCharacters :call RemoveFancyCharacters()
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RENAME CURRENT FILE
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! RenameFile()
     let old_name = expand('%')
     let new_name = input('New file name: ', expand('%'), 'file')
@@ -81,39 +27,10 @@ function! ToggleGStatus()
     bd .git/index
     wincmd p
   else
-    vert Gstatus
+    vert Git
   endif
 endfunction
 command! ToggleGStatus :call ToggleGStatus()
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SWITCH BETWEEN TEST AND PRODUCTION CODE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! OpenTestAlternate()
-  let new_file = AlternateForCurrentFile()
-  exec ':e ' . new_file
-endfunction
-function! AlternateForCurrentFile()
-  let current_file = expand("%")
-  let new_file = current_file
-  let in_spec = match(current_file, '^spec/') != -1
-  let going_to_spec = !in_spec
-  let in_app = match(current_file, '\<controllers\>') != -1 || match(current_file, '\<models\>') != -1 || match(current_file, '\<views\>') != -1 || match(current_file, '\<helpers\>') != -1
-  if going_to_spec
-    if in_app
-      let new_file = substitute(new_file, '^app/', '', '')
-    end
-    let new_file = substitute(new_file, '\.e\?rb$', '_spec.rb', '')
-    let new_file = 'spec/' . new_file
-  else
-    let new_file = substitute(new_file, '_spec\.rb$', '.rb', '')
-    let new_file = substitute(new_file, '^spec/', '', '')
-    if in_app
-      let new_file = 'app/' . new_file
-    end
-  endif
-  return new_file
-endfunction
 
 " tmux runner
 function! SendFileViaVtr()
@@ -140,29 +57,29 @@ function! s:PrettyJSON()
 endfunction
 command! PrettyJSON :call <sid>PrettyJSON()
 
-function! s:OpenTmuxGitIndividualFileHistory()
-  let filepath=shellescape(expand('%'))
-  call system("tmux splitw -h -c '#{pane_current_path}' 'git log --patch --follow " . filepath . "; read'")
+function! s:TmuxGitIndividualFileHistory()
+  let filepath = shellescape(expand('%'))
+  call system("tmux splitw -l 30% -h -c '#{pane_current_path}' 'git log --patch --follow " . filepath . "; read'")
 endfunction
-command! OpenTmuxGitIndividualFileHistory :call <sid>OpenTmuxGitIndividualFileHistory()
+command! TmuxGitIndividualFileHistory :call <sid>TmuxGitIndividualFileHistory()
 
-function! s:OpenTmuxGitFileIndividualHistoryReverse()
-  let filepath=shellescape(expand('%'))
-  call system("tmux splitw -h -c '#{pane_current_path}' 'git log --patch --reverse --follow " . filepath . "; read'")
+function! s:TmuxGitFileIndividualHistoryReverse()
+  let filepath = shellescape(expand('%'))
+  call system("tmux splitw -l 30% -h -c '#{pane_current_path}' 'git log --patch --reverse --follow " . filepath . "; read'")
 endfunction
-command! OpenTmuxGitFileIndividualHistoryReverse :call <sid>OpenTmuxGitFileIndividualHistoryReverse()
+command! TmuxGitFileIndividualHistoryReverse :call <sid>TmuxGitFileIndividualHistoryReverse()
 
-function! s:OpenTmuxGitFileFullHistory()
-  let filepath=shellescape(expand('%'))
-  call system("tmux splitw -h -c '#{pane_current_path}' 'git log --patch --full-diff " . filepath . "; read'")
+function! s:TmuxGitFileFullHistory()
+  let filepath = shellescape(expand('%'))
+  call system("tmux splitw -l 30% -h -c '#{pane_current_path}' 'git log --stat --patch --full-diff " . filepath . "; read'")
 endfunction
-command! OpenTmuxGitFileFullHistory :call <sid>OpenTmuxGitFileFullHistory()
+command! TmuxGitFileFullHistory :call <sid>TmuxGitFileFullHistory()
 
-function! s:OpenTmuxGitFileFullHistoryReverse()
+function! s:TmuxGitFileFullHistoryReverse()
   let filepath=shellescape(expand('%'))
-  call system("tmux splitw -h -c '#{pane_current_path}' 'git log --patch --reverse --full-diff " . filepath . "; read'")
+  call system("tmux splitw -l 30% -h -c '#{pane_current_path}' 'git log --stat --patch --reverse --full-diff " . filepath . "; read'")
 endfunction
-command! OpenTmuxGitFileFullHistoryReverse :call <sid>OpenTmuxGitFileFullHistoryReverse()
+command! TmuxGitFileFullHistoryReverse :call <sid>TmuxGitFileFullHistoryReverse()
 
 " run :GoBuild or :GoTestCompile based on the go file
 function! BuildGoFiles()
@@ -217,3 +134,33 @@ command! BD call fzf#run(fzf#wrap({
   \ 'sink*': { lines -> s:delete_buffers(lines) },
   \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
 \ }))
+
+function! FzfSpellSink(word)
+  exe 'normal! "_ciw'.a:word
+endfunction
+function! FzfSpell()
+  let suggestions = spellsuggest(expand("<cword>"))
+  return fzf#run({'source': suggestions, 'sink': function("FzfSpellSink"), 'down': 10 })
+endfunction
+nnoremap z= :call FzfSpell()<CR>
+
+function! SetupCommandAlias(input, output)
+  exec 'cabbrev <expr> '.a:input
+    \ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:input.'")'
+    \ .'? ("'.a:output.'") : ("'.a:input.'"))'
+endfunction
+call SetupCommandAlias('grep', 'Grepper')
+call SetupCommandAlias('GG', 'GrepperRg')
+
+function! VisualStarSearchSet(cmdtype,...)
+  let temp = @"
+  normal! gvy
+  if !a:0 || a:1 != 'raw'
+    let @" = escape(@", a:cmdtype.'\*')
+  endif
+  let @/ = substitute(@", '\n', '\\n', 'g')
+  let @/ = substitute(@/, '\[', '\\[', 'g')
+  let @/ = substitute(@/, '\~', '\\~', 'g')
+  let @/ = substitute(@/, '\.', '\\.', 'g')
+  let @" = temp
+endfunction

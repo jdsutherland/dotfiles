@@ -50,9 +50,6 @@ autocmd FileType gitcommit setlocal spell complete+=kspell
 autocmd FileType markdown setlocal nolist wrap lbr
 autocmd FileType markdown nnoremap <buffer> <space>ll :Toct<cr>
 
-" vim
-autocmd FileType vim nmap ,cl yiWoechom <c-r>"<Esc>
-
 " elixir
 autocmd FileType elixir inoremap ,tt \|>
 
@@ -60,20 +57,25 @@ autocmd FileType elixir inoremap ,tt \|>
 " TODO: add more as needed
 autocmd FileType html,eruby,htmldjango,scss,handlebars,less,css,javascript.jsx EmmetInstall
 autocmd BufNewFile,BufRead *.ng EmmetInstall
-autocmd FileType javascript nmap ,cl yiWoconsole.log("<c-r>"", <c-r>");<Esc>^
-autocmd FileType javascript nmap ,db odebugger;<esc>^
-autocmd FileType javascript,typescript,typescript.tsx imap ,tt this.
 
 " python
-autocmd filetype python nnoremap <buffer> ,f  :call jedi#goto()<CR>
-autocmd FileType python nnoremap <buffer> <leader>gj :call jedi#goto_assignments()<CR>
+" autocmd filetype python nnoremap <buffer> ,f  :call jedi#goto()<CR>
+" autocmd FileType python nnoremap <buffer> <leader>gj :call jedi#goto_assignments()<CR>
 autocmd filetype python nnoremap <leader>bp ofrom ptpdb import set_trace<cr>set_trace()<esc>^
-autocmd FileType python nmap ,cl yiWoprint("<c-r>"; {}".format(<c-r>"))<Esc>^
 autocmd FileType python imap ,tt self.
+autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=8
+
 
 " misc
-autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescript.tsx inoremap <buffer> ; :
-autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescript.tsx inoremap <buffer> : ;
+autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescriptreact,yaml,yaml.docker-compose,json inoremap <buffer> ; :
+autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescriptreact,yaml,yaml.docker-compose,json inoremap <buffer> : ;
+" TODO: verify
+autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescriptreact noremap <buffer> r; r:
+autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescriptreact noremap <buffer> r: r;
+autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescriptreact noremap <buffer> t; t:
+autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescriptreact noremap <buffer> f; f:
+autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescriptreact noremap <buffer> T; T:
+autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescriptreact noremap <buffer> F; F:
 
 " go
 autocmd FileType go nnoremap <buffer> ,f :GoDef<cr>
@@ -100,7 +102,6 @@ autocmd FileType go nnoremap <buffer> <space>gts :<C-u>call BuildGoFiles()<CR>
 autocmd FileType go nnoremap <buffer> <space>gtt :GoTestFunc<cr>
 " autocmd FileType go nnoremap <buffer> <space>ll :GoDefStack<cr>
 " autocmd FileType go nnoremap <buffer> <space>lc :GoDefStackClear<cr>
-autocmd FileType go nmap ,cl yiwofmt.Printf("<c-r>"; %+v\n", <c-r>")<Esc>^
 autocmd FileType go nmap ,cL yiwofmt.Fprintf(os.Stderr, "<c-r>"; %+v\n", <c-r>")<Esc>^
 " alternates
 autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
@@ -113,30 +114,19 @@ autocmd Filetype go set foldmethod=syntax
 " au FileType c,cpp  nmap ,f <Plug>(clang_complete_goto_declaration)
 " autocmd BufEnter *.cpp,*.h,*.hpp,*.hxx let g:ale_cpp_clang_options = join(ncm_clang#compilation_info()['args'], ' ')
 " autocmd FileType cpp,c set path=.,/usr/include,/usr/local/include,/usr/include/c++/4.2.1,/usr/local/include/glib-2.0
-autocmd FileType cpp,c nmap ,cl yiwoprintf("<c-r>": %s\n", <c-r>");<Esc>^
 autocmd FileType cpp,c nmap ,cL yiwofprintf(stderr, "<c-r>": %s\n", <c-r>");<Esc>^
-
-" ruby
-augroup rubypath
-  autocmd!
-  autocmd FileType ruby setlocal suffixesadd+=.rb
-augroup END
-autocmd FileType ruby setlocal path+=lib
-autocmd FileType ruby noremap <leader>R :VtrSendCommandToRunner rake<cr>
-autocmd FileType ruby map <leader>bp orequire "pry": binding.pry<esc>^
-autocmd FileType ruby nmap ,cl yiwoputs "<c-r>"; #{<c-r>".inspect<Esc>^
-autocmd FileType ruby imap ,rs &;
-autocmd FileType ruby imap ,rS <=>
-autocmd FileType ruby imap ,tt self
-autocmd FileType ruby compiler ruby
 
 " {{{ vim-pencil advanced init
 function! Prose()
   call pencil#init()
   call lexical#init()
   call litecorrect#init()
-  call textobj#quote#init()
+  " call textobj#quote#init()
   call textobj#sentence#init()
+
+  " force top correction on most recent misspelling
+  nnoremap <buffer> <c-s> [s1z=
+  inoremap <buffer> <c-s> <c-g>u<Esc>[s1z=`]A<c-g>u
 
   " manual reformatting shortcuts
   nnoremap <buffer> <silent> Q gqap
@@ -150,11 +140,7 @@ function! Prose()
   iabbrev <buffer> >> »
 
   " open most folds
-  setlocal foldlevel=6
-
-  " replace typographical quotes (reedes/vim-textobj-quote)
-  map <silent> <buffer> <leader>qc <Plug>ReplaceWithCurly
-  map <silent> <buffer> <leader>qs <Plug>ReplaceWithStraight
+  " setlocal foldlevel=6
 
   " highlight words (reedes/vim-wordy)
   noremap <silent> <buffer> <F8> :<C-u>NextWordy<cr>
@@ -163,7 +149,7 @@ function! Prose()
 endfunction
 
 " automatically initialize buffer by file type
-" autocmd FileType mkd,text call Prose()
+" autocmd FileType markdown,mkd,text call Prose()
 
 " invoke manually by command for other file types
 command! -nargs=0 Prose call Prose()
@@ -176,3 +162,39 @@ autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 autocmd VimResized * wincmd =
 
 autocmd FileType help wincmd L
+
+au BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
+
+" {{{ package info
+function! s:ShowGemInfo()
+  let gem = matchstr(getline('.'), '\v[''"]\zs(\w[-/]?)+\ze')
+  if empty(gem) | return | endif
+
+  let request_url = 'https://rubygems.org/api/v1/gems/' . gem . '.json'
+  let response = webapi#http#get(request_url)
+  let content = webapi#json#decode(response.content)
+  let gem_info = get(content, 'info', '')
+  let gem_info = substitute(trim(gem_info), '\v\n+', ' ', 'g')
+  let gem_info = substitute(gem_info, '\v\s+', ' ', 'g')
+  if !empty(gem_info)
+    echo gem_info[:200]
+  endif
+endfunction
+command! ShowGemInfo call <sid>ShowGemInfo()
+au BufEnter * if @% ==# 'Gemfile' | nnoremap <buffer> <silent> <space><space> :ShowGemInfo<CR> | endif
+
+function! s:ShowPackageInfo()
+  let re_scoped_or_nonscoped_npm_package = '\v[''"]\zs((\@(\w+[-.]?)+\/(\w+[-.]?)+)|(\w+[-.]?)+)'
+  let package = matchstr(getline('.'), re_scoped_or_nonscoped_npm_package)
+  if empty(package) | return | endif
+
+  let package_info = system('npm info ' . package . ' | sed -n 3p') | redraw!
+  let package_info = substitute(trim(package_info), '\v\n+', ' ', 'g')
+  let package_info = substitute(package_info, '\v\s+', ' ', 'g')
+  if !empty(package_info)
+    echo package_info[:200]
+  endif
+endfunction
+command! ShowPackageInfo call <sid>ShowPackageInfo()
+au BufEnter * if @% ==# 'package.json' | nnoremap <buffer> <silent> <space><space> :ShowPackageInfo<CR> | endif
+" }}}

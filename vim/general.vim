@@ -24,7 +24,7 @@ set autoindent
 set scrolloff=3
 set hidden
 set wildmenu
-set wildmode=longest:list,full
+set wildmode=full
 set completeopt-=preview
 " Ignore stuff that can't be opened
 set wildignore+=tmp/**
@@ -32,7 +32,7 @@ set visualbell
 set lazyredraw
 set ruler
 set backspace=indent,eol,start
-set history=500
+set history=10000
 set updatetime=250 " https://www.reddit.com/r/vim/comments/3ql651/what_do_you_set_your_updatetime_to/
 set laststatus=2
 " show filename rather than full path
@@ -40,9 +40,10 @@ set statusline=%t
 set ignorecase
 set smartcase
 set gdefault
-set inccommand=nosplit
+" set inccommand=nosplit TODO: verify https://github.com/markonm/traces.vim not compat.
 set showmatch
 set hlsearch
+set incsearch
 set wrap
 set linebreak
 set nolist
@@ -57,18 +58,15 @@ set noswapfile
 " Set the tag file search order
 set tags=tags
 set path=.
-" Session settings
-set sessionoptions-=options " don't store global and local values in a session
-set sessionoptions-=folds   " don't store folds
-set foldmethod=marker
+set foldmethod=syntax " TODO: default to marker; syntax for specific ft
+set foldlevel=99
 set splitbelow
 set splitright
 set diffopt+=vertical
 
-" color
+" coupled to base16-vim/base16-tomorrow-night
 set background=dark
 set termguicolors
-
 colorscheme base16-tomorrow-night
 highlight Comment cterm=italic gui=italic
 
@@ -83,3 +81,8 @@ set undodir=~/.config/nvim/undodir
 set undofile
 
 set noshowmode
+
+" for kebab-case
+set iskeyword+=-
+let g:netrw_liststyle = 3
+cabbrev vsf vert sfind
