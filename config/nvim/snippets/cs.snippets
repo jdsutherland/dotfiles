@@ -23,26 +23,7 @@
 #		endsnippet
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
-snippet # "str interpolation" i
-#{$1}
+snippet rh "raise hell"
+throw new Exception("hell");
 endsnippet
 
-snippet % "display" i
-<% ${0} %>
-endsnippet
-
-snippet = "display eval" i
-<%= ${1} %>
-endsnippet
-
-snippet do "do" i
-do %>
-	${0}
-<% end
-endsnippet
-
-snippet dov "do |v|" i
-do |${1:v}| %>
-	${2}
-<% end
-endsnippet

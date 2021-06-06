@@ -1,0 +1,34 @@
+snippet ass "assert"
+assert ${1:bool-expr}${2:, "$3"}
+endsnippet
+
+snippet fori "for range"
+for ${1:i} in range(${2:len(iterable)}):
+    $3
+endsnippet
+
+snippet forr "for range reverse"
+for ${1:i} in reversed(range(${2:len(iterable)})):
+		$3
+endsnippet
+
+snippet forR "for range -1 -1"
+for ${1:i} in range(${2:len(iterable)} - 1, -1, -1):
+    $3
+endsnippet
+
+snippet arr "empty list = [None] * len(lst)"
+$1 = [None] * len(${2:lst})
+endsnippet
+
+snippet timeI "timeit"
+from timeit import timeit
+print(timeit(lambda: $1))
+endsnippet
+
+snippet PT "pytest" b
+import pytest
+
+def test${1:_raises}():
+    assert $2
+endsnippet

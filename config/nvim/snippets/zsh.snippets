@@ -23,26 +23,7 @@
 #		endsnippet
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
-snippet # "str interpolation" i
-#{$1}
-endsnippet
 
-snippet % "display" i
-<% ${0} %>
-endsnippet
-
-snippet = "display eval" i
-<%= ${1} %>
-endsnippet
-
-snippet do "do" i
-do %>
-	${0}
-<% end
-endsnippet
-
-snippet dov "do |v|" i
-do |${1:v}| %>
-	${2}
-<% end
+snippet $ "default value ${n:-default}" i
+${$1:-$2}
 endsnippet

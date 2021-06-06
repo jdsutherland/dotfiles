@@ -23,26 +23,14 @@
 #		endsnippet
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
-snippet # "str interpolation" i
-#{$1}
+snippet css "css head>link" b
+<link rel='stylesheet' href='$1'>
 endsnippet
 
-snippet % "display" i
-<% ${0} %>
+snippet js "js prior to body close" b
+<script src='$1'></script>
 endsnippet
 
-snippet = "display eval" i
-<%= ${1} %>
-endsnippet
-
-snippet do "do" i
-do %>
-	${0}
-<% end
-endsnippet
-
-snippet dov "do |v|" i
-do |${1:v}| %>
-	${2}
-<% end
+snippet x "class" i
+class="$1"
 endsnippet

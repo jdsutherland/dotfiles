@@ -24,8 +24,16 @@
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
 
-snippet pa "params[;id]" i
+snippet rpa "params[:id]" i
 params[:${1:id}]
+endsnippet
+
+snippet rrh "rails helper"
+require 'rails_helper'
+endsnippet
+
+snippet rh 'raise hell'
+raise 'hell'
 endsnippet
 
 snippet # "str interpolation" i
@@ -39,4 +47,3 @@ class $1
   end
 end
 endsnippet
-

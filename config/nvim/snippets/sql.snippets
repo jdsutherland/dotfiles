@@ -23,26 +23,38 @@
 #		endsnippet
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
-snippet # "str interpolation" i
-#{$1}
+
+snippet INS "INSERT INTO" b
+INSERT INTO ${1:table} (${2:cols}) VALUES ($3);
 endsnippet
 
-snippet % "display" i
-<% ${0} %>
+snippet UPD "UPDATE" b
+UPDATE ${1:table}
+SET ${2:col} = $3
+WHERE ${4:col} = $5;
 endsnippet
 
-snippet = "display eval" i
-<%= ${1} %>
+snippet ALT "ALTER" b
+ALTER TABLE ${1:table}
+${2:ADD}
 endsnippet
 
-snippet do "do" i
-do %>
-	${0}
-<% end
+snippet CRE "CREATE" b
+CREATE ${1:TABLE} ${2:table} (
+  ${3:col} ${4:datatype},
+);
 endsnippet
 
-snippet dov "do |v|" i
-do |${1:v}| %>
-	${2}
-<% end
+snippet DEL "DELETE" b
+DELETE FROM ${1:table} (
+	WHERE ${2:col} = $3
+);
+endsnippet
+
+snippet JOIN "JOIN" b
+SELECT
+	${1:table.col AS foo}
+FROM ${2:table1}
+JOIN ${3:table2}
+  ON ${4:table1.col} = ${5:table2.col}
 endsnippet

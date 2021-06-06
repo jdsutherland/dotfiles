@@ -23,22 +23,34 @@
 #		endsnippet
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
-snippet bbf "border-box fix" b
+snippet reset "border-box fix" b
 :root {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 *,
 ::before,
 ::after {
-	box-sizing: inherit;
+  box-sizing: inherit;
 }
 $1
 endsnippet
 
+snippet clearfix "clearfix" b
+.clearfix::before,
+.clearfix::after {
+  display: table;
+  content: " ";
+}
+
+.clearfix::after {
+  clear: both;
+}
+endsnippet
+
 snippet owl "except 1st child" i
-* + * {
-	$1
+body * + * {
+	${1:margin-top: 1.5em}
 }
 endsnippet
 
@@ -52,10 +64,10 @@ endsnippet
 
 snippet debug "debug"
 *:not(path):not(g) {
-	color: hsla(210, 100%, 100%, 0.9) !important;
-	background: hsla(210, 100%, 50%, 0.5) !important;
-	outline: solid 0.25rem hsla(210, 100%, 100%, 0.5) !important;
-	box-shadow: none !important;
+  color: hsla(210, 100%, 100%, 0.9) !important;
+  background: hsla(210, 100%, 50%, 0.5) !important;
+  outline: solid 0.25rem hsla(210, 100%, 100%, 0.5) !important;
+  box-shadow: none !important;
 }
 endsnippet
 
@@ -65,4 +77,112 @@ endsnippet
 
 snippet xb "debug background-color"
 background-color: #c64242;
+endsnippet
+
+snippet flexCol "flex col"
+display: flex;
+flex-direction: column;
+endsnippet
+
+snippet flexW "flex wrap"
+display: flex;
+flex-flow: ${1:row} wrap;
+endsnippet
+
+snippet flexCenter "flex h/v center"
+display: flex;
+justify-content: center;
+align-items: center;
+endsnippet
+
+snippet hrule "horiz rule (border-bottom)"
+border-bottom: 1px solid rgba(0,0,0,0.1);
+endsnippet
+
+snippet macback "mac background color"
+background: rgba(255,255,255,0.2);
+endsnippet
+
+snippet gridlove "grid repeat auto-fill"
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+gap: 1rem;
+endsnippet
+
+snippet gridCol "grid column"
+display: grid;
+grid-template-columns: 1fr;
+grid-auto-flow: column;
+endsnippet
+
+snippet gridCenter "grid h/v center"
+display: grid;
+align-content: center;
+justify-items: center;
+endsnippet
+
+snippet defvar "var root"
+:root {
+  ${1:--grey: #343436};
+}
+endsnippet
+
+snippet var "var(--VAR)" i
+var(--$1)$2
+endsnippet
+
+snippet truncate "truncate text" i
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+endsnippet
+
+# Responsive Design
+snippet m@smaller "progressively smaller"
+@media (${1:max-width: 35em}) {
+  $2
+}
+endsnippet
+
+snippet m@bigger "progressively larger"
+/* Medium */
+@media (min-width: 35em) {
+  $1
+}
+
+/* Large */
+@media (min-width: 50em) {
+  $2
+}
+endsnippet
+
+snippet m@all "responsive all"
+/* Mobile */
+@media only screen and (max-width: 400px) {
+  $1
+}
+
+/* Tablet */
+@media only screen and (min-width: 401px) and (max-width: 960px) {
+  $2
+}
+
+/* Desktop */
+@media only screen and (min-width: 961px) {
+  $3
+}
+endsnippet
+
+snippet m@wes "responsive wes bos"
+@media (max-width: 1000px) {
+  $1
+}
+
+@media (max-width: 700px) {
+  $2
+}
+
+@media (max-width: 500px) {
+  $3
+}
 endsnippet
