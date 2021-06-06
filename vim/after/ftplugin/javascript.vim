@@ -1,3 +1,3 @@
-au BufEnter *.js nmap ,db odebugger;<esc>^
-au BufEnter *.js,*.jsx,*.ts,*.tsx imap ,tt this.
+au BufEnter *.js nmap <buffer> ,db odebugger;<esc>^
+au BufEnter *.js,*.jsx,*.ts,*.tsx imap <buffer> ,tt this.
 " inoremap <buffer> ,tt this.

@@ -1,3 +1,5 @@
+setlocal nolist wrap lbr
+
 " Syntax-highlight languages inside fenced markdown blocks
 let g:markdown_fenced_languages = [
       \ 'css',

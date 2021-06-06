@@ -1,5 +1,5 @@
 set noexpandtab tabstop=4 shiftwidth=4
-set foldmethod=syntax
+setlocal foldmethod=syntax
 
 " TODO: keep?
 nnoremap <buffer> ,f :GoDef<cr>

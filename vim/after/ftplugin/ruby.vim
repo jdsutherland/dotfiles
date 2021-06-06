@@ -1,7 +1,7 @@
 setlocal suffixesadd+=.rb
 setlocal path+=lib
 compiler ruby
-map <leader>bp orequire "pry": binding.pry<esc>^
-imap ,rs &;
-imap ,rS <=>
+imap <buffer> <leader>bp orequire "pry": binding.pry<esc>^
+imap <buffer> ,rs &;
+imap <buffer> ,rS <=>
 inoremap <buffer> ,tt self
