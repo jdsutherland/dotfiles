@@ -21,13 +21,13 @@ syntax match goNiceOperator ":=" conceal cchar=≔
 syntax match goNiceOperator /err == nil/ conceal cchar=✓
 syntax match goNiceOperator /err != nil/ conceal cchar=✗
 
-syntax match goNiceOperator /!= ""/ conceal cchar=✓
-syntax match goNiceOperator /== ""/ conceal cchar=∅
+" syntax match goNiceOperator /!= ""/ conceal cchar=✓
+" syntax match goNiceOperator /== ""/ conceal cchar=∅
 
-" syntax match goNiceOperator "\v\s\zs\*\ze[a-zA-Z]" conceal cchar=⁕
-syntax match goNiceOperator "\*" conceal cchar=*
+syntax match goNiceOperator "\v\s\zs\*\ze[a-zA-Z]" conceal cchar=*
+" syntax match goNiceOperator "\zs\*\ze\w+" conceal cchar=*
 syntax match goNiceOperator "\zs&\ze\w\+" conceal cchar=&
-syntax match goNiceOperator "," conceal cchar=,
+" syntax match goNiceOperator "," conceal cchar=,
 syntax match goNiceOperator "++" conceal cchar=Δ
 syntax match goNiceOperator "--" conceal cchar=∇
 " syntax match goNiceOperator " \zs\*\ze " conceal cchar=⨉
@@ -44,7 +44,7 @@ syntax keyword goNiceOperator function conceal cchar=ƒ contained
 syntax keyword goDeclaration func conceal cchar=ƒ
 
 syntax keyword goConst const conceal cchar=𝔠
-syntax keyword goVar var conceal cchar=v
+syntax keyword goVar var conceal cchar=ℓ
 syntax keyword goPredefinedIdentifiers nil conceal cchar=∅
 
 " syntax keyword goType interface conceal cchar=𐊭

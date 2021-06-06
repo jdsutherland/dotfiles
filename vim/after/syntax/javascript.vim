@@ -59,7 +59,7 @@ syntax keyword jsBooleanFalse false conceal cchar=F
 
 syntax keyword jsStorageClass const conceal cchar=𝔠
 " syntax match jsStorageClass "\<const\s\+" conceal
-syntax keyword jsStorageClass let conceal cchar=ʟ
+syntax keyword jsStorageClass let conceal cchar=ℓ
 syntax keyword jsStorageClass var conceal cchar=v
 syntax keyword jsClassMethodType static conceal cchar=∬
 syntax keyword jsGlobalObjects Promise conceal cchar=Ƥ
@@ -67,10 +67,11 @@ syntax keyword jsGlobalObjects Promise conceal cchar=Ƥ
 syntax keyword jsAsyncKeyword async conceal cchar=ÅⱣ
 syntax keyword jsAsyncKeyword await conceal cchar=å
 
-syntax keyword jsStatement export conceal cchar=E
+syntax keyword jsStatement export conceal cchar=+
+syntax keyword jsStatement default conceal cchar=d
 syntax keyword jsStatement import conceal cchar=ɪ
-syntax match jsStatement "\sfrom\ze\s" conceal cchar=ｆ
-" syntax keyword jsArguments arguments conceal cchar=ȁ
+" syntax match jsStatement "\sfrom\ze\s" conceal cchar=ｆ
+syntax match jsStatement "\s\zsfrom\ze\s" conceal cchar=∷
 
 syntax keyword jsGlobalObjects Boolean conceal cchar=ƀ
 syntax keyword jsGlobalObjects Integer conceal cchar=ⅰ
@@ -78,7 +79,7 @@ syntax keyword jsGlobalObjects Number conceal cchar=ℤ
 syntax keyword jsGlobalObjects String conceal cchar=⟆
 syntax keyword jsGlobalObjects Array conceal cchar=⌸
 syntax keyword jsGlobalObjects Object conceal cchar=ɵ
-" 𝒜
+"
 syntax match jsGlobalObjects "\<boolean\>" conceal cchar=ƀ
 " syntax match jsGlobalObjects "\<number\>" conceal cchar=ℤ
 syntax match jsGlobalObjects "\<string\>" conceal cchar=⟆

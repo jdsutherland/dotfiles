@@ -2,21 +2,46 @@ if exists('g:no_java_conceal') || !has('conceal') || &enc != 'utf-8'
   finish
 endif
 
-syntax match javaNiceOperator "*" conceal cchar=⁕
-syntax match goNiceOperator "==" conceal cchar=≡
+
+" syntax match javaNiceOperator "*" conceal cchar=⁕
+syntax match csEnclosed "==" conceal cchar=≡
 syntax match csEnclosed "\[\]" conceal cchar=⌑
 syntax match javaNiceOperator "!=" conceal cchar=≠
 syntax match javaNiceOperator "<=" conceal cchar=≤
 syntax match javaNiceOperator ">=" conceal cchar=≥
 syntax match javaNiceOperator "++" conceal cchar=Δ
 syntax match javaNiceOperator "--" conceal cchar=∇
-syntax match javaNiceOperator "||" conceal cchar=⋁
-syntax match javaNiceOperator "&&" conceal cchar=⋀
+syntax match javaNiceOperator "||" conceal cchar=∨
+syntax match javaNiceOperator "&&" conceal cchar=∧
 syntax match javaNiceOperator "->" conceal cchar=⇾
+syntax match javaNiceOperator "=>" conceal cchar=⇒
+syntax keyword javaNiceOperator interface conceal cchar=♀
+syntax match pythonStatement "Assert" conceal cchar=✓
 " syntax match javaNiceOperator "->" conceal cchar=→
-syntax match javaNiceOperator "\s\+\zs\.\ze"  conceal cchar=｡
+syntax match javaNiceOperator "^\s*\zs\.\ze"  conceal cchar=｡
 
 syntax match javaNiceFunction "assertEquals" conceal cchar=≡
+
+" syntax match javaHiddenType "\v\zs[A-Z]\w+\s\ze[_a-z]+" conceal
+" syntax match javaHiddenType "\v\zs[A-Z][<A-Za-z>]+\ze\s[_a-z]+" conceal cchar=ℓ
+" syntax match javaConcealType "\v(class)@<![ (]\zs[A-Z][<A-Za-z>]+\ze\s[_a-z]+" conceal cchar=ℓ " types
+syntax match javaConcealType "\v(class)@<![ (]\zs[A-Z][<A-Za-z>]+\ze\s[_a-zA-Z<>]+" conceal cchar=ℓ " types
+syntax match javaConcealType "\v\zs[A-Z][<>A-Za-z]+\ze\s[A-Z][A-Za-z]+.*\{\s(get|set)" conceal cchar=ℓ " types (props)
+syntax match javaConcealType "\v\zs[A-Z][A-Za-z<, >]+\ze\s[_a-zA-Z]+\(" conceal cchar=ℓ " method return types
+
+syntax keyword csAsync async conceal cchar=ÅⱣ
+syntax keyword csAsync await conceal cchar=å
+
+" syntax match csFuncDef "\v\s\zs[A-Z]\w+\ze\(.*\)$"
+" syntax match csFuncDef "\v\s\zs[A-Z]\w+\ze\(\_.*\)$"
+syntax match csFuncDef "\v\s\zs[A-Za-z]\w+\ze\(.*\)\_.\s*\{"
+syntax match csFuncDef "\v\s\zs[A-Za-z]\w+\ze\(.*\)\s+\=\>" " fat arrow
+
+" TODO: keep both?
+syntax match csFuncDef "\v\s\zs[A-Za-z]\w+\ze\(\n" " multiline defs
+" TODO: doesn't highlight  `Handler<TEvent>` in `private IEventHandler<TEvent> Handler<TEvent>(CommerceContext context)` even though the search matches
+syntax match csFuncDef "\v(public|private|protected|internal).*\s\zs[A-Z][A-Za-z<, >]+\ze\(\n" " multiline defs
+hi def link csFuncDef Function
 
 let s:extraConceal = 1
 if s:extraConceal
@@ -28,18 +53,23 @@ if s:extraConceal
   " syntax keyword javaNiceKeyword class conceal cchar=₡
   " syntax keyword javaNiceKeyword const conceal cchar=𝔠
   syntax keyword javaNiceKeyword const conceal cchar=𝔠
-  syntax keyword javaNiceKeyword public conceal cchar=ॱ
-  syntax keyword javaNiceKeyword protected conceal cchar=ॱ
-  syntax keyword javaNiceKeyword private conceal cchar=·
+  syntax keyword javaNiceKeyword readonly conceal cchar=𝔠
+  syntax keyword javaNiceKeyword public conceal cchar=+
+  syntax keyword javaNiceKeyword protected conceal cchar=|
+  syntax keyword javaNiceKeyword private conceal cchar=-
+  syntax keyword javaNiceKeyword internal conceal cchar=&
+  syntax keyword javaNiceKeyword delegate conceal cchar=ƒ
+  syntax keyword javaNiceKeyword virtual conceal cchar=ṿ
+  syntax keyword javaNiceKeyword override conceal cchar=ọ
+  syntax keyword javaNiceKeyword abstract conceal cchar=ā
   " syntax keyword javaNiceKeyword public conceal cchar=·
   " syntax keyword javaNiceKeyword protected conceal cchar=◈
   " syntax keyword javaNiceKeyword private conceal cchar=-
-  syntax keyword javaNiceKeyword return conceal cchar=⇚
+  syntax keyword csRepeat return conceal cchar=⇚
   " syntax keyword javaNiceKeyword static conceal cchar=∙
   syntax keyword javaNiceKeyword static conceal cchar=∬
   " syntax keyword javaNiceKeyword virtual conceal
   " syntax keyword javaNiceKeyword abstract conceal
-  syntax match csType "\v<var " conceal cchar=@
 
   " syntax keyword javaNiceKeyword break conceal cchar=↯
   " " syntax keyword javaNiceKeyword continue conceal cchar=↟
@@ -56,17 +86,17 @@ if s:extraConceal
   " syntax keyword javaNiceKeyword return conceal cchar=⇚
   " syntax keyword javaNiceKeyword static conceal cchar=∙
   " syntax keyword javaNiceKeyword virtual conceal cchar=ⅵ
-  " syntax match goVar "\v<var " conceal cchar=@
+  syntax keyword csType var conceal cchar=ℓ
 
   syntax keyword javaClassDecl extends conceal cchar=<
   syntax keyword javaClassDecl implements conceal cchar=:
 
   syntax keyword csNewDecleration new conceal cchar=μ
   syntax keyword csUnspecifiedStatement this conceal cchar=@
-  syntax keyword javaExternal using conceal cchar=ɪ
+  " syntax keyword javaExternal using conceal cchar=ɪ
 
-  syntax keyword javaBoolean true conceal cchar=T
-  syntax keyword javaBoolean false conceal cchar=F
+  syntax keyword csConstant true conceal cchar=T
+  syntax keyword csConstant false conceal cchar=F
 
   syntax keyword csType void conceal cchar=∅
   syntax keyword csType decimal conceal cchar=$
@@ -77,22 +107,21 @@ if s:extraConceal
   syntax keyword csType float double conceal cchar=ℝ
   syntax keyword csType byte conceal cchar=฿
   syntax keyword csType long conceal cchar=ʟ
+  syntax keyword csType object conceal cchar=ɵ
 
-  " syntax match javaHiddenOperator /\S\zs()\ze\(\S\| [^{]\)/ conceal
-  " syntax match javaHiddenOperator /^\s*}$/ conceal
-  " syntax match javaHiddenOperator /\(^\s*\)\@<=}\s*/ conceal
-  " syntax match javaHiddenOperator /\ *{$/ conceal
+  " hide no arg method() parens
+  syntax match javaHiddenOperator /\S\zs()\ze\(\S\| [^{]\)/ conceal
+
+  " trailing }
+  syntax match javaHiddenOperator /^\s*}$/ conceal
+  syntax match javaHiddenOperator /\(^\s*\)\@<=}\s*/ conceal
+
+  " beginning {
+  syntax match javaHiddenOperator /\ *{$/ conceal
+
+  " trailing ;
   syntax match javaHiddenOperator /;$/ conceal
 endif
-
-" Java: 'new', 'instanceof'
-highlight Operator ctermfg=5  guifg=#d175bc
-" Java: 'this', 'super'
-highlight Typedef ctermfg=5  guifg=#d175bc
-" Java: 'void', 'int', 'double'
-highlight Type ctermfg=4  guifg=#69b7d3
-" literal numbers
-highlight Number term=bold ctermfg=16 gui=bold guifg=#d2d22d
 
 hi link javaNiceConstant Constant
 hi link javaNiceKeyword Keyword

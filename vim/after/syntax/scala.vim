@@ -12,21 +12,22 @@ syntax match scalaNiceOperator ">>" conceal cchar=»
 syntax match scalaNiceOperator "&&" conceal cchar=∧
 syntax match scalaNiceOperator "||" conceal cchar=∨
 syntax match scalaNiceOperator "\v<length\(\)" conceal cchar=#
-syntax match scalaNiceOperator "*" conceal cchar=⁕
+" syntax match scalaNiceOperator "*" conceal cchar=⁕
 
 syntax match scalaNiceOperator "++" conceal cchar=Δ
 syntax match scalaNiceOperator "--" conceal cchar=∇
-syntax match scalaNiceOperator " \zs\*\ze " conceal cchar=⨉
-syntax match scalaNiceOperator " \zs\/\ze " conceal cchar=÷
+" syntax match scalaNiceOperator " \zs\*\ze " conceal cchar=⨉
+" syntax match scalaNiceOperator " \zs\/\ze " conceal cchar=÷
 syntax match scalaNiceOperator "\.\.\." conceal cchar=…
 
-syntax keyword scalaKeywordModifier private conceal cchar=⌾
+" syntax keyword scalaKeywordModifier private conceal cchar=⌾
+syntax keyword scalaKeywordModifier private conceal cchar=-
 syntax keyword scalaKeywordModifier override conceal cchar=⎆
 syntax keyword scalaKeywordModifier protected conceal cchar=◈
 " syntax keyword javaNiceKeyword break conceal cchar=↯
 
 syntax keyword scalaKeyword return conceal cchar=⇚
-syntax keyword scalaKeyword var conceal cchar=@
+syntax keyword scalaKeyword var conceal cchar=ℓ
 syntax keyword scalaKeyword val conceal cchar=𝔠
 syntax keyword scalaSpecial true conceal cchar=T
 syntax keyword scalaSpecial false conceal cchar=F

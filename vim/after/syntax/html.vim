@@ -1,27 +1,21 @@
-" <runtime>/after/syntax/html.vim
-"
-" Last modified: July 29, 2011
-"
-" This script requires Vim 7.3 or greater and the +conceal feature.  It uses
-" the feature to:
-"
-" 1) Collapse HTML character entities into the character they represent.
-" 2) Conceal the start/end tag of bold, italic, and underlined text if
-"    g:html_no_rendering is not set.  (Other tags are left alone because there
-"    is no other unambiguous visual indication of their presence.)
-"
-" -----------------------------------------------------------------------------
-"
-" Copyright July 2010  Christian J. Robinson <heptite at gmail dot com>
-"
-" Distributed under the terms of the Vim license.
-"
-" -----------------------------------------------------------------------------
-"
-" The list of supported character entities is intentionally incomplete; I've
-" only added those that are obvious/common or entities and entity groups that
-" I've had occasion to use in the past.  If you add any to this file feel free
-" to send me a revised version.
+" {{{ must manually copy to head of /usr/local/Cellar/neovim/HEAD-f8173df_2/share/nvim/runtime/syntax/html.vim
+syn keyword htmlArg class conceal cchar=ℂ
+syn keyword htmlArg id conceal cchar=#
+syn match htmlArg 'data-' conceal cchar=⊇
+syn keyword htmlTagName div conceal
+syn keyword htmlTagName p conceal cchar=¶
+syn keyword htmlTagName span conceal cchar=⇒
+syn keyword htmlTagName section conceal cchar=§
+syn keyword htmlTagName article conceal cchar=⫫
+syn keyword htmlTagName ol conceal cchar=ℓ
+syn keyword htmlTagName ul conceal cchar=ℓ
+syn keyword htmlTagName li conceal cchar=•
+syn keyword htmlTagName button conceal cchar=🔘
+syn keyword htmlTagName option conceal cchar=⌥
+syn keyword htmlTagName tr conceal cchar=⇆
+syn keyword htmlTagName td conceal cchar=☐
+syn keyword htmlTagName blockquote conceal cchar="
+" }}}
 
 if has('conceal') | set conceallevel=2 | else | finish | endif
 
@@ -127,7 +121,7 @@ endfunction
 
 let s:specials=[
 \  ['&',    '&amp;'], ['<' ,    '&lt;'], ['>',      '&gt;'], [' ',   '&nbsp;'],
-\  ['«',  '&laquo;'], ['»',  '&raquo;'], ['"',    '&quot;'],
+\  ['«',  '&laquo;'], ['»',  '&raquo;'], ['"',    '&quot;'], ['’',  '&#8217;'], ["'",  '&apos;'],
 \  ['¢',   '&cent;'], ['£',  '&pound;'], ['¥',     '&yen;'], ['€',   '&euro;'],
 \  ['©',   '&copy;'], ['®',    '&reg;'], ['™',   '&trade;'],
 \  ['×',  '&times;'], ['÷', '&divide;'], ['±',  '&plusmn;'],

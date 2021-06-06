@@ -3,15 +3,21 @@
 
 " NOTE: c prefix means conceal
 
+" NOTE: stopped working as of 3/22/21; works when moved to bottom of ~/.config/nvim/plugged/typescript-vim/syntax/typescript.vim
 " typescript-vim {{{
-syntax keyword cTypescriptReserved export conceal cchar=E
+syntax keyword cTypescriptReserved export conceal cchar=+
 syntax keyword cTypescriptReserved import conceal cchar=ɪ
-" syntax match cTypescriptReserved "\<from\ze\s" conceal cchar=ｆ
+" syntax keyword cTypescriptReserved from conceal cchar=∷
+syntax match cTypescriptReserved "\s\zsfrom\ze\s" conceal cchar=∷
 syntax keyword cTypescriptReserved extends conceal cchar=<
+syntax keyword cTypescriptReserved implements conceal cchar=:
 syntax keyword cTypescriptReserved private conceal cchar=-
+syntax keyword cTypescriptReserved public conceal cchar=+
+syntax keyword cTypescriptReserved protected conceal cchar=~
 syntax keyword cTypescriptReserved type conceal cchar=₪
 syntax keyword cTypescriptReserved enum conceal cchar=∈
 syntax keyword cTypescriptReserved interface conceal cchar=♀
+syntax keyword cTypescriptReserved static conceal cchar=∬
 
 syntax keyword cTypescriptStatement return conceal cchar=⇚
 
@@ -22,6 +28,7 @@ syntax keyword cTypescriptBranch await conceal cchar=å
 
 syntax keyword cTypescriptIdentifier this conceal cchar=@
 
+syntax match cTypeScriptBraces "\[\]" conceal cchar=□
 syntax keyword cTypescriptType string conceal cchar=⟆
 syntax keyword cTypescriptType boolean conceal cchar=ƀ
 syntax keyword cTypescriptType integer conceal cchar=ⅰ
@@ -53,6 +60,7 @@ syntax match cTypescriptOpSymbols "\s\+\zs!==\ze\s\+" conceal cchar=≢
 
 " link conceal groups to actual to keep colors
 hi link cTypescriptReserved typescriptReserved
+hi link cTypescriptBraces typescriptBraces
 hi link cTypescriptOpSymbols typescriptOpSymbols
 hi link cTypescriptStatement typescriptStatement
 hi link cTypescriptIdentifier typescriptIdentifier
@@ -131,7 +139,7 @@ hi link ctypescriptStorageClass typescriptStorageClass
 " " }}}
 
 " not linked (new defs)
-syntax match cArrowFunction "\s\zs=>\ze" conceal cchar=⇒
+syntax match cTypeScriptOpSymbols "\s\zs=>\ze" conceal cchar=⇒
 syntax keyword cTsNice length conceal cchar=#
 syntax keyword cTsNice Promise conceal cchar=Ƥ
 syntax match cTsNice "\.\.\." conceal cchar=…
