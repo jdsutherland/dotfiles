@@ -46,14 +46,24 @@
   ],
   "snippets.extends": {
     "ruby": ["rails"],
+    "eruby": ["html"],
     "javascriptreact": ["javascript"],
     "typescript": ["javascript"],
     "typescriptreact": ["typescript", "javascriptreact"],
-    "typescript.tsx": ["typescript", "javascriptreact"]
+    "typescript.tsx": ["typescript", "javascriptreact"],
+    "cpp": ["c"]
   },
   "clangd.path": "/usr/local/Cellar/llvm/10.0.1_1/bin/clangd",
   "suggest.timeout": 4000,
   "solargraph.diagnostics": true,
   "solargraph.formatting": true,
-  "java.home": "/Library/Java/JavaVirtualMachines/openjdk-14.0.2.jdk/Contents/Home"
+  "codeLens.enable": false,
+  "java.home": "/Library/Java/JavaVirtualMachines/openjdk-14.0.2.jdk/Contents/Home",
+  "java.referencesCodeLens.enabled": true,
+  "java.implementationsCodeLens.enabled": true,
+  "java.jdt.ls.vmargs": "-javaagent:/usr/local/share/lombok/lombok.jar",
+  "java.signatureHelp.enabled": true,
+  "java.completion.guessMethodArguments": true,
+  "python.jediPath": "/Users/j/.asdf/installs/python/3.9.0/lib/python3.9/site-packages",
+  "omnisharp.version": "v1.37.3"
 }
