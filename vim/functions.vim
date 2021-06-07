@@ -57,6 +57,7 @@ function! s:PrettyJSON()
 endfunction
 command! PrettyJSON :call <sid>PrettyJSON()
 
+" {{{ tmux git history
 function! s:TmuxGitIndividualFileHistory()
   let filepath = shellescape(expand('%'))
   call system("tmux splitw -l 30% -h -c '#{pane_current_path}' 'git log --patch --follow " . filepath . "; read'")
@@ -80,6 +81,7 @@ function! s:TmuxGitFileFullHistoryReverse()
   call system("tmux splitw -l 30% -h -c '#{pane_current_path}' 'git log --stat --patch --reverse --full-diff " . filepath . "; read'")
 endfunction
 command! TmuxGitFileFullHistoryReverse :call <sid>TmuxGitFileFullHistoryReverse()
+" }}}
 
 " run :GoBuild or :GoTestCompile based on the go file
 function! BuildGoFiles()
@@ -111,6 +113,7 @@ function! ResizeMin()
   set winfixheight
 endfunction
 command! ResizeMin :call <sid>ResizeMin()
+nnoremap <silent> <cr>m :call ResizeMin()<CR>
 
 function! s:SysPasteTrimNewlines()
   execute "normal \<Plug>SystemPasteLine"

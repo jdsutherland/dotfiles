@@ -34,13 +34,13 @@ set ruler
 set backspace=indent,eol,start
 set history=10000
 set updatetime=250 " https://www.reddit.com/r/vim/comments/3ql651/what_do_you_set_your_updatetime_to/
+set timeoutlen=300
 set laststatus=2
 " show filename rather than full path
 set statusline=%t
 set ignorecase
 set smartcase
 set gdefault
-" set inccommand=nosplit TODO: verify https://github.com/markonm/traces.vim not compat.
 set showmatch
 set hlsearch
 set incsearch
@@ -58,7 +58,7 @@ set noswapfile
 " Set the tag file search order
 set tags=tags
 set path=.
-set foldmethod=syntax " TODO: default to marker; syntax for specific ft
+set foldmethod=syntax
 set foldlevel=99
 set splitbelow
 set splitright

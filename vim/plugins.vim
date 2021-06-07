@@ -2,7 +2,25 @@ function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
 
+" Plug 'lewis6991/gitsigns.nvim'
+Plug 'nvim-treesitter/playground'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " browser textarea
+Plug 'folke/todo-comments.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+nnoremap \ff <cmd>Telescope find_files<cr>
+nnoremap \fg <cmd>Telescope live_grep<cr>
+nnoremap \ft <cmd>Telescope buffers<cr>
+nnoremap \fh <cmd>Telescope help_tags<cr>
+nnoremap \fb <cmd>Telescope current_buffer_fuzzy_find<cr>
+nnoremap \fq <cmd>Telescope quickfix<cr>
+" highlight cword, open exact uses
+nmap <silent><space>sd [I ;let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr> ;Telescope quickfix<cr>
+
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 Plug 'carakan/pmv.vim' " packages
 Plug 'zhimsel/vim-stay'
@@ -47,8 +65,8 @@ let g:vista_keep_fzf_colors = 1
 let g:vista_sidebar_width = 50
 " let g:vista_keep_fzf_colors = 1
 " use ctags here?
-nnoremap <silent> <space>o :Vista finder coc<CR>
-nnoremap <silent> <space>O :Vista finder ctags<CR>
+nnoremap <silent> <space>o :silent Vista finder coc<CR>
+nnoremap <silent> <space>O :silent Vista finder ctags<CR>
 nnoremap <silent> <M-z> :Vista!!<CR>
 " }}}
 
@@ -177,6 +195,20 @@ let g:coc_global_extensions = [
  \ 'yaml.docker-compose': 'yaml',
  \ 'yaml.eruby': 'yaml',
  \ }
+
+nmap [c <Plug>(coc-git-prevchunk)
+nmap ]c <Plug>(coc-git-nextchunk)
+nmap ,hs :CocCommand git.chunkStage<cr>
+nmap ,hu :CocCommand git.chunkUndo<cr>
+nmap ,hc <Plug>(coc-git-chunkinfo)
+
+" scroll hover popup
+nnoremap <nowait><expr> <C-n> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-n>"
+nnoremap <nowait><expr> <C-p> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-p>"
+" TODO: not working
+" inoremap <nowait><expr> <C-n> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<c-n>"
+" inoremap <nowait><expr> <C-p> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<c-p>"
+
 nnoremap ,sS :CocList -A snippets<cr>
 nnoremap ,SS :CocFzfList snippets<cr>
 nnoremap <silent> ,ss :CocCommand snippets.editSnippets<cr>
@@ -239,11 +271,11 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " TODO: broke <cr>g map
 " Remap keys for gotos
-nmap <silent> <cr>gd <Plug>(coc-definition)
-nmap <silent> <cr>gt <Plug>(coc-declaration)
-nmap <silent> <cr>gy <Plug>(coc-type-definition)
-nmap <silent> <cr>gi <Plug>(coc-implementation)
-nmap <silent> <cr>gr <Plug>(coc-references)
+autocmd User CocNvimInit nmap <expr>,f CocHasProvider('documentSymbol') ? "<Plug>(coc-definition)" : "<C-]>zt"
+" open def in split
+autocmd User CocNvimInit nmap <expr>,fv CocHasProvider('documentSymbol') ? ":call CocAction('jumpDefinition', 'vsplit')<CR><C-w><C-p>" : ":vs<cr><c-]><C-w><C-p>zt"
+autocmd User CocNvimInit nmap <expr>,fs CocHasProvider('documentSymbol') ? ":call CocAction('jumpDefinition', 'split')<CR><C-w><C-p>" : ":sp<cr><c-]><C-w><C-p>zt"
+nmap <silent> <c-[> <Plug>(coc-definition)
 
 " show documentation
 function! s:show_documentation()
@@ -258,15 +290,18 @@ endfunction
 nnoremap <silent> <space><space> :call <SID>show_documentation()<CR>
 
 " common editor actions
-nmap <leader>rn <Plug>(coc-rename)
-" xmap <tab>f <Plug>(coc-format-selected)
-" nmap <tab>f <Plug>(coc-format-selected)
-nmap <leader>do <Plug>(coc-codeaction)
-nmap <space>F <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-nmap <space>f <Plug>(coc-fix-current)
-nmap <leader>dc <Plug>(coc-codelens-action)
-nmap \F <Plug>(coc-format)
+nmap \cn <Plug>(coc-rename)
+nmap \ca <Plug>(coc-codeaction)
+nmap \cf <Plug>(coc-fix-current)
+nmap \cl <Plug>(coc-codelens-action)
+nmap \cF <Plug>(coc-format)
+nmap <silent> \cd <Plug>(coc-declaration)
+nmap <silent> \cy <Plug>(coc-type-definition)
+nmap <silent> \ci <Plug>(coc-implementation)
+nmap <silent> \cr <Plug>(coc-references)
+nmap <silent> \cR <Plug>(coc-refactor)
+nnoremap \cc :cclose<cr>:pclose<cr>:call coc#util#float_hide()<cr>
+nnoremap \cC :silent CocRestart<cr>
 
 augroup cocgroup
   autocmd!
@@ -309,9 +344,6 @@ nnoremap <silent> <tab>j :<C-u>CocNext<CR>
 nnoremap <silent> <tab>k :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <tab>p :<C-u>CocListResume<CR>
-
-nnoremap <space>C :cclose<cr>:pclose<cr>:call coc#util#float_hide()<cr>
-nnoremap <space>R :silent CocRestart<cr>
 " }}}
 
 Plug 'AndrewRadev/linediff.vim'
@@ -320,15 +352,17 @@ Plug 'AndrewRadev/whitespaste.vim'
 Plug 'AndrewRadev/undoquit.vim'
 Plug 'AndrewRadev/exercism.vim'
 cnoreabbrev exercism Exercism
-cnoreabbrev exercism Exercism
 Plug 'AndrewRadev/switch.vim'
 let g:switch_mapping = "-"
 Plug 'pbrisbin/vim-mkdir'
 Plug 'dietsche/vim-lastplace'
 Plug 'vim-scripts/ReplaceWithRegister'
+map <cr>g griw
+map <cr>G gr$
 Plug 'wellle/targets.vim'
 Plug 'sickill/vim-pasta'
 Plug 'tommcdo/vim-exchange'
+nmap cX cx$
 Plug 'wesQ3/vim-windowswap'
 Plug 'flw-cn/vim-markdown'
 Plug 'turbio/bracey.vim', {'do': 'npm install --prefix server'} " change if https://github.com/turbio/bracey.vim/pull/56 not merged
@@ -336,6 +370,8 @@ Plug 'mogelbrod/vim-jsonpath'
 Plug 'nathanaelkane/vim-indent-guides'
 nnoremap <tab>i :IndentGuidesToggle<cr>
 Plug 'markonm/traces.vim'
+let g:traces_preview_window = "winwidth('%') > 160 ? 'bot vnew' : 'bot 10new'"
+let g:traces_abolish_integration = 1
 Plug 'tpope/vim-apathy'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
@@ -349,10 +385,9 @@ Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-ragtag'
-Plug 'kristijanhusak/vim-dadbod-ui'
+Plug 'tpope/vim-dadbod' | Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'diepm/vim-rest-console'
 Plug 'honza/vim-snippets'
 Plug 'christoomey/vim-conflicted'
@@ -360,7 +395,6 @@ Plug 'christoomey/vim-titlecase'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
-Plug 'sunaku/vim-hicterm'
 Plug 'vim-scripts/SyntaxAttr.vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'vim-scripts/BufOnly.vim'
@@ -381,7 +415,6 @@ map <cr>k viwf.ey;Dash <C-R>"<CR>
 
 Plug 'troydm/zoomwintab.vim'
 nnoremap <silent><cr>z :ZoomWinTabToggle<CR>
-nnoremap <silent>M :ZoomWinTabToggle<CR>
 
 Plug 'tpope/vim-abolish'
 nnoremap <Leader>abs :%S/
@@ -464,7 +497,6 @@ let g:VtrGitCdUpOnOpen = 1
 nnoremap <cr>q :VtrSendCommandToRunner<space>
 " nnoremap <leader>sr :VtrOpenRunner {'orientation': 'h', 'percentage': 50}<cr>
 nnoremap <leader>or :VtrOpenRunner {'orientation': 'v', 'percentage': 20}<cr>
-nnoremap <leader>pry :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'pry'}<cr>
 nnoremap <leader>nr :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'node'}<cr>
 nnoremap <leader>sd :VtrSendCtrlD<cr>
 nnoremap <leader>sc :VtrSendCtrlC<cr>
@@ -542,6 +574,7 @@ Plug 'gennaro-tedesco/nvim-peekup'
 
 " projectionist {{{
 Plug 'tpope/vim-projectionist'
+nnoremap <cr>aa :AV<cr>
 let g:projectionist_heuristics = {
       \   '*': {
       \     '*.c': {
@@ -645,7 +678,7 @@ Plug 'bounceme/poppy.vim'
 augroup Poppy
   au!
 augroup END
-nnoremap <silent><c-p> :call clearmatches() \| let g:poppy = -get(g:,'poppy',-1) \|
+nnoremap <silent>\P :call clearmatches() \| let g:poppy = -get(g:,'poppy',-1) \|
       \ exe 'au! Poppy CursorMoved *' . (g:poppy > 0 ? ' call PoppyInit()' : '') <cr>
 " }}}
 
@@ -662,8 +695,8 @@ xmap <leader>m <plug>(GrepperOperator)
 
 Plug 'romainl/vim-qf'
 let g:qf_mapping_ack_style = 1
-nmap <silent> \\ <Plug>(qf_qf_toggle)
-nmap <silent> \d <Plug>(qf_loc_toggle)
+nmap <silent> \q <Plug>(qf_qf_toggle)
+nmap <silent> \l <Plug>(qf_loc_toggle)
 Plug 'romainl/vim-qlist' " persist [I to qflist
 Plug 'stefandtw/quickfix-reflector.vim'
 let g:qf_join_changes = 1
@@ -742,9 +775,6 @@ nnoremap <c-s><c-t> :ThesaurusQueryReplaceCurrentWord<CR>
 vnoremap <c-s><c-t> y:ThesaurusQueryReplace <C-r>"<CR>
 " }}}
 
-" git
-Plug 'airblade/vim-gitgutter'
-
 " gutentags {{{
 Plug 'ludovicchabant/vim-gutentags'
 let g:gutentags_define_advanced_commands = 1
@@ -812,13 +842,12 @@ Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'tpope/vim-rhubarb'
 
-Plug 'moll/vim-bbye'
-nnoremap <silent> <space>dd :Bdelete<CR>
-
 Plug 'junegunn/vim-github-dashboard'
-Plug 'gabebw/vim-github-link-opener', { 'branch': 'gbw-source-code-link' }
+Plug 'jdsutherland/vim-github-link-opener'
 Plug 'christoomey/vim-quicklink' " broken as of 2017 due to google api change
 Plug 'rhysd/git-messenger.vim'
+let g:git_messenger_floating_win_opts = { 'border': 'single' }
+let g:git_messenger_popup_content_margins = v:false
 nmap <space>m <Plug>(git-messenger)
 let g:git_messenger_always_into_popup = v:true
 let g:git_messenger_date_format = "%Y %b %d %X"
@@ -834,6 +863,8 @@ hi link typescriptReserved Keyword
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'MaxMEllon/vim-jsx-pretty'
 let g:vim_jsx_pretty_colorful_config = 1
+
+" {{{ vim-javascript
 Plug 'pangloss/vim-javascript'
 let g:javascript_conceal_function       = "ƒ"
 let g:javascript_conceal_null           = "∅"
@@ -846,6 +877,7 @@ let g:javascript_conceal_prototype      = "¶"
 let g:javascript_conceal_static         = "∬"
 let g:javascript_conceal_super          = "Ω"
 let g:javascript_conceal_arrow_function = "⇒"
+" }}}
 
 Plug 'jhkersul/vim-jest-snippets'
 Plug 'dsznajder/vscode-es7-javascript-react-snippets', { 'do': 'yarn install --frozen-lockfile && yarn compile' }
@@ -885,23 +917,23 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-bundler'
 Plug 'christoomey/vim-rfactory'
 Plug 'vim-ruby/vim-ruby'
+let g:loaded_ruby_provider = 0
 let g:rubycomplete_rails = 1
 let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_classes_in_global = 1
 let g:rubycomplete_load_gemfile = 1
 let g:ruby_operators = 1
 let g:ruby_minlines = 150
-" TODO: keep?
 Plug 'rlue/vim-fold-rspec', { 'for': 'ruby' }
 let g:fold_rspec_foldlevel = 2 " init open/closed state of all folds (open unless nested < 2 levels deep)
 let g:fold_rspec_foldminlines = 3 " disables closing of folds containing <= 2 lines
-let g:fold_rspec_foldclose = 'all'       " closes folds automatically when the cursor is moved out of them (only applies to folds deeper than 'foldlevel')
 " }}}
 
-" elixir
-Plug 'elixir-editors/vim-elixir'
-Plug 'slashmili/alchemist.vim'
-let g:alchemist_tag_map = '<leader>f'
+" " elixir
+" TODO: necessary with treesitter and LSP?
+" Plug 'elixir-editors/vim-elixir'
+" Plug 'slashmili/alchemist.vim'
+" let g:alchemist_tag_map = '<leader>f'
 
 " python {{{
 " TODO: keep?
@@ -949,61 +981,40 @@ Plug 'ekalinin/Dockerfile.vim'
 Plug 'kkvh/vim-docker-tools'
 Plug 'OrangeT/vim-csharp'
 
-Plug 'chriskempson/base16-vim'
-
-" {{{ lualine
+" {{{ UI
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'romgrk/barbar.nvim'
+nnoremap <silent> <space>dd :BufferClose<CR>
+Plug 'jdsutherland/nvim-base16'
 Plug 'jdsutherland/lualine.nvim'
-let g:lualine = {
-    \'options' : {
-    \  'theme' : 'base16_tomorrow_night',
-    \  'section_separators' : ['', ''],
-    \  'component_separators' : ['', ''],
-    \  'disabled_filetypes' : [],
-    \  'icons_enabled' : v:false,
-    \},
-    \'sections' : {
-    \  'lualine_a' : [ ['mode', {'upper': v:true,},], ],
-    \  'lualine_b' : [ ['branch', {'icon': '',}, ], ],
-    \  'lualine_c' : [ ['filename', {'file_status': v:false,},], ],
-    \  'lualine_x' : [ 'filetype' ],
-    \  'lualine_y' : [ 'progress' ],
-    \  'lualine_z' : [ 'location'  ],
-    \},
-    \'inactive_sections' : {
-    \  'lualine_a' : [  ],
-    \  'lualine_b' : [  ],
-    \  'lualine_c' : [ 'filename' ],
-    \  'lualine_x' : [ 'location' ],
-    \  'lualine_y' : [ 'ConflictedVersion' ],
-    \  'lualine_z' : [  ],
-    \},
-    \'extensions' : [ 'fzf', 'fugitive' ],
-    \}
 
 " fzf {{{
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'jesseleite/vim-agriculture'
+Plug 'jesseleite/vim-agriculture' " fzf rg pass args
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 
+" fast jump last buffer
+nnoremap <silent> \b :call fzf#vim#buffers()<cr><cr>
 nnoremap <silent> \t :call fzf#vim#buffers()<cr>
-nnoremap <silent> \T :FzfBuffers<CR>
-nnoremap <M-w> :FzfWindows<CR>
-noremap ,bl :execute "FzfBLinesPreview '<c-r><c-w>"<cr>
-noremap ,bL :execute "FzfLines '<c-r><c-w>"<cr>
-nnoremap <silent> ,o :FzfBTags<CR>
-nnoremap <silent> ,O :FzfTags<CR>
-nnoremap <silent> ,mm :FzfMarks<CR>
-nnoremap <silent> ,ht :FzfHelptags<CR>
-nnoremap <silent> ,h/ :FzfHistory/<CR>
-nnoremap <silent> ,h; :FzfHistory:<CR>
-nnoremap <silent> ,/ :FzfHistory/<CR>
-nnoremap <silent> ,? :FzfHistory<CR>
-nnoremap <silent> ,gl :FzfCommits<CR>
-nnoremap <silent> ,ga :FzfBCommits<CR>
-nnoremap <silent> ,gs :FzfGFiles?<CR>
+nnoremap <silent> \T :Buffers<CR>
+nnoremap <M-w> :Windows<CR>
+nnoremap <M-f> :Files<CR>
+noremap ,bl :execute "BLinesPreview '<c-r><c-w>"<cr>
+noremap ,bL :execute "Lines '<c-r><c-w>"<cr>
+nnoremap <silent> ,o :BTags<CR>
+nnoremap <silent> ,O :Tags<CR>
+nnoremap <silent> ,mm :Marks<CR>
+nnoremap <silent> ,ht :Helptags<CR>
+nnoremap <silent> ,h/ :History/<CR>
+nnoremap <silent> ,h; :History:<CR>
+nnoremap <silent> ,/ :History/<CR>
+nnoremap <silent> ,? :History<CR>
+nnoremap <silent> ,gl :Commits<CR>
+nnoremap <silent> ,ga :BCommits<CR>
+nnoremap <silent> ,gs :GFiles?<CR>
 nnoremap <silent> K :call SearchWordWithRg()<CR>
 vnoremap <silent> K :call SearchVisualSelectionWithRg()<CR>
 
@@ -1019,7 +1030,6 @@ function! s:build_quickfix_list(lines)
 endfunction
 
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
-let g:fzf_command_prefix = 'Fzf'
 let g:fzf_buffers_jump = 1
 let g:fzf_action = {
   \ 'ctrl-q': function('s:build_quickfix_list'),
@@ -1030,23 +1040,23 @@ let g:fzf_action = {
 let g:fzf_commands_expect = 'ctrl-enter,ctrl-s'
 
 " Customize fzf colors to match your color scheme
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-" fix black color
-let g:fzf_commits_log_options =
-\ '--graph --color=always --format="%C(auto)%h%d %s %C(#373b41)%C(bold)%cr"'
+" let g:fzf_colors =
+" \ { 'fg':      ['fg', 'Normal'],
+"   \ 'bg':      ['bg', 'Normal'],
+"   \ 'hl':      ['fg', 'Comment'],
+"   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+"   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+"   \ 'hl+':     ['fg', 'Statement'],
+"   \ 'info':    ['fg', 'PreProc'],
+"   \ 'border':  ['fg', 'Ignore'],
+"   \ 'prompt':  ['fg', 'Conditional'],
+"   \ 'pointer': ['fg', 'Exception'],
+"   \ 'marker':  ['fg', 'Keyword'],
+"   \ 'spinner': ['fg', 'Label'],
+"   \ 'header':  ['fg', 'Comment'] }
+" " fix black color
+" let g:fzf_commits_log_options =
+" \ '--graph --color=always --format="%C(auto)%h%d %s %C(#373b41)%C(bold)%cr"'
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
@@ -1110,7 +1120,7 @@ function! s:all_files()
   \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
 endfunction
 
-command! -bang -nargs=* FzfBLinesPreview
+command! -bang -nargs=* BLinesPreview
     \ call fzf#vim#grep(
     \   'rg --with-filename --column --line-number --no-heading --color=always --smart-case . '.fnameescape(expand('%:p')), 1,
     \   fzf#vim#with_preview({'options': '--layout reverse --query '.shellescape(<q-args>).' --with-nth=4.. --delimiter=":"'}, 'right:50%'))
