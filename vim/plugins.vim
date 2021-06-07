@@ -2,7 +2,6 @@ function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
 
-" Plug 'lewis6991/gitsigns.nvim'
 Plug 'nvim-treesitter/playground'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
@@ -68,93 +67,6 @@ let g:vista_sidebar_width = 50
 nnoremap <silent> <space>o :silent Vista finder coc<CR>
 nnoremap <silent> <space>O :silent Vista finder ctags<CR>
 nnoremap <silent> <M-z> :Vista!!<CR>
-" }}}
-
-" TODO: keep?
-" " tagbar {{{
-" Plug 'majutsushi/tagbar'
-" " tagbar
-" nnoremap <silent> <M-z> :TagbarToggle<CR>
-" nnoremap <silent> ,zz :TagbarOpen fj<CR>
-" " tagbar
-" nnoremap <silent> <M-z> :TagbarToggle<CR>
-" nnoremap <silent> ,zz :TagbarOpen fj<CR>
-" nnoremap <silent> ,zx :TagbarTogglePause<CR>
-" let g:tagbar_compact = 1
-" let g:tagbar_zoomwidth = 0
-" let g:tagbar_indent = 1
-" let g:tagbar_width = 35
-" let g:tagbar_expand = 1
-" let g:tagbar_map_previewwin= "O"
-" let g:tagbar_iconchars = ['▸', '▾']
-" let g:tagbar_sort = 0
-
-" let g:tagbar_type_css = {
-" \ 'ctagstype' : 'Css',
-"     \ 'kinds'     : [
-"         \ 'c:classes',
-"         \ 's:selectors',
-"         \ 'i:identities'
-"     \ ]
-" \ }
-" let g:tagbar_type_elixir = {
-"     \ 'ctagstype' : 'elixir',
-"    \ 'kinds' : [
-"         \ 'f:functions',
-"         \ 'functions:functions',
-"         \ 'c:callbacks',
-"         \ 'd:delegates',
-"         \ 'e:exceptions',
-"         \ 'i:implementations',
-"         \ 'a:macros',
-"         \ 'o:operators',
-"         \ 'm:modules',
-"         \ 'p:protocols',
-"         \ 'r:records',
-"         \ 't:tests'
-"     \ ]
-" \ }
-" let g:tagbar_type_go = {
-"   \ 'ctagstype' : 'go',
-"   \ 'kinds'     : [
-"     \ 'p:package',
-"     \ 'i:imports:1',
-"     \ 'c:constants',
-"     \ 'v:variables',
-"     \ 't:types',
-"     \ 'n:interfaces',
-"     \ 'w:fields',
-"     \ 'e:embedded',
-"     \ 'm:methods',
-"     \ 'r:constructor',
-"     \ 'f:functions'
-"   \ ],
-"   \ 'sro' : '.',
-"   \ 'kind2scope' : {
-"     \ 't' : 'ctype',
-"     \ 'n' : 'ntype'
-"   \ },
-"   \ 'scope2kind' : {
-"     \ 'ctype' : 't',
-"     \ 'ntype' : 'n'
-"   \ },
-"   \ 'ctagsbin'  : 'gotags',
-"   \ 'ctagsargs' : '-sort -silent'
-" \ }
-" let g:tagbar_type_make = {
-"             \ 'kinds':[
-"                 \ 'm:macros',
-"                 \ 't:targets'
-"             \ ]
-" \}
-" let g:tagbar_type_markdown = {
-"     \ 'ctagstype' : 'markdown',
-"     \ 'kinds' : [
-"         \ 'h:Heading_L1',
-"         \ 'i:Heading_L2',
-"         \ 'k:Heading_L3'
-"     \ ]
-" \ }
 " }}}
 
 Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
@@ -269,7 +181,6 @@ inoremap <silent><expr> <c-f>
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" TODO: broke <cr>g map
 " Remap keys for gotos
 autocmd User CocNvimInit nmap <expr>,f CocHasProvider('documentSymbol') ? "<Plug>(coc-definition)" : "<C-]>zt"
 " open def in split
@@ -1038,25 +949,6 @@ let g:fzf_action = {
   \ 'ctrl-u': '15split',
   \ 'ctrl-v': 'vsplit' }
 let g:fzf_commands_expect = 'ctrl-enter,ctrl-s'
-
-" Customize fzf colors to match your color scheme
-" let g:fzf_colors =
-" \ { 'fg':      ['fg', 'Normal'],
-"   \ 'bg':      ['bg', 'Normal'],
-"   \ 'hl':      ['fg', 'Comment'],
-"   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-"   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-"   \ 'hl+':     ['fg', 'Statement'],
-"   \ 'info':    ['fg', 'PreProc'],
-"   \ 'border':  ['fg', 'Ignore'],
-"   \ 'prompt':  ['fg', 'Conditional'],
-"   \ 'pointer': ['fg', 'Exception'],
-"   \ 'marker':  ['fg', 'Keyword'],
-"   \ 'spinner': ['fg', 'Label'],
-"   \ 'header':  ['fg', 'Comment'] }
-" " fix black color
-" let g:fzf_commits_log_options =
-" \ '--graph --color=always --format="%C(auto)%h%d %s %C(#373b41)%C(bold)%cr"'
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
