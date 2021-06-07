@@ -59,16 +59,16 @@ scrolling:
 
 font:
   normal:
-    family: Iosevka Term
+    family: Iosevka Nerd Font
     style: Medium
 
   bold:
-    family: Iosevka Term
+    family: Iosevka Nerd Font
     style: Bold
 
   italic:
-    family: Iosevka Term
-    style: Medium Italic
+    family: Iosevka Nerd Font
+    style: Italic
 
   size: 14
 
@@ -309,6 +309,7 @@ live_config_reload: true
 key_bindings:
   - { key: V,        mods: Command, action: Paste  }
   - { key: C,        mods: Command, action: Copy   }
+  - { key: Return,   mods: Control, action: ToggleFullscreen }
   - { key: Slash,    mods: Control, chars : "\x1f" }
   - { key: Q,        mods: Control, chars : "\x11" }
 
@@ -318,9 +319,9 @@ key_bindings:
   - { key: Home,                    chars: "\x1b[H",   mode: ~AppCursor  }
   - { key: End,                     chars: "\x1bOF",   mode: AppCursor   }
   - { key: End,                     chars: "\x1b[F",   mode: ~AppCursor  }
-  - { key: Key0,     mods: Command, action: ResetFontSize                }
-  - { key: Equals,   mods: Command, action: IncreaseFontSize             }
-  - { key: Minus,    mods: Command, action: DecreaseFontSize             }
+  - { key: Delete,     mods: Option, action: ResetFontSize                }
+  - { key: Equals,   mods: Option, action: IncreaseFontSize             }
+  - { key: Minus,    mods: Option, action: DecreaseFontSize             }
   - { key: K,        mods: Command, action: ClearHistory                 }
   - { key: K,        mods: Command, chars: "\x0c"                        }
   - { key: PageUp,   mods: Shift,   chars: "\x1b[5;2~"                   }
