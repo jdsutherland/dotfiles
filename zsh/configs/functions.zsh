@@ -10,31 +10,6 @@ first() { awk '{print $1}' }
 second() { awk '{print $2}' }
 sum() { paste -sd+ - | bc }
 
-# agv - use ag and fzf to open result in vim in matching line
-agv () {
-  CHOICE=$(ag --color $* | fzf -0 -1 --ansi)
-  if [ ! -z "$CHOICE" ]; then
-    # Open vim at the selected file and line, but also run the Ag scan
-    # the ! on Ag! stops Ag jumping to the first match, and the wincmd gives the editor window focus
-    vim $( echo "$CHOICE" | awk 'BEGIN { FS=":" } { printf "+%d %s\n", $2, $1 } ') +"Rg '$*'" "+wincmd k"
-  fi
-}
-
-# vf - fuzzy open with vim from anywhere
-# ex: vf word1 word2 ... (even part of a file name)
-# zsh autoload function
-vf() {
-  local files
-
-  files=(${(f)"$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1 -m)"})
-
-  if [[ -n $files ]]
-  then
-     vim -- $files
-     print -l $files[1]
-  fi
-}
-
 take() {
   mkdir $1
   cd $1
@@ -90,6 +65,12 @@ ff() {
    local dir
    file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
+
+# fb - open filename query in bat
+fb() { fd -E node_modules -L -t file -p "$@" -X bat 2> /dev/null }
+fB() { ag --follow 2> /dev/null -g $@ | xargs bat }
+# rB - open rg query in bat
+rB() { rg -SL --no-messages -l "$@" | xargs bat }
 
 # cf - fuzzy cd from anywhere
 # ex: cf word1 word2 ... (even part of a file name)
@@ -163,29 +144,98 @@ uberp() {
 }
 
 # opens a google map direction age given a destination
-mdir() {
-  open "https://www.google.com/maps/dir/$(getloc)/$@"
+maps() { open "https://www.google.com/maps/dir/$(getloc)/$@" }
+
+# tree with sensible ignores
+t() {
+  tree -I "migrate/*|fonts|images|node_modules|bin|obj|__pycache__|tmp|cache|*.lock|dist|jquery*" -C ${@:-.} | less -F
+}
+
+# tree 3 depth dir only
+td() {
+  tree -I "node_modules|bin|obj|__pycache__|tmp|cache|*.lock|dist|jquery*" -C -d -L 3 ${@:-.} | less -F
+}
+
+f() {
+  fd -E node_modules -L -t file -p -c always "$@" | less -XRF
+}
+
+F() {
+  fd -L --type d -c always "$@" | less -XRF
 }
 
 # ripgrep with paging
 r() {
-  rg -S -p "$@" | less -RFX
+  rg --follow --no-messages --smart-case --pretty "$@" | less -r
 }
 
 # ripgrep hidden
 rh() {
-  rg -uu -j 8  -p "$@" | less -RFX
+  rg --follow --no-messages -uu -p "$@" 2> /dev/null | less -r
 }
 
-# find dirnames
-lf() {
-  l A "$@"
+# list of uniq words matching regex
+runiq() {  rg -INo "$@" | awk NF | sort | uniq }
+
+# find dirs containing: dircont query
+rdir () { rg -L -l --no-messages "$@" | cut -d '/' -f1 | sort | uniq }
+
+# rgv <query> rip-grep-vim - rg query | fzf | vim vsplit
+rgv() {
+  if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
+  local files
+  IFS=$'\n' files=($(rg -S -l -L --no-messages "$*" | fzf --preview-window=right:57% --multi --select-1 --exit-0 --preview 'bat --color=always {}'))
+  [[ -n "$files" ]] && ${EDITOR:-vim} -s <(printf "/$*\n") -O "${files[@]}" && print -l "$files[@]"
+}
+
+# fif <query> - find-in-file uses rga (pdf, books, slides, etc) to `open`
+fif() {
+    if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
+    local file
+    file="$(rga --max-count=1 --ignore-case --files-with-matches --no-messages "$*" | fzf-tmux +m --preview="rga --ignore-case --pretty --context 10 '"$*"' {}")" && echo "opening $file" && open "$file" || return 1;
+}
+
+# fzf history
+fzh() {
+  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf --query="'" +s --tac | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
+}
+
+# asdf install
+vmi() {
+  local lang=${1}
+
+  if [[ ! $lang ]]; then
+    lang=$(asdf plugin-list | fzf)
+  fi
+
+  if [[ $lang ]]; then
+    local versions=$(asdf list-all $lang | tail -r | fzf -m)
+    if [[ $versions ]]; then
+      for version in $(echo $versions);
+      do; asdf install $lang $version; done;
+    fi
+  fi
+}
+
+# asdf clean
+vmc() {
+  local lang=${1}
+
+  if [[ ! $lang ]]; then
+    lang=$(asdf plugin-list | fzf)
+  fi
+
+  if [[ $lang ]]; then
+    local versions=$(asdf list $lang | fzf -m)
+    if [[ $versions ]]; then
+      for version in $(echo $versions);
+      do; asdf uninstall $lang $version; done;
+    fi
+  fi
 }
 
 # refresh path for disconnected drive
-ref() {
-  cd `pwd`
-}
+ref() { cd `pwd` }
 
 # gets the total running time of videos recursively from the working dir
 vidtime() {
@@ -204,13 +254,18 @@ imv() {
   done
 }
 
-F() {
-  find . -type d -iname "*$1*" -print 2>/dev/null
+ydl() {
+  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt -ci "$@"
 }
 
-ydl() {
-  url="$1"
-  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -ci "$url"
+# json -- used to download only videos matching filenames `fd QUERY | xargs jq .id | xargs youtube-dl`
+ydlj() {
+  youtube-dl --write-info-json --skip-download --ignore-errors --download-archive archive.txt --restrict-filenames "$@"
+}
+
+# medium quality (<720p)
+ydlm() {
+  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' "$@"
 }
 
 ydlp() {
@@ -221,23 +276,17 @@ ydlp() {
 # resumes at given index
 ydlps() {
   url="$1"
-  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -f '(mp4)[height<1280]' -cio "%(autonumber)s-%(title)s.%(ext)s" --playlist-start $2 --autonumber-start $2 "$url"
-}
-
-ydlm() {
-  url="$1"
-  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -f '(mp4)[height<1280]' -cio "%(title)s.%(ext)s" "$url"
+  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt -f '(mp4)[height<720]' -cio "%(autonumber)s-%(title)s.%(ext)s" --playlist-start $2 --autonumber-start $2 "$url"
 }
 
 # downloads playlist in medium format
 ydlpm() {
-  url="$1"
-  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt -f '(mp4)[height<1280]' -cio "%(autonumber)s-%(title)s.%(ext)s" "$url"
+  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' -cio "%(autonumber)s-%(title)s.%(ext)s" "$@"
 }
 
 # open clipboard link with mpv
 mp() {
-  mpv $(pbpaste) &
+  mpv "$(pbpaste)" --ytdl-format="bestvideo[height<=?1080][fps<=?30][vcodec!=?vp9]+bestaudio/best" > /dev/null 2>&1
 }
 
 ytn() {
@@ -251,6 +300,26 @@ yts() {
 # mpv youtube-dl watch-later
 mpw() {
   mpv --player-operation-mode=pseudo-gui --ytdl-raw-options="cookies=~/.config/mpv/cookies.txt,playlist-end=${1:-50}" ytdl://:ytwatchlater &
+}
+
+# mps - open mpv with yt query <count> <query>
+mps() {
+  items=${3:-20}
+  mpv "ytdl://ytsearch${items}:$1" $2
+}
+
+# yts - download yt query <count> <query>
+ytq() {
+  youtube-dl y--download-archive archive.txt -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' tsearch"${1:-20}":$2
+}
+
+# datetime
+dt() {
+  date '+%Y-%m-%d %H:%M:%S'
+}
+
+dtdiff() {
+  gdate -d "$1" '+%Y-%m-%d %H:%M:%S'
 }
 
 # Pipe to this to quote filenames with spaces
@@ -273,7 +342,7 @@ sths() {
 
 # using rsync locally (doesn't delete by default)
 rlocal() {
-  rsync -avhW --no-compress --progress $@
+  rsync -avhW --progress $@
 }
 
 finde() {
@@ -325,7 +394,7 @@ notify() {
 
 # git clone append name
 gcn() {
-  name="$(basename $1)-$2"
+  name="$(basename $1)_$2"
   git clone $1 $name && cd $name
 }
 
@@ -351,7 +420,7 @@ profile_vim() {
 }
 
 gauthor() {
-  git log --topo-order --stat --patch "--author=$@"
+  git log --topo-order --stat --patch "--author=$@" | grep -vw bot
 }
 
 gcommits() {
@@ -393,9 +462,8 @@ rvid() {
   vid=$(ls -Art "$vidpath" | tail -n 1) && mpv --player-operation-mode=pseudo-gui "$vidpath/$vid" &
 }
 
-# FIXME: doesn't work with arg
 longcode() {
-  wc -l **/*.(${~1:-"c|go|rb|py|js|ts|jsx|tsx|ex|rs"}) | sort -r | tail -n +2 | head -n 20 | sed '$d'
+  fd -e c -e go -e rb -e py -e js -e ts -e jsx -e tsx -e ex -e rs -e java -e cs -E dist -E vendor -E 'jquery*' -E 'polyfills*' -E 'babel*' -E db -E '*config*' -E seeds --full-path ${1:-.} | xargs wc -l 2> /dev/null | sort -r | sed 1d | head -n 15
 }
 
 golong() {
@@ -411,7 +479,13 @@ difpr() {
 # send to background no output
 bkg() { "$@" > /dev/null 2>&1 & }
 
-# get the root dirname of search
-frootdir()  { ag -g "$1" | xargs -I {} dirname {} | cut -d '/' -f1 | uniq }
-
 ajaxh() { http "$@" X-Requested-With:XMLHttpRequest }
+
+# move symlink: `ml foo /tmp/foo` foo becomes symlink that lives at /tmp/foo
+ml() { mv "$1" "$2" && ln -sf "$2/$1" "$1" }
+
+# opens cropped pdf
+tmpdf() { local dir="`mktemp`".pdf; briss -s "$1" -d "$dir" && open $dir }
+
+# displays function
+fn() { type $1 | field 3 | xargs bat }

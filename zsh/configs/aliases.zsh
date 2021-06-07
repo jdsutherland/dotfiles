@@ -2,7 +2,6 @@ if [[ -o interactive ]]; then
   alias cd..='cd ..'
   alias ..='cd ..'
   alias ...="cd ../.."
-  alias cdb='cd -'
   # Copy-pasting `$ python something.py` works
   alias \$=''
 
@@ -12,16 +11,19 @@ if [[ -o interactive ]]; then
   alias -g V='| nvim -'
   alias -g H='| head -n 20'
   alias -g C='| wc -l'
-  alias a='ag --workers 8 --pager "less -R"'
-  alias agh='ag --hidden'
+  alias -g DIR="| cut -d '/' -f1 | sort | uniq"
+  # pipe to nvim as vsplits
+  alias -g XV='| xargs nvim -O -'
+  # remove ansi escape colors
+  alias -g DECOLOR="| gsed -r 's/\x1B\[(;?[0-9]{1,3})+[mGK]//g'"
+  alias -g SILENT="> /dev/null 2>&1"
+  alias count='wc -l'
   alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
   alias cpwd="pwd | tr -d '\n' | pbcopy"
   alias dif='git diff --no-index'
   alias diff='colordiff -wu'
   alias fa='alias | fzf'
   alias fw='{ alias; functions; } | fzf'
-  alias f='ag -g'
-  alias fh='ag --unrestricted -g'
 
   # Directories
   alias vids='cd /Volumes/seag8silver/vids'
@@ -66,21 +68,27 @@ if [[ -o interactive ]]; then
   alias zs='source ~/.zshrc'
 
   # Git {{{
+  _git_log_medium_format='%C(bold)Commit:%C(reset) %C(yellow)%H%C(auto)%d%n%C(bold)Author:%C(reset) %C(bold blue)%an <%ae>%n%C(bold)Date:%C(reset)   %C(cyan)%ai (%ar)%C(reset)%n%+B'
+  _git_log_oneline_format='%C(yellow)%h%C(reset) %s%C(auto)%d%C(reset)'
+  _git_log_oneline_medium_format='%C(yellow)%h%C(reset) %<|(60,trunc)%s %C(bold blue)<%an> %C(reset)%C(cyan)(%ar)%C(auto)%d%C(reset)'
+  _git_log_brief_format='%C(green)%h%C(reset) %s%n%C(blue)(%ar by %an)%C(red)%d%C(reset)%n'
+
   alias amend='git commit --amend'
   alias fixgit='git config branch.master.remote origin && git config branch.master.merge refs/heads/master'
   alias gitundo='git commit --amend'
-  alias gld='git log --topo-order --stat --patch --pretty=format:${_git_log_medium_format}'
+  alias gld='git log --topo-order --stat --patch'
   alias gldd='git log --topo-order --stat --patch --pretty=format:${_git_log_medium_format} -- . ":(exclude)*.lock"'
   alias glddr='git log --topo-order --stat --patch --pretty=format:${_git_log_medium_format} --reverse -- . ":(exclude)*.lock"'
   alias gldr='git log --topo-order --stat --patch --pretty=format:${_git_log_medium_format} --reverse'
   alias gstats='git-bstats'
-  alias gsummary='git-summary | head -n 27'
-  alias gchurn='git-churn | tail -r -n 20'
+  alias gsummary='git-summary | head -n 18 | grep -v "\[bot\]"'
+  alias gchurn='git-churn 2> /dev/null | tail -r -n 15'
   alias ginfo='gsummary && echo " churn:" && gchurn && echo " longest files:" && longcode && loc'
   alias ginit='git init && git add . && git commit -m "Add initial"'
   alias gap='git add -p'
   alias gst='git status'
   alias gad='git add .'
+  alias gI='forgit::ignore >> .gitignore'
 
   # Branch (b)
   alias gb='git branch'
@@ -119,7 +127,7 @@ if [[ -o interactive ]]; then
   alias gcP='git cherry-pick --no-commit'
   alias gcr='git revert'
   alias gcR='git reset "HEAD^"'
-  alias gcs='git show'
+  alias gcs='git show --patch-with-stat'
   alias gcsS='git show --pretty=short --show-signature'
   alias gcl='git-commit-lost'
   alias gcy='git cherry -v --abbrev'
@@ -243,6 +251,7 @@ if [[ -o interactive ]]; then
   alias gld='git log --topo-order --stat --patch --full-diff --pretty=format:"${_git_log_medium_format}"'
   # alias glo='git log --topo-order --pretty=format:"${_git_log_oneline_format}"'
   alias glg='git log --topo-order --graph --pretty=format:"${_git_log_oneline_format}"'
+  alias gla='git log --oneline --decorate --graph --all -30'
   alias glb='git log --topo-order --pretty=format:"${_git_log_brief_format}"'
   alias glc='git shortlog --summary --numbered'
   alias glS='git log --show-signature'
@@ -256,13 +265,15 @@ if [[ -o interactive ]]; then
 
   # Push (p)
   alias gp='git push'
-  alias gpf='git push --force-with-lease'
+  # alias gpf='git push --force-with-lease'
   alias gpF='git push --force'
   alias gpa='git push --all'
   alias gpA='git push --all && git push --tags'
   alias gpt='git push --tags'
-  alias gpc='git push --set-upstream origin "$(git-branch-current 2> /dev/null)"'
-  alias gpp='git pull origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
+  alias gpc='git push --set-upstream origin "$(git symbolic-ref --short HEAD)"'
+  alias gpj='git push --set-upstream jdsutherland "$(git symbolic-ref --short HEAD)"'
+  alias gpf='git push --set-upstream fork "$(git symbolic-ref --short HEAD)"'
+  alias gpp='git pull jdsutherland "$(git symbolic-ref --short HEAD)" && git push jdsutherland "$(git symbolic-ref --short HEAD)"'
 
   # Rebase (r)
   alias gr='git rebase'
@@ -283,7 +294,7 @@ if [[ -o interactive ]]; then
   alias gRb='git-hub-browse'
 
   # Stash (s)
-  alias gs='git stash'
+  alias gs='git stash --include-untracked'
   alias gsa='git stash apply'
   alias gsx='git stash drop'
   alias gsX='git-stash-clear-interactive'
@@ -302,6 +313,10 @@ if [[ -o interactive ]]; then
   alias gts='git tag -s'
   alias gtv='git verify-tag'
 
+  # diffs
+  alias Gd='git diff --no-ext-diff'
+  alias Gdc='git diff --no-ext-diff --cached'
+
   # Working Copy (w)
   alias gws='git status --ignore-submodules=${_git_status_ignore_submodules} --short'
   alias gwS='git status --ignore-submodules=${_git_status_ignore_submodules}'
@@ -318,8 +333,10 @@ if [[ -o interactive ]]; then
   eval "$(hub alias -s)"
 
   # App
+  alias surgec='echo -ne '\n' | surge 2>/dev/null | egrep -o "\w+\.surge\.sh" | xargs -I{} echo "https://"{}'
   alias mongostart='brew services start mongodb'
   alias bash='/usr/local/bin/bash'
+  alias rb='batgrep --smart-case --search-pattern --pager=less 2> /dev/null'
   alias pipi='pip install -r requirements.txt'
   alias pipf='pip freeze > requirements.txt'
   alias ctag='ctags -R --exclude=.git --exclude=log *'
@@ -328,22 +345,25 @@ if [[ -o interactive ]]; then
   alias hot="ansiweather | tr '-' '\n' |tr '\>' '\n'"
   alias lnew='ls -tl | head -n 20'
   alias ls='ls -F'
+  alias loc='tokei'
+  alias o='open'
   alias nosleep=caffeinate
   alias ngh='npm repo'
-  alias playall='mpv **/*.(mp4|webm|mkv|mov|m4v|avi) > /dev/null 2>&1 &'
+  alias pvids='mpv **/*.(mp4|webm|mkv|mov|m4v|avi) > /dev/null 2>&1 &'
   alias ra='ranger-cd'
   alias Ra='ranger'
   # alias rcup="command rcup -v | grep -v identical"
-  alias rr='rails'
   alias rrdb='rails dbconsole'
   alias st='speedtest'
-  alias t1='tree -L 1 * | less -F'
+  alias t1='tree -L 1 * -C | less -F'
+  alias th="tree -a -I 'node_modules|.git' -C"
   alias tl='tldr'
   alias tmuxks='tmux kill-session -t'
   alias tmuxr='tmux rename-session'
   alias tre='tree -C | less'
   alias tw='timew'
-  alias ptpy='python -m ptpython'
+  alias pt='ptpython'
+  alias py='python3'
   alias vim='nvim'
   alias vs='vim -S Session.vim'
   alias vsql='e -c "setf sql"'
@@ -352,8 +372,8 @@ if [[ -o interactive ]]; then
   alias routen='netstat -nr'
   alias whe='whereis'
   alias wifi='airport -s'
-  alias ydm='youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -f "(mp4)[height<1280]" -cio "%(title)s.%(ext)s"'
   alias yda='youtube-dl -x --audio-format mp3'
+  alias ysub='youtube-dl --write-auto-sub --convert-subs=srt --skip-download'
   alias you='mpsyt'
   alias hp='http-prompt'
   alias aria='aria2c --file-allocation=falloc -c -x 10 -s 10'
@@ -363,30 +383,215 @@ if [[ -o interactive ]]; then
   alias quicklook='qlmanage -p "$@" >& /dev/null'
   alias top='sudo htop'
   alias N='notify'
+  alias rr='rg -iL --no-messages'
+  alias mre="fd -t f --exec gstat --printf='%Y\t%n\n' | sort -nr | head -10 | cut -f2"
+  alias fh='fd -E node_modules -L -t file -p --hidden --no-ignore'
+  alias agh='ag --hidden'
+  alias rcp='rsync -ahz --progress'
+  alias b='bat'
+  alias rsum="ruby -e 'puts STDIN.read.split.map(&:to_i).sum'"
+
+  # rails {{{
+  alias Rporo="rg -t ruby 'class \w+$' -l"
+  # }}}
 
   # brew {{{
   alias brews='brew search'
   alias brewi='brew install'
   alias brewx='brew uninstall'
-  alias caski='brew cask install'
-  alias caskx='brew cask uninstall'
+  alias caski='brew install --cask'
+  alias casku='brew reinstall'
+  alias caskU='brew outdated --cask | xargs brew reinstall'
+  alias caskx='brew uninstall --cask'
   alias brewn='brew info'
-  alias caskn='brew cask info'
+  alias caskn='brew info --cask'
   alias brewu='brew update && brew upgrade && brew cleanup'
   alias brewc='brew cleanup'
   # }}}
 
+  # docker {{{
+  alias dk='docker'
+  alias dka='docker attach'
+  alias dkb='docker build'
+  alias dkd='docker diff'
+  alias dkdf='docker system df'
+  alias dke='docker exec'
+  alias dkE='docker exec -it'
+  alias dkh='docker history'
+  alias dki='docker images'
+  alias dkin='docker inspect'
+  alias dkim='docker import'
+  alias dkk='docker kill'
+  alias dkl='docker logs'
+  alias dkli='docker login'
+  alias dklo='docker logout'
+  alias dkls='docker ps'
+  alias dkp='docker pause'
+  alias dkP='docker unpause'
+  alias dkpl='docker pull'
+  alias dkph='docker push'
+  alias dkps='docker ps'
+  alias dkpsa='docker ps -a'
+  alias dkr='docker run'
+  alias dkR='docker run -it --rm'
+  alias dkRe='docker run -it --rm --entrypoint /bin/bash'
+  alias dkRM='docker system prune'
+  alias dkrm='docker rm'
+  alias dkrmi='docker rmi'
+  alias dkrn='docker rename'
+  alias dks='docker start'
+  alias dkS='docker restart'
+  alias dkss='docker stats'
+  alias dksv='docker save'
+  alias dkt='docker tag'
+  alias dktop='docker top'
+  alias dkup='docker update'
+  alias dkV='docker volume'
+  alias dkv='docker version'
+  alias dkw='docker wait'
+  alias dkx='docker stop'
+
+  ## Container (C)
+  alias dkC='docker container'
+  alias dkCa='docker container attach'
+  alias dkCcp='docker container cp'
+  alias dkCd='docker container diff'
+  alias dkCe='docker container exec'
+  alias dkCin='docker container inspect'
+  alias dkCk='docker container kill'
+  alias dkCl='docker container logs'
+  alias dkCls='docker container ls'
+  alias dkCp='docker container pause'
+  alias dkCpr='docker container prune'
+  alias dkCrn='docker container rename'
+  alias dkCS='docker container restart'
+  alias dkCrm='docker container rm'
+  alias dkCr='docker container run'
+  alias dkCR='docker container run -it --rm'
+  alias dkCRe='docker container run -it --rm --entrypoint /bin/bash'
+  alias dkCs='docker container start'
+  alias dkCss='docker container stats'
+  alias dkCx='docker container stop'
+  alias dkCtop='docker container top'
+  alias dkCP='docker container unpause'
+  alias dkCup='docker container update'
+  alias dkCw='docker container wait'
+
+  ## Image (I)
+  alias dkI='docker image'
+  alias dkIb='docker image build'
+  alias dkIh='docker image history'
+  alias dkIim='docker image import'
+  alias dkIin='docker image inspect'
+  alias dkIls='docker image ls'
+  alias dkIpr='docker image prune'
+  alias dkIpl='docker image pull'
+  alias dkIph='docker image push'
+  alias dkIrm='docker image rm'
+  alias dkIsv='docker image save'
+  alias dkIt='docker image tag'
+
+  ## Volume (V)
+  alias dkV='docker volume'
+  alias dkVin='docker volume inspect'
+  alias dkVls='docker volume ls'
+  alias dkVpr='docker volume prune'
+  alias dkVrm='docker volume rm'
+
+  ## Network (N)
+  alias dkN='docker network'
+  alias dkNs='docker network connect'
+  alias dkNx='docker network disconnect'
+  alias dkNin='docker network inspect'
+  alias dkNls='docker network ls'
+  alias dkNpr='docker network prune'
+  alias dkNrm='docker network rm'
+
+  ## System (Y)
+  alias dkY='docker system'
+  alias dkYdf='docker system df'
+  alias dkYpr='docker system prune'
+
+  ## Stack (K)
+  alias dkK='docker stack'
+  alias dkKls='docker stack ls'
+  alias dkKps='docker stack ps'
+  alias dkKrm='docker stack rm'
+
+  ## Swarm (W)
+  alias dkW='docker swarm'
+
+  ## CleanUp (rm)
+  # Clean up exited containers (docker < 1.13)
+  alias dkrmC='docker rm $(docker ps -qaf status=exited)'
+  # Clean up dangling images (docker < 1.13)
+  alias dkrmI='docker rmi $(docker images -qf dangling=true)'
+  # Clean up dangling volumes (docker < 1.13)
+  alias dkrmV='docker volume rm $(docker volume ls -qf dangling=true)'
+
+
+  # Docker Machine (m)
+  alias dkm='docker-machine'
+  alias dkma='docker-machine active'
+  alias dkmcp='docker-machine scp'
+  alias dkmin='docker-machine inspect'
+  alias dkmip='docker-machine ip'
+  alias dkmk='docker-machine kill'
+  alias dkmls='docker-machine ls'
+  alias dkmpr='docker-machine provision'
+  alias dkmps='docker-machine ps'
+  alias dkmrg='docker-machine regenerate-certs'
+  alias dkmrm='docker-machine rm'
+  alias dkms='docker-machine start'
+  alias dkmsh='docker-machine ssh'
+  alias dkmst='docker-machine status'
+  alias dkmS='docker-machine restart'
+  alias dkmu='docker-machine url'
+  alias dkmup='docker-machine upgrade'
+  alias dkmv='docker-machine version'
+  alias dkmx='docker-machine stop'
+
+  # Docker Compose (c)
+  alias dkc='docker-compose'
+  alias dkcb='docker-compose build'
+  alias dkcB='docker-compose build --no-cache'
+  alias dkcd='docker-compose down'
+  alias dkce='docker-compose exec'
+  alias dkck='docker-compose kill'
+  alias dkcl='docker-compose logs'
+  alias dkcls='docker-compose ps'
+  alias dkcp='docker-compose pause'
+  alias dkcP='docker-compose unpause'
+  alias dkcpl='docker-compose pull'
+  alias dkcph='docker-compose push'
+  alias dkcps='docker-compose ps'
+  alias dkcr='docker-compose run'
+  alias dkcR='docker-compose run --rm'
+  alias dkcrm='docker-compose rm'
+  alias dkcs='docker-compose start'
+  alias dkcsc='docker-compose scale'
+  alias dkcS='docker-compose restart'
+  alias dkcu='docker-compose up'
+  alias dkcU='docker-compose up -d'
+  alias dkcv='docker-compose version'
+  alias dkcx='docker-compose stop'
+  # }}}
+
+  alias l='exa --long --sort=modified --group-directories-first'
   alias le='exa --long --git --sort=created --group-directories-first'
   alias ll='lsd -la'
-  alias x=''
+  alias x='xargs'
+  alias X='xargs -I{}'
   alias zf='z -I' # always use fzf select
   alias xee="open -a Xee³"
+  alias apr="apropos"
 
   # Misc
   alias saythai='say -v Kanya -r 155'
   alias topen='today | xargs nvim'
   alias epoch="date -r"
-  alias fnptr='rg -p "\(\*\w+\)\(" | less -RFX'
+  alias datef='date +"%d-%m-%Y"'
+  alias fnptr='g -p "\(\*\w+\)\(" | less -RFX'
   alias rm-nodemod='find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +'
 
   # Archives

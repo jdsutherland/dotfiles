@@ -1,9 +1,10 @@
 # {{{ vi mode
 bindkey -v # set vi mode (must be first)
 # open current command in vim (from normal mode)
-autoload -z edit-command-line
-zle -N edit-command-line
-bindkey -M vicmd 'v' edit-command-line
+
+# autoload -z edit-command-line
+# zle -N edit-command-line
+# bindkey -M vicmd '^v' edit-command-line
 
 bindkey -M vicmd "u" undo
 bindkey -M vicmd '^r' redo
@@ -33,7 +34,6 @@ tmux-man-for-current-word() {
   width=$(tmux display -p '#{pane_width}')
   height=$(tmux display -p '#{pane_height}')
   normalized_height=$( echo "$height * 2.2" | bc )
-
   if (( normalized_height > width )); then
     tmux split-window -v "man $cmd"
   else
