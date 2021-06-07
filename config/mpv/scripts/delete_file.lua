@@ -36,5 +36,5 @@ function delete()
    end
 end
 
-mp.add_key_binding("meta+D", "delete_file", mark_delete)
+mp.add_key_binding("meta+d", "delete_file", mark_delete)
 mp.register_event("shutdown", delete)
