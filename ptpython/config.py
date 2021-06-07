@@ -10,7 +10,7 @@ from ptpython.layout import CompletionVisualisation
 
 from prompt_toolkit.keys import Keys
 from prompt_toolkit.filters import ViInsertMode
-from prompt_toolkit.key_binding.input_processor import KeyPress
+from prompt_toolkit.key_binding.key_processor import KeyPress
 
 __all__ = (
     'configure',
