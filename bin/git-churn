@@ -18,6 +18,6 @@
 # (These are all standard arguments to `git log`.)
 
 set -e
-git log --all -M -C --name-only --format='format:' "$@" | sort | grep -v '^$' | uniq -c | sort | awk 'BEGIN {print "count\tfile"} {print $1 "\t" $2}' | sort -g
-
-
+# git log --all -M -C --name-only --format='format:' "$@" | sort | grep -v '^$' | uniq -c | sort | awk 'BEGIN {print "count\tfile"} {print $1 "\t" $2}' | sort -g
+git log --all -M -C --name-only --format='format:' "$@" | sort | rg -v '^$' | rg -v '\s\.\w+' | rg -v .lock | rg -v Gemfile | rg -v .md | rg -v .yml | rg -v .json | rg -vw routes| rg -vw schema | rg -vw factories | rg -vw babel | rg -vw webpack | rg -v Dockerfile | rg -vw seeds \
+	| uniq -c | sort | awk 'BEGIN {print "count\tfile"} {print $1 "\t" $2}' | sort -g

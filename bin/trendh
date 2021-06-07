@@ -8,6 +8,8 @@ require 'colorize'
 
 hot_url = 'http://google.com/trends/hottrends/atom/hourly'
 
-page = Nokogiri::HTML(open(hot_url))
+page = Nokogiri::HTML(URI.open(hot_url))
+require "pry"; binding.pry
 puts "Google Hourly Trending at #{Time.now}".yellow
+# TODO: page.css = []
 page.css('li').each { |x| puts x.text.magenta }

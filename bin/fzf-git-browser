@@ -16,7 +16,7 @@ fzf --ansi --no-sort --reverse --tiebreak=index --height 100% --bind=ctrl-o:togg
   --preview-window=right:55% \
   --bind "ctrl-m:execute:
             (grep -o '[a-f0-9]\{7,\}' | head -1 |
-            xargs -I % sh -c 'git show --color=always --notes % -- \":(exclude)package-lock.json\" \":(exclude)*.lock\" | diff-so-fancy | less -R ') << 'FZF-EOF'
+            xargs -I % sh -c 'git show --patch-with-stat --color=always --notes % -- \":(exclude)package-lock.json\" \":(exclude)*.lock\" | diff-so-fancy | less -R ') << 'FZF-EOF'
             {}
 FZF-EOF"
 clear

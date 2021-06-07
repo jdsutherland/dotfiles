@@ -3,7 +3,7 @@
 tmux resize-pane -Z
 # play - preview mpv saved playlists in fzf
 
-find ~/Media/config/playlists -type f | fzf --exact --height 100% \
+find ~/Media/config/playlists -type f | fzf --exact \
 	--preview "(cat {} | xargs -E '\n' basename) 2> /dev/null" \
 	--preview-window=right:40% \
 	--header="^p:quicklook preview, ^f:clear, ^d:delete, ↵ :open mpv" \
