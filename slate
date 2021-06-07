@@ -105,13 +105,13 @@ alias hyper ctrl;shift;alt;cmd
 
 bind ;:${hyper} hint ASDFJKLGHWERTYUIO
 bind ':${hyper} grid
-bind 1:${hyper} layout 2monitors
-bind 2:${hyper} sequence layout 1monitor | focus 'Google Chrome' | focus 'Google Chrome'
-bind 3:${hyper} sequence layout 1dev | focus 'Alacritty' | focus 'Dash'
-bind 4:${hyper} sequence layout 1pdf | focus 'Preview' | focus 'Alacritty'
-bind 5:${hyper} sequence layout 1mpv | focus 'mpv' | focus 'Evernote'
-bind 8:${hyper} sequence activate-snapshot random | focus 'Evernote' | focus 'mpv'
-bind 9:${hyper} snapshot random save-to-disk
+# bind 1:${hyper} layout 2monitors
+# bind 2:${hyper} sequence layout 1monitor | focus 'Google Chrome' | focus 'Google Chrome'
+# bind 3:${hyper} sequence layout 1dev | focus 'Alacritty' | focus 'Dash'
+# bind 4:${hyper} sequence layout 1pdf | focus 'Preview' | focus 'Alacritty'
+# bind 5:${hyper} sequence layout 1mpv | focus 'mpv' | focus 'Evernote'
+# bind 8:${hyper} sequence activate-snapshot random | focus 'Evernote' | focus 'mpv'
+# bind 9:${hyper} snapshot random save-to-disk
 bind space:${hyper} hide 'current'
 
 ## Application aliases
@@ -145,9 +145,14 @@ bind q:${hyper}     focus 'Dash'
 bind g:${hyper}     focus 'Finder'
 bind p:${hyper}     focus 'Preview'
 bind m:${hyper}     focus 'Marked 2'
-bind r:${hyper}     focus 'Reeder'
+# bind r:${hyper}     focus 'Reeder'
 bind tab:${hyper}   focus 'Pocket'
 bind e:${hyper}     focus 'Evernote'
-bind z:${hyper}     focus 'iBooks'
+bind z:${hyper}     focus 'Books'
 bind v:${hyper}     focus 'mpv'
+bind n:${hyper}     focus 'Stickies'
+bind x:${hyper}     focus 'Anki'
+bind r:${hyper}     focus 'JetBrains Rider'
+bind c:${hyper}     focus 'IntelliJ IDEA'
+bind k:${hyper}     focus 'Keynote'
 bind b:${hyper}     focus ${browser}
