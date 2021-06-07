@@ -2,23 +2,32 @@
 
 ## Directories
 
-/bin/stubs
+bin/stubs
 # For Middleman
-/build/
-/coverage/
-/doc/
-/log/
-/public/assets/
-/tmp/
+build/
+coverage/
+doc/
+log/
+public/assets/
+public/dist/
+tmp/
 # Ignore local JS-related files
-/node_modules/
-/bower_components/
+node_modules/
+bower_components/
 .git/
+obj
+bin
+*.map
+*.min.*
+*.sln
+*.ico
+*bootstrap*
+*jquery*
 
 ## Files
 
 # ctags file
-/tags
+tags
 *.jpg
 *.jpeg
 *.png
@@ -51,3 +60,8 @@ Cargo.lock
 
 !.vscode/
 !.env
+
+*.class
+.idea
+.vscodg
+bundle.js

@@ -1,3 +1,4 @@
 package-lock.json -diff
 yarn.lock -diff
 Gemfile.lock -diff
+*.svg -diff

@@ -18,3 +18,5 @@ log/
 node_modules/
 Session.vim
 __Scratch__
+.vim/
+tmp/
