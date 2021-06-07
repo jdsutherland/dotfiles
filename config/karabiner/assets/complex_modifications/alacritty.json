@@ -28,6 +28,31 @@
       ]
     },
     {
+      "description": "alacritty: CTRL-I => F6 to allow separate <tab> maps in vim TODO https://github.com/neovim/neovim/issues/5916",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "i",
+            "modifiers": {
+              "mandatory": ["left_control"]
+            }
+          },
+          "to": {
+            "key_code": "f6"
+          },
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^io\\.alacritty$"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "description": "alacritty: l_cmd => l_opt (cmd DNE in vim/tmux) / tap tmux zoom (tmux.conf hack) ",
       "manipulators": [
         {
@@ -56,7 +81,7 @@
       ]
     },
     {
-      "description": "alacritty: fn tap / git file (follow) history in tmux split (vimrc hack) ",
+      "description": "alacritty: fn tap / git file (follow) history in tmux split (vimrc hack) - nnoremap <M-S-z> :TmuxGitIndividualFileHistory<cr>",
       "manipulators": [
         {
           "type": "basic",
@@ -73,6 +98,38 @@
           "to_if_alone": [
             {
               "key_code": "z",
+              "modifiers": ["left_option", "shift"]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^io\\.alacritty$"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "alacritty: l_control tap / git file (follow) history in tmux split (vimrc hack) - nnoremap <M-S-x> :TmuxGitFileFullHistory<cr>",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_control",
+            "modifiers": {
+              "optional": "any"
+            }
+          },
+          "to": {
+            "key_code": "left_control",
+            "modifiers": ["any"]
+          },
+          "to_if_alone": [
+            {
+              "key_code": "x",
               "modifiers": ["left_option", "shift"]
             }
           ],
