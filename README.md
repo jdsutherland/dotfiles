@@ -1,32 +1,35 @@
-## Dotfiles
+## dotfiles
 
-Targeted for osx 10.11. Managed with [rcm][1]. Install script is meant to be run a new osx machine.
+Assumes macOS.
 
-### Uses
-* [laptop][2] by thoughtbot
-* zsh with [prezto][3]
-* [slate][4]
-* [karabiner][5]
+### Featuring
+* zsh
 * neovim
+* alacritty
 * tmux
-* weechat
-* [fzf][6]
+* [slate][] for window management
+* [Karabiner-Elements][] for keyboard customization
 
 ### Install
-```
-git clone https://github.com/jdsutherland/dotfiles.git ~/.dotfiles
-~/.dotfiles/scripts/install.sh
-rcup -v
-```
 
---------------------------------
-Note, following saved in Dropbox:
-* osx plists (with keyboard shortcuts)
-* Alfred, Dash settings
+    $ git clone https://github.com/jdsutherland/dotfiles.git ~/.dotfiles
+    $ ~/.dotfiles/scripts/install.sh
+    $ rcup -v
 
-[1]:https://github.com/thoughtbot/rcm
-[2]:https://github.com/thoughtbot/laptop
-[3]:https://github.com/sorin-ionescu/prezto/
-[4]:https://github.com/mattr-/slate
-[5]:https://github.com/tekezo/Karabiner
-[6]:https://github.com/junegunn/fzf
+### Installation
+
+    $ git clone git@github.com:jdsutherland/dotfiles.git ~/.dotfiles
+    $ cd ~/.dotfiles
+    $ ./install.sh
+
+It will install [rcm][] and use that to safely symlink the dotfiles, prompting you
+if a file already exists (like if you already have `~/.zshrc`).
+
+[rcm]:https://github.com/thoughtbot/rcm
+[slate]:https://github.com/mattr-/slate
+[Karabiner-Elements]:https://github.com/pqrs-org/Karabiner-Elements
+
+### Inspiration
+
+- [christoomey](https://github.com/christoomey/dotfiles)
+- [gabebw](https://github.com/gabebw/dotfiles)
