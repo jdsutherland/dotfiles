@@ -35,10 +35,10 @@ set idearefactormode=keep
 nnoremap <silent> vv <C-w>v
 nnoremap <silent> ss <C-w>s
 " vertical to horizontal ( | -> -- )
-noremap <c-w>-  <c-w>t<c-w>K
+" noremap <c-w>-  <c-w>t<c-w>K
 " horizontal to vertical ( -- -> | )
-noremap <c-w>\|  <c-w>t<c-w>H
-noremap <c-w>\  <c-w>t<c-w>H
+" noremap <c-w>\|  <c-w>t<c-w>H
+" noremap <c-w>\  <c-w>t<c-w>H
 
 nmap <c-k> <c-w>k
 nmap <c-j> <c-w>j
@@ -85,6 +85,7 @@ nmap [g :action GotoPreviousError<cr>
 nmap ]g :action GotoNextError<cr>
 nmap \\rn <Action>(RenameElement)
 nmap \\rg :action Generate<cr>
+nmap <space>G :action Generate<cr>
 nmap \\rc :action InspectCode<cr>
 nmap <space><space> :action ShowErrorDescription<cr>
 vmap <space><space> :action ShowErrorDescription<cr>
