@@ -232,7 +232,6 @@ weechat
 mpv
 OSX
 osx
-vim
 dotfile
 repos
 playlists
@@ -265,3 +264,6 @@ metacognition
 meditator
 serializer
 workflow
+favorited
+polyfill
+vim
