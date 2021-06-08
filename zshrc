@@ -25,11 +25,12 @@ alias vi="nvim"
 
 . /usr/local/opt/asdf/asdf.sh
 . /usr/local/etc/bash_completion.d
-export PATH="$(yarn global bin):$PATH"
 
-export GOPATH="${HOME}/.go"
-export GOROOT="$(brew --prefix golang)/libexec"
-export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+# TODO: needed? these are slow
+# export PATH="$(yarn global bin):$PATH"
+# export GOPATH="${HOME}/.go"
+# export GOROOT="$(brew --prefix golang)/libexec"
+# export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 
 export PATH="$HOME/.bin:$PATH"
 
@@ -50,4 +51,5 @@ KEYTIMEOUT=25
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# TODO: remove once https://github.com/so-fancy/diff-so-fancy/pull/398 merged
 export PATH="$HOME/.dotfiles/bin/diff-so-fancy:$PATH"

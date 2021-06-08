@@ -489,3 +489,6 @@ tmpdf() { local dir="`mktemp`".pdf; briss -s "$1" -d "$dir" && open $dir }
 
 # displays function
 fn() { type $1 | field 3 | xargs bat }
+
+# grep rails routes
+rrg() { batgrep "$@" config/routes.rb -A 5 }

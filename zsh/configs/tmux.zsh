@@ -19,6 +19,8 @@ _not_inside_tmux() {
   [[ -z "$TMUX" ]]
 }
 
+source ~/.bin/tat
+
 ensure_tmux_is_running() {
   if _not_inside_tmux; then
     tat

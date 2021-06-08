@@ -353,7 +353,6 @@ if [[ -o interactive ]]; then
   alias ra='ranger-cd'
   alias Ra='ranger'
   # alias rcup="command rcup -v | grep -v identical"
-  alias rrdb='rails dbconsole'
   alias st='speedtest'
   alias t1='tree -L 1 * -C | less -F'
   alias th="tree -a -I 'node_modules|.git' -C"
@@ -393,6 +392,7 @@ if [[ -o interactive ]]; then
 
   # rails {{{
   alias Rporo="rg -t ruby 'class \w+$' -l"
+  alias rrdb='rails dbconsole'
   # }}}
 
   # brew {{{
