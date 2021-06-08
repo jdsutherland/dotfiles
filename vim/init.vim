@@ -48,7 +48,15 @@ require('telescope').setup{
   }
 }
 
-require("todo-comments").setup()
+require("todo-comments").setup {
+  colors = {
+    error = { "#cc6666" },
+    warning = { "#de934f" },
+    info = { "#8abeb7" },
+    hint = { "#81a2be"},
+    default = { "#b294bb" },
+    },
+}
 
 require('nvim-treesitter.configs').setup {
   ensure_installed = "maintained",
