@@ -10,9 +10,6 @@ export LESS="ij.5KMRX"
 # Add homebrew binaries
 export PATH="/usr/local/bin:$PATH"
 
-# Add my custom commands
-export PATH="$HOME/bin:$PATH"
-
 export PATH="$HOME/.npm-packages/bin:$PATH"
 
 # TODO: using jellbeans because theme is better; look for a better tomorrow-night
