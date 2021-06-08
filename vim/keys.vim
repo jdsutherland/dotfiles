@@ -26,18 +26,7 @@ nnoremap k gk
 " show selected line count
 vnoremap <c-g> g<c-g>
 
-" META. NOTE: tmux uses: [b,j,l,k,p,i,p,TAB,E,c,C]
-" others: [a]
-nnoremap <M-e> :VtrFocusRunner<cr>
-nnoremap <M-h> :VtrSendCommandToRunner<space>
-" shortcut to mapping a temp runner with
-nnoremap ,tb :nnoremap ,t :VtrSendCommandToRunner<space>
-nnoremap ,tc :VtrSendCommandToRunner<space>cd `dirname <c-r>%`<cr>
-" repeat last command
-nnoremap <M-y> :w<esc>:VtrSendCommandToRunner<space><cr>
-nnoremap <M-r> :VtrOpenRunner<cr>
-nnoremap <M-q> :VtrKillRunner<cr>
-nnoremap <M-g> :Rg<CR>
+" META. NOTE: tmux metas: [b,j,l,k,p,i,p,TAB,E,c,C]
 
 nnoremap <silent> \g :ToggleGStatus<cr>
 nnoremap <silent><space>9 :tabprev<cr>
@@ -91,7 +80,7 @@ nnoremap <cr>l :s///<left>
 " open prev buffer
 nnoremap <c-b> <C-^>
 " jump between previous split
-nnoremap <M-b> <c-w><c-p>
+nnoremap \s <c-w><c-p>
 " close recent split
 nnoremap ,fd <c-w><c-p> :bd!<cr>
 nnoremap <silent> ,f <C-]>zz

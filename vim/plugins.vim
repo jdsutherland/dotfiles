@@ -405,25 +405,27 @@ nnoremap <silent> <right> :CmdResizeRight<cr>
 Plug 'christoomey/vim-tmux-runner'
 let g:VtrUseVtrMaps = 1
 let g:VtrGitCdUpOnOpen = 1
-nnoremap <cr>q :VtrSendCommandToRunner<space>
-" nnoremap <leader>sr :VtrOpenRunner {'orientation': 'h', 'percentage': 50}<cr>
-nnoremap <leader>or :VtrOpenRunner {'orientation': 'v', 'percentage': 20}<cr>
-nnoremap <leader>nr :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'node'}<cr>
-nnoremap <leader>sd :VtrSendCtrlD<cr>
-nnoremap <leader>sc :VtrSendCtrlC<cr>
-nnoremap <leader>sk :VtrSendKeysRaw <cr>
-nnoremap <leader>sf :VtrSendFile<cr>
-nnoremap <space>- :VtrAttachToPane<cr>
 let g:VtrClearBeforeSend = 0
+" TODO: does M-e from tmux or vim bind?
+" nnoremap <M-e> :VtrFocusRunner<cr>
+nnoremap \vv :VtrSendCommandToRunner<space>
+nnoremap \V :w<esc>:VtrSendCommandToRunner<space><cr>
+" shortcut to mapping a temp runner with
+nnoremap \vb :nnoremap ,t :VtrSendCommandToRunner<space>
+" repeat last command
+nnoremap \vo :VtrOpenRunner<cr>
+nnoremap \va :VtrAttachToPane<cr>
+" nnoremap \vv :VtrOpenRunner {'orientation': 'v', 'percentage': 20}<cr>
+nnoremap \vq :VtrKillRunner<cr>
+nnoremap \vd :VtrSendCtrlD<cr>
+nnoremap \vc :VtrSendCtrlC<cr>
+nnoremap \vf :VtrSendFile<cr>
 " send everything
 " nmap ,sL vae<leader>sl
 " " nmap <CR>f gv<leader>sl TODO: new map
 vmap <CR>f ,sl
 " " useful resending sql
 nmap <cr>F vap,sl
-" " TODO: send textobj-chunk to runner
-" nmap <cr>c vac<leader>sl
-"
 " }}}
 
 " {{{ easymotion
@@ -911,8 +913,9 @@ omap <leader><tab> <plug>(fzf-maps-o)
 nnoremap <silent> \b :call fzf#vim#buffers()<cr><cr>
 nnoremap <silent> \t :call fzf#vim#buffers()<cr>
 nnoremap <silent> \T :Buffers<CR>
-nnoremap <M-w> :Windows<CR>
+nnoremap \w :Windows<CR>
 nnoremap <M-f> :Files<CR>
+nnoremap <M-g> :Rg<CR>
 noremap ,bl :execute "BLinesPreview '<c-r><c-w>"<cr>
 noremap ,bL :execute "Lines '<c-r><c-w>"<cr>
 nnoremap <silent> ,o :BTags<CR>
