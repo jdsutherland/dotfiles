@@ -86,9 +86,9 @@ nnoremap ,fd <c-w><c-p> :bd!<cr>
 nnoremap <silent> ,f <C-]>zz
 nnoremap <silent>,ft :tab split <CR>:exec("tag ".expand("<cword>"))<CR>
 " open tag in split
-nnoremap <silent> ,fs :sp<CR>:exec("tag ".expand("<cword>"))<CR>zt<C-w><C-p>
+nnoremap <silent> ,fS :sp<CR>:exec("tag ".expand("<cword>"))<CR>zt<C-w><C-p>
 " open tag in vsplit
-nnoremap <silent> ,fv :vsp <CR>:exec("tag ".expand("<cword>"))<CR>zt<C-w><C-p>
+nnoremap <silent> ,fV :vsp <CR>:exec("tag ".expand("<cword>"))<CR>zt<C-w><C-p>
 " open ptag cword
 nnoremap <silent> <space>ll :exec("ptag ".expand("<cword>"))<CR>:set sb<CR>
 nnoremap <silent> <space>lc :pclose<CR>
