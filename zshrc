@@ -1,16 +1,32 @@
-source ~/.zplug/init.zsh
+# {{{ zinit
+source /usr/local/opt/zinit/zinit.zsh
 
-zplug 'mafredri/zsh-async'
-zplug 'sindresorhus/pure'
-zplug 'zsh-users/zsh-syntax-highlighting', defer:2
-zplug 'zsh-users/zsh-completions', defer:2
-zplug 'ael-code/zsh-colored-man-pages'
-zplug "modules/directory", from:prezto # for d stack
-zplug 'skywind3000/z.lua' # TODO: replace with zoxide and remove?
-zplug 'wfxr/forgit' # TODO: consider aliases
-zplug 'softmoth/zsh-vim-mode'
+zinit ice pick"async.zsh" src"pure.zsh"
+zinit light "sindresorhus/pure"
 
-zplug load
+zinit light "Aloxaf/fzf-tab"
+zinit wait lucid light-mode for \
+    "hlissner/zsh-autopair" \
+    "ael-code/zsh-colored-man-pages" \
+    "wfxr/forgit" \
+    "skywind3000/z.lua" \
+    atinit"zicompinit; zicdreplay" \
+        "zdharma/fast-syntax-highlighting" \
+    atload"_zsh_autosuggest_start" \
+        "zsh-users/zsh-autosuggestions" \
+    blockf atpull'zinit creinstall -q .' \
+        "zsh-users/zsh-completions"
+
+zinit light softmoth/zsh-vim-mode
+zinit snippet PZT::modules/directory
+zinit snippet PZT::modules/history
+zinit snippet PZT::modules/docker/alias.zsh
+zinit snippet OMZ::plugins/globalias/globalias.plugin.zsh
+
+# zsh-users/zsh-autosuggestions
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#373b41"
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#6C6C6A"
+# }}}
 
 for zsh_source in $HOME/.zsh/configs/*.zsh; do
   source $zsh_source
@@ -31,6 +47,9 @@ alias vi="nvim"
 # export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 
 export PATH="$HOME/.bin:$PATH"
+
+export LS_COLORS=$(vivid generate jellybeans)
+export BAT_PAGER=less
 
 # Show contents of directory after cd-ing into it
 chpwd() {
