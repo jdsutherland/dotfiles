@@ -131,3 +131,4 @@ au BufEnter * if @% ==# 'package.json' | nnoremap <buffer> <silent> <space><spac
 
 " vim-plug
 autocmd FileType vim syntax keyword Function Plug
+autocmd FileType vim,zsh setlocal foldmethod=marker

@@ -72,9 +72,7 @@ nnoremap <Leader>sud :w !sudo tee %<cr>
 nnoremap <leader>wub :%s/<C-r><C-w>//c<left><left>
 nnoremap <Leader>pub :cfdo %s///gc<left><left><left>
 " replace all <cword> in line
-nnoremap <cr>l :s///<left>
-" nnoremap <cr>l :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr> :s///<left>
-" nnoremap <cr>r :s/<C-r><C-w>//<left>
+nnoremap <expr> <cr>l ':s/'.expand('<cword>').'//<left>'
 
 " ---NAVIGATION---
 " open prev buffer
