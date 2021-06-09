@@ -408,10 +408,11 @@ let g:VtrGitCdUpOnOpen = 1
 let g:VtrClearBeforeSend = 0
 " TODO: does M-e from tmux or vim bind?
 " nnoremap <M-e> :VtrFocusRunner<cr>
-nnoremap \vv :VtrSendCommandToRunner<space>
-nnoremap \V :w<esc>:VtrSendCommandToRunner<space><cr>
+nnoremap \vv :VtrSendCommandToRunner!<space>
+" repeat last command
+nnoremap \V :w<esc>:VtrSendCommandToRunner!<space><cr>
 " shortcut to mapping a temp runner with
-nnoremap \vb :nnoremap ,t :VtrSendCommandToRunner<space>
+nnoremap \vb :nnoremap ,t :VtrSendCommandToRunner!<space>
 " repeat last command
 nnoremap \vo :VtrOpenRunner<cr>
 nnoremap \va :VtrAttachToPane<cr>
