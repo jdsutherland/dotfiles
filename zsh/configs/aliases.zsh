@@ -423,7 +423,7 @@ if [[ -o interactive ]]; then
   alias topen='today | xargs nvim'
   alias epoch="date -r"
   alias datef='date +"%d-%m-%Y"'
-  alias fnptr='g -p "\(\*\w+\)\(" | less -RFX'
+  alias fnptr='rg -p "\(\*\w+\)\(" | less -RFX'
   alias rm-nodemod='find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +'
 
   # Archives
