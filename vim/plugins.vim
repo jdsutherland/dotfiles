@@ -768,13 +768,6 @@ let g:git_messenger_date_format = "%Y %b %d %X"
 
 " javascript {{{
 Plug 'jparise/vim-graphql'
-
-Plug 'leafgarland/typescript-vim'
-" https://github.com/leafgarland/typescript-vim/issues/184
-hi link typescriptReserved Keyword
-
-Plug 'peitalin/vim-jsx-typescript'
-
 Plug 'jhkersul/vim-jest-snippets'
 Plug 'dsznajder/vscode-es7-javascript-react-snippets', { 'do': 'yarn install --frozen-lockfile && yarn compile' }
 " }}}

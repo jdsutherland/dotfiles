@@ -16,5 +16,7 @@ syn keyword jsxTagName tr conceal cchar=⇆
 syn keyword jsxTagName td conceal cchar=☐
 syn keyword jsxTagName blockquote conceal cchar="
 
+runtime! syntax/typescript.vim
+
 hi! link Conceal Operator
 hi! Conceal guifg=LightRed
