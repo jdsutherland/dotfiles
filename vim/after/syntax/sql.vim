@@ -19,7 +19,7 @@ syntax keyword sqlNiceKeyword or conceal cchar=∨
 " syntax match sqlNiceOperator "&&" conceal cchar=∧
 " syntax match sqlNiceOperator "||=\@!" conceal cchar=∨
 
-syntax match sqlNiceOperator "\<not " conceal cchar=¬
+syntax keyword sqlOperator not conceal cchar=¬
 syntax match sqlNiceOperator "\%(is \)\@<!\<not\%( \|\>\)" conceal cchar=¬
 syntax keyword sqlNiceOperator all conceal cchar=∀
 syntax keyword sqlNiceOperator in conceal cchar=∈
