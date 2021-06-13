@@ -687,6 +687,41 @@ Plug 'Ron89/thesaurus_query.vim'
 let g:tq_mthesaur_file='~/.vim/spell/thesaurus/mthesaur.txt'
 nnoremap <c-s><c-t> :ThesaurusQueryReplaceCurrentWord<CR>
 vnoremap <c-s><c-t> y:ThesaurusQueryReplace <C-r>"<CR>
+
+" {{{ vim-pencil advanced init
+function! Prose()
+  call pencil#init()
+  call lexical#init()
+  call litecorrect#init()
+  " call textobj#quote#init()
+  call textobj#sentence#init()
+
+  " manual reformatting shortcuts
+  nnoremap <buffer> <silent> Q gqap
+  xnoremap <buffer> <silent> Q gq
+  nnoremap <buffer> <silent> <leader>Q vapJgqap
+
+  " replace common punctuation
+  iabbrev <buffer> -- –
+  iabbrev <buffer> --- —
+  iabbrev <buffer> << «
+  iabbrev <buffer> >> »
+
+  " open most folds
+  " setlocal foldlevel=6
+
+  " highlight words (reedes/vim-wordy)
+  noremap <silent> <buffer> <F8> :<C-u>NextWordy<cr>
+  xnoremap <silent> <buffer> <F8> :<C-u>NextWordy<cr>
+  inoremap <silent> <buffer> <F8> <C-o>:NextWordy<cr>
+endfunction
+
+" automatically initialize buffer by file type
+" autocmd FileType markdown,mkd,text call Prose()
+
+" invoke manually by command for other file types
+command! -nargs=0 Prose call Prose()
+" }}}
 " }}}
 
 " gutentags {{{

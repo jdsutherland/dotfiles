@@ -46,45 +46,6 @@ autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescriptreact 
 autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescriptreact noremap <buffer> T; T:
 autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescriptreact noremap <buffer> F; F:
 
-" {{{ vim-pencil advanced init
-function! Prose()
-  call pencil#init()
-  call lexical#init()
-  call litecorrect#init()
-  " call textobj#quote#init()
-  call textobj#sentence#init()
-
-  " force top correction on most recent misspelling
-  nnoremap <buffer> <c-s> [s1z=
-  inoremap <buffer> <c-s> <c-g>u<Esc>[s1z=`]A<c-g>u
-
-  " manual reformatting shortcuts
-  nnoremap <buffer> <silent> Q gqap
-  xnoremap <buffer> <silent> Q gq
-  nnoremap <buffer> <silent> <leader>Q vapJgqap
-
-  " replace common punctuation
-  iabbrev <buffer> -- –
-  iabbrev <buffer> --- —
-  iabbrev <buffer> << «
-  iabbrev <buffer> >> »
-
-  " open most folds
-  " setlocal foldlevel=6
-
-  " highlight words (reedes/vim-wordy)
-  noremap <silent> <buffer> <F8> :<C-u>NextWordy<cr>
-  xnoremap <silent> <buffer> <F8> :<C-u>NextWordy<cr>
-  inoremap <silent> <buffer> <F8> <C-o>:NextWordy<cr>
-endfunction
-
-" automatically initialize buffer by file type
-" autocmd FileType markdown,mkd,text call Prose()
-
-" invoke manually by command for other file types
-command! -nargs=0 Prose call Prose()
-" }}}
-
 " autocmd BufEnter * EnableStripWhitespaceOnSave
 autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 

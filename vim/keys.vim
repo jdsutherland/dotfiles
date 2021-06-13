@@ -237,3 +237,7 @@ cnoremap <silent> <c-f> <C-r>=<SID>wildchar()<CR>
 " <c-q> edit mode
 cnoremap <silent> <c-q> <c-f>
 " }}}
+
+" force top correction on most recent misspelling
+nnoremap <buffer> <c-s> [s1z=
+inoremap <buffer> <c-s> <c-g>u<Esc>[s1z=`]A<c-g>u
