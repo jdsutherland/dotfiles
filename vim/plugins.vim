@@ -831,23 +831,13 @@ Plug 'mattn/emmet-vim'
 let g:user_emmet_next_key = '<C-j>'
 imap <c-y><c-y> <Plug>(emmet-expand-abbr)
 
-Plug 'othree/html5.vim'
 Plug 'tpope/vim-jdaddy'
-Plug 'elzr/vim-json'
 
 " ruby {{{
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-bundler'
 Plug 'christoomey/vim-rfactory'
-Plug 'vim-ruby/vim-ruby'
-let g:loaded_ruby_provider = 0
-let g:rubycomplete_rails = 1
-let g:rubycomplete_buffer_loading = 1
-let g:rubycomplete_classes_in_global = 1
-let g:rubycomplete_load_gemfile = 1
-let g:ruby_operators = 1
-let g:ruby_minlines = 150
 Plug 'rlue/vim-fold-rspec', { 'for': 'ruby' }
 let g:fold_rspec_foldlevel = 2 " init open/closed state of all folds (open unless nested < 2 levels deep)
 let g:fold_rspec_foldminlines = 3 " disables closing of folds containing <= 2 lines
@@ -860,20 +850,20 @@ let g:fold_rspec_foldminlines = 3 " disables closing of folds containing <= 2 li
 " let g:alchemist_tag_map = '<leader>f'
 
 " python {{{
-" TODO: keep?
+" TODO: replace w/ treesitter at some point?
 Plug 'tweekmonster/braceless.vim' " Python vaP
 let g:braceless_generate_scripts = 1
 autocmd FileType python,haml,coffee BracelessEnable +indent +fold
 autocmd FileType yaml BracelessEnable +fold
 " }}}
 
-" {{{ clojure
+" {{{ clojure TODO: keep?
 " Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 " Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
 " Plug 'clojure-vim/async-clj-omni', { 'for': 'clojure' }
 " }}}
 
-" golang {{{
+" golang TODO: needed w/ treesitter? {{{
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
@@ -897,13 +887,8 @@ let g:go_fold_enable = ['import', 'varconst', 'package_comment']
 Plug 'neovimhaskell/haskell-vim'
 Plug 'enomsg/vim-haskellConcealPlus'
 Plug 'chr4/nginx.vim'
-Plug 'shmup/vim-sql-syntax'
-Plug 'cespare/vim-toml'
 Plug 'tmux-plugins/vim-tmux'
-Plug 'justinmk/vim-syntax-extra' " improved c syntax
-Plug 'ekalinin/Dockerfile.vim'
 Plug 'kkvh/vim-docker-tools'
-Plug 'OrangeT/vim-csharp'
 
 " {{{ UI
 Plug 'kyazdani42/nvim-web-devicons'
