@@ -79,7 +79,20 @@ syntax keyword jsGlobalObjects Number conceal cchar=ℤ
 syntax keyword jsGlobalObjects String conceal cchar=⟆
 syntax keyword jsGlobalObjects Array conceal cchar=⌸
 syntax keyword jsGlobalObjects Object conceal cchar=ɵ
-"
+
+" from vim-javascript
+syntax keyword jsFunction function conceal cchar=ƒ
+syntax keyword jsNull null conceal cchar=∅
+syntax keyword jsThis this conceal cchar=@
+syntax keyword jsReturn return conceal cchar=⇚
+syntax keyword jsUndefined undefined conceal cchar=¿
+syntax keyword jsNan NaN conceal cchar=ℕ
+syntax keyword jsEquality conceal cchar=≡
+syntax keyword jsPrototype conceal cchar=¶
+syntax keyword jsStatic conceal cchar=∬
+syntax keyword jsSuper conceal cchar=Ω
+syntax match jsArrowFunction /=>/ skipwhite skipempty nextgroup=jsFuncBlock,jsCommentFunction conceal cchar=⇒
+
 syntax match jsGlobalObjects "\<boolean\>" conceal cchar=ƀ
 " syntax match jsGlobalObjects "\<number\>" conceal cchar=ℤ
 syntax match jsGlobalObjects "\<string\>" conceal cchar=⟆

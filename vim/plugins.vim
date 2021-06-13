@@ -767,7 +767,6 @@ let g:git_messenger_always_into_popup = v:true
 let g:git_messenger_date_format = "%Y %b %d %X"
 
 " javascript {{{
-Plug 'moll/vim-node'
 Plug 'jparise/vim-graphql'
 
 Plug 'leafgarland/typescript-vim'
@@ -775,23 +774,6 @@ Plug 'leafgarland/typescript-vim'
 hi link typescriptReserved Keyword
 
 Plug 'peitalin/vim-jsx-typescript'
-Plug 'MaxMEllon/vim-jsx-pretty'
-let g:vim_jsx_pretty_colorful_config = 1
-
-" {{{ vim-javascript
-Plug 'pangloss/vim-javascript'
-let g:javascript_conceal_function       = "ƒ"
-let g:javascript_conceal_null           = "∅"
-let g:javascript_conceal_this           = "@"
-let g:javascript_conceal_return         = "⇚"
-let g:javascript_conceal_undefined      = "¿"
-let g:javascript_conceal_NaN            = "ℕ"
-let g:javascript_conceal_equality       = "≡"
-let g:javascript_conceal_prototype      = "¶"
-let g:javascript_conceal_static         = "∬"
-let g:javascript_conceal_super          = "Ω"
-let g:javascript_conceal_arrow_function = "⇒"
-" }}}
 
 Plug 'jhkersul/vim-jest-snippets'
 Plug 'dsznajder/vscode-es7-javascript-react-snippets', { 'do': 'yarn install --frozen-lockfile && yarn compile' }
