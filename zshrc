@@ -21,11 +21,9 @@ zinit light softmoth/zsh-vim-mode
 zinit snippet PZT::modules/directory
 zinit snippet PZT::modules/history
 zinit snippet PZT::modules/docker/alias.zsh
-zinit snippet OMZ::plugins/globalias/globalias.plugin.zsh
 
 # zsh-users/zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#373b41"
-# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#6C6C6A"
 # }}}
 
 for zsh_source in $HOME/.zsh/configs/*.zsh; do
@@ -39,12 +37,6 @@ alias vi="nvim"
 
 . /usr/local/opt/asdf/asdf.sh
 . /usr/local/etc/bash_completion.d
-
-# TODO: needed? these are slow
-# export PATH="$(yarn global bin):$PATH"
-# export GOPATH="${HOME}/.go"
-# export GOROOT="$(brew --prefix golang)/libexec"
-# export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 
 export PATH="$HOME/.bin:$PATH"
 
