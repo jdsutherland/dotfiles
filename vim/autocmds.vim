@@ -111,7 +111,7 @@ function! s:ShowGemInfo()
   endif
 endfunction
 command! ShowGemInfo call <sid>ShowGemInfo()
-au BufEnter * if @% ==# 'Gemfile' | nnoremap <buffer> <silent> <space><space> :ShowGemInfo<CR> | endif
+au BufEnter * if expand('%:t') ==# 'Gemfile' | nnoremap <buffer> <silent> <space><space> :ShowGemInfo<CR> | endif
 
 function! s:ShowPackageInfo()
   let re_scoped_or_nonscoped_npm_package = '\v[''"]\zs((\@(\w+[-.]?)+\/(\w+[-.]?)+)|(\w+[-.]?)+)'
@@ -126,7 +126,7 @@ function! s:ShowPackageInfo()
   endif
 endfunction
 command! ShowPackageInfo call <sid>ShowPackageInfo()
-au BufEnter * if @% ==# 'package.json' | nnoremap <buffer> <silent> <space><space> :ShowPackageInfo<CR> | endif
+au BufEnter * if expand('%:t') ==# 'package.json' | nnoremap <buffer> <silent> <space><space> :ShowPackageInfo<CR> | endif
 " }}}
 
 " vim-plug
