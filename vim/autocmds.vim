@@ -1,4 +1,22 @@
-autocmd BufLeave,FocusLost * silent! wall
+" {{{ autowrite
+" TODO: verify resolves quickfix-reflector write issue
+function! Autowrite()
+  for tabnum in range(tabpagenr('$'))
+    for bufnum in tabpagebuflist(tabnum + 1)
+      if bufname(bufnum) =~ '^quickfix-' | return | endif
+    endfor
+  endfor
+  silent! wa
+  if &modified
+    silent! GutentagsUpdate
+  endif
+endfunction
+
+augroup improved_autowrite
+  autocmd!
+  autocmd FocusLost,BufLeave * call Autowrite()
+augroup end
+" }}}
 
 autocmd FileType vim setlocal keywordprg=:help " Open vim help under cursor
 
