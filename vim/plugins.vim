@@ -768,7 +768,7 @@ nnoremap <space>ga :Git add %<CR>
 nnoremap <space>gA :Git add .<CR>
 nnoremap <space>gc :tab Git commit -v -q<CR>
 nnoremap <space>gt :vert Git commit -v -q %:p<CR>
-nnoremap <space>gb :Git blame<CR>
+nnoremap <space>gb :Git blame<CR><c-w><c-p>
 nnoremap <space>gB :GBrowse<CR>
 nnoremap <space>gp :vert Git add --patch<CR>
 nnoremap <space>ge :Gedit!<CR>
