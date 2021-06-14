@@ -11,6 +11,9 @@ syntax keyword typescriptReserved enum conceal cchar=∈
 syntax keyword typescriptReserved interface conceal cchar=♀
 syntax keyword typescriptReserved static conceal cchar=∬
 
+syntax keyword typescriptBoolean true conceal cchar=✓
+syntax keyword typescriptBoolean false conceal cchar=✗
+
 syntax keyword typescriptStatementKeyword return conceal cchar=⇚
 
 syntax keyword typescriptLabel default conceal cchar=d

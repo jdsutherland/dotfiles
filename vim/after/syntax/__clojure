@@ -5,9 +5,9 @@ endif
 syn keyword clojureConcealLambda defn fn conceal cchar=λ
 syn keyword clojureConcealLambdaPriv defn- conceal cchar=Λ
 "syn match   clojureConcealLambda /\v#\(/me=e-1 conceal cchar=λ
-syn keyword clojureConcealTrue true conceal cchar=T
+syn keyword clojureConcealTrue true conceal cchar=✓
 
-syn keyword clojureConcealFalse false conceal cchar=F
+syn keyword clojureConcealFalse false conceal cchar=✗
 
 syn keyword clojureConcealKeys      :keys conceal   cchar=ӄ
 syn match clojureConcealNil       /\vnil\?*/ conceal     cchar=Ø

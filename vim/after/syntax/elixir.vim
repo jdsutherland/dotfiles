@@ -20,8 +20,8 @@ syntax match elixirNiceOperator "--" conceal cchar=⊝
 
 syntax match elixirExUnitAssert "\(^\s*\)\@<=\<\(assert\|assert_in_delta\|assert_raise\|assert_receive\|assert_received\|catch_error\)\>" conceal cchar=✓
 " syntax match elixirExUnitAssert "assert" conceal cchar=✓
-syntax keyword elixirBoolean true conceal cchar=T
-syntax keyword elixirBoolean false conceal cchar=F
+syntax keyword elixirBoolean true conceal cchar=✓
+syntax keyword elixirBoolean false conceal cchar=✗
 syntax keyword elixirBoolean nil conceal cchar=∅
 syntax match elixirNiceOperator "\v\.new>" conceal cchar=ミ
 syntax match elixirNiceOperator "\v\.delete>" conceal cchar=✗

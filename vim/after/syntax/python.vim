@@ -57,8 +57,8 @@ syntax keyword pythonBuiltin del conceal cchar=✗
 syntax keyword pythonBuiltin break conceal cchar=↯
 
 " TODO
-syntax keyword pythonBuiltin True conceal cchar=T
-syntax keyword pythonBuiltin False conceal cchar=F
+syntax keyword pythonBuiltin True conceal cchar=✓
+syntax keyword pythonBuiltin False conceal cchar=✗
 syntax keyword pythonInclude import conceal cchar=ɪ
 syntax keyword pythonInclude from conceal cchar=ｆ
 syntax keyword pythonStatement return conceal cchar=⇚

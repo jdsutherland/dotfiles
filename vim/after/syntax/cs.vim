@@ -95,8 +95,8 @@ if s:extraConceal
   syntax keyword csUnspecifiedStatement this conceal cchar=@
   " syntax keyword javaExternal using conceal cchar=ɪ
 
-  syntax keyword csConstant true conceal cchar=T
-  syntax keyword csConstant false conceal cchar=F
+  syntax keyword csConstant true conceal cchar=✓
+  syntax keyword csConstant false conceal cchar=✗
 
   syntax keyword csType void conceal cchar=∅
   syntax keyword csType decimal conceal cchar=$

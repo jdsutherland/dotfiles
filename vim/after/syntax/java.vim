@@ -89,8 +89,8 @@ if s:extraConceal
   syntax keyword javaTypeDef this conceal cchar=@
   syntax keyword javaExternal import conceal cchar=ɪ
 
-  syntax keyword javaBoolean true conceal cchar=T
-  syntax keyword javaBoolean false conceal cchar=F
+  syntax keyword javaBoolean true conceal cchar=✓
+  syntax keyword javaBoolean false conceal cchar=✗
 
   syntax keyword javaType void conceal cchar=∅
   syntax keyword javaType char Character conceal cchar=ċ

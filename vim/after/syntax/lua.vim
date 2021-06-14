@@ -7,8 +7,8 @@ syntax keyword luaNice local conceal cchar=ℓ
 syntax keyword luaNice return conceal cchar=⇚
 syntax keyword luaNice end conceal
 syntax keyword luaNice nil conceal cchar=∅
-syntax keyword luaNice true conceal cchar=T
-syntax keyword luaNice false conceal cchar=F
+syntax keyword luaNice true conceal cchar=✓
+syntax keyword luaNice false conceal cchar=✗
 syntax keyword luaNice self conceal cchar=@
 syntax keyword luaNice not conceal cchar=¬
 syntax keyword luaNice tostring conceal cchar=⟆

@@ -36,8 +36,8 @@ syntax match sqlNiceOperator " \zs\/\ze "  conceal cchar=÷
 syntax keyword sqlFunction sum conceal cchar=∑
 syntax keyword sqlFunction typeof conceal cchar=¤
 
-syntax keyword sqlNiceKeyword true conceal cchar=T
-syntax keyword sqlNiceKeyword false conceal cchar=F
+syntax keyword sqlNiceKeyword true conceal cchar=✓
+syntax keyword sqlNiceKeyword false conceal cchar=✗
 syntax keyword sqlNiceKeyword null conceal cchar=∅
 syntax keyword sqlNiceKeyword asc conceal cchar=↑
 syntax keyword sqlNiceKeyword desc conceal cchar=↓

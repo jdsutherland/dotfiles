@@ -51,8 +51,8 @@ syntax keyword rustStorage mut conceal cchar=⚕
 syntax match rustAssert "\v<assert_?" conceal cchar=✓
 syntax match myRust "^\s*\zs\.\ze" conceal cchar=｡
 
-syntax keyword rustBoolean true conceal cchar=T
-syntax keyword rustBoolean false conceal cchar=F
+syntax keyword rustBoolean true conceal cchar=✓
+syntax keyword rustBoolean false conceal cchar=✗
 
 syntax match rustOperator /;$/ conceal
 syntax match rustOperator /^\s*\zs}\ze$/ conceal

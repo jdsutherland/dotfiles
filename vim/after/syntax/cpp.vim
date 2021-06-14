@@ -54,8 +54,8 @@ if s:extraConceal
   " syntax keyword cppNiceKeyword switch conceal cchar=⋔
   syntax keyword cppNiceKeyword virtual conceal cchar=ⅵ
 
-  syntax keyword cppNiceBoolean true conceal cchar=T
-  syntax keyword cppNiceBoolean false conceal cchar=F
+  syntax keyword cppNiceBoolean true conceal cchar=✓
+  syntax keyword cppNiceBoolean false conceal cchar=✗
 
   " syntax keyword cppNiceType void conceal cchar=∅
   " syntax keyword cppNiceType bool conceal cchar=☯

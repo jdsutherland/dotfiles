@@ -54,8 +54,8 @@ syntax match jsOperator "\s\+\zs!==\ze\s\+" conceal cchar=≢
 
 " syntax match jsOperator "\s^\s" conceal cchar=⊻
 
-syntax keyword jsBooleanTrue true conceal cchar=T
-syntax keyword jsBooleanFalse false conceal cchar=F
+syntax keyword jsBooleanTrue true conceal cchar=✓
+syntax keyword jsBooleanFalse false conceal cchar=✗
 
 syntax keyword jsStorageClass const conceal cchar=𝔠
 " syntax match jsStorageClass "\<const\s\+" conceal

@@ -62,8 +62,8 @@ syntax keyword cType float double conceal cchar=ℝ
 syntax keyword cType long conceal cchar=ʟ
 syntax keyword cType signed conceal cchar=±
 
-syntax keyword cNiceBoolean true conceal cchar=T
-syntax keyword cNiceBoolean false conceal cchar=F
+syntax keyword cNiceBoolean true conceal cchar=✓
+syntax keyword cNiceBoolean false conceal cchar=✗
 
 " syntax match cppHiddenOperator /\S\zs()\ze\(\S\| [^{]\)/ conceal
 " syntax match cHiddenOperator /^\s*}$/ conceal
