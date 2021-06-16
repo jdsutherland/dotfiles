@@ -64,5 +64,6 @@
   "java.jdt.ls.vmargs": "-javaagent:/usr/local/share/lombok/lombok.jar",
   "java.signatureHelp.enabled": true,
   "java.completion.guessMethodArguments": true,
-  "python.jediPath": "/Users/j/.asdf/installs/python/3.9.0/lib/python3.9/site-packages"
+  "python.jediPath": "/Users/j/.asdf/installs/python/3.9.0/lib/python3.9/site-packages",
+  "omnisharp.version": "v1.37.6"
 }
