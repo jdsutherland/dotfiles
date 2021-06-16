@@ -66,7 +66,7 @@ let g:vista_sidebar_width = 50
 " use ctags here?
 nnoremap <silent> <space>o :silent Vista finder coc<CR>
 nnoremap <silent> <space>O :silent Vista finder ctags<CR>
-nnoremap <silent> <M-z> :Vista!!<CR>
+nnoremap <silent> \z :Vista!!<CR>
 " }}}
 
 Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
@@ -408,11 +408,11 @@ let g:VtrGitCdUpOnOpen = 1
 let g:VtrClearBeforeSend = 0
 " TODO: does M-e from tmux or vim bind?
 " nnoremap <M-e> :VtrFocusRunner<cr>
-nnoremap \vv :VtrSendCommandToRunner!<space>
+nnoremap \vv :VtrSendCommandToRunner<space>
 " repeat last command
-nnoremap \V :w<esc>:VtrSendCommandToRunner!<space><cr>
+nnoremap \V :w<esc>:VtrSendCommandToRunner<space><cr>
 " shortcut to mapping a temp runner with
-nnoremap \vb :nnoremap ,t :VtrSendCommandToRunner!<space>
+nnoremap \vb :nnoremap ,t :VtrSendCommandToRunner<space>
 " repeat last command
 nnoremap \vo :VtrOpenRunner<cr>
 nnoremap \va :VtrAttachToPane<cr>
@@ -763,7 +763,7 @@ let g:gutentags_ctags_exclude = [
 " }}}
 
 " {{{ fugitive
-Plug 'tpope/vim-fugitive' | Plug 'sodapopcan/vim-twiggy'
+Plug 'tpope/vim-fugitive' | Plug 'rbong/vim-flog'
 nnoremap <space>ga :Git add %<CR>
 nnoremap <space>gA :Git add .<CR>
 nnoremap <space>gc :tab Git commit -v -q<CR>

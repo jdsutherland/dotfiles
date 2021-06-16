@@ -17,8 +17,6 @@ syntax keyword typescriptBoolean false conceal cchar=✗
 syntax keyword typescriptStatementKeyword return conceal cchar=⇚
 
 syntax keyword typescriptLabel default conceal cchar=d
-syntax keyword typescriptLabel async conceal cchar=Å
-syntax keyword typescriptBranch await conceal cchar=å
 
 syntax keyword typescriptIdentifier this conceal cchar=@
 
@@ -64,6 +62,10 @@ syntax match typescriptBinaryOp "\s\+\zs!==\ze\s\+" conceal cchar=≢
 
 syntax keyword typescriptAsyncFuncKeyword async conceal cchar=Å
 syntax keyword typescriptAsyncFuncKeyword await conceal cchar=å
+syntax keyword typescriptObjectAsyncKeyword async conceal cchar=Å
+
+syntax keyword typescriptLabel async conceal cchar=Å
+syntax keyword typescriptBranch await conceal cchar=å
 
 " TODO: doesn't work if preceeded by `async` or `return`
 syntax match typescriptArrowFunc /=>/ skipwhite skipempty nextgroup=typeScriptFuncCallArg,typescriptBraces conceal cchar=⇒

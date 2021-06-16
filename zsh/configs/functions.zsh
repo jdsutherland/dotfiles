@@ -185,7 +185,7 @@ rgv() {
   if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
   local files
   IFS=$'\n' files=($(rg -S -l -L --no-messages "$*" | fzf --preview-window=right:57% --multi --select-1 --exit-0 --preview 'bat --color=always {}'))
-  [[ -n "$files" ]] && ${EDITOR:-vim} -s <(printf "/$*\n") -O "${files[@]}" && print -l "$files[@]"
+  [[ -n "$files" ]] && ${EDITOR:-vim} -s <(printf "/$*\r") -O "${files[@]}" && print -l "$files[@]"
 }
 
 # fif <query> - find-in-file uses rga (pdf, books, slides, etc) to `open`
