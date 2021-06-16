@@ -5,6 +5,7 @@
   ui = true
 [alias]
   aa = add --all
+  added = log --topo-order --stat --patch --diff-filter=A
   adp = add --patch
   b = branch
   bhist = "!git --no-pager reflog $(git rev-parse --abbrev-ref HEAD)"
@@ -21,35 +22,37 @@
   count = !git log --oneline | wc -l | awk '{print $1}'
   current-branch = !git rev-parse --abbrev-ref HEAD 2> /dev/null | sed 's/^HEAD$//'
   dc = diff --word-diff --cached --color-words
+  deleted = log --topo-order --stat --patch --diff-filter=D
   df = diff --word-diff --color-words
   diffpull=!git fetch $1 && git log --stat --patch HEAD..@{u}
-  patch = !git --no-pager diff --no-color
-  pb = log --patch --follow
-  deleted = log --topo-order --stat --patch --diff-filter=D
-  added = log --topo-order --stat --patch --diff-filter=A
-  renamed = log --topo-order --stat --patch --diff-filter=R
-  pbr = log --patch --reverse --follow
   dsf = "!f() { [ \"$GIT_PREFIX\" != \"\" ] && cd "$GIT_PREFIX"; git diff --color $@ | diff-so-fancy | less --tabs=4 -RFX; }; f"
   find = log --pretty=\"format:%Cgreen%H %Cblue%s\" --name-status -i -E --grep
   fpop = !git stash show -p | git apply && git stash drop
   full-commit = !git cat-file -p $(git rev-parse HEAD)
   glog = log -E -i --grep
   issues = !hub browse -- issues
-  pulls = !hub browse -- pulls
   lnames = !git --no-pager show --name-only $1
-  master = checkout master
   main2master = !git branch -m master main && git branch -u origin/main
+  master = checkout master
   mb = !git merge-base HEAD $1
+  merge-commits = "!funct() { git log --merges --reverse --oneline --ancestry-path $1..origin | grep \"Merge pull request\";  }; funct"
+  mru = for-each-ref --sort=-committerdate --count=10 refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
   mup = !git checkout master && git pull && git checkout -
   next-commit = !git checkout $(git log --reverse --ancestry-path --pretty=%H HEAD..master | head -1)
   no-ff = merge --no-ff
+  opr = "!funct() { open \"`git web-url`/pull/`git pr-number $1`\" ;}; funct"
+  patch = !git --no-pager diff --no-color
+  pb = log --patch --follow
+  pbr = log --patch --reverse --follow
   pf = push --force-with-lease
   pl = pull
   plr = pull --rebase
   pom = push -u origin master
+  pr-number = "!funct() { git merge-commits $1 | head -n1 | sed -n \"s/^.*Merge pull request #\\\\s*\\\\([0-9]*\\\\).*$/\\\\1/p\"; }; funct"
   ps = push
+  pulls = !hub browse -- pulls
   rbc = rebase --continue
-  mru = for-each-ref --sort=-committerdate --count=10 refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
+  renamed = log --topo-order --stat --patch --diff-filter=R
   ri = rebase -i
   rim = !git rebase --interactive $(git merge-base master HEAD)
   riu = !git rebase -i $(git upstream)
@@ -62,27 +65,24 @@
   sdot = status . --short --branch
   search = log -S
   si = status --ignored
-  ssp = show --patch-with-stat
   sl = log --oneline --decorate --graph -20
   sla = log --oneline --decorate --graph --all -20
   slap = log --oneline --decorate --graph --all
   slp = log --oneline --decorate --graph
+  ssp = show --patch-with-stat
   stat = show --stat
-  update = !git fetch upstream && git rebase upstream/`git rev-parse --abbrev-ref HEAD`
   trust = !mkdir .git/safe
   unchange = checkout --
-  untrack = update-index --assume-unchanged
   uncommit = reset --soft HEAD^
   unreleased = !git l production/master..master
   unstage = reset
+  untrack = update-index --assume-unchanged
+  update = !git fetch upstream && git rebase upstream/`git rev-parse --abbrev-ref HEAD`
   upstream = rev-parse --abbrev-ref --symbolic-full-name @{upstream}
   ureset = !git upstream && git reset --hard $(git upstream)
   vdf = difftool
   vv = branch -vv
-  merge-commits = "!funct() { git log --merges --reverse --oneline --ancestry-path $1..origin | grep \"Merge pull request\";  }; funct"
-  pr-number = "!funct() { git merge-commits $1 | head -n1 | sed -n \"s/^.*Merge pull request #\\\\s*\\\\([0-9]*\\\\).*$/\\\\1/p\"; }; funct"
   web-url = "!funct() { git config remote.origin.url | sed -e\"s/git@/https:\\/\\//\" -e\"s/\\.git$//\" | sed -E \"s/(\\/\\/[^:]*):/\\1\\//\"; }; funct"
-  opr = "!funct() { open \"`git web-url`/pull/`git pr-number $1`\" ;}; funct"
 [core]
   excludesfile = ~/.gitignore
   attributesFile = ~/.gitattributes
