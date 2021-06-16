@@ -36,6 +36,7 @@ require('lualine').setup{
   extensions = { 'fzf', 'fugitive' }
 }
 
+local actions = require('telescope.actions')
 require('telescope').setup{
   defaults = {
     layout_defaults = {
@@ -44,6 +45,12 @@ require('telescope').setup{
         height_padding = 0.1,
         preview_width = 0.6,
       },
+    },
+    mappings = {
+      i = {
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+      }
     }
   }
 }
