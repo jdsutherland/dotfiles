@@ -74,6 +74,27 @@ require('nvim-treesitter.configs').setup {
   },
   incremental_selection = { enable = true },
   textobjects = { enable = true },
+
+  -- TODO: use this once it works: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  -- textobjects = {
+  --   lsp_interop = {
+  --     enable = true,
+  --     peek_definition_code = {
+  --       ["df"] = "@function.outer",
+  --       ["dF"] = "@class.outer",
+  --     },
+  --   },
+  --   select = {
+  --     enable = true,
+  --     keymaps = {
+  --       -- You can use the capture groups defined in textobjects.scm
+  --       ["af"] = "@function.outer",
+  --       ["if"] = "@function.inner",
+  --       ["ac"] = "@class.outer",
+  --       ["ic"] = "@class.inner",
+  --     },
+  --   },
+  -- },
 }
 EOF
 " }}}
