@@ -403,6 +403,23 @@ gcd() {
   git clone $1 && cd $(basename $1)
 }
 
+# git branch changes: see what the current branch has that the base branch does not
+gbc() {
+  git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative $@..$(git rev-parse --abbrev-ref HEAD)
+}
+
+# git branch base changes: see what the base branch has that the current branch does not
+gbbc() {
+  git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative $(git rev-parse --abbrev-ref HEAD)..$@
+}
+
+# git rebase onto: https://thoughtbot.com/blog/rebasing-your-branch-with-git-rebase-onto
+#  for when branched off of a topic branch and the topic branch gets rebased off of master or squashes commits
+#    ex: gro b-want-to-be-based-off b/hash-changes-cur-based-off
+gro() {
+  git rebase --onto $1 $2 $(git rev-parse --abbrev-ref HEAD)
+}
+
 # list new vids
 newvids() {
   count=${1:-20}

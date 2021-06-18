@@ -85,11 +85,12 @@ if [[ -o interactive ]]; then
   alias gst='git status'
   alias gad='git add .'
   alias gI='forgit::ignore >> .gitignore'
+  alias grcd='cd $(git root)'
 
   # Branch (b)
   alias gb='git branch'
   alias gba='git branch --all --verbose'
-  alias gbc='git checkout -b'
+  # alias gbc='git checkout -b'
   alias gbd='git branch --delete'
   alias gbD='git branch --delete --force'
   alias gbl='git branch --verbose'

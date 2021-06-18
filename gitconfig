@@ -7,6 +7,7 @@
   aa = add --all
   added = log --topo-order --stat --patch --diff-filter=A
   bhist = "!git --no-pager reflog $(git rev-parse --abbrev-ref HEAD)"
+  branches = for-each-ref --sort=-committerdate --format=\"%(color:yellow)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes
   bom = push --set-upstream origin master
   ca = commit --amend
   car = commit --amend --no-edit
@@ -48,7 +49,7 @@
   riu = !git rebase -i $(git upstream)
   rmdeleted = !git rm $(git ls-files --deleted)
   rom = remote add origin
-  root = rev-list --max-parents=0 HEAD
+  root = rev-parse --show-toplevel
   rpo = remote prune origin
   si = status --ignored
   sl = log --oneline --decorate --graph -20
@@ -85,8 +86,6 @@
   helper = osxkeychain
 [rerere]
   enabled = true
-[pull]
-  rebase = true
 [github]
   user = jdsutherland
 [fetch]
