@@ -17,13 +17,29 @@ zinit wait lucid light-mode for \
     blockf atpull'zinit creinstall -q .' \
         "zsh-users/zsh-completions"
 
+# fzf here so that c-r can override
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+HISTDB_TABULATE_CMD=(sed -e $'s/\x1f/\t/g')
+zinit light larkery/zsh-histdb
 zinit light softmoth/zsh-vim-mode
 zinit snippet PZT::modules/directory
 zinit snippet PZT::modules/history
 zinit snippet PZT::modules/docker/alias.zsh
 
-# zsh-users/zsh-autosuggestions
+# zsh-users/zsh-autosuggestions {{{
+_zsh_autosuggest_strategy_histdb_top_here() {
+    local query="select commands.argv from
+history left join commands on history.command_id = commands.rowid
+left join places on history.place_id = places.rowid
+where places.dir LIKE '$(sql_escape $PWD)%'
+and commands.argv LIKE '$(sql_escape $1)%'
+group by commands.argv order by count(*) desc limit 1"
+    suggestion=$(_histdb_query "$query")
+}
+ZSH_AUTOSUGGEST_STRATEGY=histdb_top_here
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#373b41"
+#    }}}
 # }}}
 
 for zsh_source in $HOME/.zsh/configs/*.zsh; do
@@ -60,8 +76,6 @@ unsetopt nomatch
 unsetopt multios
 
 KEYTIMEOUT=25
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # TODO: remove once https://github.com/so-fancy/diff-so-fancy/pull/398 merged
 export PATH="$HOME/.dotfiles/bin/diff-so-fancy:$PATH"
