@@ -40,6 +40,9 @@ alias vi="nvim"
 
 export PATH="$HOME/.bin:$PATH"
 
+export GOPATH="$HOME/go"
+export PATH="$PATH:$GOPATH/bin"
+
 export LS_COLORS=$(vivid generate jellybeans)
 export BAT_PAGER=less
 
