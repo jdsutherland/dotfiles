@@ -1,0 +1,12 @@
+#!/bin/sh
+
+git log --no-merges --graph --color=always --format="%C(auto)%h%d %s %C(#373b41)%C(bold)%cr" "$@" |
+fzf --ansi --no-sort --reverse --tiebreak=index --height 100% --bind=ctrl-o:toggle-sort \
+  --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always --date=format:"%Y-%m-%d %a %H:%M %z" --patch-with-stat --format="%Cblue%an <%ae> %C(yellow)%ad %C(bold)(%ar)%Creset%n%Cblue%n %C(bold cyan)%s%Creset%n%n%C(italic cyan)%b%Creset" | diff-so-fancy' \
+  --preview-window=right:55% \
+  --bind "ctrl-m:execute:
+            (grep -o '[a-f0-9]\{7,\}' | head -1 |
+            xargs -I % sh -c 'git show --patch-with-stat --color=always --notes % | diff-so-fancy | less -R ') << 'FZF-EOF'
+            {}
+FZF-EOF"
+clear

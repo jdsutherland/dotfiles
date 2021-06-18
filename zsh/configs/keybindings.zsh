@@ -104,7 +104,7 @@ fzf-githash-widget() {
 zle     -N   fzf-githash-widget
 bindkey '^g^g' fzf-githash-widget
 
-fzf-git-browser-widget() { fzf-git-browser; zle reset-prompt }
+fzf-git-browser-widget() { gfzf; zle reset-prompt }
 zle     -N   fzf-git-browser-widget
 bindkey '^_' fzf-git-browser-widget
 
