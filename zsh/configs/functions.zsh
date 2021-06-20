@@ -395,6 +395,10 @@ gro() {
 
 }
 
+gvf() {
+  gfzf --grep "${@:-^Bump}" --invert-grep -i
+}
+
 fzf-git-reverse() {
   git log --no-merges --oneline --reverse --color=always \
     --format="%C(auto)%h%d %s %C(#373b41)%C(bold)%cr" |

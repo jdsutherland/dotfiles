@@ -43,7 +43,7 @@ export FZF_CTRL_T_COMMAND='fd --ignore-file ~/.ignore --hidden --follow'
 export FZF_DEFAULT_OPTS="
   --bind ctrl-t:toggle-all,ctrl-f:toggle+down,ctrl-o:select-all
   --reverse --ansi
-  --toggle-sort=ctrl-r
+  --toggle-sort=ctrl-s
   --black
   --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D
   --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C

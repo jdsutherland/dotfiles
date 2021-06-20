@@ -1,7 +1,7 @@
 #!/bin/sh
 
 git log --no-merges --graph --color=always --format="%C(auto)%h%d %s %C(#373b41)%C(bold)%cr" "$@" |
-fzf --ansi --no-sort --reverse --tiebreak=index --height 100% --bind=ctrl-o:toggle-sort \
+  fzf --ansi --no-sort --reverse --tiebreak=index --height 100% --bind='ctrl-o:toggle-sort,ctrl-r:reload(git log --no-merges --reverse --oneline --color=always --format="%C(auto)%h%d %s %C(#373b41)%C(bold)%cr"),ctrl-t:reload(git log --no-merges --graph --color=always --format="%C(auto)%h%d %s %C(#373b41)%C(bold)%cr"),ctrl-b:reload(git log --no-merges --graph --color=always --format="%C(auto)%h%d %s %C(#373b41)%C(bold)%cr" --grep "^Bump" --invert-grep -i)' \
   --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always --date=format:"%Y-%m-%d %a %H:%M %z" --patch-with-stat --format="%Cblue%an <%ae> %C(yellow)%ad %C(bold)(%ar)%Creset%n%Cblue%n %C(bold cyan)%s%Creset%n%n%C(italic cyan)%b%Creset" | diff-so-fancy' \
   --preview-window=right:55% \
   --bind "ctrl-m:execute:
