@@ -120,19 +120,6 @@ try_ssh () {
   done
 }
 
-# git log diff filetype
-gldft() {
-  git log --follow --patch -- "*.${1}"
-}
-
-# checkout 1 commit fwd/rev
-gfwd() { git log --reverse --pretty=%H master | grep -A 1 $(git rev-parse HEAD) | tail -n1 | xargs git checkout }
-grev() { git checkout HEAD~ }
-
-gfirst() {
-  git rev-list --max-parents=0 HEAD | xargs git checkout
-}
-
 # prints current LAT, LON coords
 getloc() {
   locateme -f "{LAT} {LON}"
@@ -349,20 +336,6 @@ finde() {
   find . -iname "*$1*" -exec "$2" {} \;
 }
 
-fzf-git-reverse() {
-  git log --no-merges --oneline --reverse --color=always \
-    --format="%C(auto)%h%d %s %C(#373b41)%C(bold)%cr" |
-  fzf --ansi --no-sort --reverse --tiebreak=index --height 100% --bind=ctrl-o:toggle-sort \
-    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always --date=format:"%Y-%m-%d %H:%M:%S" --patch-with-stat --format="%Cblue%an <%ae> %C(yellow)%ad %C(bold)(%ar)%Creset%n%Cblue%n %C(bold cyan)%s%Creset%n%n%C(italic cyan)%b%Creset" | diff-so-fancy' \
-    --preview-window=right:55% \
-    --bind "ctrl-m:execute:
-              (grep -o '[a-f0-9]\{7,\}' | head -1 |
-              xargs -I % sh -c 'git show --color=always --notes % | diff-so-fancy | less -R ') << 'FZF-EOF'
-              {}
-  FZF-EOF"
-  clear
-}
-
 dircount() {
   find . -mindepth 1 -type d | wc -l
 }
@@ -392,6 +365,7 @@ notify() {
   osascript -e "display notification \"$text\" with title \"Alert\""
 }
 
+# git {{{
 # git clone append name
 gcn() {
   name="$(basename $1)_$2"
@@ -418,22 +392,34 @@ gbbc() {
 #    ex: gro b-want-to-be-based-off b/hash-changes-cur-based-off
 gro() {
   git rebase --onto $1 $2 $(git rev-parse --abbrev-ref HEAD)
+
 }
 
-# list new vids
-newvids() {
-  count=${1:-20}
-  gfind . -regex '.*\.\(mp4\|webm\|mkv\|mov\|m4v\)' -exec stat -f '%c%t%Sm %N' {} + | sort -n | cut -d ' ' -f5- | tail -r -n "$count" | sed 's#.*/##' | less
+fzf-git-reverse() {
+  git log --no-merges --oneline --reverse --color=always \
+    --format="%C(auto)%h%d %s %C(#373b41)%C(bold)%cr" |
+  fzf --ansi --no-sort --reverse --tiebreak=index --height 100% --bind=ctrl-o:toggle-sort \
+    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always --date=format:"%Y-%m-%d %H:%M:%S" --patch-with-stat --format="%Cblue%an <%ae> %C(yellow)%ad %C(bold)(%ar)%Creset%n%Cblue%n %C(bold cyan)%s%Creset%n%n%C(italic cyan)%b%Creset" | diff-so-fancy' \
+    --preview-window=right:55% \
+    --bind "ctrl-m:execute:
+              (grep -o '[a-f0-9]\{7,\}' | head -1 |
+              xargs -I % sh -c 'git show --color=always --notes % | diff-so-fancy | less -R ') << 'FZF-EOF'
+              {}
+  FZF-EOF"
+  clear
 }
 
-# list new vids
-lnv() {
-  count=${1:-20}
-  gfind . -regex '.*\.\(mp4\|webm\|mkv\|mov\|m4v\)' -exec stat -f '%c%t%Sm %N' {} + | sort -n | cut -d ' ' -f5- | tail -r -n "$count" | awk '{print $0,"\n"}' | less
+# git log diff filetype
+gldft() {
+  git log --follow --patch -- "*.${1}"
 }
 
-profile_vim() {
-  $HOME/Tools/vim-profiler/vim-profiler.py -p -r 10 nvim
+# checkout 1 commit fwd/rev
+gfwd() { git log --reverse --pretty=%H master | grep -A 1 $(git rev-parse HEAD) | tail -n1 | xargs git checkout }
+grev() { git checkout HEAD~ }
+
+gfirst() {
+  git rev-list --max-parents=0 HEAD | xargs git checkout
 }
 
 gauthor() {
@@ -465,6 +451,26 @@ gpr-sha() {
   hub browse -- "pull/$pr_num"
 }
 
+# open a github pr in diff-so-fancy
+gdifpr() {
+  url="$(dirname $1).patch"
+  curl -L "$url" | diff-so-fancy | less -r
+}
+
+# }}}
+
+# list new vids
+newvids() {
+  count=${1:-20}
+  gfind . -regex '.*\.\(mp4\|webm\|mkv\|mov\|m4v\)' -exec stat -f '%c%t%Sm %N' {} + | sort -n | cut -d ' ' -f5- | tail -r -n "$count" | sed 's#.*/##' | less
+}
+
+# list new vids
+lnv() {
+  count=${1:-20}
+  gfind . -regex '.*\.\(mp4\|webm\|mkv\|mov\|m4v\)' -exec stat -f '%c%t%Sm %N' {} + | sort -n | cut -d ' ' -f5- | tail -r -n "$count" | awk '{print $0,"\n"}' | less
+}
+
 subr() {
   for f in **/*.(mp4|webm|mkv|mov|m4v|avi); do subliminal download -l en $f; done
 }
@@ -485,12 +491,6 @@ longcode() {
 
 golong() {
   find . -not -path './vendor/*' -iname *.go -exec wc -l {} + | sort | head -n 20 | sed '$d'
-}
-
-# open a github pr in diff-so-fancy
-difpr() {
-  url="$(dirname $1).patch"
-  curl -L "$url" | diff-so-fancy | less -r
 }
 
 # send to background no output

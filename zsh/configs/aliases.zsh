@@ -85,7 +85,7 @@ if [[ -o interactive ]]; then
   alias gst='git status'
   alias gad='git add .'
   alias gI='forgit::ignore >> .gitignore'
-  alias grcd='cd $(git root)'
+  alias grooter='cd $(git root)'
 
   # Branch (b)
   alias gb='git branch'
@@ -270,7 +270,6 @@ if [[ -o interactive ]]; then
   alias gpc='git push --set-upstream origin "$(git symbolic-ref --short HEAD)"'
   alias gpj='git push --set-upstream jdsutherland "$(git symbolic-ref --short HEAD)"'
   alias gpf='git push --set-upstream fork "$(git symbolic-ref --short HEAD)"'
-  alias gpp='git pull jdsutherland "$(git symbolic-ref --short HEAD)" && git push jdsutherland "$(git symbolic-ref --short HEAD)"'
 
   # Rebase (r)
   alias gr='git rebase'

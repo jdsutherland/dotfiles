@@ -5,7 +5,7 @@
   ui = true
 [alias]
   aa = add --all
-  added = log --topo-order --stat --patch --diff-filter=A
+  added = log --topo-order --stat --diff-filter=A
   bhist = "!git --no-pager reflog $(git rev-parse --abbrev-ref HEAD)"
   branches = for-each-ref --sort=-committerdate --format=\"%(color:yellow)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes
   bom = push --set-upstream origin master
@@ -18,7 +18,7 @@
   count = !git log --oneline | wc -l | awk '{print $1}'
   current-branch = !git rev-parse --abbrev-ref HEAD 2> /dev/null | sed 's/^HEAD$//'
   dc = diff --word-diff --cached --color-words
-  deleted = log --topo-order --stat --patch --diff-filter=D
+  deleted = log --topo-order --stat --diff-filter=D
   df = diff --word-diff --color-words
   diffpull=!git fetch $1 && git log --stat HEAD..@{u}
   dsf = "!f() { [ \"$GIT_PREFIX\" != \"\" ] && cd "$GIT_PREFIX"; git diff --color $@ | diff-so-fancy | less --tabs=4 -RFX; }; f"
@@ -44,7 +44,7 @@
   pf = push --force-with-lease
   pr-number = "!funct() { git merge-commits $1 | head -n1 | sed -n \"s/^.*Merge pull request #\\\\s*\\\\([0-9]*\\\\).*$/\\\\1/p\"; }; funct"
   pulls = !hub browse -- pulls
-  renamed = log --topo-order --stat --patch --diff-filter=R
+  renamed = log --topo-order --stat --diff-filter=R
   rim = !git rebase --interactive $(git merge-base master HEAD)
   riu = !git rebase -i $(git upstream)
   rmdeleted = !git rm $(git ls-files --deleted)
@@ -134,4 +134,5 @@
   autoStash = true
   stat = true
 [log]
-  date = format:%Y-%m-%d %a %H:%M %z
+  ; date = format:%Y-%m-%d %a %H:%M %z %ar
+  date = relative
