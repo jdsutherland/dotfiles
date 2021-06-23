@@ -395,8 +395,9 @@ gro() {
 
 }
 
+# git browser grep filter (defaults to Bump as it's noisy)
 gvf() {
-  gfzf --grep "${@:-^Bump}" --invert-grep -i
+  gfzf -E --invert-grep --grep "${@:-^Bump}"
 }
 
 fzf-git-reverse() {
@@ -511,5 +512,16 @@ tmpdf() { local dir="`mktemp`".pdf; briss -s "$1" -d "$dir" && open $dir }
 # displays function
 fn() { type $1 | field 3 | xargs bat }
 
-# grep rails routes
-rrg() { batgrep "$@" config/routes.rb -A 5 }
+# rails {{{
+Rroutes() {
+  batgrep "$@" config/routes.rb -A 5
+}
+
+Rtests() {
+  r -w -s --no-line-number --multiline '(test|describe|context|it).*do$' "$@" test spec -t ruby
+}
+# }}}
+
+Jtests() {
+  r -s --no-line-number --multiline -w '(test|describe|context|it)\(.*\{$' "$@" -t js -t ts
+}

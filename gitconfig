@@ -134,5 +134,5 @@
   autoStash = true
   stat = true
 [log]
-  ; date = format:%Y-%m-%d %a %H:%M %z %ar
-  date = relative
+  date = format:%Y-%m-%d %a %H:%M %z %ar
+  ; date = relative

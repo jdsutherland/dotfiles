@@ -3,7 +3,7 @@ if exists('g:no_javascript_conceal') || !has('conceal') || &enc != 'utf-8'
 endif
 
 syn keyword jsxAttrib className conceal cchar=ℂ
-syn keyword jsxAttrib id conceal cchar=#
+" syn keyword jsxAttrib id conceal cchar=#
 syn keyword jsxAttrib value conceal cchar=$
 syn keyword jsxAttrib selected conceal cchar=✓
 syn keyword jsxTagName div conceal
