@@ -64,8 +64,6 @@ syntax keyword goType uint16 uint32 conceal cchar=Ⅰ
 syntax keyword goType uint uint64 conceal cchar=Ⅱ
 syntax keyword goType error conceal cchar=ɇ
 
-𝐓
-𝐅
 syntax keyword goStatement return conceal cchar=⇚
 " syntax keyword goStatement break conceal cchar=↯
 " syntax keyword goStatement continue conceal cchar=↰
