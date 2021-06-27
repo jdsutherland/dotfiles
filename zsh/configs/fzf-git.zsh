@@ -146,7 +146,7 @@ is_in_git_repo || return
 git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
   fzf-down-full --ansi --no-sort --reverse --multi --bind 'ctrl-o:toggle-sort' \
   --header 'Press CTRL-O to toggle sort' \
-  --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always --notes | diff-so-fancy | head -'$LINES |
+  --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --patch-with-stat --color=always --notes | diff-so-fancy | head -'$LINES |
   grep -o "[a-f0-9]\{7,\}"
 }
 

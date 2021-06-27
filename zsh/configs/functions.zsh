@@ -512,6 +512,14 @@ tmpdf() { local dir="`mktemp`".pdf; briss -s "$1" -d "$dir" && open $dir }
 # displays function
 fn() { type $1 | field 3 | xargs bat }
 
+dif() {
+  git diff --no-index "$@" | diff-so-fancy | less -r
+}
+
+dsf() {
+  diff -u -r "$@" | diff-so-fancy | less -r
+}
+
 # rails {{{
 Rroutes() {
   batgrep "$@" config/routes.rb -A 5

@@ -20,8 +20,7 @@ if [[ -o interactive ]]; then
   alias count='wc -l'
   alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
   alias cpwd="pwd | tr -d '\n' | pbcopy"
-  alias dif='git diff --no-index'
-  alias diff='colordiff -wu'
+  # alias diff='colordiff -wu'
   alias fa='alias | fzf'
   alias fw='{ alias; functions; } | fzf'
 
