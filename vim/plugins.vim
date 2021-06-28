@@ -125,8 +125,9 @@ nnoremap ,sS :CocList -A snippets<cr>
 nnoremap ,SS :CocFzfList snippets<cr>
 nnoremap <silent> ,ss :CocCommand snippets.editSnippets<cr>
 
-" nnoremap <silent> <space>p :<C-u>CocList -A --normal yank<cr>
-nnoremap <silent> <space>p :<C-u>CocFzfList yank<cr>
+nnoremap <silent> <space>p :<C-u>CocList -A --normal yank<cr>
+" TODO: errors
+nnoremap <silent> <space>P :<C-u>CocFzfList yank<cr>
 
 if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
   let g:coc_global_extensions += ['coc-prettier']
@@ -460,6 +461,9 @@ let g:AutoPairsShortcutJump = ''
 " }}}
 
 Plug 'tommcdo/vim-lion'
+Plug 'junegunn/vim-easy-align'
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 " textobj {{{
 Plug 'kana/vim-textobj-user'
@@ -484,7 +488,15 @@ nnoremap <silent> <space>h :call InterestingWords('n')<cr>
 nnoremap <silent> <space>H :call UncolorAllWords()<cr>
 " }}}
 
-Plug 'gennaro-tedesco/nvim-peekup'
+" {{{ mark
+" TODO: mark colors
+Plug 'inkarkat/vim-mark' | Plug 'inkarkat/vim-ingo-library'
+let g:mw_no_mappings = 1
+let g:mwDefaultHighlightingPalette = 'maximum'
+nmap <space>I <Plug>MarkSet
+" }}}
+
+Plug 'tversteeg/registers.nvim'
 
 " projectionist {{{
 Plug 'tpope/vim-projectionist'
@@ -916,7 +928,7 @@ noremap ,bl :execute "BLinesPreview '<c-r><c-w>"<cr>
 noremap ,bL :execute "Lines '<c-r><c-w>"<cr>
 nnoremap <silent> ,o :BTags<CR>
 nnoremap <silent> ,O :Tags<CR>
-nnoremap <silent> ,mm :Marks<CR>
+nnoremap <silent> ,mm :call fzf#vim#marks()<cr>
 nnoremap <silent> ,ht :Helptags<CR>
 nnoremap <silent> ,h/ :History/<CR>
 nnoremap <silent> ,h; :History:<CR>
@@ -1054,14 +1066,6 @@ let g:rappel#custom_repls = {
 \   'run': 'python %:p',
 \ },
 \}
-" }}}
-
-" {{{ mark
-" TODO: mark colors
-Plug 'inkarkat/vim-mark' | Plug 'inkarkat/vim-ingo-library'
-let g:mw_no_mappings = 1
-let g:mwDefaultHighlightingPalette = 'maximum'
-nmap <space>I <Plug>MarkSet
 " }}}
 
 Plug 'rhysd/open-pdf.vim'

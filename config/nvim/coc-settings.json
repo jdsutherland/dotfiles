@@ -65,5 +65,6 @@
   "java.signatureHelp.enabled": true,
   "java.completion.guessMethodArguments": true,
   "python.jediPath": "/Users/j/.asdf/installs/python/3.9.0/lib/python3.9/site-packages",
-  "omnisharp.version": "v1.37.6"
+  "omnisharp.version": "v1.37.6",
+  "html.filetypes": ["html","handlebars","htmldjango","blade","eruby"]
 }
