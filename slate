@@ -154,5 +154,6 @@ bind n:${hyper}     focus 'Stickies'
 bind x:${hyper}     focus 'Anki'
 bind r:${hyper}     focus 'JetBrains Rider'
 bind c:${hyper}     focus 'IntelliJ IDEA'
+bind c:${hyper}     focus 'Brave Browser Beta'
 bind k:${hyper}     focus 'Keynote'
 bind b:${hyper}     focus ${browser}

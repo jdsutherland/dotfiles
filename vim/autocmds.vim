@@ -110,4 +110,4 @@ au BufEnter * if expand('%:t') ==# 'package.json' | nnoremap <buffer> <silent> <
 
 " vim-plug
 autocmd FileType vim syntax keyword Function Plug
-autocmd FileType vim,zsh setlocal foldmethod=marker
+autocmd FileType vim,zsh,tmux setlocal foldmethod=marker

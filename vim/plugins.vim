@@ -21,7 +21,6 @@ nmap <silent><space>sd [I ;let stay_star_view = winsaveview()<cr>*:call winrestv
 
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
-Plug 'carakan/pmv.vim' " packages
 " {{{ vim-stay
 Plug 'zhimsel/vim-stay'
 " HACK: https://github.com/zhimsel/vim-stay/issues/10 - fixes unexpected lcd
@@ -35,6 +34,8 @@ augroup stay_no_lcd
   autocmd User BufStaySavePost if exists('w:lcd') | execute 'lcd' fnameescape(w:lcd) | unlet w:lcd | endif
 augroup END
 " }}}
+
+Plug 'carakan/pmv.vim' " packages
 Plug 'Konfekt/FastFold'
 Plug 'dbatten5/vim-macroscope', {'branch': 'main'}
 Plug 'dkarter/bullets.vim' " markdown lists
@@ -199,7 +200,8 @@ autocmd User CocNvimInit nmap <expr>,f CocHasProvider('documentSymbol') ? "<Plug
 " open def in split
 autocmd User CocNvimInit nmap <expr>,fv CocHasProvider('documentSymbol') ? ":call CocAction('jumpDefinition', 'vsplit')<CR><C-w><C-p>" : ":vs<cr><c-]><C-w><C-p>zt"
 autocmd User CocNvimInit nmap <expr>,fs CocHasProvider('documentSymbol') ? ":call CocAction('jumpDefinition', 'split')<CR><C-w><C-p>" : ":sp<cr><c-]><C-w><C-p>zt"
-nmap <silent> <c-[> <Plug>(coc-definition)
+" TODO: c-[ is same as <esc> -- find a way to distinguish
+" nmap <silent> <c-[> <Plug>(coc-definition)
 
 " show documentation
 function! s:show_documentation()
@@ -419,8 +421,6 @@ Plug 'christoomey/vim-tmux-runner'
 let g:VtrUseVtrMaps = 1
 let g:VtrGitCdUpOnOpen = 1
 let g:VtrClearBeforeSend = 0
-" TODO: does M-e from tmux or vim bind?
-" nnoremap <M-e> :VtrFocusRunner<cr>
 nnoremap \vv :VtrSendCommandToRunner<space>
 " repeat last command
 nnoremap \V :w<esc>:VtrSendCommandToRunner<space><cr>
@@ -428,7 +428,7 @@ nnoremap \V :w<esc>:VtrSendCommandToRunner<space><cr>
 nnoremap \vb :nnoremap ,t :VtrSendCommandToRunner<space>
 " repeat last command
 nnoremap \vo :VtrOpenRunner<cr>
-nnoremap \va :VtrAttachToPane<cr>
+nnoremap \va :VtrAttachToPane 1<cr>
 " nnoremap \vv :VtrOpenRunner {'orientation': 'v', 'percentage': 20}<cr>
 nnoremap \vq :VtrKillRunner<cr>
 nnoremap \vd :VtrSendCtrlD<cr>
@@ -508,7 +508,7 @@ let g:mwDefaultHighlightingPalette = 'maximum'
 nmap <space>I <Plug>MarkSet
 " }}}
 
-Plug 'tversteeg/registers.nvim'
+Plug 'junegunn/vim-peekaboo'
 
 " projectionist {{{
 Plug 'tpope/vim-projectionist'

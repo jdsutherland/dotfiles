@@ -37,7 +37,7 @@ export FZF_CTRL_T_OPTS="--select-1 --exit-0 --preview '(bat --color=always {} 2>
 # export FZF_ALT_C_OPTS="--select-1 --exit-0 --preview 'tree -C -I '{.git,node_modules}' {} | head -200'"
 # export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 # export FZF_ALT_C_COMMAND="rg --hidden --files -g '!{.git,node_modules,vendor}/*'"
-export FZF_ALT_C_COMMAND='fd --type d ---ignore-file ~/.ignore --hidden --follow'
+export FZF_ALT_C_COMMAND='fd --type d ---ignore-file ~/.ignore --hidden --follow --max-depth 3'
 export FZF_CTRL_T_COMMAND='fd --ignore-file ~/.ignore --hidden --follow'
 
 export FZF_DEFAULT_OPTS="

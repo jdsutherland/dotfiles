@@ -23,7 +23,9 @@
   diffpull=!git fetch $1 && git log --stat HEAD..@{u}
   dsf = "!f() { [ \"$GIT_PREFIX\" != \"\" ] && cd "$GIT_PREFIX"; git diff --color $@ | diff-so-fancy | less --tabs=4 -RFX; }; f"
   fpop = !git stash show -p | git apply && git stash drop
-  fixgrafted = !git fetch --unshallow ; TODO: test & see if this suffices or steps listed at https://stackoverflow.com/questions/49731594/git-shallow-clone-how-do-i-remove-the-grafted-tag-and-what-is-it req
+  fix-graft = !git fetch --unshallow ; TODO: test & see if this suffices or steps listed at https://stackoverflow.com/questions/49731594/git-shallow-clone-how-do-i-remove-the-grafted-tag-and-what-is-it req
+  ; vim-plug expects name origin (for repo)  (gh cli names fork origin and renames origin upstream)
+  fix-vimplug = !git remote rename origin jdsutherland && git remote rename upstream origin
   full-commit = !git cat-file -p $(git rev-parse HEAD)
   gfile = log -S          ; grep file
   glog = log -E -i --grep ; grep log
