@@ -65,6 +65,13 @@ require("todo-comments").setup {
     },
 }
 
+require("tmux").setup({
+    navigation = {
+        enable_default_keybindings = true,
+        persist_zoom = true,
+    },
+})
+
 require('nvim-treesitter.configs').setup {
   ensure_installed = "maintained",
   highlight = {
