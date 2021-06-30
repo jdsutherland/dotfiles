@@ -9,6 +9,10 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'folke/todo-comments.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
+nnoremap <silent> <left>  <cmd>lua require('tmux').resize_left()<cr>
+nnoremap <silent> <down>  <cmd>lua require('tmux').resize_bottom()<cr>
+nnoremap <silent> <up>    <cmd>lua require('tmux').resize_top()<cr>
+nnoremap <silent> <right> <cmd>lua require('tmux').resize_right()<cr>
 Plug 'nvim-telescope/telescope.nvim'
 nnoremap \ff <cmd>Telescope find_files<cr>
 nnoremap \fg <cmd>Telescope live_grep<cr>
@@ -406,15 +410,6 @@ let g:splitjoin_html_attributes_bracket_on_new_line = 1
 
 Plug 'FooSoft/vim-argwrap'
 nmap <silent> <leader>a <Plug>(ArgWrapToggle)
-
-" {{{ resize
-Plug 'breuckelen/vim-resize'
-let g:vim_resize_disable_auto_mappings = 1
-nnoremap <silent> <left> :CmdResizeLeft<cr>
-nnoremap <silent> <down> :CmdResizeDown<cr>
-nnoremap <silent> <up> :CmdResizeUp<cr>
-nnoremap <silent> <right> :CmdResizeRight<cr>
-" }}}
 
 " vim-tmux-runner {{{
 Plug 'christoomey/vim-tmux-runner'
