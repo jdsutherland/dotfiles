@@ -22,7 +22,19 @@ nmap <silent><space>sd [I ;let stay_star_view = winsaveview()<cr>*:call winrestv
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 Plug 'carakan/pmv.vim' " packages
+" {{{ vim-stay
 Plug 'zhimsel/vim-stay'
+" HACK: https://github.com/zhimsel/vim-stay/issues/10 - fixes unexpected lcd
+augroup stay_no_lcd
+  autocmd!
+  if exists(':tcd') == 2
+    autocmd User BufStaySavePre  if haslocaldir() | let w:lcd = getcwd() | exe 'cd '.fnameescape(getcwd(-1, -1)) | endif
+  else
+    autocmd User BufStaySavePre  if haslocaldir() | let w:lcd = getcwd() | cd - | cd - | endif
+  endif
+  autocmd User BufStaySavePost if exists('w:lcd') | execute 'lcd' fnameescape(w:lcd) | unlet w:lcd | endif
+augroup END
+" }}}
 Plug 'Konfekt/FastFold'
 Plug 'dbatten5/vim-macroscope', {'branch': 'main'}
 Plug 'dkarter/bullets.vim' " markdown lists
