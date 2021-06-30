@@ -18,6 +18,7 @@ syntax keyword luaNice type conceal cchar=₪
 syntax match luaNice "assert" conceal cchar=✓
 syntax match luaNice "\~=" conceal cchar=≠
 syntax match luaNice "==" conceal cchar=≡
+syntax match luaNice "\.\." conceal cchar=+
 
 hi! link Conceal Operator
 hi! Conceal ctermbg=Black ctermfg=Magenta

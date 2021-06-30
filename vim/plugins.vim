@@ -2,13 +2,15 @@ function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
 
+" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " browser textarea
+
+" {{{ lua plugins
 Plug 'nvim-treesitter/playground'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
-" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " browser textarea
 Plug 'folke/todo-comments.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'aserowy/tmux.nvim'
 nnoremap <silent> <left>  <cmd>lua require('tmux').resize_left()<cr>
 nnoremap <silent> <down>  <cmd>lua require('tmux').resize_bottom()<cr>
 nnoremap <silent> <up>    <cmd>lua require('tmux').resize_top()<cr>
@@ -22,8 +24,17 @@ nnoremap \fb <cmd>Telescope current_buffer_fuzzy_find<cr>
 nnoremap \fq <cmd>Telescope quickfix<cr>
 " highlight cword, open exact uses
 nmap <silent><space>sd [I ;let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr> ;Telescope quickfix<cr>
-
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+
+" {{{ UI
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'romgrk/barbar.nvim'
+nnoremap <silent> <space>dd :BufferClose<CR>
+Plug 'jdsutherland/nvim-base16'
+Plug 'jdsutherland/lualine.nvim'
+" }}}
+
+" }}}
 
 " {{{ vim-stay
 Plug 'zhimsel/vim-stay'
@@ -324,7 +335,6 @@ Plug 'christoomey/vim-conflicted'
 Plug 'christoomey/vim-titlecase'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
-Plug 'aserowy/tmux.nvim'
 Plug 'vim-scripts/SyntaxAttr.vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'vim-scripts/BufOnly.vim'
@@ -908,13 +918,6 @@ Plug 'enomsg/vim-haskellConcealPlus'
 Plug 'chr4/nginx.vim'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'kkvh/vim-docker-tools'
-
-" {{{ UI
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'romgrk/barbar.nvim'
-nnoremap <silent> <space>dd :BufferClose<CR>
-Plug 'jdsutherland/nvim-base16'
-Plug 'jdsutherland/lualine.nvim'
 
 " fzf {{{
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
