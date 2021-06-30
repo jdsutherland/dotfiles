@@ -32,7 +32,6 @@ nnoremap <silent> \g :ToggleGStatus<cr>
 nnoremap <silent><space>9 :tabprev<cr>
 nnoremap <silent><space>0 :tabnext<cr>
 
-nnoremap <cr>d :nohls<CR>
 vnoremap . :norm.<CR>
 
 nnoremap co<bar> :set colorcolumn=<C-R>=&colorcolumn != 0 ? 0 : 81<CR><CR>
@@ -44,13 +43,9 @@ nnoremap <leader>ea <C-w><C-v><C-l>:e ~/.config/nvim/plugged/vim-snippets/snippe
 nnoremap <silent>,cf :let @* = expand("%:~")<CR>
 nnoremap <silent>,cn :let @* = expand("%:p")<CR>
 
-" replace with system clipboard
-nmap ,gr "*gr
-
 " open cword in batgrep
 nnoremap \* :call system("tmux splitw -l 30% -h -c \"#{pane_current_path}\" 'batgrep -w -A 7 --smart-case --search-pattern '" . expand("<cword>"))<cr>
 nnoremap ,* :Grepper -tool rg -noprompt -cword<CR>
-nnoremap <silent><space>i :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
 
 xnoremap ,* :<C-u>call VisualStarSearchSet('/')<CR>:Grepper -tool rg -query <C-R>=@/<CR><CR>
 xnoremap * :<C-u>call VisualStarSearchSet('/')<CR>/<C-R>=@/<CR><CR>
@@ -134,13 +129,6 @@ nnoremap ]w :lnext<cr>
 " line complete
 inoremap <c-l> <c-x><c-l>
 
-nnoremap <cr><space> :w<cr>
-" visual from pos to EOL
-map <cr>v v4
-map <cr>w ciw
-map <cr>W ciW
-nnoremap <cr>D :qall!
-
 " split carriage returns
 nnoremap <cr>0 /\r<cr>s<cr><esc>df<space>
 
@@ -155,14 +143,21 @@ nnoremap <silent>,pu :PlugUpdate<CR>
 " toggle conceal
 nnoremap <silent><c-f> :exec &conceallevel ? "set conceallevel=0" : "set conceallevel=2"<CR>
 
-map <leader>vv viW
-map <leader>cx cxiw
-map <leader>dd daW
-map <cr>n cgn
-map <cr>N cgn<c-r>0<esc>
+nmap <space>v v4
+nmap <space>c cp$
+nnoremap <silent><space>i :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
+nnoremap <space>u :nohls<cr>
+nnoremap <space>Q :qall!<cr>
 
+nmap <cr>w ciw
+nmap <cr>W ciW
+nmap <cr>v viW
+nmap <cr>d diW
+nmap <cr>n cgn
+nmap <cr>N cgn<c-r>0<esc>
+nnoremap <cr><space> :w<cr>
 " copy previous paragraph (useful css)
-nnoremap <cr>c mz(yap'zpjW
+nnoremap cpp mz(yap'zpjW
 
 nnoremap <space>1 :!open %<cr>
 " karabiner coupled hacks
@@ -174,15 +169,6 @@ nnoremap <F6> <C-i>
 " paste system clip without added newline above
 nmap cV cvgpO<esc>kdd
 nmap cv <Plug>SystemPasteLine
-" paste system clip without added newline above
-nmap cV cvgpO<esc>kdd
-nmap cv <Plug>SystemPasteLine
-nmap cpp cpil
-nmap <space>c cp$
-" exchange to end of line
-
-nmap cpp cpil
-nmap <space>c cp$
 
 " dup line and move W
 nnoremap <cr><cr> :t.<cr>W

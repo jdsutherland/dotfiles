@@ -281,12 +281,12 @@ let g:switch_mapping = "-"
 Plug 'pbrisbin/vim-mkdir'
 Plug 'dietsche/vim-lastplace'
 Plug 'vim-scripts/ReplaceWithRegister'
+nmap ,gr "*gr
 map <cr>g griw
 map <cr>G gr$
 Plug 'wellle/targets.vim'
 Plug 'sickill/vim-pasta'
 Plug 'tommcdo/vim-exchange'
-nmap cX cx$
 Plug 'wesQ3/vim-windowswap'
 Plug 'flw-cn/vim-markdown'
 Plug 'turbio/bracey.vim', {'do': 'npm install --prefix server'} " change if https://github.com/turbio/bracey.vim/pull/56 not merged
