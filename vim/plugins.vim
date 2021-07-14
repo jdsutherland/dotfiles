@@ -488,13 +488,14 @@ Plug 'kana/vim-textobj-user'
 Plug 'michaeljsmith/vim-indent-object' " want to delete indent following current line (like `di)`): try this
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-line'
-" Plug 'nelstrom/vim-textobj-rubyblock' "TODO: slow
 Plug 'Chun-Yang/vim-textobj-chunk'
 Plug 'reedes/vim-textobj-sentence'
 Plug 'inside/vim-textobj-jsxattr'
 Plug 'kana/vim-textobj-function' | Plug 'thinca/vim-textobj-function-javascript'
-Plug 'machakann/vim-textobj-delimited'
-Plug 'rhysd/vim-textobj-anyblock'
+Plug 'machakann/vim-textobj-delimited' " d
+Plug 'rhysd/vim-textobj-anyblock'      " b
+Plug 'rhysd/vim-textobj-ruby'          " r
+let g:textobj_ruby_more_mappings = 1 " ro, rl, rc, rd, rr
 " }}}
 
 " {{{ interesting words
