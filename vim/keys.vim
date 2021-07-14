@@ -110,16 +110,20 @@ noremap <c-w>\ <c-w>t<c-w>H
 " tabs
 nnoremap <silent> <space>tc :tabclose<CR>gT
 nnoremap <space>tn :tabnew%<cr>
-" Go to tab by number
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
+
+" {{{ go to tab and window by number (1-9)
+function! s:MapGotoWindowAndTabNumber()
+   let i = 1
+   while i <= 9
+       " tabs
+       execute 'nnoremap <silent><Leader>' . i . ' :' . i . 'tabn<CR>'
+       " window
+       execute 'nnoremap <silent><localleader>' . i . ' :' . i . 'wincmd w<CR>'
+      let i = i + 1
+   endwhile
+endfunction
+call s:MapGotoWindowAndTabNumber()
+" }}}
 
 " locationlist
 nnoremap [w :lprevious<cr>
