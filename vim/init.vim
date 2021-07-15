@@ -12,22 +12,21 @@ lua << EOF
 require('lualine').setup{
   options = {
     theme = 'base16_tomorrow_night',
-    section_separators = {'', ''},
-    component_separators = {'', '|'},
+    section_separators = {''},
+    component_separators = {''},
     disabled_filetypes = {},
     icons_enabled = true,
   },
   sections = {
     lualine_a = { {'mode', upper = true} },
-    lualine_b = { {'branch', icon = ''} },
-    lualine_c = { {'filename', file_status = false} },
+    lualine_b = { {'branch', icon = ''}, {'diff'} },
+    lualine_c = { {'filename', file_status = false, path = 1} },
     lualine_x = { 'filetype' },
     lualine_y = { 'ConflictedVersion', 'progress' },
     lualine_z = { 'location' },
   },
   inactive_sections = {
     lualine_a = {  },
-    lualine_b = {  },
     lualine_b = { 'winnr' },
     lualine_c = { 'filename' },
     lualine_x = { 'location' },
