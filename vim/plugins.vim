@@ -901,26 +901,48 @@ omap <leader><tab> <plug>(fzf-maps-o)
 
 " fast jump last buffer
 nnoremap <silent> \b :call fzf#vim#buffers()<cr><cr>
+" buf switch no preview
 nnoremap <silent> \t :call fzf#vim#buffers()<cr>
-nnoremap <silent> \T :Buffers<CR>
-nnoremap \w :Windows<CR>
-nnoremap <M-f> :Files<CR>
-nnoremap <M-g> :Rg<CR>
-noremap ,bl :execute "BLinesPreview '<c-r><c-w>"<cr>
-noremap ,bL :execute "Lines '<c-r><c-w>"<cr>
-nnoremap <silent> ,o :BTags<CR>
-nnoremap <silent> ,O :Tags<CR>
-nnoremap <silent> ,mm :call fzf#vim#marks()<cr>
-nnoremap <silent> ,ht :Helptags<CR>
-nnoremap <silent> ,h/ :History/<CR>
-nnoremap <silent> ,h; :History:<CR>
-nnoremap <silent> ,/ :History/<CR>
-nnoremap <silent> ,? :History<CR>
-nnoremap <silent> ,gl :Commits<CR>
-nnoremap <silent> ,ga :BCommits<CR>
-nnoremap <silent> ,gs :GFiles?<CR>
+nnoremap <silent> <space>ft :Buffers<CR>
+nnoremap <silent> <space>fw :Windows<CR>
+nnoremap <silent> <space>ff :Files<CR>
+nnoremap <silent> <space>fg :Rg<CR>
+noremap  <silent> <space>fb :execute "BLinesPreview '<c-r><c-w>"<cr>
+noremap  <silent> <space>fB :execute "Lines '<c-r><c-w>"<cr>
+nnoremap <silent> <space>fo :BTags<CR>
+nnoremap <silent> <space>fO :Tags<CR>
+nnoremap <silent> <space>fm :call fzf#vim#marks()<cr>
+nnoremap <silent> <space>fh :Helptags<CR>
+nnoremap <silent> <space>f; :History:<CR>
+nnoremap <silent> <space>f/ :History/<CR>
+nnoremap <silent> <space>f? :History<CR>
+nnoremap <silent> <space>fc :BCommits<CR>
+nnoremap <silent> <space>fC :Commits<CR>
 nnoremap <silent> K :call SearchWordWithRg()<CR>
 vnoremap <silent> K :call SearchVisualSelectionWithRg()<CR>
+
+" files in current dir
+nnoremap <silent> <Space>f. :Files <C-r>=expand("%:h")<CR>/<CR>
+if filereadable('config/routes.rb')
+  " This looks like a Rails app.
+  nnoremap <silent> <Space>ec :Files app/controllers<CR>
+  nnoremap <silent> <Space>eh :Files app/helpers<CR>
+  nnoremap <silent> <Space>ei :Files config/initializers<CR>
+  nnoremap <silent> <Space>em :Files app/models<CR>
+  nnoremap <silent> <Space>es :Files app/assets/stylesheets<CR>
+  nnoremap <silent> <Space>ev :Files app/views<CR>
+  if isdirectory('test')
+    nnoremap <silent> <Space>et :Files test<CR>
+  else
+    nnoremap <silent> <Space>et :Files spec<CR>
+  endif
+elseif filereadable('src/index.js')
+  " TODO: adjust dir names
+  " This looks like a React app.
+  nnoremap <silent> <Space>ec :Files src/components<CR>
+  nnoremap <silent> <Space>es :Files src/styles<CR>
+  nnoremap <silent> <Space>et :Files src/__tests__/components<CR>
+endif
 
 imap <c-s><c-k> <plug>(fzf-complete-word)
 imap <c-s><c-f> <plug>(fzf-complete-path)
