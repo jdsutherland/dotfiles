@@ -69,8 +69,8 @@ bindkey '^x^p' fzf-play-widget
 histdb-fzf-widget() {
   local selected num
   setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
-  selected=( $(histdb --sep 999 | awk -F'999' '{print $4}' |
-    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m --tac" $(__fzfcmd)) )
+  selected=( $(histdb --sep 999 | awk -F'999' '{ if (!seen[$4]++) {print $4} }' |
+    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind='ctrl-r:toggle-sort,ctrl-d:execute(source ~/.zinit/plugins/larkery---zsh-histdb/sqlite-history.zsh && histdb --forget {})' $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m --tac" $(__fzfcmd)) )
   LBUFFER=$selected
   zle redisplay
   typeset -f zle-line-init >/dev/null && zle zle-line-init
