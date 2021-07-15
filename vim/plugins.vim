@@ -25,6 +25,7 @@ nnoremap \fq <cmd>Telescope quickfix<cr>
 " highlight cword, open exact uses
 nmap <silent><space>sd [I ;let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr> ;Telescope quickfix<cr>
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'Pocco81/AutoSave.nvim'
 
 " {{{ UI
 Plug 'kyazdani42/nvim-web-devicons'
@@ -56,11 +57,6 @@ Plug 'dbatten5/vim-macroscope', {'branch': 'main'}
 Plug 'dkarter/bullets.vim' " markdown lists
 let g:bullets_renumber_on_change = 0
 Plug 'bergercookie/vim-debugstring'
-Plug '907th/vim-auto-save'
-let g:auto_save        = 0
-let g:auto_save_silent = 1
-" let g:auto_save_events = ["InsertLeave", "TextChanged", "FocusLost"]
-let g:auto_save_events = ["CursorHold"]
 
 " {{{ sideways.vim
 Plug 'AndrewRadev/sideways.vim'

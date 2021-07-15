@@ -71,6 +71,17 @@ require("tmux").setup({
         enable_default_keybindings = true,
         persist_zoom = true,
     },
+require("autosave").setup({
+  enabled = true,
+  execution_message = "",
+  events = {"InsertLeave", "TextChanged", "FocusLost"},
+  conditions = {
+    exists = true,
+    filetype_is_not = {"qf"},
+    modifiable = true
+  },
+  write_all_buffers = true,
+  on_off_commands = true,
 })
 
 require('nvim-treesitter.configs').setup {
