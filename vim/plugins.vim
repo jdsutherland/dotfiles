@@ -32,7 +32,10 @@ Plug 'Pocco81/AutoSave.nvim'
 
 " {{{ UI
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'Asheq/close-buffers.vim' " :Bdelete
+nnoremap <silent> <space>bh :Bdelete hidden<CR> :BufferOrderByNumber<CR>
 Plug 'romgrk/barbar.nvim'
+nnoremap <silent> <space>bb :BufferOrderByNumber<CR>
 nnoremap <silent> <space>dd :BufferClose<CR>
 Plug 'jdsutherland/nvim-base16'
 Plug 'jdsutherland/lualine.nvim'
