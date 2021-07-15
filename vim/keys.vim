@@ -3,6 +3,9 @@ map Q @q
 
 " Reselect pasted text. Mnem: 'Get pasted'
 nnoremap gp '[v']
+" often 'select previous paste' used to indent; these maps cut out the middleman
+nnoremap <space>[ `[V`]<
+nnoremap <space>] `[V`]>
 " Go to position of last edit. Mnem: 'Go to Edit'
 nnoremap ge `.
 
@@ -137,8 +140,8 @@ inoremap <c-l> <c-x><c-l>
 nnoremap <cr>0 /\r<cr>s<cr><esc>df<space>
 
 " append
-nmap <leader>; A;<ESC>
-nmap <leader>, A,<ESC>
+nnoremap <leader>; A;<ESC>
+nnoremap <leader>, A,<ESC>
 nmap \| A<space>\<ESC>
 
 " gh url to vim-plug
@@ -156,7 +159,7 @@ nnoremap <space>Q :qall!<cr>
 nmap <cr>w ciw
 nmap <cr>W ciW
 nmap <cr>v viW
-nmap <cr>d diW
+nmap <cr>d daW
 nmap <cr>n cgn
 nmap <cr>N cgn<c-r>0<esc>
 nnoremap <cr><space> :w<cr>
@@ -182,7 +185,7 @@ nnoremap <cr><cr> :t.<cr>W
 tnoremap <Esc> <C-\><C-n>
 tnoremap <C-v><Esc> <Esc>
 
-nnoremap <tab><tab> mz=ap'z;delmark z<cr>
+nnoremap <tab><tab> mz=ap'z:delmark z<cr>
 
 " gf in vsplit
 nnoremap <c-w>v :vertical wincmd f<CR>
@@ -231,3 +234,5 @@ cnoremap <silent> <c-q> <c-f>
 " force top correction on most recent misspelling
 nnoremap <buffer> <c-s> [s1z=
 inoremap <buffer> <c-s> <c-g>u<Esc>[s1z=`]A<c-g>u
+
+nnoremap <c-g> 1<c-g>
