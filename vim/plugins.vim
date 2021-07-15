@@ -429,25 +429,18 @@ Plug 'christoomey/vim-tmux-runner'
 let g:VtrUseVtrMaps = 1
 let g:VtrGitCdUpOnOpen = 1
 let g:VtrClearBeforeSend = 0
-nnoremap \vv :VtrSendCommandToRunner<space>
-" repeat last command
-nnoremap \V :w<esc>:VtrSendCommandToRunner<space><cr>
+" press enter to repeat last cmd
+nnoremap \v :VtrSendCommandToRunner<space>
 " shortcut to mapping a temp runner with
 nnoremap \vb :nnoremap ,t :VtrSendCommandToRunner<space>
-" repeat last command
-nnoremap \vo :VtrOpenRunner<cr>
-nnoremap \va :VtrAttachToPane 1<cr>
-" nnoremap \vv :VtrOpenRunner {'orientation': 'v', 'percentage': 20}<cr>
+nnoremap \vr :VtrOpenRunner<cr>
 nnoremap \vq :VtrKillRunner<cr>
 nnoremap \vd :VtrSendCtrlD<cr>
 nnoremap \vc :VtrSendCtrlC<cr>
 nnoremap \vf :VtrSendFile<cr>
-" send everything
-" nmap ,sL vae<leader>sl
-" " nmap <CR>f gv<leader>sl TODO: new map
-vmap <CR>f ,sl
-" " useful resending sql
-nmap <cr>F vap,sl
+nnoremap \va :VtrAttachToPane<cr>
+" on startup, attach to pane below
+autocmd VimEnter * if !system("tmux display-message -p '#{pane_at_bottom}'") | execute 'VtrAttachToPane' system('tmux display -p -t "{down-of}" "#{pane_index}"')
 " }}}
 
 " {{{ easymotion
@@ -487,6 +480,7 @@ nmap ga <Plug>(EasyAlign)
 
 " textobj {{{
 Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-operator-user'
 " Plug 'kana/vim-textobj-indent'
 Plug 'michaeljsmith/vim-indent-object' " want to delete indent following current line (like `di)`): try this
 Plug 'kana/vim-textobj-entire'

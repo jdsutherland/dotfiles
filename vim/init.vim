@@ -8,6 +8,9 @@ source ~/.config/nvim/functions.vim
 source ~/.config/nvim/autocmds.vim
 source ~/.config/nvim/keys.vim
 
+map \V <Plug>(operator-vtr)
+call operator#user#define_ex_command('vtr', 'VtrSendLinesToRunner')
+
 " {{{ lua config
 lua << EOF
 require('lualine').setup{
