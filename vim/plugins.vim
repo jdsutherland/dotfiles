@@ -29,6 +29,7 @@ nmap <silent><space>sd [I ;let stay_star_view = winsaveview()<cr>*:call winrestv
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-project.nvim'
 Plug 'Pocco81/AutoSave.nvim'
+Plug 'norcalli/nvim-colorizer.lua'
 
 " {{{ UI
 Plug 'kyazdani42/nvim-web-devicons'
@@ -99,11 +100,6 @@ nnoremap <silent> <space>o :silent Vista finder coc<CR>
 nnoremap <silent> <space>O :silent Vista finder ctags<CR>
 nnoremap <silent> \z :Vista!!<CR>
 " }}}
-
-Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
-let g:Hexokinase_ftEnabled = ['css', 'html', 'javascriptreact', 'typescript.tsx', 'typescriptreact', 'eruby', 'scss', 'sass', 'vim', 'lua']
-let g:Hexokinase_highlighters = ['backgroundfull']
-let g:Hexokinase_optInPatterns = ['full_hex', 'triple_hex', 'rgb', 'rgba', 'hsl', 'hsla', 'colour_names']
 
 " {{{ CoC
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
