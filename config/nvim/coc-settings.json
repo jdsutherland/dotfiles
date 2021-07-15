@@ -47,6 +47,7 @@
   "snippets.extends": {
     "ruby": ["rails"],
     "eruby": ["html"],
+    "scss": ["css"],
     "javascriptreact": ["javascript"],
     "typescript": ["javascript"],
     "typescriptreact": ["typescript", "javascriptreact"],

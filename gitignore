@@ -20,3 +20,6 @@ Session.vim
 __Scratch__
 .vim/
 tmp/
+
+# solargraph
+config/definitions.rb
