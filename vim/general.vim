@@ -1,5 +1,3 @@
-scriptencoding utf-8
-
 " Basic Settings
 let g:mapleader = ','
 let g:maplocalleader = '\'

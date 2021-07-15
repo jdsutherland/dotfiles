@@ -31,4 +31,4 @@ syntax match vimOper "\s\zs>=\ze\s" conceal cchar=≥
 
 " hi! link vimNice Operator
 hi! link Conceal Operator
-hi! Conceal ctermbg=Black ctermfg=Magenta
+hi! Conceal guifg=LightRed

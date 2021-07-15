@@ -3,6 +3,7 @@ function! DoRemote(arg)
 endfunction
 
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " browser textarea
+Plug 'tweekmonster/startuptime.vim'
 
 " {{{ lua plugins
 Plug 'nvim-treesitter/playground'
@@ -329,11 +330,11 @@ Plug 'diepm/vim-rest-console'
 Plug 'honza/vim-snippets'
 Plug 'christoomey/vim-conflicted'
 Plug 'christoomey/vim-titlecase'
+nmap <cr>t gtiw
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
 Plug 'vim-scripts/SyntaxAttr.vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
-Plug 'vim-scripts/BufOnly.vim'
 Plug 'machakann/vim-sandwich'
 let g:textobj_sandwich_no_default_key_mappings = 1
 Plug 'triglav/vim-visual-increment'
@@ -343,14 +344,12 @@ Plug 'mattboehm/vim-accordion'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'duff/vim-ddldbl'
 Plug 'rbgrouleff/bclose.vim'
+Plug 'troydm/zoomwintab.vim'
 
 Plug 'rizzatti/dash.vim'
 nnoremap gk :Dash<CR>
 " hacky way to lookup dot chain native modules easily in Dash
 map <cr>k viwf.ey;Dash <C-R>"<CR>
-
-Plug 'troydm/zoomwintab.vim'
-nnoremap <silent><cr>z :ZoomWinTabToggle<CR>
 
 Plug 'tpope/vim-abolish'
 nnoremap <Leader>abs :%S/

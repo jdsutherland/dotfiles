@@ -1,7 +1,7 @@
 " {{{ must manually copy to head of /usr/local/Cellar/neovim/HEAD-f8173df_2/share/nvim/runtime/syntax/html.vim
 syn keyword htmlArg class conceal cchar=ℂ
 syn keyword htmlArg id conceal cchar=#
-syn match htmlArg 'data-' conceal cchar=⊇
+syn match htmlArg '\s\zsdata-' conceal cchar=⊇
 syn keyword htmlTagName div conceal
 syn keyword htmlTagName p conceal cchar=¶
 syn keyword htmlTagName span conceal cchar=⇒
