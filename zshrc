@@ -79,3 +79,7 @@ KEYTIMEOUT=25
 
 # TODO: remove once https://github.com/so-fancy/diff-so-fancy/pull/398 merged
 export PATH="$HOME/.dotfiles/bin/diff-so-fancy:$PATH"
+
+# https://github.com/asdf-community/asdf-direnv/ - avoid manual asdf reshim after package installs (cargo, etc)
+direnv() { asdf exec direnv "$@"; }
+eval "$(direnv hook zsh)"

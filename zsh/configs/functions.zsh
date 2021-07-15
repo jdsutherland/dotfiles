@@ -229,8 +229,6 @@ vidtime() {
   exiftool -n -q -p '${Duration;our $sum;$_=ConvertDuration($sum+=$_)}' **/*.(mp4|webm|mkv|mov|m4v|avi) | tail -n1
 }
 
-detoxr() { for i in **/*; do detox $i; done }
-
 imv() {
   local src dst
   for src; do
@@ -491,7 +489,7 @@ rvid() {
 }
 
 longcode() {
-  fd -e c -e go -e rb -e py -e js -e ts -e jsx -e tsx -e ex -e rs -e java -e cs -E dist -E vendor -E 'jquery*' -E 'polyfills*' -E 'babel*' -E db -E '*config*' -E seeds --full-path ${1:-.} | xargs wc -l 2> /dev/null | sort -r | sed 1d | head -n 15
+  fd -e erb -e html -e c -e go -e rb -e py -e js -e ts -e jsx -e tsx -e ex -e rs -e java -e cs -E dist -E vendor -E 'jquery*' -E 'polyfills*' -E 'babel*' -E db -E '*config*' -E seeds --full-path "${@:-.}" | xargs wc -l 2> /dev/null | sort -r | sed 1d | head -n 15
 }
 
 golong() {
