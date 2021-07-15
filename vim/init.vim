@@ -79,19 +79,21 @@ telescope.load_extension('project')
 
 require("todo-comments").setup {
   colors = {
-    error = { "#cc6666" },
+    error   = { "#cc6666" },
     warning = { "#de934f" },
-    info = { "#8abeb7" },
-    hint = { "#81a2be"},
+    info    = { "#8abeb7" },
+    hint    = { "#81a2be" },
     default = { "#b294bb" },
     },
 }
 
 require("tmux").setup({
-    navigation = {
-        enable_default_keybindings = true,
-        persist_zoom = true,
-    },
+  navigation = {
+    enable_default_keybindings = true,
+    persist_zoom = true,
+  },
+})
+
 require("zen-mode").setup({
   plugins = {
     tmux = { enabled = true },
@@ -116,6 +118,7 @@ require('nvim-treesitter.configs').setup {
   highlight = {
     enable = true,
     -- TODO: decide to keep: loses perf of treesitter but allows conceal
+    disable = { "css", "scss", "yaml", "eruby.yaml" },
     additional_vim_regex_highlighting = true,
   },
   incremental_selection = { enable = true },
@@ -151,7 +154,7 @@ hi CocInfoSign  ctermfg=Yellow guifg=#bababa
 hi CocHintSign guifg=LightRed  guibg=NONE
 hi CocMarkdownLink guifg=#b5bd68 guibg=NONE
 
-highlight TelescopeMatching       guifg=#81a2be
+hi TelescopeMatching  guifg=#81a2be
 
 hi! Conceal guifg=LightRed
 hi SpellRare cterm=undercurl guifg=Black guibg=LightRed
