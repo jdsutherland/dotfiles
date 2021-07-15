@@ -895,6 +895,10 @@ Plug 'kkvh/vim-docker-tools'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jesseleite/vim-agriculture' " fzf rg pass args
+" fzf note taking
+Plug 'alok/notational-fzf-vim'
+let g:nv_search_paths = ['~/notes', '~/til']
+
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
