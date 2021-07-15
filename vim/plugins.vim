@@ -23,9 +23,11 @@ nnoremap \ft <cmd>Telescope buffers<cr>
 nnoremap \fh <cmd>Telescope help_tags<cr>
 nnoremap \fb <cmd>Telescope current_buffer_fuzzy_find<cr>
 nnoremap \fq <cmd>Telescope quickfix<cr>
+nnoremap \fF <cmd>Telescope project<cr>
 " highlight cword, open exact uses
 nmap <silent><space>sd [I ;let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr> ;Telescope quickfix<cr>
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-project.nvim'
 Plug 'Pocco81/AutoSave.nvim'
 
 " {{{ UI
