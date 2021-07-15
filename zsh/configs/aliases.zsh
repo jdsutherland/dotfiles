@@ -6,8 +6,8 @@ if [[ -o interactive ]]; then
   alias \$=''
 
   # Arguments and pipes
-  alias -g L='| less -r'
   alias -g R='| rg -i --context 3'
+  alias -g L='| less -R'
   alias -g V='| nvim -'
   alias -g H='| head -n 20'
   alias -g C='| wc -l'

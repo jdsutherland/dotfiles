@@ -153,12 +153,12 @@ F() {
 
 # ripgrep with paging
 r() {
-  rg --follow --no-messages --smart-case --pretty "$@" | less -r
+  rg --follow --no-messages --smart-case --pretty "$@" | less -R
 }
 
 # ripgrep hidden
 rh() {
-  rg --follow --no-messages -uu -p "$@" 2> /dev/null | less -r
+  rg --follow --no-messages -uu -p "$@" 2> /dev/null | less -R
 }
 
 # list of uniq words matching regex
