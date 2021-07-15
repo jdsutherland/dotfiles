@@ -145,6 +145,7 @@ nmap ]c <Plug>(coc-git-nextchunk)
 nmap ,hs :CocCommand git.chunkStage<cr>
 nmap ,hu :CocCommand git.chunkUndo<cr>
 nmap ,hc <Plug>(coc-git-chunkinfo)
+autocmd CursorHold * CocCommand git.refresh
 
 " scroll hover popup
 nnoremap <nowait><expr> <C-n> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-n>"
