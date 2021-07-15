@@ -1,4 +1,5 @@
 call plug#begin('~/.config/nvim/plugged')
+let g:plug_pwindow = 'vnew'
 source ~/.config/nvim/plugins.vim
 call plug#end()
 

@@ -1040,6 +1040,24 @@ command! -bang -nargs=* BLinesPreview
     \   fzf#vim#with_preview({'options': '--layout reverse --query '.shellescape(<q-args>).' --with-nth=4.. --delimiter=":"'}, 'right:50%'))
 " }}}
 
+" fzf like :Help but scoped to intalled vim-plug plugins
+function! s:plug_help_sink(line)
+  let dir = g:plugs[a:line].dir
+  for pat in ['doc/*.txt', 'README.md']
+    let match = get(split(globpath(dir, pat), "\n"), 0, '')
+    if len(match)
+      execute 'vnew' match | setf help
+      return
+    endif
+  endfor
+  tabnew
+  execute 'Explore' dir
+endfunction
+command! HelpPlug call fzf#run(fzf#wrap({
+  \ 'source': sort(keys(g:plugs)),
+  \ 'sink':   function('s:plug_help_sink')}))
+" }}}
+
 Plug 'thinca/vim-quickrun'
 nnoremap <space>rq :w<cr>:QuickRun<CR>
 
