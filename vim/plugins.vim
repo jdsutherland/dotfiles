@@ -101,8 +101,9 @@ nnoremap <silent> \z :Vista!!<CR>
 " }}}
 
 Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
-let g:Hexokinase_ftEnabled = ['css', 'html', 'javascriptreact', 'typescript.tsx', 'typescriptreact', 'eruby', 'scss', 'sass']
+let g:Hexokinase_ftEnabled = ['css', 'html', 'javascriptreact', 'typescript.tsx', 'typescriptreact', 'eruby', 'scss', 'sass', 'vim', 'lua']
 let g:Hexokinase_highlighters = ['backgroundfull']
+let g:Hexokinase_optInPatterns = ['full_hex', 'triple_hex', 'rgb', 'rgba', 'hsl', 'hsla', 'colour_names']
 
 " {{{ CoC
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
