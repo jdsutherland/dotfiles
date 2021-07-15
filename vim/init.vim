@@ -71,6 +71,12 @@ require("tmux").setup({
         enable_default_keybindings = true,
         persist_zoom = true,
     },
+require("zen-mode").setup({
+  plugins = {
+    tmux = { enabled = true },
+  }
+})
+
 require("autosave").setup({
   enabled = true,
   execution_message = "",
