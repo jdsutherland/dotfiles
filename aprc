@@ -1,21 +1,33 @@
 AmazingPrint.defaults = {
-  :indent => 2,
-  :sort_keys => true,
-  :color => {
-    :args       => :greenish,
-    :bigdecimal => :blue,
-    :class      => :yellow,
-    :date       => :greenish,
-    :falseclass => :red,
-    :fixnum     => :blue,
-    :float      => :blue,
-    :keyword    => :cyan,
-    :method     => :purpleish,
-    :nilclass   => :red,
-    :string     => :yellowish,
-    :symbol     => :cyanish,
-    :time       => :greenish,
-    :trueclass  => :green,
-    :variable   => :cyanish
+  indent:        2,      # Number of spaces for indenting.
+  index:         true,   # Display array indices.
+  html:          false,  # Use ANSI color codes rather than HTML.
+  multiline:     true,   # Display in multiple lines.
+  plain:         false,  # Use colors.
+  raw:           false,  # Do not recursively format instance variables.
+  sort_keys:     false,  # Do not sort hash keys.
+  sort_vars:     true,   # Sort instance variables.
+  limit:         false,  # Limit arrays & hashes. Accepts bool or int.
+  ruby19_syntax: true,  # Use Ruby 1.9 hash syntax in output.
+  color: {
+    args:       :greenish,
+    array:      :yellow,
+    bigdecimal: :blue,
+    class:      :yellow,
+    date:       :greenish,
+    falseclass: :red,
+    fixnum:     :blue,
+    float:      :blue,
+    hash:       :yellow,
+    keyword:    :cyan,
+    method:     :purpleish,
+    nilclass:   :red,
+    rational:   :blue,
+    string:     :greenish,
+    struct:     :whiteish,
+    symbol:     :cyanish,
+    time:       :greenish,
+    trueclass:  :green,
+    variable:   :cyanish
   }
 }
