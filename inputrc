@@ -1,5 +1,61 @@
+# docs: https://tiswww.case.edu/php/chet/readline/readline.html
 set editing-mode vi
 set keymap vi
 
 # Required so that <Enter> doesn't show up as "^M"
 set convert-meta on
+
+set keymap vi-insert
+"\C-a": beginning-of-line
+"\C-e": end-of-line
+"\C-o": edit-and-execute-command
+"\C-f": menu-complete
+"\C-p": menu-complete-backward
+"\C-d": backward-delete-char
+"\C-n": yank-last-arg
+"\C-y": next-history
+"\C-o": previous-history
+"\C-x\C-l": redraw-current-line
+
+# Up and down arrow will now intelligently complete partially completed
+# commands by searching through the existing history.
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+set keymap vi-command
+# TODO: doesn't work
+"o": "A  \C-a\t\C-k\C-x\C-l\e"
+"v": "A  \C-a\t\C-k\C-x\C-l\e"
+set keymap emacs
+"\C-x\C-l": redraw-current-line
+
+# TODO: doesn't work
+"\C-x\C-e": "\C-e  \C-a\t\C-k\C-x\C-l"
+
+# Enable completion coloring.
+set colored-completion-prefix on
+# set colored-stats on
+set visible-stats on
+# Ignore case when completing.
+set completion-ignore-case on
+# Treat hypen and underscores as equivalent.
+set completion-map-case on
+# Don't automatically match files beginning with dot.
+set match-hidden-files off
+# Display the common prefix choices on the first completion then cycle the
+# available choices on the next completion.
+set menu-complete-display-prefix on
+# Immediately display completion matches.
+set show-all-if-ambiguous on
+# Automatically add slash to the end of symlinked directories when completing.
+set mark-symlinked-directories on
+# Keep terminal quiet and clean.
+set bell-style none
+set echo-control-characters off
+# Disable Bash 5.1 highlighted paste feature.
+# See: https://is.gd/fsgOMe & https://is.gd/Uccmae
+set enable-bracketed-paste off
+
+# https://www.reddit.com/r/commandline/comments/kbeoe/you_can_make_readline_and_bash_much_more_user/
+set show-all-if-unmodified on
+
+set completion-query-items 200
