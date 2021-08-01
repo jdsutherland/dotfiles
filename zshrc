@@ -4,7 +4,6 @@ source /usr/local/opt/zinit/zinit.zsh
 zinit ice pick"async.zsh" src"pure.zsh"
 zinit light "sindresorhus/pure"
 
-zinit light "Aloxaf/fzf-tab"
 zinit wait lucid light-mode for \
     "hlissner/zsh-autopair" \
     "ael-code/zsh-colored-man-pages" \
@@ -14,8 +13,12 @@ zinit wait lucid light-mode for \
         "zdharma/fast-syntax-highlighting" \
     atload"_zsh_autosuggest_start" \
         "zsh-users/zsh-autosuggestions" \
-    blockf atpull'zinit creinstall -q .' \
-        "zsh-users/zsh-completions"
+
+zinit ice wait lucid blockf
+zinit snippet PZT::modules/completion
+
+# NOTE: Must be after PZT completion. https://github.com/Aloxaf/fzf-tab/issues/199
+zinit light Aloxaf/fzf-tab
 
 # fzf here so that c-r can override
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

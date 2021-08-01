@@ -12,7 +12,6 @@ else
   compinit -C >/dev/null
 fi
 
-zstyle ':completion:*' menu select
 zmodload zsh/complist
 # use the vi navigation keys in menu completion
 bindkey -M menuselect 'h' vi-backward-char
@@ -32,8 +31,3 @@ zstyle ':completion:*' insert-tab pending
 # For example, if you're in foo, then `cd ../f` won't show `cd ../foo` as an
 # option.
 zstyle ':completion:*:cd:*' ignore-parents parent pwd
-
-# Colorful lists of possible autocompletions for `ls`
-# zstyle doesn't understand the BSD-style $LSCOLORS at all, so use Linux-style
-# $LS_COLORS
-zstyle ':completion:*:ls:*:*' list-colors 'di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43'
