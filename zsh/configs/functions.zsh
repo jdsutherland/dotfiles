@@ -34,23 +34,6 @@ conflicted() {
   nvim +Conflicted
 }
 
-# c - browse chrome history
-c() {
-  local cols sep
-  cols=$(( COLUMNS / 3 ))
-  sep='{{::}}'
-
-  # Copy History DB to circumvent the lock
-  # - See http://stackoverflow.com/questions/8936878 for the file path
-  cp -f ~/Library/Application\ Support/Google/Chrome/Default/History /tmp/h
-
-  sqlite3 -separator $sep /tmp/h \
-    "select substr(title, 1, $cols), url
-     from urls order by last_visit_time desc" |
-  awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\n", $1, $2}' |
-  fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs open
-}
-
 # fd - cd to selected directory
 fcd() {
   local dir
@@ -67,7 +50,7 @@ ff() {
 }
 
 # fb - open filename query in bat
-fb() { fd -E node_modules -L -t file -p "$@" -X bat 2> /dev/null }
+fb() { fd -L -t file -p "$@" -X bat 2> /dev/null }
 fB() { ag --follow 2> /dev/null -g $@ | xargs bat }
 # rB - open rg query in bat
 rB() { rg -SL --no-messages -l "$@" | xargs bat }
@@ -135,16 +118,11 @@ maps() { open "https://www.google.com/maps/dir/$(getloc)/$@" }
 
 # tree with sensible ignores
 t() {
-  tree -I "migrate/*|fonts|images|node_modules|bin|obj|__pycache__|tmp|cache|*.lock|dist|jquery*" -C ${@:-.} | less -F
-}
-
-# tree 3 depth dir only
-td() {
-  tree -I "node_modules|bin|obj|__pycache__|tmp|cache|*.lock|dist|jquery*" -C -d -L 3 ${@:-.} | less -F
+  tree -I "fonts|images|node_modules|bin|obj|__pycache__|tmp|cache|dist" -C ${@:-.} | less -F
 }
 
 f() {
-  fd -E node_modules -L -t file -p -c always "$@" | less -XRF
+  fd -L -t file -p -c always "$@" | less -XRF
 }
 
 F() {
@@ -165,7 +143,7 @@ rh() {
 runiq() {  rg -INo "$@" | awk NF | sort | uniq }
 
 # find dirs containing: dircont query
-rdir () { rg -L -l --no-messages "$@" | cut -d '/' -f1 | sort | uniq }
+rdirs () { rg -L -l --no-messages "$@" | cut -d '/' -f1 | sort | uniq }
 
 # rgv <query> rip-grep-vim - rg query | fzf | vim vsplit
 rgv() {
@@ -398,31 +376,22 @@ gvf() {
   gfzf -E --invert-grep --grep "${@:-^Bump}"
 }
 
-fzf-git-reverse() {
-  git log --no-merges --oneline --reverse --color=always \
-    --format="%C(auto)%h%d %s %C(#373b41)%C(bold)%cr" |
-  fzf --ansi --no-sort --reverse --tiebreak=index --height 100% --bind=ctrl-o:toggle-sort \
-    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always --date=format:"%Y-%m-%d %H:%M:%S" --patch-with-stat --format="%Cblue%an <%ae> %C(yellow)%ad %C(bold)(%ar)%Creset%n%Cblue%n %C(bold cyan)%s%Creset%n%n%C(italic cyan)%b%Creset" | diff-so-fancy' \
-    --preview-window=right:55% \
-    --bind "ctrl-m:execute:
-              (grep -o '[a-f0-9]\{7,\}' | head -1 |
-              xargs -I % sh -c 'git show --color=always --notes % | diff-so-fancy | less -R ') << 'FZF-EOF'
-              {}
-  FZF-EOF"
-  clear
-}
-
-# git log diff filetype
-gldft() {
-  git log --follow --patch -- "*.${1}"
-}
-
 # checkout 1 commit fwd/rev
 gfwd() { git log --reverse --pretty=%H master | grep -A 1 $(git rev-parse HEAD) | tail -n1 | xargs git checkout }
 grev() { git checkout HEAD~ }
 
-gfirst() {
-  git rev-list --max-parents=0 HEAD | xargs git checkout
+# fzf-gh-issues
+fgi() {
+  gh issue list --limit 100 | awk '{NF-=3}1' | fzf --preview "gh issue view {+1}" \
+    --header="enter: browser, C-d: closed, C-o: open, C-s: search" \
+    --bind="ctrl-m:execute(gh issue view {+1} --web),ctrl-d:reload(gh issue list --state closed --limit 100 | awk '{NF-=3}1'),ctrl-o:reload(gh issue list --state open --limit 100 | awk '{NF-=3}1'),ctrl-s:reload(gh issue list --state all --search {q} --limit 999 | awk '{NF-=3}1' | rg -v Bump)"
+}
+
+# fzf-gh-prs
+fgp() {
+  gh pr list --limit 100 | fzf --preview "gh pr view {+1}" \
+    --header="enter: diff, C-o: checkout, C-b: browser, C-s: search" \
+    --bind="ctrl-m:execute(gh pr diff --color=always {+1} | diff-so-fancy | less -R),ctrl-o:execute(gh pr checkout {+1}),ctrl-b:execute(gh pr view {+1} --web),ctrl-s:reload(gh pr list --state all --search {q} --limit 999 | rg -v Bump)"
 }
 
 gauthor() {
@@ -468,12 +437,6 @@ newvids() {
   gfind . -regex '.*\.\(mp4\|webm\|mkv\|mov\|m4v\)' -exec stat -f '%c%t%Sm %N' {} + | sort -n | cut -d ' ' -f5- | tail -r -n "$count" | sed 's#.*/##' | less
 }
 
-# list new vids
-lnv() {
-  count=${1:-20}
-  gfind . -regex '.*\.\(mp4\|webm\|mkv\|mov\|m4v\)' -exec stat -f '%c%t%Sm %N' {} + | sort -n | cut -d ' ' -f5- | tail -r -n "$count" | awk '{print $0,"\n"}' | less
-}
-
 subr() {
   for f in **/*.(mp4|webm|mkv|mov|m4v|avi); do subliminal download -l en $f; done
 }
@@ -492,16 +455,12 @@ longcode() {
   fd -e erb -e html -e c -e go -e rb -e py -e js -e ts -e jsx -e tsx -e ex -e rs -e java -e cs -E dist -E vendor -E 'jquery*' -E 'polyfills*' -E 'babel*' -E db -E '*config*' -E seeds --full-path "${@:-.}" | xargs wc -l 2> /dev/null | sort -r | sed 1d | head -n 15
 }
 
-golong() {
-  find . -not -path './vendor/*' -iname *.go -exec wc -l {} + | sort | head -n 20 | sed '$d'
-}
-
 # send to background no output
 bkg() { "$@" > /dev/null 2>&1 & }
 
 ajaxh() { http "$@" X-Requested-With:XMLHttpRequest }
 
-# move symlink: `ml foo /tmp/foo` foo becomes symlink that lives at /tmp/foo
+# move symlink: `ml foo /tmp/dir` foo becomes symlink that lives at /tmp/dir/foo
 ml() { mv "$1" "$2" && ln -sf "$2/$1" "$1" }
 
 # opens cropped pdf
@@ -531,3 +490,8 @@ Rtests() {
 Jtests() {
   r -s --no-line-number --multiline -w '(test|describe|context|it)\(.*\{$' "$@" -t js -t ts
 }
+
+# fzf search alias & run selection
+fa() { eval $(alias | fzf | cut -d'=' -f2 | sd -p "'" '') }
+
+bdot() { fd -tf -p --color always ${@:-.} ~/.dotfiles/ | fzf --multi | xargs bat }

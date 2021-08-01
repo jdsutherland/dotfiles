@@ -13,7 +13,7 @@ bindkey -M vicmd '^r' redo
 # handy keybindings
 bindkey "^a" beginning-of-line
 bindkey "^e" end-of-line
-bindkey "^d" delete-char
+bindkey "^d" backward-delete-char
 bindkey "^y" accept-and-hold
 bindkey "^w" backward-kill-word
 bindkey "^n" insert-last-word
@@ -70,7 +70,7 @@ histdb-fzf-widget() {
   local selected num
   setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
   selected=( $(histdb --sep 999 | awk -F'999' '{ if (!seen[$4]++) {print $4} }' |
-    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind='ctrl-r:toggle-sort,ctrl-d:execute(source ~/.zinit/plugins/larkery---zsh-histdb/sqlite-history.zsh && histdb --forget {})' $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m --tac" $(__fzfcmd)) )
+    FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind='ctrl-r:toggle-sort,ctrl-d:execute(source ~/.zinit/plugins/larkery---zsh-histdb/sqlite-history.zsh && yes | histdb --forget {} > /dev/null 2>&1)' $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m --tac" $(__fzfcmd)) )
   LBUFFER=$selected
   zle redisplay
   typeset -f zle-line-init >/dev/null && zle zle-line-init

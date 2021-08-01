@@ -9,8 +9,11 @@ if [[ -o interactive ]]; then
   alias -g L='| less -R'
   alias -g R='| rg -i'
   alias -g V='| nvim -'
+  alias -g E='| rg --invert-match'
   alias -g H='| head -n 20'
   alias -g C='| wc -l'
+  alias -g X='| xargs'
+  alias -g XX='| xargs -I{}'
   alias -g DIR="| cut -d '/' -f1 | sort | uniq"
   # pipe to nvim as vsplits
   alias -g XV='| xargs nvim -O -'
@@ -21,7 +24,6 @@ if [[ -o interactive ]]; then
   alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
   alias cpwd="pwd | tr -d '\n' | pbcopy"
   # alias diff='colordiff -wu'
-  alias fa='alias | fzf'
   alias fw='{ alias; functions; } | fzf'
 
   # Directories
@@ -376,7 +378,6 @@ if [[ -o interactive ]]; then
   alias chromext='cd ~/Library/Application\ Support/Google/Chrome/Default'
   alias quicklook='qlmanage -p "$@" >& /dev/null'
   alias top='sudo htop'
-  alias N='notify'
   alias rr='rg -iL --no-messages'
   alias mre="fd -t f --exec gstat --printf='%Y\t%n\n' | sort -nr | head -10 | cut -f2"
   alias fh='fd -E node_modules -L -t file -p --hidden --no-ignore'
@@ -408,7 +409,7 @@ if [[ -o interactive ]]; then
   alias le='exa --long --git --sort=created --group-directories-first'
   alias ll='lsd -la'
   alias x='xargs'
-  alias X='xargs -I{}'
+  alias xx='xargs -I{}'
   alias zf='z -I' # always use fzf select
   alias xee="open -a Xee³"
   alias apr="apropos"
