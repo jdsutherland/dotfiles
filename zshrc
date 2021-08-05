@@ -1,8 +1,15 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # {{{ zinit
 source /usr/local/opt/zinit/zinit.zsh
 
 zinit ice pick"async.zsh" src"pure.zsh"
-zinit light "sindresorhus/pure"
+zinit ice depth=1; zinit light romkatv/powerlevel10k
 
 zinit wait lucid light-mode for \
     "hlissner/zsh-autopair" \
@@ -86,3 +93,6 @@ export PATH="$HOME/.dotfiles/bin/diff-so-fancy:$PATH"
 # https://github.com/asdf-community/asdf-direnv/ - avoid manual asdf reshim after package installs (cargo, etc)
 direnv() { asdf exec direnv "$@"; }
 eval "$(direnv hook zsh)"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
