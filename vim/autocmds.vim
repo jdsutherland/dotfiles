@@ -1,4 +1,7 @@
-autocmd FileType vim setlocal keywordprg=:help " Open vim help under cursor
+augroup SaveFocusedLost
+    autocmd!
+    autocmd FocusLost * silent! wall
+augroup END
 
 au BufRead,BufNewFile *.json set filetype=json
 au BufRead,BufNewFile *.babelrc set filetype=json
@@ -34,8 +37,8 @@ autocmd FileType html,eruby,htmldjango,scss,handlebars,less,css,javascript.jsx E
 autocmd BufNewFile,BufRead *.ng EmmetInstall
 
 " swap ; and : for easier typing
-autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescriptreact,yaml,yaml.docker-compose,json inoremap <buffer> ; :
-autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescriptreact,yaml,yaml.docker-compose,json inoremap <buffer> : ;
+autocmd FileType go,python,ruby,eruby,eruby.yaml,elixir,haskell,typescript,typescriptreact,yaml,yaml,docker-compose,json inoremap <buffer> ; :
+autocmd FileType go,python,ruby,eruby,eruby.yaml,elixir,haskell,typescript,typescriptreact,yaml,yaml,docker-compose,json inoremap <buffer> : ;
 " TODO: verify
 autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescriptreact noremap <buffer> r; r:
 autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescriptreact noremap <buffer> r: r;
@@ -56,7 +59,11 @@ au BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
 
 " {{{ package info
 function! s:ShowGemInfo()
-  let gem = matchstr(getline('.'), '\v[''"]\zs(\w[-/]?)+\ze')
+  if expand('%:t') ==# 'Gemfile.lock'
+    let gem = expand('<cword>')
+  else
+    let gem = matchstr(getline('.'), '\v[''"]\zs(\w[-/]?)+\ze')
+  endif
   if empty(gem) | return | endif
 
   let request_url = 'https://rubygems.org/api/v1/gems/' . gem . '.json'
@@ -70,11 +77,16 @@ function! s:ShowGemInfo()
   endif
 endfunction
 command! ShowGemInfo call <sid>ShowGemInfo()
-au BufEnter * if expand('%:t') ==# 'Gemfile' | nnoremap <buffer> <silent> <space><space> :ShowGemInfo<CR> | endif
+au BufEnter * if expand('%:t') =~ '^Gemfile' | nnoremap <buffer> <silent> <space><space> :ShowGemInfo<CR> | endif
 
 function! s:ShowPackageInfo()
   let re_scoped_or_nonscoped_npm_package = '\v[''"]\zs((\@(\w+[-.]?)+\/(\w+[-.]?)+)|(\w+[-.]?)+)'
-  let package = matchstr(getline('.'), re_scoped_or_nonscoped_npm_package)
+  if expand('%:t') ==# 'package-lock.json' || expand('%:t') ==# 'yarn.lock'
+    let package = expand('<cword>')
+  else
+    let package = matchstr(getline('.'), re_scoped_or_nonscoped_npm_package)
+  endif
+
   if empty(package) | return | endif
 
   let package_info = system('npm info ' . package . ' | sed -n 3p') | redraw!
@@ -85,7 +97,7 @@ function! s:ShowPackageInfo()
   endif
 endfunction
 command! ShowPackageInfo call <sid>ShowPackageInfo()
-au BufEnter * if expand('%:t') ==# 'package.json' | nnoremap <buffer> <silent> <space><space> :ShowPackageInfo<CR> | endif
+au BufEnter * if expand('%:t') ==# 'package.json' || expand('%:t') ==# 'package-json.lock' || expand('%:t') ==# 'yarn.lock' | nnoremap <buffer> <silent> <space><space> :ShowPackageInfo<CR> | endif
 " }}}
 
 " vim-plug
