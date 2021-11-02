@@ -24,10 +24,12 @@
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
 
-snippet $ "default value ${n:-default}" i
-${$1:-$2}
+snippet << "= append" i
+$1 = append($1, $2)
 endsnippet
 
-snippet SI "to dev null (silent)" i
-> /dev/null 2>&1
+snippet ld "lambda" i
+func($1) ${2:type} {
+	$3
+}
 endsnippet
