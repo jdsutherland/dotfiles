@@ -1,5 +1,6 @@
 bundler
 amazing_print
+gem-browse
 gem-ctags
 pry
 neovim

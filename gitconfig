@@ -27,7 +27,7 @@
   ; vim-plug expects name origin (for repo)  (gh cli names fork origin and renames origin upstream)
   fix-vimplug = !git remote rename origin jdsutherland && git remote rename upstream origin
   full-commit = !git cat-file -p $(git rev-parse HEAD)
-  gfile = log -S          ; grep file
+  gcode = log -S          ; grep code
   glog = log -E -i --grep ; grep log
   issues = !hub browse -- issues
   lnames = !git --no-pager show --name-only $1

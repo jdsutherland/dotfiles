@@ -75,7 +75,7 @@ layout 1pdf 'Preview':REPEAT                                                    
 layout 1pdf 'Google Chrome':REPEAT                                                       ${leftmost}
 layout 1pdf 'Google Chrome Canary':REPEAT                                                ${rightless}
 layout 1pdf 'mpv':REPEAT                                                                 ${leftmost}
-layout 1pdf 'Alacritty':REPEAT                                                              ${rightless}
+layout 1pdf 'Alacritty':REPEAT                                                           ${rightless}
 layout 1pdf 'Dash':REPEAT                                                                ${rightless}
 layout 1pdf 'Marked 2':REPEAT                                                            ${rightless}
 layout 1pdf 'WhatsApp':REPEAT                                                            ${rightless}
