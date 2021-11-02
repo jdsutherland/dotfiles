@@ -25,3 +25,5 @@ noremap <buffer> <space><space> }j
 
 noremap <buffer> <PageUp> { {k
 noremap <buffer> { {k
+
+inoremap <buffer> \t - [ ]<space>

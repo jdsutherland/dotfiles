@@ -85,3 +85,7 @@ set noshowmode
 set iskeyword+=-
 let g:netrw_liststyle = 3
 cabbrev vsf vert sfind
+
+" TODO: move to keys?
+cnoremap YMD <C-R>=strftime("%Y-%m-%d")<CR>
+inoremap YMD <C-R>=strftime("%Y-%m-%d")<CR>

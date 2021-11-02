@@ -111,7 +111,7 @@ noremap <c-w>- <c-w>t<c-w>K
 noremap <c-w>\ <c-w>t<c-w>H
 
 " tabs
-nnoremap <silent> <space>tc :tabclose<CR>gT
+nnoremap <silent> <space>tc :tabclose<CR>gT:bd! term://<cr>
 nnoremap <space>tn :tabnew%<cr>
 
 " {{{ go to tab and window by number (1-9)
@@ -188,7 +188,11 @@ tnoremap <C-v><Esc> <Esc>
 nnoremap <tab><tab> mz=ap'z:delmark z<cr>
 
 " gf in vsplit
-nnoremap <c-w>v :vertical wincmd f<CR>
+nmap <c-w>v <c-w>vgf
+" gF (line #) in vsplit
+nnoremap <c-w>l <c-w>vgF
+" gf in split
+nmap <c-w>s <c-w>f
 
 " {{{ imode
 inoremap ,rr =>
@@ -197,6 +201,9 @@ inoremap ,aa ->
 inoremap ,zz <-
 inoremap ,uu __
 inoremap ,. />
+inoremap <expr> <C-E> col('.')>strlen(getline('.'))<bar><bar>pumvisible()?"\<Lt>C-E>":"\<Lt>End>"
+inoremap        <C-A> <C-O>^
+inoremap   <C-X><C-A> <C-A>
 
 " upcase current word
 inoremap <c-u> <esc>viwUe
@@ -211,7 +218,26 @@ cnoremap <c-h> <left>
 cnoremap <c-l> <right>
 cnoremap <c-d> <backspace>
 cnoremap <c-a> <home>
+cnoremap <C-X><C-A> <C-A>
 cmap <m-m> _
+
+function! s:transpose() abort
+  let pos = getcmdpos()
+  if getcmdtype() =~# '[?/]'
+    return "\<C-T>"
+  elseif pos > strlen(getcmdline())
+    let pre = "\<Left>"
+    let pos -= 1
+  elseif pos <= 1
+    let pre = "\<Right>"
+    let pos += 1
+  else
+    let pre = ""
+  endif
+  return pre . "\<BS>\<Right>".matchstr(getcmdline()[0 : pos-2], '.$')
+endfunction
+
+cnoremap <expr> <C-T> <SID>transpose()
 
 " move word but keep default popupmenu
 cnoremap <expr><c-p> pumvisible() ? "\<C-p>" : "\<c-right>"
@@ -231,8 +257,11 @@ cnoremap <silent> <c-f> <C-r>=<SID>wildchar()<CR>
 cnoremap <silent> <c-q> <c-f>
 " }}}
 
-" force top correction on most recent misspelling
-nnoremap <buffer> <c-s> [s1z=
-inoremap <buffer> <c-s> <c-g>u<Esc>[s1z=`]A<c-g>u
+" fix cword spelling
+nnoremap <c-s><c-s> [s1z=
+" fix nearest previous spelling
+inoremap <c-s><c-s> <c-g>u<Esc>[s1z=`]A<c-g>u
 
 nnoremap <c-g> 1<c-g>
+
+vnoremap <c-w> <del><del>
