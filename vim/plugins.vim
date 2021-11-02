@@ -2,8 +2,23 @@ function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
 
-" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " browser textarea
+
+Plug 'lpinilla/vim-codepainter'
+Plug 'pwntester/octo.nvim'
+
+Plug 'arthurxavierx/vim-caser'
+let g:caser_prefix = 'gS'
+Plug 'skywind3000/vim-preview'
+nnoremap <space>( :PreviewTag<cr>
 Plug 'tweekmonster/startuptime.vim'
+Plug 'sk1418/Join'
+Plug 'junegunn/vader.vim'
+
+" {{{ wilder.nvim
+Plug 'romgrk/fzy-lua-native'
+Plug 'nixprime/cpsm'
+Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
+" }}}
 
 " {{{ lua plugins
 Plug 'nvim-treesitter/playground'
@@ -23,21 +38,27 @@ nnoremap \ft <cmd>Telescope buffers<cr>
 nnoremap \fh <cmd>Telescope help_tags<cr>
 nnoremap \fb <cmd>Telescope current_buffer_fuzzy_find<cr>
 nnoremap \fq <cmd>Telescope quickfix<cr>
-nnoremap \fF <cmd>Telescope project<cr>
 " highlight cword, open exact uses
 nmap <silent><space>sd [I ;let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr> ;Telescope quickfix<cr>
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-project.nvim'
+nnoremap \fp <cmd>Telescope project<cr>
+Plug 'nvim-telescope/telescope-github.nvim'
+nnoremap \fgi <cmd>Telescope gh issues<cr>
+nnoremap \fgp <cmd>Telescope gh pull_request<cr>
+nnoremap \fgg <cmd>Telescope gh gist<cr>
+" nnoremap \fF <cmd>Telescope run<cr>
 Plug 'Pocco81/AutoSave.nvim'
+nnoremap <c-s> :ASToggle<cr>
 Plug 'norcalli/nvim-colorizer.lua'
 
 " {{{ UI
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'Asheq/close-buffers.vim' " :Bdelete
-nnoremap <silent> <space>bh :Bdelete hidden<CR> :BufferOrderByNumber<CR>
+nnoremap <silent> <space>bh :Bdelete! hidden<CR> :BufferOrderByWindowNumber<CR>
 Plug 'romgrk/barbar.nvim'
-nnoremap <silent> <space>bb :BufferOrderByNumber<CR>
-nnoremap <silent> <space>dd :BufferClose<CR>
+nnoremap <silent> <space>bb :BufferOrderByWindowNumber<CR>
+nnoremap <silent> <space>dd :BufferClose!<CR>
 Plug 'jdsutherland/nvim-base16'
 Plug 'jdsutherland/lualine.nvim'
 Plug 'folke/zen-mode.nvim'
@@ -102,7 +123,7 @@ nnoremap <silent> \z :Vista!!<CR>
 " }}}
 
 " {{{ CoC
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim'
 hi! CocHintSign guifg=#969896
 let g:coc_disable_transparent_cursor = 1
 Plug 'antoinemadec/coc-fzf'
@@ -113,7 +134,7 @@ let g:coc_global_extensions = [
   \ 'coc-json',
   \ 'coc-tsserver',
   \ 'coc-elixir',
-  \ 'coc-python',
+  \ 'coc-pyright',
   \ 'coc-html',
   \ 'coc-yaml',
   \ 'coc-vimlsp',
@@ -128,7 +149,8 @@ let g:coc_global_extensions = [
   \ 'coc-clangd',
   \ 'coc-react-refactor',
   \ 'coc-sql',
-  \ 'coc-db',
+  \ 'coc-sql',
+  \ 'coc-spell-checker',
   \ ]
  let g:coc_filetype_map = {
  \ 'yaml.ansible': 'yaml',
@@ -136,12 +158,14 @@ let g:coc_global_extensions = [
  \ 'yaml.eruby': 'yaml',
  \ }
 
+nmap \ys yos:CocCommand cSpell.toggleEnableSpellChecker<cr>
 nmap [c <Plug>(coc-git-prevchunk)
 nmap ]c <Plug>(coc-git-nextchunk)
 nmap ,hs :CocCommand git.chunkStage<cr>
 nmap ,hu :CocCommand git.chunkUndo<cr>
 nmap ,hc <Plug>(coc-git-chunkinfo)
-autocmd CursorHold * CocCommand git.refresh
+" FIXME: apparently this breaks repeat for `cgn`
+" autocmd CursorHold * silent! CocCommand git.refresh
 
 " scroll hover popup
 nnoremap <nowait><expr> <C-n> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-n>"
@@ -214,8 +238,8 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 " Remap keys for gotos
 autocmd User CocNvimInit nmap <expr>,f CocHasProvider('documentSymbol') ? "<Plug>(coc-definition)" : "<C-]>zt"
 " open def in split
-autocmd User CocNvimInit nmap <expr>,fv CocHasProvider('documentSymbol') ? ":call CocAction('jumpDefinition', 'vsplit')<CR><C-w><C-p>" : ":vs<cr><c-]><C-w><C-p>zt"
-autocmd User CocNvimInit nmap <expr>,fs CocHasProvider('documentSymbol') ? ":call CocAction('jumpDefinition', 'split')<CR><C-w><C-p>" : ":sp<cr><c-]><C-w><C-p>zt"
+autocmd User CocNvimInit nmap <expr>,fv CocHasProvider('documentSymbol') ? ":call CocAction('jumpDefinition', 'vsplit')<CR>zt<c-y><c-y><c-y><c-y><C-w><C-p>" : ":vs<cr><c-]>zt<c-y><c-y><c-y><c-y><C-w><C-p>"
+autocmd User CocNvimInit nmap <expr>,fs CocHasProvider('documentSymbol') ? ":call CocAction('jumpDefinition', 'split')<CR>zt<c-y><c-y><c-y><c-y><C-w><C-p>" : ":sp<cr><c-]>zt<c-y><c-y><c-y><c-y><C-w><C-p>"
 " TODO: c-[ is same as <esc> -- find a way to distinguish
 " nmap <silent> <c-[> <Plug>(coc-definition)
 
@@ -237,6 +261,7 @@ nmap \ca <Plug>(coc-codeaction)
 nmap \cf <Plug>(coc-fix-current)
 nmap \cl <Plug>(coc-codelens-action)
 nmap \cF <Plug>(coc-format)
+nnoremap \cs :CocAction('showSignatureHelp')<cr>
 nmap <silent> \cd <Plug>(coc-declaration)
 nmap <silent> \cy <Plug>(coc-type-definition)
 nmap <silent> \ci <Plug>(coc-implementation)
@@ -265,10 +290,10 @@ command! -nargs=0 Format :call CocAction('format')
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
 " use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 OR   :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Show all diagnostics
 nnoremap <silent> <tab>d :<C-u>CocList diagnostics<cr>
@@ -315,6 +340,7 @@ Plug 'markonm/traces.vim'
 let g:traces_preview_window = "winwidth('%') > 160 ? 'bot vnew' : 'bot 10new'"
 let g:traces_abolish_integration = 1
 Plug 'tpope/vim-apathy'
+Plug 'tpope/vim-classpath'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-dotenv'
@@ -427,9 +453,12 @@ let g:VtrGitCdUpOnOpen = 1
 let g:VtrClearBeforeSend = 0
 " press enter to repeat last cmd
 nnoremap \v :VtrSendCommandToRunner<space>
+nnoremap \vv :w<cr>:VtrSendCommandToRunner<cr>
 " shortcut to mapping a temp runner with
 nnoremap \vb :nnoremap ,t :VtrSendCommandToRunner<space>
-nnoremap \vr :VtrOpenRunner<cr>
+nnoremap \vo :VtrOpenRunner<cr>
+" cd to current buffer's root (FindRootDirectory from vim-rooter)
+nnoremap \vr :execute 'VtrSendCommandToRunner cd ' FindRootDirectory()<CR>
 nnoremap \vq :VtrKillRunner<cr>
 nnoremap \vd :VtrSendCtrlD<cr>
 nnoremap \vc :VtrSendCtrlC<cr>
@@ -452,10 +481,27 @@ nmap <space>j <M-u>j
 
 " {{{ vim-test
 Plug 'janko-m/vim-test'
+" runs test in term, auto search for error location
+" @q macro mimics vim-unstack
+function! TestCustom(test_cmd)
+  execute 'tabnew'
+  call termopen(a:test_cmd)
+  " HACK: <CR> seems to trigger tmux move (?) so followed by <M-B> (tmux prev pane) to return
+  sleep 100m
+  let file_with_err_at_line = "\.[a-z]{1,4}\\:\\d+"
+  " NOTE: always 'Pattern not found' though it works...
+  call feedkeys("/".file_with_err_at_line."\<CR>")
+  " macro to open files (vert gF) from stacktrace
+  let @q="nlzz:execute 'match Error /\\%'.line('.').'l/'\<CR>b\\1"
+endfunction
+command! -nargs=+ TestCustom :call TestCustom(<q-args>)
+
+let test#custom_strategies = {'custom': function('TestCustom')}
 let test#strategy = 'vtr'
 let g:test#preserve_screen = 1
-let g:test#go#gotest#options = '-v'
+" let g:test#go#gotest#options = '-v'
 nnoremap <silent> <space>tt :TestNearest<CR>
+nnoremap <silent> <space>tT :TestLast -strategy=custom<cr>
 nnoremap <silent> <space>ts :TestSuite<CR>
 nnoremap <silent> <space>tf :TestFile<CR>
 nnoremap <silent> <space>tl :TestLast<CR>
@@ -619,7 +665,7 @@ nnoremap <silent>\P :call clearmatches() \| let g:poppy = -get(g:,'poppy',-1) \|
       \ exe 'au! Poppy CursorMoved *' . (g:poppy > 0 ? ' call PoppyInit()' : '') <cr>
 " }}}
 
-" {{{ grepper
+" {{{ vim-grepper (async)
 Plug 'mhinz/vim-grepper'
 let g:grepper = {}
 let g:grepper.highlight = 1
@@ -643,6 +689,7 @@ Plug 'wincent/loupe'
 Plug 'ntpeters/vim-better-whitespace'
 let g:strip_whitespace_confirm = 0
 let g:better_whitespace_guicolor='#cc6666'
+let g:better_whitespace_filetypes_blacklist = ['diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'git']
 " }}}
 
 " limelight/goyo {{{
@@ -842,7 +889,7 @@ let g:fold_rspec_foldminlines = 3 " disables closing of folds containing <= 2 li
 
 " " elixir
 " TODO: necessary with treesitter and LSP?
-" Plug 'elixir-editors/vim-elixir'
+Plug 'elixir-editors/vim-elixir'
 " Plug 'slashmili/alchemist.vim'
 " let g:alchemist_tag_map = '<leader>f'
 
@@ -860,25 +907,25 @@ autocmd FileType yaml BracelessEnable +fold
 " Plug 'clojure-vim/async-clj-omni', { 'for': 'clojure' }
 " }}}
 
-" golang TODO: needed w/ treesitter? {{{
+" " golang TODO: needed w/ treesitter? {{{
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_generate_tags = 1
-let g:go_fmt_fail_silently = 1
-let g:go_fmt_command = "goimports"
-let g:go_auto_type_info = 0
-let g:go_list_type = "quickfix"
-let g:go_fold_enable = ['import', 'varconst', 'package_comment']
-" Plug 'ivy/vim-ginkgo'
-" }}}
+" let g:go_highlight_build_constraints = 1
+" let g:go_highlight_extra_types = 1
+" let g:go_highlight_fields = 1
+" let g:go_highlight_functions = 1
+" let g:go_highlight_methods = 1
+" let g:go_highlight_operators = 1
+" let g:go_highlight_structs = 1
+" let g:go_highlight_types = 1
+" let g:go_highlight_build_constraints = 1
+" let g:go_highlight_generate_tags = 1
+" let g:go_fmt_fail_silently = 1
+" let g:go_fmt_command = "goimports"
+" let g:go_auto_type_info = 0
+" let g:go_list_type = "quickfix"
+" let g:go_fold_enable = ['import', 'varconst', 'package_comment']
+" " Plug 'ivy/vim-ginkgo'
+" " }}}
 
 " misc lang
 Plug 'neovimhaskell/haskell-vim'
@@ -911,6 +958,8 @@ noremap  <silent> <space>fb :execute "BLinesPreview '<c-r><c-w>"<cr>
 noremap  <silent> <space>fB :execute "Lines '<c-r><c-w>"<cr>
 nnoremap <silent> <space>fo :BTags<CR>
 nnoremap <silent> <space>fO :Tags<CR>
+" nnoremap <silent> <space>fk :execute 'Tags ' expand('<cword>')<cr>
+noremap  <silent> <space>fk :execute "Tags '<c-r><c-w>"<cr>
 nnoremap <silent> <space>fm :call fzf#vim#marks()<cr>
 nnoremap <silent> <space>fh :Helptags<CR>
 nnoremap <silent> <space>f; :History:<CR>
@@ -947,7 +996,14 @@ endif
 imap <c-s><c-k> <plug>(fzf-complete-word)
 imap <c-s><c-f> <plug>(fzf-complete-path)
 imap <c-s><c-j> <plug>(fzf-complete-file-ag)
+" complete lines from all open buffers
 imap <c-s><c-l> <plug>(fzf-complete-line)
+" complete lines global
+inoremap <expr> <c-s><c-g> fzf#vim#complete(fzf#wrap({
+  \ 'prefix': '^.*$',
+  \ 'source': 'rg -n ^ --color always',
+  \ 'options': '--ansi --delimiter : --nth 3..',
+  \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
 
 function! s:build_quickfix_list(lines)
   call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
@@ -959,6 +1015,7 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 let g:fzf_buffers_jump = 1
 let g:fzf_action = {
   \ 'ctrl-q': function('s:build_quickfix_list'),
+  \ 'ctrl-o': ':r !echo',
   \ 'ctrl-g': 'tab split',
   \ 'ctrl-s': 'split',
   \ 'ctrl-u': '15split',

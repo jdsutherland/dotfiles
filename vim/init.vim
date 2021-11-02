@@ -8,6 +8,8 @@ source ~/.config/nvim/functions.vim
 source ~/.config/nvim/autocmds.vim
 source ~/.config/nvim/keys.vim
 
+" Use kana/vim-operator-user for textobj with vtr
+" https://github.com/christoomey/vim-tmux-runner/pull/86#issuecomment-608474159
 map \V <Plug>(operator-vtr)
 call operator#user#define_ex_command('vtr', 'VtrSendLinesToRunner')
 
@@ -76,6 +78,7 @@ telescope.setup{
 }
 telescope.load_extension('fzf')
 telescope.load_extension('project')
+telescope.load_extension('gh')
 
 require("todo-comments").setup {
   colors = {
@@ -100,25 +103,27 @@ require("zen-mode").setup({
   }
 })
 
+-- {{{ Autosave.nvim
 require("autosave").setup({
-  enabled = true,
-  execution_message = "",
-  events = {"InsertLeave", "TextChanged", "FocusLost"},
+  enabled = false,
+  -- execution_message = "",
+  events = {"InsertLeave", "TextChanged"},
   conditions = {
     exists = true,
-    filetype_is_not = {"qf"},
+    -- filetype_is_not = {"qf"},
     modifiable = true
   },
   write_all_buffers = true,
   on_off_commands = true,
 })
+-- }}}
 
 require('nvim-treesitter.configs').setup {
   ensure_installed = "maintained",
   highlight = {
     enable = true,
-    -- TODO: decide to keep: loses perf of treesitter but allows conceal
-    disable = { "css", "scss", "yaml", "eruby.yaml" },
+    disable = { "css", "scss", "yaml", "eruby.yaml", "json" },
+    -- NOTE: loses perf of treesitter but allows conceal
     additional_vim_regex_highlighting = true,
   },
   incremental_selection = { enable = true },
@@ -147,17 +152,213 @@ require('nvim-treesitter.configs').setup {
 }
 
 require 'colorizer'.setup()
+
+-- {{{ octo
+require"octo".setup({
+  default_remote = {"upstream", "origin"}; -- order to try remotes
+  reaction_viewer_hint_icon = "";         -- marker for user reactions
+  user_icon = " ";                        -- user icon
+  timeline_marker = "";                   -- timeline marker
+  timeline_indent = "2";                   -- timeline indentation
+  right_bubble_delimiter = "";            -- Bubble delimiter
+  left_bubble_delimiter = "";             -- Bubble delimiter
+  github_hostname = "";                    -- GitHub Enterprise host
+  snippet_context_lines = 4;               -- number or lines around commented lines
+  file_panel = {
+    size = 10,                             -- changed files panel rows
+    use_icons = true                       -- use web-devicons in file panel
+  },
+  mappings = {
+    issue = {
+      close_issue = "<space>ic",           -- close issue
+      reopen_issue = "<space>io",          -- reopen issue
+      list_issues = "<space>il",           -- list open issues on same repo
+      reload = "<C-r>",                    -- reload issue
+      open_in_browser = "<C-b>",           -- open issue in browser
+      copy_url = "<C-y>",                  -- copy url to system clipboard
+      add_assignee = "<space>aa",          -- add assignee
+      remove_assignee = "<space>ad",       -- remove assignee
+      create_label = "<space>lc",          -- create label
+      add_label = "<space>la",             -- add label
+      remove_label = "<space>ld",          -- remove label
+      goto_issue = "<space>gi",            -- navigate to a local repo issue
+      add_comment = "<space>ca",           -- add comment
+      delete_comment = "<space>cd",        -- delete comment
+      next_comment = "]c",                 -- go to next comment
+      prev_comment = "[c",                 -- go to previous comment
+      react_hooray = "<space>rp",          -- add/remove 🎉 reaction
+      react_heart = "<space>rh",           -- add/remove ❤️ reaction
+      react_eyes = "<space>re",            -- add/remove 👀 reaction
+      react_thumbs_up = "<space>r+",       -- add/remove 👍 reaction
+      react_thumbs_down = "<space>r-",     -- add/remove 👎 reaction
+      react_rocket = "<space>rr",          -- add/remove 🚀 reaction
+      react_laugh = "<space>rl",           -- add/remove 😄 reaction
+      react_confused = "<space>rc",        -- add/remove 😕 reaction
+    },
+    pull_request = {
+      checkout_pr = "<space>po",           -- checkout PR
+      merge_pr = "<space>pm",              -- merge PR
+      list_commits = "<space>pc",          -- list PR commits
+      list_changed_files = "<space>pf",    -- list PR changed files
+      show_pr_diff = "<space>pd",          -- show PR diff
+      add_reviewer = "<space>va",          -- add reviewer
+      remove_reviewer = "<space>vd",       -- remove reviewer request
+      close_issue = "<space>ic",           -- close PR
+      reopen_issue = "<space>io",          -- reopen PR
+      list_issues = "<space>il",           -- list open issues on same repo
+      reload = "<C-r>",                    -- reload PR
+      open_in_browser = "<C-b>",           -- open PR in browser
+      copy_url = "<C-y>",                  -- copy url to system clipboard
+      add_assignee = "<space>aa",          -- add assignee
+      remove_assignee = "<space>ad",       -- remove assignee
+      create_label = "<space>lc",          -- create label
+      add_label = "<space>la",             -- add label
+      remove_label = "<space>ld",          -- remove label
+      goto_issue = "<space>gi",            -- navigate to a local repo issue
+      add_comment = "<space>ca",           -- add comment
+      delete_comment = "<space>cd",        -- delete comment
+      next_comment = "]c",                 -- go to next comment
+      prev_comment = "[c",                 -- go to previous comment
+      react_hooray = "<space>rp",          -- add/remove 🎉 reaction
+      react_heart = "<space>rh",           -- add/remove ❤️ reaction
+      react_eyes = "<space>re",            -- add/remove 👀 reaction
+      react_thumbs_up = "<space>r+",       -- add/remove 👍 reaction
+      react_thumbs_down = "<space>r-",     -- add/remove 👎 reaction
+      react_rocket = "<space>rr",          -- add/remove 🚀 reaction
+      react_laugh = "<space>rl",           -- add/remove 😄 reaction
+      react_confused = "<space>rc",        -- add/remove 😕 reaction
+    },
+    review_thread = {
+      goto_issue = "<space>gi",            -- navigate to a local repo issue
+      add_comment = "<space>ca",           -- add comment
+      add_suggestion = "<space>sa",        -- add suggestion
+      delete_comment = "<space>cd",        -- delete comment
+      next_comment = "]c",                 -- go to next comment
+      prev_comment = "[c",                 -- go to previous comment
+      select_next_entry = "]q",            -- move to previous changed file
+      select_prev_entry = "[q",            -- move to next changed file
+      close_review_tab = "<C-c>",          -- close review tab
+      react_hooray = "<space>rp",          -- add/remove 🎉 reaction
+      react_heart = "<space>rh",           -- add/remove ❤️ reaction
+      react_eyes = "<space>re",            -- add/remove 👀 reaction
+      react_thumbs_up = "<space>r+",       -- add/remove 👍 reaction
+      react_thumbs_down = "<space>r-",     -- add/remove 👎 reaction
+      react_rocket = "<space>rr",          -- add/remove 🚀 reaction
+      react_laugh = "<space>rl",           -- add/remove 😄 reaction
+      react_confused = "<space>rc",        -- add/remove 😕 reaction
+    },
+    submit_win = {
+      approve_review = "<C-a>",            -- approve review
+      comment_review = "<C-m>",            -- comment review
+      request_changes = "<C-r>",           -- request changes review
+      close_review_tab = "<C-c>",          -- close review tab
+    },
+    review_diff = {
+      add_review_comment = "<space>ca",    -- add a new review comment
+      add_review_suggestion = "<space>sa", -- add a new review suggestion
+      focus_files = "<leader>e",           -- move focus to changed file panel
+      toggle_files = "<leader>b",          -- hide/show changed files panel
+      next_thread = "]t",                  -- move to next thread
+      prev_thread = "[t",                  -- move to previous thread
+      select_next_entry = "]q",            -- move to previous changed file
+      select_prev_entry = "[q",            -- move to next changed file
+      close_review_tab = "<C-c>",          -- close review tab
+      toggle_viewed = "<leader><space>",   -- toggle viewer viewed state
+    },
+    file_panel = {
+      next_entry = "j",                    -- move to next changed file
+      prev_entry = "k",                    -- move to previous changed file
+      select_entry = "<cr>",               -- show selected changed file diffs
+      refresh_files = "R",                 -- refresh changed files panel
+      focus_files = "<leader>e",           -- move focus to changed file panel
+      toggle_files = "<leader>b",          -- hide/show changed files panel
+      select_next_entry = "]q",            -- move to previous changed file
+      select_prev_entry = "[q",            -- move to next changed file
+      close_review_tab = "<C-c>",          -- close review tab
+      toggle_viewed = "<leader><space>",   -- toggle viewer viewed state
+    }
+  }
+})
+-- }}}
+
 EOF
 " }}}
 
+" {{{ wilder.nvim
+call wilder#enable_cmdline_enter()
+set wildcharm=<tab>
+" workaround for https://github.com/gelguy/wilder.nvim/issues/41
+set shortmess+=F
+cmap <expr> <c-n> wilder#in_context() ? wilder#next() : "\<c-n>"
+cmap <expr> <c-p> wilder#in_context() ? wilder#previous() : "\<c-p>"
+call wilder#set_option('modes', ['/', '?', ':'])
+
+autocmd CmdlineEnter * ++once call s:wilder_init()
+function! s:wilder_init() abort
+  call wilder#set_option('pipeline', [
+        \   wilder#branch(
+        \     [
+        \       wilder#check({_, x -> empty(x)}),
+        \       wilder#history(),
+        \       wilder#result({
+        \         'draw': [{_, x -> ' ' . x}],
+        \       }),
+        \     ],
+        \     wilder#python_file_finder_pipeline({
+        \       'file_command': {_, arg -> stridx(arg, '.') != -1 ? ['fd', '-tf', '-H'] : ['fd', '-tf']},
+        \       'dir_command': ['fd', '-td'],
+        \       'filters': ['cpsm_filter'],
+        \       'cache_timestamp': {-> 1},
+        \     }),
+        \     wilder#cmdline_pipeline({
+        \       'fuzzy': 1,
+        \       'fuzzy_filter': wilder#python_cpsm_filter(),
+        \       'set_pcre2_pattern': 0,
+        \     }),
+        \     [
+        \       {_, x -> x[:1] ==# '\v' ? x[2:] : x},
+        \     ] + wilder#python_search_pipeline({
+        \       'pattern': wilder#python_fuzzy_pattern({
+        \         'start_at_boundary': 0,
+        \       }),
+        \     }),
+        \   ),
+        \ ])
+
+  let s:highlighters = [
+        \ wilder#pcre2_highlighter(),
+        \ wilder#lua_fzy_highlighter(),
+        \ ]
+  call wilder#set_option('renderer', wilder#renderer_mux({
+        \ ':': wilder#popupmenu_renderer({
+        \   'highlighter': s:highlighters,
+        \   'left': [
+        \     wilder#popupmenu_devicons(),
+        \   ],
+        \   'right': [
+        \     ' ',
+        \     wilder#popupmenu_scrollbar(),
+        \   ],
+        \ }),
+        \ '/': wilder#wildmenu_renderer({
+        \   'highlighter': s:highlighters,
+        \ }),
+        \ }))
+endfunction
+" }}}
+
+" {{{ colors
 hi CocErrorSign  ctermfg=Red guifg=#cc6666
 hi CocWarningSign  ctermfg=Brown guifg=#f0c674
 hi CocInfoSign  ctermfg=Yellow guifg=#bababa
 hi CocHintSign guifg=LightRed  guibg=NONE
 hi CocMarkdownLink guifg=#b5bd68 guibg=NONE
+" hi CocFloating guibg='#282a2c'
+" hi CocFloating guibg='#161820'
 
 hi TelescopeMatching  guifg=#81a2be
 
 hi! Conceal guifg=LightRed
 hi SpellRare cterm=undercurl guifg=Black guibg=LightRed
 hi SpellBad cterm=undercurl guifg=Black guibg=#cc6666
+" }}}
