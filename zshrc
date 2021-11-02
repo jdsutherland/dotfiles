@@ -37,17 +37,19 @@ zinit snippet PZT::modules/directory
 zinit snippet PZT::modules/history
 zinit snippet PZT::modules/docker/alias.zsh
 
-# zsh-users/zsh-autosuggestions {{{
-_zsh_autosuggest_strategy_histdb_top_here() {
-    local query="select commands.argv from
-history left join commands on history.command_id = commands.rowid
-left join places on history.place_id = places.rowid
-where places.dir LIKE '$(sql_escape $PWD)%'
-and commands.argv LIKE '$(sql_escape $1)%'
-group by commands.argv order by count(*) desc limit 1"
+_zsh_autosuggest_strategy_histdb_top() {
+    local query="
+        select commands.argv from history
+        left join commands on history.command_id = commands.rowid
+        left join places on history.place_id = places.rowid
+        where commands.argv LIKE '$(sql_escape $1)%'
+        group by commands.argv, places.dir
+        order by places.dir != '$(sql_escape $PWD)', count(*) desc
+        limit 1
+    "
     suggestion=$(_histdb_query "$query")
 }
-ZSH_AUTOSUGGEST_STRATEGY=histdb_top_here
+ZSH_AUTOSUGGEST_STRATEGY=histdb_top
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#373b41"
 #    }}}
 # }}}
@@ -67,7 +69,11 @@ alias vi="nvim"
 export PATH="$HOME/.bin:$PATH"
 
 export GOPATH="$HOME/go"
+export GOROOT=/usr/local/opt/go/libexec
+# if using asdf
+# export GOROOT="$ASDFINSTALLS/golang/$GOV/go/"
 export PATH="$PATH:$GOPATH/bin"
+export PATH="$PATH:$GOROOT/bin"
 
 export LS_COLORS=$(vivid generate jellybeans)
 export BAT_PAGER=less

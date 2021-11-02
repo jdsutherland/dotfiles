@@ -29,7 +29,6 @@ _fzf_compgen_dir() {
   rg --files "$1" | only-dir "$1"
 }
 
-# export FZF_DEFAULT_COMMAND='rg --files --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export FZF_DEFAULT_COMMAND='rg --hidden --files --ignore-file ~/.ignore'
 # export FZF_DEFAULT_COMMAND='fd --type f --follow --exl'
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:30:hidden --bind ';:toggle-preview'"

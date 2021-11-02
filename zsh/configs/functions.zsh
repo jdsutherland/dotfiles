@@ -51,9 +51,7 @@ ff() {
 
 # fb - open filename query in bat
 fb() { fd -L -t file -p "$@" -X bat 2> /dev/null }
-fB() { ag --follow 2> /dev/null -g $@ | xargs bat }
-# rB - open rg query in bat
-rB() { rg -SL --no-messages -l "$@" | xargs bat }
+rb() { batgrep --smart-case --search-pattern --pager=less "$@" 2> /dev/null }
 
 # cf - fuzzy cd from anywhere
 # ex: cf word1 word2 ... (even part of a file name)
@@ -72,16 +70,6 @@ cf() {
         cd -- ${file:h}
      fi
   fi
-}
-
-# T - tree color with paging
-T() {
-  tree -I 'node_modules' $1 -C | less -F
-}
-
-# tree hidden fzf
-Th() {
-  tree -a -I 'node_modules' $1 -C | fzf
 }
 
 # Repeatedly try to connect to a host which is booting
@@ -131,12 +119,12 @@ F() {
 
 # ripgrep with paging
 r() {
-  rg --follow --no-messages --smart-case --pretty "$@" | less -R
+  rg --follow --no-messages --smart-case --pretty "$@" | less -XRF
 }
 
 # ripgrep hidden
 rh() {
-  rg --follow --no-messages -uu -p "$@" 2> /dev/null | less -R
+  rg --follow --no-messages -uu -p "$@" 2> /dev/null | less -XRF
 }
 
 # list of uniq words matching regex
@@ -217,6 +205,7 @@ imv() {
   done
 }
 
+# TODO; convert to `yt-dlp` unless youtube-dl fixed
 ydl() {
   youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt -ci "$@"
 }
@@ -228,7 +217,11 @@ ydlj() {
 
 # medium quality (<720p)
 ydlm() {
-  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' "$@"
+  yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' "$@"
+}
+
+ydla() {
+  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' --external-downloader aria2c "$@"
 }
 
 ydlp() {
@@ -273,7 +266,7 @@ mps() {
 
 # yts - download yt query <count> <query>
 ytq() {
-  youtube-dl y--download-archive archive.txt -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' tsearch"${1:-20}":$2
+  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' ytsearch"${1:-20}":$2
 }
 
 # datetime
@@ -380,6 +373,8 @@ gvf() {
 gfwd() { git log --reverse --pretty=%H master | grep -A 1 $(git rev-parse HEAD) | tail -n1 | xargs git checkout }
 grev() { git checkout HEAD~ }
 
+glinesby() { for f in $(git ls-files); do git blame $f | grep "${1:-Sutherland}"; done }
+
 # fzf-gh-issues
 fgi() {
   gh issue list --limit 100 | awk '{NF-=3}1' | fzf --preview "gh issue view {+1}" \
@@ -426,7 +421,7 @@ gpr-sha() {
 # open a github pr in diff-so-fancy
 gdifpr() {
   url="$(dirname $1).patch"
-  curl -L "$url" | diff-so-fancy | less -r
+  curl -L "$url" | diff-so-fancy | less -RFX
 }
 
 # }}}
@@ -442,7 +437,7 @@ subr() {
 }
 
 pdfg() {
-  pdfgrep --color always -i "$1" **/*.pdf | less -R
+  pdfgrep --color always -i "$1" **/*.pdf | less -RFX
 }
 
 # most recent photobooth vid
@@ -470,11 +465,11 @@ tmpdf() { local dir="`mktemp`".pdf; briss -s "$1" -d "$dir" && open $dir }
 fn() { type $1 | field 3 | xargs bat }
 
 dif() {
-  git diff --no-index "$@" | diff-so-fancy | less -r
+  git diff --no-index "$@" | diff-so-fancy | less -RFX
 }
 
 dsf() {
-  diff -u -r "$@" | diff-so-fancy | less -r
+  diff -u -r "$@" | diff-so-fancy | less -RFX
 }
 
 # rails {{{
@@ -491,7 +486,34 @@ Jtests() {
   r -s --no-line-number --multiline -w '(test|describe|context|it)\(.*\{$' "$@" -t js -t ts
 }
 
-# fzf search alias & run selection
-fa() { eval $(alias | fzf | cut -d'=' -f2 | sd -p "'" '') }
+# find-alias
+fa() { print -z $(alias | fzf | cut -d'=' -f2 | sd -p "'" '') }
 
 bdot() { fd -tf -p --color always ${@:-.} ~/.dotfiles/ | fzf --multi | xargs bat }
+
+# TODO: make this one command with fzf bind to viw and fzf preview
+# fzf viw from `functions` and bin
+source ~/.dotfiles/zsh/configs/viw.zsh
+viwfz() {
+  viw $({ ls ~/.dotfiles/bin | sd -p '\*' '' ; functions E '^(async|prompt|comp)' | rg '^[a-zA-Z]\w+\s\(\)' | field 1 } | sort | fzf --preview 'source ~/.dotfiles/zsh/configs/{functions,aliases,viw}.zsh; viw {}')
+}
+# fzf eval from `functions` and bin
+myfns() {
+  eval $({ ls ~/.dotfiles/bin | sd -p '\*' '' ; functions E '^(async|prompt|comp)' | rg '^[a-zA-Z]\w+\s\(\)' | field 1 } | sort | fzf --preview 'source ~/.dotfiles/zsh/configs/{functions,aliases,viw}.zsh; viw {}')
+}
+
+Rga() { rga -L --color=always "$@" | less -XRF }
+
+rgafz() {
+	RG_PREFIX="rga --files-with-matches"
+	local file
+	file="$(
+		FZF_DEFAULT_COMMAND="$RG_PREFIX '$1'" \
+			fzf --sort --preview="[[ ! -z {} ]] && rga --pretty --context 5 {q} {}" \
+				--phony -q "$1" \
+				--bind "change:reload:$RG_PREFIX {q}" \
+				--preview-window="70%:wrap"
+	)" &&
+	echo "opening $file" &&
+	open "$file"
+}

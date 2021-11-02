@@ -333,7 +333,6 @@ if [[ -o interactive ]]; then
   alias surgec='echo -ne '\n' | surge 2>/dev/null | egrep -o "\w+\.surge\.sh" | xargs -I{} echo "https://"{}'
   alias mongostart='brew services start mongodb'
   alias bash='/usr/local/bin/bash'
-  alias rb='batgrep --smart-case --search-pattern --pager=less 2> /dev/null'
   alias pipi='pip install -r requirements.txt'
   alias pipf='pip freeze > requirements.txt'
   alias ctag='ctags -R --exclude=.git --exclude=log *'
@@ -366,6 +365,7 @@ if [[ -o interactive ]]; then
   alias wh='which'
   alias wha='whatis'
   alias routen='netstat -nr'
+  alias rga='rga -L'
   alias whe='whereis'
   alias wifi='airport -s'
   alias yda='youtube-dl -x --audio-format mp3'
@@ -380,7 +380,7 @@ if [[ -o interactive ]]; then
   alias top='sudo htop'
   alias rr='rg -iL --no-messages'
   alias mre="fd -t f --exec gstat --printf='%Y\t%n\n' | sort -nr | head -10 | cut -f2"
-  alias fh='fd -E node_modules -L -t file -p --hidden --no-ignore'
+  alias fh='fd -E node_modules -L -p --hidden --no-ignore --prune'
   alias agh='ag --hidden'
   alias rcp='rsync -ahz --progress'
   alias b='bat'
@@ -421,6 +421,7 @@ if [[ -o interactive ]]; then
   alias datef='date +"%d-%m-%Y"'
   alias fnptr='rg -p "\(\*\w+\)\(" | less -RFX'
   alias rm-nodemod='find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +'
+  alias copysite='wget --mirror --convert-links --adjust-extension --page-requisites --no-parent'
 
   # Archives
   alias dz='rm -rf *zip'
