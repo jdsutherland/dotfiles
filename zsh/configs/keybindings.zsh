@@ -52,7 +52,7 @@ bindkey -s '^P' ' vim-fzf-preview\n'
 
 ranger-cd() {
     tempfile="$(mktemp -t tmp.XXXXXX)"
-    /usr/local/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
+    /opt/homebrew/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
     test -f "$tempfile" &&
     if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
         cd -- "$(cat "$tempfile")"

@@ -145,6 +145,7 @@ let g:coc_global_extensions = [
   \ 'coc-yank',
   \ 'coc-sh',
   \ 'coc-jest',
+  \ 'coc-git',
   \ 'coc-emmet',
   \ 'coc-clangd',
   \ 'coc-react-refactor',

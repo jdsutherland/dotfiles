@@ -6,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # {{{ zinit
-source /usr/local/opt/zinit/zinit.zsh
+source ~/.zinit/bin/zinit.zsh
 
 zinit ice pick"async.zsh" src"pure.zsh"
 zinit ice depth=1; zinit light romkatv/powerlevel10k
@@ -17,7 +17,7 @@ zinit wait lucid light-mode for \
     "wfxr/forgit" \
     "skywind3000/z.lua" \
     atinit"zicompinit; zicdreplay" \
-        "zdharma/fast-syntax-highlighting" \
+        "zdharma-continuum/fast-syntax-highlighting" \
     atload"_zsh_autosuggest_start" \
         "zsh-users/zsh-autosuggestions" \
 
@@ -45,10 +45,13 @@ alias e=$EDITOR
 alias vim="nvim"
 alias vi="nvim"
 
-. /usr/local/opt/asdf/asdf.sh
-. /usr/local/etc/bash_completion.d
+. /opt/homebrew/opt/asdf/asdf.sh
+# TODO: completions not working
+. /opt/homebrew/share/zsh/site-functions/
+. /opt/homebrew/etc/bash_completion.d
 
 export PATH="$HOME/.bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 
 export GOPATH="$HOME/go"
 export GOROOT=/usr/local/opt/go/libexec
