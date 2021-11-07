@@ -65,21 +65,6 @@ fzf-play-widget() { playlists; zle reset-prompt }
 zle     -N   fzf-play-widget
 bindkey '^x^p' fzf-play-widget
 
-# make fzf c-r hist work with zsh-histdb: https://github.com/larkery/zsh-histdb/issues/25 {{{
-histdb-fzf-widget() {
-  local selected num
-  setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
-  selected=( $(histdb --sep 999 | awk -F'999' '{ if (!seen[$4]++) {print $4} }' |
-    FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind='ctrl-r:toggle-sort,ctrl-d:execute(source ~/.zinit/plugins/larkery---zsh-histdb/sqlite-history.zsh && yes | histdb --forget {} > /dev/null 2>&1)' $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m --tac" $(__fzfcmd)) )
-  LBUFFER=$selected
-  zle redisplay
-  typeset -f zle-line-init >/dev/null && zle zle-line-init
-  return $ret
-}
-zle     -N   histdb-fzf-widget
-bindkey '^R' histdb-fzf-widget
-# }}}
-
 # {{{ git fzf
 join-lines() {
   local item
