@@ -330,16 +330,21 @@ function! s:wilder_init() abort
         \ wilder#lua_fzy_highlighter(),
         \ ]
   call wilder#set_option('renderer', wilder#renderer_mux({
-        \ ':': wilder#popupmenu_renderer({
+        \ ':': wilder#popupmenu_renderer(wilder#popupmenu_border_theme({
         \   'highlighter': s:highlighters,
-        \   'left': [
+        \   'highlights': {
+        \     'accent': wilder#make_hl('WilderAccent', 'Pmenu', [{}, {}, {'foreground': '#cc6666'}]),
+        \     'border': 'Normal',
+        \   },
+        \   'border': 'rounded',
+        \     'left': [
         \     wilder#popupmenu_devicons(),
         \   ],
         \   'right': [
         \     ' ',
         \     wilder#popupmenu_scrollbar(),
         \   ],
-        \ }),
+        \ })),
         \ '/': wilder#wildmenu_renderer({
         \   'highlighter': s:highlighters,
         \ }),
