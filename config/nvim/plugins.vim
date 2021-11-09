@@ -60,7 +60,7 @@ Plug 'romgrk/barbar.nvim'
 nnoremap <silent> <space>bb :BufferOrderByWindowNumber<CR>
 nnoremap <silent> <space>dd :BufferClose!<CR>
 Plug 'jdsutherland/nvim-base16'
-Plug 'jdsutherland/lualine.nvim'
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'folke/zen-mode.nvim'
 " }}}
 
