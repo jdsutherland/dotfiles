@@ -1,12 +1,12 @@
 call plug#begin('~/.config/nvim/plugged')
 let g:plug_pwindow = 'vnew'
-source ~/.config/nvim/plugins.vim
+source ~/.dotfiles/config/nvim/plugins.vim
 call plug#end()
 
-source ~/.config/nvim/general.vim
-source ~/.config/nvim/functions.vim
-source ~/.config/nvim/autocmds.vim
-source ~/.config/nvim/keys.vim
+source ~/.dotfiles/config/nvim/general.vim
+source ~/.dotfiles/config/nvim/functions.vim
+source ~/.dotfiles/config/nvim/autocmds.vim
+source ~/.dotfiles/config/nvim/keys.vim
 
 " Use kana/vim-operator-user for textobj with vtr
 " https://github.com/christoomey/vim-tmux-runner/pull/86#issuecomment-608474159
