@@ -1,0 +1,93 @@
+{
+  "title": "Discord",
+  "rules": [
+    {
+      "description": "discord channel nav up/down",
+      "manipulators": [{
+
+        "type": "basic",
+        "from": { "key_code": "j", "modifiers": { "mandatory": [ "control" ] } },
+        "to": [{ "key_code": "down_arrow", "modifiers": "option" }],
+        "conditions": [{
+          "type": "frontmost_application_if",
+          "bundle_identifiers": [
+            "^com\\.hnc\\.Discord"
+          ]
+        }]
+      },
+      {
+        "type": "basic",
+        "from": { "key_code": "k", "modifiers": { "mandatory": [ "control" ] } },
+        "to": [{ "key_code": "up_arrow", "modifiers": "option" }],
+        "conditions": [{
+          "type": "frontmost_application_if",
+          "bundle_identifiers": [
+            "^com\\.hnc\\.Discord"
+          ]
+        }
+        ]
+      },
+      {
+        "type": "basic",
+        "from": { "key_code": "quote", "modifiers": { "mandatory": [ "control" ] } },
+        "to": [{ "key_code": "up_arrow", "modifiers": ["option", "command"] }],
+        "conditions": [{
+          "type": "frontmost_application_if",
+          "bundle_identifiers": [
+            "^com\\.hnc\\.Discord"
+          ]
+        }
+        ]
+      },
+      {
+        "type": "basic",
+        "from": { "key_code": "semicolon", "modifiers": { "mandatory": [ "control" ] } },
+        "to": [{ "key_code": "down_arrow", "modifiers": ["option", "command"] }],
+        "conditions": [{
+          "type": "frontmost_application_if",
+          "bundle_identifiers": [
+            "^com\\.hnc\\.Discord"
+          ]
+        }
+        ]
+      },
+      {
+        "type": "basic",
+        "from": { "key_code": "i", "modifiers": { "mandatory": [ "control" ] } },
+        "to": [{ "key_code": "up_arrow", "modifiers": ["option", "shift"] }],
+        "conditions": [{
+          "type": "frontmost_application_if",
+          "bundle_identifiers": [
+            "^com\\.hnc\\.Discord"
+          ]
+        }
+        ]
+      },
+      {
+        "type": "basic",
+        "from": { "key_code": "o", "modifiers": { "mandatory": [ "control" ] } },
+        "to": [{ "key_code": "down_arrow", "modifiers": ["option", "shift"] }],
+        "conditions": [{
+          "type": "frontmost_application_if",
+          "bundle_identifiers": [
+            "^com\\.hnc\\.Discord"
+          ]
+        }
+        ]
+      },
+      {
+        "type": "basic",
+        "from": { "key_code": "m", "modifiers": { "mandatory": [ "control" ] } },
+        "to": [{ "key_code": "down_arrow", "modifiers": ["option", "shift", "command"] }],
+        "conditions": [{
+          "type": "frontmost_application_if",
+          "bundle_identifiers": [
+            "^com\\.hnc\\.Discord"
+          ]
+        }
+        ]
+      }
+      ]
+    }
+  ]
+}
