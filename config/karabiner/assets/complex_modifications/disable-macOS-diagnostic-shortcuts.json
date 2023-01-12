@@ -1,0 +1,83 @@
+{
+  "title": "Prevent unintended macOS hyper wifi logging & sysdiag",
+  "rules": [
+    {
+      "description": "hyper+w to hyper+` b/c w triggers macOS wifidiag",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "w",
+            "modifiers": {
+              "mandatory": [
+                "command",
+                "control",
+                "option",
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "grave_accent_and_tilde",
+              "modifiers": [
+                "command",
+                "control",
+                "option",
+                "shift"
+              ]
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "Disabling command+control+option+shift+. This triggers wifi logging also.",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "period",
+            "modifiers": {
+              "mandatory": [
+                "command",
+                "control",
+                "option",
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "escape"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "Disabling command+control+option+shift+, - this triggers sysdiagnostic",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "comma",
+            "modifiers": {
+              "mandatory": [
+                "command",
+                "control",
+                "option",
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "escape"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    }
+  ]
+}
