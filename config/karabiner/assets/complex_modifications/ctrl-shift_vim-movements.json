@@ -1,8 +1,8 @@
 {
-  "title": "ctrl-shift / vim (hjkl) arrows, n/m (l/r word), o fwd del word",
+  "title": "ctrl-shift vim movements",
   "rules": [
     {
-      "description": "Ctrl+Shift + [hjkl] to arrow",
+      "description": "Ctrl+Shift + [hjkl] arrows and movements",
       "manipulators": [
         {
           "type": "basic",
@@ -26,12 +26,12 @@
         },
         {
           "type": "basic",
-          "from": { "key_code": "n", "modifiers": { "mandatory": [ "left_control", "left_shift" ] } },
+          "from": { "key_code": "p", "modifiers": { "mandatory": [ "left_control", "left_shift" ] } },
           "to": [ { "key_code": "left_arrow", "modifiers": [ "left_option" ] } ]
         },
         {
           "type": "basic",
-          "from": { "key_code": "p", "modifiers": { "mandatory": [ "left_control", "left_shift" ] } },
+          "from": { "key_code": "n", "modifiers": { "mandatory": [ "left_control", "left_shift" ] } },
           "to": [ { "key_code": "right_arrow", "modifiers": [ "left_option" ] } ]
         },
         {
@@ -67,12 +67,12 @@
         {
           "type": "basic",
           "from": { "key_code": "semicolon", "modifiers": { "mandatory": [ "left_control", "left_shift" ] } },
-          "to": [ { "key_code": "page_up" } ]
+          "to": [ { "key_code": "page_down" } ]
         },
         {
           "type": "basic",
           "from": { "key_code": "quote", "modifiers": { "mandatory": [ "left_control", "left_shift" ] } },
-          "to": [ { "key_code": "page_down" } ]
+          "to": [ { "key_code": "page_up" } ]
         }
       ]
     }
