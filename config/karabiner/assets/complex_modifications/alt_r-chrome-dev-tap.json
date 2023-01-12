@@ -1,8 +1,8 @@
 {
-  "title": "chrome left_option devtools / left_command selector",
+  "title": "google chrome shortcuts",
   "rules": [
     {
-      "description": "chrome left_option devtools / left_command selector",
+      "description": "chrome left_option devtools | left_command selector | right_opt tabs",
       "manipulators": [
         {
           "type": "basic",
@@ -57,6 +57,39 @@
               "modifiers": [
                 "left_command",
                 "left_option"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com.google.Chrome",
+                "^com.brave.Browser"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_option",
+            "modifiers": {
+              "optional": ["any" ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_option",
+              "modifiers": ["any"]
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "a",
+              "modifiers": [
+                "left_command",
+                "left_shift"
               ]
             }
           ],
