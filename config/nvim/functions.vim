@@ -23,8 +23,8 @@ function! RenameFile()
 endfunction
 
 function! ToggleGStatus()
-  if buflisted(bufname('.git/index'))
-    bd .git/index
+  if buflisted(bufname('fugitive:///*/.git//$'))
+    execute ":bdelete" bufname('fugitive:///*/.git/')
     wincmd p
   else
     vert Git
