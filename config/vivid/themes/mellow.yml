@@ -1,0 +1,122 @@
+colors:
+  # Theme colors
+  bg:             "161617"
+  darker_grey:    "2a2a2d"
+  dark_grey:      "3e3e43"
+  grey:           "57575f"
+  blue_grey:      "a0a8b0"
+  white:          "c1c0d4"
+  dark_red:       "f5a191"
+  red:            "ffae9f"
+  bright_magenta: "ecaad6"
+  bright_yellow:  "f0c5a9"
+  magenta:        "e29eca"
+  blue:           "aca1cf"
+  bright_blue:    "b9aeda"
+  cyan:           "ea83a5"
+  bright_cyan:    "f591b2"
+  green:          "90b99f"
+  bright_green:   "9dc6ac"
+  yellow:         "e6b99d"
+  bright_white:   "cac9dd"
+
+core:
+  normal_text: {}
+  regular_file: {}
+  reset_to_normal: {}
+
+  directory:
+    foreground: magenta
+
+  symlink:
+    foreground: bright_yellow
+
+  multi_hard_link: {}
+
+  fifo:
+    foreground: bright_white
+
+  socket:
+    foreground: bright_white
+
+  door:
+    foreground: bright_white
+
+  block_device:
+    foreground: red
+
+  character_device:
+    foreground: red
+
+  broken_symlink:
+    foreground: bg
+    background: dark_red
+
+  missing_symlink_target:
+    foreground: bg
+    background: dark_red
+
+  setuid: {}
+
+  setgid: {}
+
+  file_with_capability: {}
+
+  sticky_other_writable: {}
+
+  other_writable: {}
+
+  sticky: {}
+
+  executable_file:
+    foreground: bright_magenta
+    font-style: bold
+
+text:
+  special:
+    foreground: bright_blue
+    font-style: bold
+
+  todo:
+    foreground: dark_red
+
+  licenses:
+    foreground: bright_green
+    font-style: italic
+
+  configuration:
+    foreground: bright_green
+
+  other:
+    foreground: yellow
+
+markup:
+  foreground: blue
+
+programming:
+  source:
+    foreground: blue_grey
+
+  tooling:
+    foreground: bright_blue
+
+    continuous-integration:
+      foreground: cyan
+
+media:
+  foreground: green
+
+office:
+  foreground: white
+
+archives:
+  foreground: bright_yellow
+  font-style: underline
+
+executable:
+  foreground: bright_magenta
+  font-style: bold
+
+unimportant:
+  foreground: grey
+  font-style: italic

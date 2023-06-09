@@ -64,9 +64,9 @@ set splitright
 set diffopt+=vertical
 
 " coupled to base16-vim/base16-tomorrow-night
-set background=dark
+" set background=dark
 set termguicolors
-colorscheme base16-tomorrow-night
+colorscheme mellow
 highlight Comment cterm=italic gui=italic
 
 " Display extra whitespace

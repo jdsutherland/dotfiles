@@ -3,20 +3,20 @@
 
 _gen_fzf_default_opts() {
 
-local color00='#1d1f21'
-local color01='#282a2e'
-local color02='#373b41'
-local color03='#969896'
-local color04='#b4b7b4'
-local color05='#c5c8c6'
-local color06='#e0e0e0'
-local color07='#ffffff'
-local color08='#cc6666'
+local color00='#161617'
+local color01='#1b1b1d'
+local color02='#2a2a2d'
+local color03='#3e3e43'
+local color04='#57575f'
+local color05='#757581'
+local color06='#9998a8'
+local color07='#c1c0d4'
+local color08='#EA83A5'
 local color09='#de935f'
-local color0A='#f0c674'
-local color0B='#b5bd68'
-local color0C='#8abeb7'
-local color0D='#81a2be'
+local color0A='#f5a191'
+local color0B='#90B99F'
+local color0C='#EA83A5'
+local color0D='#DAFEB4'
 local color0E='#b294bb'
 local color0F='#a3685a'
 
@@ -43,7 +43,6 @@ export FZF_DEFAULT_OPTS="
   --bind ctrl-t:toggle-all,ctrl-f:toggle+down,ctrl-o:select-all
   --reverse --ansi
   --toggle-sort=ctrl-s
-  --black
   --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D
   --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C
   --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D

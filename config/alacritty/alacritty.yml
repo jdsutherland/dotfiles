@@ -86,40 +86,40 @@ font:
 # Display the time it takes to redraw each frame.
 # render_timer: false
 
-# Base16 Tomorrow Night - alacritty color config
-# Chris Kempson (http://chriskempson.com)
+
+# Colors (Mellow)
 colors:
   # Default colors
   primary:
-    background: '0x1d1f21'
-    foreground: '0xc5c8c6'
+    background: '#161617'
+    foreground: '#c9c7cd'
 
-  # Colors the cursor will use if `custom_cursor_colors` is true
+  # Cursor colors
   cursor:
-    text: '0x1d1f21'
-    cursor: '0xc5c8c6'
+    text: '#c9c7cd'
+    cursor: '#757581'
 
   # Normal colors
   normal:
-    black:   '0x1d1f21'
-    red:     '0xcc6666'
-    green:   '0xb5bd68'
-    yellow:  '0xf0c674'
-    blue:    '0x81a2be'
-    magenta: '0xb294bb'
-    cyan:    '0x8abeb7'
-    white:   '0xc5c8c6'
+    black:   '#27272a'
+    red:     '#f5a191'
+    green:   '#90b99f'
+    yellow:  '#e6b99d'
+    blue:    '#aca1cf'
+    magenta: '#e29eca'
+    cyan:    '#ea83a5'
+    white:   '#c1c0d4'
 
   # Bright colors
   bright:
-    black:   '0x1d1f21'
-    red:     '0xcc6666'
-    green:   '0xb5bd68'
-    yellow:  '0xf0c674'
-    blue:    '0x81a2be'
-    magenta: '0xb294bb'
-    cyan:    '0x8abeb7'
-    white:   '0xc5c8c6'
+    black:   '#353539'
+    red:     '#ffae9f'
+    green:   '#9dc6ac'
+    yellow:  '#f0c5a9'
+    blue:    '#b9aeda'
+    magenta: '#ecaad6'
+    cyan:    '#f591b2'
+    white:   '#cac9dd'
 
 draw_bold_text_with_bright_colors: false
 

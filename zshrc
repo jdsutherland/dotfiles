@@ -60,7 +60,7 @@ export GOROOT=/usr/local/opt/go/libexec
 export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$GOROOT/bin"
 
-export LS_COLORS=$(vivid generate jellybeans)
+export LS_COLORS=$(vivid generate mellow)
 export BAT_PAGER=less
 
 # Show contents of directory after cd-ing into it

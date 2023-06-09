@@ -3,6 +3,7 @@ function! DoRemote(arg)
 endfunction
 
 
+Plug 'kvrohit/mellow.nvim'
 Plug 'lpinilla/vim-codepainter'
 Plug 'pwntester/octo.nvim'
 
