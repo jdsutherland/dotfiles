@@ -17,7 +17,7 @@ call operator#user#define_ex_command('vtr', 'VtrSendLinesToRunner')
 lua << EOF
 require('lualine').setup{
   options = {
-    theme = 'base16_tomorrow_night',
+    theme = 'auto',
     section_separators = {''},
     component_separators = {''},
     disabled_filetypes = {},

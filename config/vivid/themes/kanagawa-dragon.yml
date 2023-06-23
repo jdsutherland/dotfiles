@@ -1,0 +1,135 @@
+colors:
+  dragonBg : '181616'
+  dragonBlack5 : '393836'
+  dragonBlack6 : '625e5a'
+  dragonOrange2 : 'b98d7b'
+  dragonBlue2 : '8ba4b0'
+  dragonViolet : '8992a7'
+  dragonOrange : 'b6927b'
+  dragonRed : 'c4746e'
+  dragonYellow : 'c4b28a'
+  dragonGreen : '87a987'
+  dragonPink : 'a292a3'
+  dragonGray3 : '7a8382'
+  dragonTeal : '949fb5'
+  dragonWhite : 'c5c9c5'
+
+core:
+  normal_text:
+    foreground: dragonBlack6
+
+  regular_file:
+    foreground: dragonBlack6
+
+  reset_to_normal:
+    foreground: dragonBlack6
+
+  directory:
+    foreground: dragonBlue2
+    font-style: bold
+
+  symlink:
+    foreground: dragonGreen
+    font-style: italic
+
+  multi_hard_link: {}
+
+  fifo:
+    foreground: dragonOrange
+    background: dragonBlack5
+    font-style: italic
+
+  socket:
+    foreground: dragonPink
+    background: dragonBlack5
+    font-style: italic
+
+  door:
+    foreground: dragonPink
+    background: dragonBlack5
+    font-style: italic
+
+  block_device:
+    foreground: dragonOrange
+    background: dragonBlack5
+    font-style: italic
+
+  character_device:
+    foreground: dragonOrange
+    background: dragonBlack5
+    font-style: italic
+
+  broken_symlink:
+    foreground: dragonBg
+    background: dragonYellow
+
+  missing_symlink_target:
+    foreground: dragonBg
+    background: dragonYellow
+
+  setuid: {}
+
+  setgid: {}
+
+  file_with_capability: {}
+
+  sticky_other_writable: {}
+
+  other_writable: {}
+
+  sticky: {}
+
+  executable_file:
+    foreground: dragonRed
+    font-style: italic
+
+text:
+  special:
+    foreground: dragonTeal
+
+  todo:
+    foreground: dragonTeal
+    font-style: italic
+
+  licenses:
+    foreground: dragonTeal
+    font-style: italic
+
+  configuration:
+    foreground: dragonGray3
+
+  other:
+    foreground: dragonGray3
+
+markup:
+  foreground: dragonPink
+
+programming:
+  foreground: dragonGreen
+
+media:
+  image:
+    foreground: dragonPink
+
+  audio:
+    foreground: dragonPink
+
+  video:
+    foreground: dragonPink
+
+  fonts:
+    foreground: dragonPink
+
+office:
+  foreground: dragonPink
+
+archives:
+  foreground: dragonViolet
+  font-style: italic
+
+executable:
+  foreground: dragonRed
+
+unimportant:
+  foreground: dragonBlack5
+  font-style: italic

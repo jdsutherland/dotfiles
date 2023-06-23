@@ -3,7 +3,7 @@
 
 _gen_fzf_default_opts() {
 
-local color00='#161617'
+local color00='#181616'
 local color01='#1b1b1d'
 local color02='#2a2a2d'
 local color03='#3e3e43'
@@ -11,14 +11,14 @@ local color04='#57575f'
 local color05='#757581'
 local color06='#9998a8'
 local color07='#c1c0d4'
-local color08='#EA83A5'
-local color09='#de935f'
-local color0A='#f5a191'
-local color0B='#90B99F'
-local color0C='#EA83A5'
+local color08='#8992a7'
+local color09='#87a987'
+local color0A='#8ba4b0'
+local color0B='#7a8382'
+local color0C='#c4746e'
 local color0D='#DAFEB4'
-local color0E='#b294bb'
-local color0F='#a3685a'
+local color0E='#a292a3'
+local color0F='#b98d7b'
 
 _fzf_compgen_path() {
   rg --files "$1" | with-dir "$1"
