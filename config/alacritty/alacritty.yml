@@ -80,7 +80,7 @@ font:
     x: 0
     y: 0
 
-  use_thin_strokes: true
+  use_thin_strokes: false
 
   custom_cursor_colors: true
 # Display the time it takes to redraw each frame.
