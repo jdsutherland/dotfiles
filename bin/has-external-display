@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+# vim: set ft=zsh:
+
+if [ `system_profiler SPDisplaysDataType | grep Resolution | wc -l` -gt 1 ]; then
+  echo 1
+else
+  echo 0
+fi
