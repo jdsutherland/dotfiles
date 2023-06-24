@@ -59,7 +59,7 @@
     "typescript.tsx": ["typescript", "javascriptreact"],
     "cpp": ["c"]
   },
-  "clangd.path": "/usr/local/Cellar/llvm/10.0.1_1/bin/clangd",
+  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/13.0.0/clangd_13.0.0/bin/clangd",
   "suggest.timeout": 4000,
   "solargraph.diagnostics": true,
   "solargraph.formatting": true,
@@ -70,8 +70,8 @@
   "java.jdt.ls.vmargs": "-javaagent:/usr/local/share/lombok/lombok.jar",
   "java.signatureHelp.enabled": true,
   "java.completion.guessMethodArguments": true,
-  "python.jediPath": "/Users/j/.asdf/installs/python/3.9.0/lib/python3.9/site-packages",
   "omnisharp.version": "v1.37.6",
+  "python.pythonPath": "python3",
   "html.filetypes": ["html","handlebars","htmldjango","blade","eruby"],
   "cSpell.enabled": false,
   "cSpell.enabledLanguageIds": [

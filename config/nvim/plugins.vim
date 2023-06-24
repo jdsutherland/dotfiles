@@ -3,15 +3,30 @@ function! DoRemote(arg)
 endfunction
 
 
+Plug 'lewis6991/gitsigns.nvim'
+
+" colors
 Plug 'rebelot/kanagawa.nvim'
+Plug 'yazeed1s/oh-lucy.nvim'
 Plug 'kvrohit/mellow.nvim'
+Plug 'olivercederborg/poimandres.nvim'
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+Plug 'rose-pine/neovim', { 'as': 'rose-pine' }
+
+Plug 'Einenlum/yaml-revealer'
+
+Plug 'vim-scripts/applescript.vim'
 Plug 'lpinilla/vim-codepainter'
 Plug 'pwntester/octo.nvim'
+Plug 'kentaroi/ultisnips-swift'
 
 Plug 'arthurxavierx/vim-caser'
 let g:caser_prefix = 'gS'
+" preview tags
 Plug 'skywind3000/vim-preview'
 nnoremap <space>( :PreviewTag<cr>
+noremap <c-n> :PreviewScroll +1<cr>
+noremap <c-p> :PreviewScroll -1<cr>
 Plug 'tweekmonster/startuptime.vim'
 Plug 'sk1418/Join'
 Plug 'junegunn/vader.vim'
@@ -55,7 +70,6 @@ nnoremap <silent> <space>bh :Bdelete! hidden<CR> :BufferOrderByWindowNumber<CR>
 Plug 'romgrk/barbar.nvim'
 nnoremap <silent> <space>bb :BufferOrderByWindowNumber<CR>
 nnoremap <silent> <space>dd :BufferClose!<CR>
-Plug 'jdsutherland/nvim-base16'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'folke/zen-mode.nvim'
 " }}}
@@ -158,11 +172,16 @@ let g:coc_global_extensions = [
 nmap \ys yos:CocCommand cSpell.toggleEnableSpellChecker<cr>
 nmap [c <Plug>(coc-git-prevchunk)
 nmap ]c <Plug>(coc-git-nextchunk)
+nmap [C <Plug>(coc-git-prevconflict)
+nmap ]C <Plug>(coc-git-nextconflict)
 nmap ,hs :CocCommand git.chunkStage<cr>
 nmap ,hu :CocCommand git.chunkUndo<cr>
 nmap ,hc <Plug>(coc-git-chunkinfo)
 " FIXME: apparently this breaks repeat for `cgn`
 " autocmd CursorHold * silent! CocCommand git.refresh
+
+" TODO: see if this works https://github.com/fannheyward/coc-pyright/issues/64
+autocmd FileType python let b:coc_root_patterns = ['.git', '.env']
 
 " scroll hover popup
 nnoremap <nowait><expr> <C-n> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-n>"
@@ -235,8 +254,8 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 " Remap keys for gotos
 autocmd User CocNvimInit nmap <expr>,f CocHasProvider('documentSymbol') ? "<Plug>(coc-definition)" : "<C-]>zt"
 " open def in split
-autocmd User CocNvimInit nmap <expr>,fv CocHasProvider('documentSymbol') ? ":call CocAction('jumpDefinition', 'vsplit')<CR>zt<c-y><c-y><c-y><c-y><C-w><C-p>" : ":vs<cr><c-]>zt<c-y><c-y><c-y><c-y><C-w><C-p>"
-autocmd User CocNvimInit nmap <expr>,fs CocHasProvider('documentSymbol') ? ":call CocAction('jumpDefinition', 'split')<CR>zt<c-y><c-y><c-y><c-y><C-w><C-p>" : ":sp<cr><c-]>zt<c-y><c-y><c-y><c-y><C-w><C-p>"
+autocmd User CocNvimInit nmap <expr>,fv CocHasProvider('documentSymbol') ? ":exec 'Mark ' expand('<cword>')<cr>:call CocAction('jumpDefinition', 'vsplit')<CR>zt<c-y><c-y><c-y><c-y><C-w><C-p>" : ":exec 'Mark ' expand('<cword>')<cr>:vs<cr><c-]>zt<c-y><c-y><c-y><c-y><C-w><C-p>"
+autocmd User CocNvimInit nmap <expr>,fs CocHasProvider('documentSymbol') ? ":exec 'Mark ' expand('<cword>')<cr>:call CocAction('jumpDefinition', 'split')<CR>zt<c-y><c-y><c-y><c-y><C-w><C-p>" : ":exec 'Mark ' expand('<cword>')<cr>:sp<cr><c-]>zt<c-y><c-y><c-y><c-y><C-w><C-p>"
 " TODO: c-[ is same as <esc> -- find a way to distinguish
 " nmap <silent> <c-[> <Plug>(coc-definition)
 
@@ -905,7 +924,7 @@ autocmd FileType yaml BracelessEnable +fold
 " }}}
 
 " " golang TODO: needed w/ treesitter? {{{
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+" Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 " let g:go_highlight_build_constraints = 1
 " let g:go_highlight_extra_types = 1
 " let g:go_highlight_fields = 1
@@ -1139,7 +1158,15 @@ let g:rappel#custom_repls = {
 \ },
 \ 'python': {
 \   'launch': 'pytest %:p',
-\   'run': 'python %:p',
+\   'run': 'python3 %:p',
+\ },
+\ 'javascript': {
+\   'launch': 'node %:p',
+\   'run': 'node %:p',
+\ },
+\ 'applescript': {
+\   'launch': 'osascript -l JavaScript %:p',
+\   'run': 'osascript %:p',
 \ },
 \}
 " }}}

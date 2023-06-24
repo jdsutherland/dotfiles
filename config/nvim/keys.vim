@@ -78,7 +78,7 @@ nnoremap <c-b> <C-^>
 " jump between previous split
 nnoremap \s <c-w><c-p>
 " close recent split
-nnoremap ,fd <c-w><c-p> :q<cr>
+nnoremap ,fd :Mark<cr><c-w><c-p> :q<cr>
 nnoremap <silent> ,f <C-]>zz
 nnoremap <silent>,ft :tab split <CR>:exec("tag ".expand("<cword>"))<CR>
 " open tag in split
