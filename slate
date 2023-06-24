@@ -17,24 +17,27 @@ alias mon-laptop 0
 alias mon-asus   1
 
 # Abstract positions
-alias full          move screenOriginX;screenOriginY                             screenSizeX;screenSizeY
-alias lefthalf      move screenOriginX;screenOriginY                             screenSizeX/2;screenSizeY
-alias righthalf     move screenOriginX+screenSizeX/2;screenOriginY               screenSizeX/2;screenSizeY
-alias rightmost     move screenOriginX+screenSizeX*0.4;screenOriginY             screenSizeX*0.6;screenSizeY
-alias rightless     move screenOriginX+screenSizeX*0.6;screenOriginY             screenSizeX*0.4;screenSizeY
-alias leftmost      move screenOriginX;screenOriginY                             screenSizeX*0.6+5;screenSizeY
-alias leftless      move screenOriginX;screenOriginY                             screenSizeX*0.4;screenSizeY
+alias full            move screenOriginX;screenOriginY                             screenSizeX;screenSizeY
+alias notifications   move screenOriginX;screenOriginY                             screenSizeX*0.825;screenSizeY
+alias lefthalf        move screenOriginX;screenOriginY                             screenSizeX/2;screenSizeY
+alias righthalf       move screenOriginX+screenSizeX/2;screenOriginY               screenSizeX/2;screenSizeY
+alias rightmost       move screenOriginX+screenSizeX*0.4;screenOriginY             screenSizeX*0.6;screenSizeY
+alias rightless       move screenOriginX+screenSizeX*0.6;screenOriginY             screenSizeX*0.4;screenSizeY
+alias leftmost        move screenOriginX;screenOriginY                             screenSizeX*0.6+5;screenSizeY
+alias leftless        move screenOriginX;screenOriginY                             screenSizeX*0.4;screenSizeY
 # Concrete positions
-alias 1-full        move screenOriginX;screenOriginY                             screenSizeX;screenSizeY           ${mon-laptop}
-alias 1-left        move screenOriginX;screenOriginY                             screenSizeX/2+3;screenSizeY         ${mon-laptop}
-alias 1-right       move screenOriginX+screenSizeX/2;screenOriginY               screenSizeX/2;screenSizeY         ${mon-laptop}
-alias 2-full        move screenOriginX;screenOriginY                             screenSizeX;screenSizeY           ${mon-asus}
-alias 2-left        move screenOriginX;screenOriginY                             screenSizeX/2+3;screenSizeY         ${mon-asus}
-alias 2-lefttop    move screenOriginX;screenOriginY                              screenSizeX/2;screenSizeY/2       ${mon-asus}
-alias 2-leftbottom move screenOriginX;screenOriginY+screenSizeY/2                screenSizeX/2;screenSizeY/2       ${mon-asus}
-alias 2-right       move screenOriginX+screenSizeX/2;screenOriginY               screenSizeX/2;screenSizeY         ${mon-asus}
-alias 2-righttop    move screenOriginX+screenSizeX/2;screenOriginY               screenSizeX/2;screenSizeY/2       ${mon-asus}
-alias 2-rightbottom move screenOriginX+screenSizeX/2;screenOriginY+screenSizeY/2 screenSizeX/2;screenSizeY/2       ${mon-asus}
+alias 1-full          move screenOriginX;screenOriginY                             screenSizeX;screenSizeY           ${mon-laptop}
+alias 1-left          move screenOriginX;screenOriginY                             screenSizeX/2+3;screenSizeY       ${mon-laptop}
+alias 1-notif-scaled  move screenOriginX;screenOriginY                             screenSizeX*0.825;screenSizeY     ${mon-laptop}
+alias 1-notif         move screenOriginX;screenOriginY                             screenSizeX*0.791;screenSizeY     ${mon-laptop}
+alias 1-right         move screenOriginX+screenSizeX/2;screenOriginY               screenSizeX/2;screenSizeY         ${mon-laptop}
+alias 2-full          move screenOriginX;screenOriginY                             screenSizeX;screenSizeY           ${mon-asus}
+alias 2-left          move screenOriginX;screenOriginY                             screenSizeX/2+3;screenSizeY       ${mon-asus}
+alias 2-lefttop       move screenOriginX;screenOriginY                             screenSizeX/2;screenSizeY/2       ${mon-asus}
+alias 2-leftbottom    move screenOriginX;screenOriginY+screenSizeY/2               screenSizeX/2;screenSizeY/2       ${mon-asus}
+alias 2-right         move screenOriginX+screenSizeX/2;screenOriginY               screenSizeX/2;screenSizeY         ${mon-asus}
+alias 2-righttop      move screenOriginX+screenSizeX/2;screenOriginY               screenSizeX/2;screenSizeY/2       ${mon-asus}
+alias 2-rightbottom   move screenOriginX+screenSizeX/2;screenOriginY+screenSizeY/2 screenSizeX/2;screenSizeY/2       ${mon-asus}
 
 # 2 Monitor layout
 layout 2monitors 'Alacritty':MAIN_FIRST,IGNORE_FAIL                                         ${1-left} | ${2-left}
@@ -47,20 +50,53 @@ layout 2monitors 'OneNote':REPEAT                                               
 layout 2monitors 'Google Play Music Desktop Player':REPEAT                               ${1-full}
 
 # 1 Monitor layout
-layout 1monitor 'Alacritty':MAIN_FIRST                                                      ${1-left}
-layout 1monitor 'Google Chrome':REPEAT                                                   ${1-right}
-layout 1monitor 'Google Chrome Canary':REPEAT                                            ${rightless}
-layout 1monitor 'Dash':REPEAT                                                            ${rightless}
-layout 1monitor 'WhatsApp':REPEAT                                                        ${rightless}
-layout 1monitor 'Marked 2':REPEAT                                                        ${rightless}
-layout 1monitor 'Preview':REPEAT                                                         ${1-right}
-layout 1monitor 'mpv':REPEAT                                                             ${1-right}
-layout 1monitor 'Finder':REPEAT                                                          ${rightless}
-layout 1monitor 'Evernote':REPEAT                                               ${1-right}
-layout 1monitor 'Google Play Music Desktop Player':REPEAT                                ${1-full}
+layout 1monitor 'Alacritty':MAIN_FIRST                                                   ${1-full}
+layout 1monitor 'Google Chrome':REPEAT                                                   ${1-full}
+layout 1monitor 'Dash':REPEAT                                                            ${1-full}
+layout 1monitor 'Marked 2':REPEAT                                                        ${1-full}
+layout 1monitor 'Preview':REPEAT                                                         ${1-full}
+layout 1monitor 'mpv':REPEAT                                                             ${1-full}
+layout 1monitor 'Finder':REPEAT                                                          ${1-full}
+layout 1monitor 'Evernote':REPEAT                                                        ${1-full}
+layout 1monitor 'Microsoft Excel':REPEAT                                                 ${1-full}
+layout 1monitor 'Discord':REPEAT                                                         ${1-full}
+layout 1monitor 'Alfred Preferences':REPEAT                                              ${1-full}
+
+# 1 Monitor notif
+layout 1notifications 'Alacritty':MAIN_FIRST                                             ${1-notif-scaled}
+layout 1notifications 'Google Chrome':REPEAT                                             ${1-notif-scaled}
+layout 1notifications 'Brave Beta':REPEAT                                             ${1-notif-scaled}
+layout 1notifications 'Dash':REPEAT                                                      ${1-notif-scaled}
+layout 1notifications 'Marked 2':REPEAT                                                  ${1-notif-scaled}
+layout 1notifications 'Preview':REPEAT                                                   ${1-notif-scaled}
+layout 1notifications 'Anki':REPEAT                                                      ${1-notif-scaled}
+layout 1notifications 'mpv':REPEAT                                                       ${1-notif-scaled}
+layout 1notifications 'Finder':REPEAT                                                    ${1-notif-scaled}
+layout 1notifications 'Evernote':REPEAT                                                  ${1-notif-scaled}
+layout 1notifications 'Microsoft Excel':REPEAT                                           ${1-notif-scaled}
+layout 1notifications 'Discord':REPEAT                                                   ${1-notif-scaled}
+layout 1notifications 'Alfred Preferences':REPEAT                                        ${1-notif-scaled}
+layout 1notifications 'mpv':REPEAT                                        ${1-notif-scaled}
+
+# 2 Monitor notif
+layout 2notifications 'Dash':REPEAT                                                      ${1-notif}
+layout 2notifications 'Discord':REPEAT                                                   ${1-notif}
+layout 2notifications 'Alacritty':MAIN_FIRST                                             ${2-full}
+layout 2notifications 'Evernote':REPEAT                                                  ${2-full}
+layout 2notifications 'Google Chrome':REPEAT                                             ${2-full}
+layout 2notifications 'Brave Beta':REPEAT                                             ${2-full}
+layout 2notifications 'Microsoft Excel':REPEAT                                           ${2-full}
+layout 2notifications 'Marked 2':REPEAT                                                  ${2-full}
+layout 2notifications 'Preview':REPEAT                                                   ${2-full}
+layout 2notifications 'Anki':REPEAT                                                      ${2-full}
+layout 2notifications 'Skitch':REPEAT                                                    ${2-full}
+layout 2notifications 'Finder':REPEAT                                                    ${2-left}
+layout 2notifications 'Alfred Preferences':REPEAT                                        ${2-right}
+layout 2notifications 'mpv':REPEAT                                                       ${2-right}
+layout 2notifications 'Stickies':REPEAT                                                  ${2-right}
 
 # 1 Monitor 3/4 term - browser (1dev)
-layout 1dev 'Alacritty':MAIN_FIRST                                                          ${leftmost}
+layout 1dev 'Alacritty':MAIN_FIRST                                                       ${leftmost}
 layout 1dev 'Google Chrome':REPEAT                                                       ${rightless}
 layout 1dev 'Google Chrome Canary':REPEAT                                                ${leftmost}
 layout 1dev 'Evernote':REPEAT                                                   ${rightless}
@@ -103,26 +139,16 @@ default 1mpv      resolutions:${mon-laptop}
 # ## Key aliases
 alias hyper ctrl;shift;alt;cmd
 
-bind ;:${hyper} hint ASDFJKLGHWERTYUIO
 bind ':${hyper} grid
-# bind 1:${hyper} layout 2monitors
-# bind 2:${hyper} sequence layout 1monitor | focus 'Google Chrome' | focus 'Google Chrome'
-# bind 3:${hyper} sequence layout 1dev | focus 'Alacritty' | focus 'Dash'
-# bind 4:${hyper} sequence layout 1pdf | focus 'Preview' | focus 'Alacritty'
-# bind 5:${hyper} sequence layout 1mpv | focus 'mpv' | focus 'Evernote'
-# bind 8:${hyper} sequence activate-snapshot random | focus 'Evernote' | focus 'mpv'
-# bind 9:${hyper} snapshot random save-to-disk
+bind 1:${hyper} ${notifications}
+bind 2:${hyper} sequence layout 1notifications
+bind 3:${hyper} sequence layout 1monitor
+bind 4:${hyper} sequence layout 2notifications
 bind space:${hyper} hide 'current'
 
 ## Application aliases
 alias browser  'Google Chrome'
 alias editor   'Code'
-
-## Focus Bindings
-bind a:${hyper}  focus left
-bind s:${hyper}  focus down
-bind d:${hyper}  focus up
-bind f:${hyper}  focus right
 
 ## Location bindings
 # These are laid out to be used with the right hand
@@ -132,28 +158,22 @@ bind u:${hyper}   undo
 bind i:${hyper}   ${full}
 bind [:${hyper}   ${lefthalf}
 bind ]:${hyper}   ${righthalf}
-bind 9:${hyper}   resize -10% +0 top-right
-bind 0:${hyper}   resize +10% +0 top-right
-bind -:${hyper}   resize -10% +0
-bind =:${hyper}   resize +10% +0
 
 ## App bindings
 bind t:${hyper}     focus 'Alacritty'
 # HACK: coupled to karabiner remap hyper+w b/c triggers WiFiDiagnostic
-bind `:${hyper}     focus 'WhatsApp'
-bind q:${hyper}     focus 'Dash'
+# bind `:${hyper}     focus 'WhatsApp'
+# bind q:${hyper}     focus 'Dash'
+bind q:${hyper}     focus 'Brave'
 bind g:${hyper}     focus 'Finder'
 bind p:${hyper}     focus 'Preview'
-bind m:${hyper}     focus 'Marked 2'
+# bind m:${hyper}     focus 'Marked 2'
 # bind r:${hyper}     focus 'Reeder'
-bind tab:${hyper}   focus 'Pocket'
+bind r:${hyper}     focus 'Microsoft Excel'
 bind e:${hyper}     focus 'Evernote'
-bind z:${hyper}     focus 'Books'
+bind d:${hyper}     focus 'Discord'
+# bind z:${hyper}     focus 'Books'
 bind v:${hyper}     focus 'mpv'
-bind n:${hyper}     focus 'Stickies'
+# bind n:${hyper}     focus 'Stickies'
 bind x:${hyper}     focus 'Anki'
-bind r:${hyper}     focus 'JetBrains Rider'
-# bind c:${hyper}     focus 'IntelliJ IDEA'
-bind c:${hyper}     focus 'Brave Browser Beta'
-bind k:${hyper}     focus 'Keynote'
 bind b:${hyper}     focus ${browser}
