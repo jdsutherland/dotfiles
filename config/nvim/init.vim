@@ -313,15 +313,6 @@ require"octo".setup({
 EOF
 " }}}
 
-" {{{ colors
-" hi CocErrorSign  ctermfg=Red guifg=#cc6666
-" hi CocWarningSign  ctermfg=Brown guifg=#f0c674
-" hi CocInfoSign  ctermfg=Yellow guifg=#bababa
-" hi CocHintSign guifg=LightRed  guibg=NONE
-" hi CocMarkdownLink guifg=#b5bd68 guibg=NONE
-" hi CocFloating guibg='#282a2c'
-" hi CocFloating guibg='#161820'
-
 hi TelescopeMatching  guifg=#81a2be
 
 hi! Conceal guifg=LightRed
