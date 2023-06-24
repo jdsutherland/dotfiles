@@ -16,12 +16,6 @@ Plug 'tweekmonster/startuptime.vim'
 Plug 'sk1418/Join'
 Plug 'junegunn/vader.vim'
 
-" {{{ wilder.nvim
-Plug 'romgrk/fzy-lua-native'
-Plug 'nixprime/cpsm'
-Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
-" }}}
-
 " {{{ lua plugins
 Plug 'nvim-treesitter/playground'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
