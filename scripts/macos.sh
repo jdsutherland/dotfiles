@@ -227,10 +227,12 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
 echo ""
 echo "Setting a blazingly fast keyboard repeat rate"
-defaults write NSGlobalDomain KeyRepeat -int 0
+# defaults write NSGlobalDomain KeyRepeat -int 0
 # newer? TODO: try it out
-# defaults write -g InitialKeyRepeat -int 10 # normal minimum is 15 (225 ms)
-# defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
+ # normal minimum is 15 (225 ms)
+defaults write -g InitialKeyRepeat -int 5
+ # normal minimum is 15 (225 ms)
+defaults write -g KeyRepeat -int 1
 
 echo ""
 echo "Disable auto-correct? (y/n)"
