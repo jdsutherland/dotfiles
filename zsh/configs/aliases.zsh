@@ -43,6 +43,7 @@ if [[ -o interactive ]]; then
   alias med='cd ~/Media'
   alias oss='cd ~/Development/OSS'
   alias s8='cd /Volumes/seag8silver'
+  alias s2='cd /Volumes/sd256'
   alias r8='ranger-cd /Volumes/seag8silver/Media'
   alias cnv='cd ~/.config/nvim'
 
@@ -55,7 +56,6 @@ if [[ -o interactive ]]; then
   alias ae='e ~/.dotfiles/zsh/configs/aliases.zsh'
   alias fe='e ~/.dotfiles/zsh/configs/functions.zsh'
   alias ge='e ~/.dotfiles/gitconfig'
-  alias mpvg='mpv --player-operation-mode=pseudo-gui'
   alias mpve='e ~/.dotfiles/config/mpv/mpv.conf'
   alias mpvi='e ~/.dotfiles/config/mpv/input.conf'
   alias mpvr="mpv --script-opts=radiostart=true"
@@ -332,7 +332,6 @@ if [[ -o interactive ]]; then
   # App
   alias surgec='echo -ne '\n' | surge 2>/dev/null | egrep -o "\w+\.surge\.sh" | xargs -I{} echo "https://"{}'
   alias mongostart='brew services start mongodb'
-  alias bash='/usr/local/bin/bash'
   alias pipi='pip install -r requirements.txt'
   alias pipf='pip freeze > requirements.txt'
   alias ctag='ctags -R --exclude=.git --exclude=log *'
@@ -355,7 +354,6 @@ if [[ -o interactive ]]; then
   alias tl='tldr'
   alias tmuxks='tmux kill-session -t'
   alias tmuxr='tmux rename-session'
-  alias tre='tree -C | less'
   alias tw='timew'
   alias pt='ptpython'
   alias py='python3'
@@ -396,7 +394,7 @@ if [[ -o interactive ]]; then
   alias brewi='brew install'
   alias brewx='brew uninstall'
   alias caski='brew install --cask'
-  alias casku='brew reinstall'
+  alias casku='brew reinstall --cask'
   alias caskU='brew outdated --cask | xargs brew reinstall'
   alias caskx='brew uninstall --cask'
   alias brewn='brew info'

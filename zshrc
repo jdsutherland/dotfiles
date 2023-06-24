@@ -45,18 +45,15 @@ alias e=$EDITOR
 alias vim="nvim"
 alias vi="nvim"
 
-. /opt/homebrew/opt/asdf/asdf.sh
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
 # TODO: completions not working
-. /opt/homebrew/share/zsh/site-functions/
-. /opt/homebrew/etc/bash_completion.d
+# . /opt/homebrew/share/zsh/site-functions/
+# . /opt/homebrew/etc/bash_completion.d
 
 export PATH="$HOME/.bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 
 export GOPATH="$HOME/go"
-export GOROOT=/usr/local/opt/go/libexec
-# if using asdf
-# export GOROOT="$ASDFINSTALLS/golang/$GOV/go/"
 export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$GOROOT/bin"
 
@@ -82,10 +79,7 @@ KEYTIMEOUT=25
 
 # TODO: remove once https://github.com/so-fancy/diff-so-fancy/pull/398 merged
 export PATH="$HOME/.dotfiles/bin/diff-so-fancy:$PATH"
-
-# https://github.com/asdf-community/asdf-direnv/ - avoid manual asdf reshim after package installs (cargo, etc)
-direnv() { asdf exec direnv "$@"; }
-eval "$(direnv hook zsh)"
+export TERM="alacritty"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

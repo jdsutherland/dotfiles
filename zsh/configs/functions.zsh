@@ -192,7 +192,19 @@ ref() { cd `pwd` }
 
 # gets the total running time of videos recursively from the working dir
 vidtime() {
-  exiftool -n -q -p '${Duration;our $sum;$_=ConvertDuration($sum+=$_)}' **/*.(mp4|webm|mkv|mov|m4v|avi) | tail -n1
+  total_length=0
+
+  for file in *.(mp4|avi|mkv|mov|flv|wmv|mpg|mpeg|webm|3gp)
+  do
+    duration=$(ffprobe -i "$file" -show_entries format=duration -v quiet -of csv="p=0")
+    total_length=$(echo "$total_length + $duration" | bc)
+  done
+
+  hours=$((total_length / 3600))
+  minutes=$(( (total_length % 3600) / 60 ))
+  seconds=$((total_length % 60))
+
+  printf "%02d:%02d:%02d\n" $hours $minutes $seconds
 }
 
 imv() {
@@ -205,39 +217,42 @@ imv() {
   done
 }
 
-# TODO; convert to `yt-dlp` unless youtube-dl fixed
 ydl() {
-  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt -ci "$@"
+  yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt -ci "$@"
 }
 
 # json -- used to download only videos matching filenames `fd QUERY | xargs jq .id | xargs youtube-dl`
 ydlj() {
-  youtube-dl --write-info-json --skip-download --ignore-errors --download-archive archive.txt --restrict-filenames "$@"
+  yt-dlp --write-info-json --skip-download --ignore-errors --download-archive archive.txt --restrict-filenames "$@"
 }
 
 # medium quality (<720p)
-ydlm() {
-  yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' "$@"
-}
+ydlm() { yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' "$@" }
+yy() { yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' "$@" }
 
 ydla() {
-  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' --external-downloader aria2c "$@"
+  yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' --external-downloader aria2c "$@"
 }
 
 ydlp() {
   url="$1"
-  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --ignore-errors --download-archive archive.txt --output "%(autonumber)s-%(title)s.%(ext)s" "$url"
+  yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --ignore-errors --download-archive archive.txt --output "%(autonumber)s-%(title)s.%(ext)s" "$url"
 }
 
 # resumes at given index
 ydlps() {
   url="$1"
-  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt -f '(mp4)[height<720]' -cio "%(autonumber)s-%(title)s.%(ext)s" --playlist-start $2 --autonumber-start $2 "$url"
+  yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt -f '(mp4)[height<720]' -cio "%(autonumber)s-%(title)s.%(ext)s" --playlist-start $2 --autonumber-start $2 "$url"
 }
 
 # downloads playlist in medium format
 ydlpm() {
-  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' -cio "%(autonumber)s-%(title)s.%(ext)s" "$@"
+  yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' -cio "%(autonumber)s-%(title)s.%(ext)s" "$@"
+}
+
+# downloads playlist in medium format
+ydlps() {
+  yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt -f 'bestvideo[height<=550][vcodec=vp9]+bestaudio[acodec=opus]' -cio "%(autonumber)s-%(title)s.%(ext)s" "$@"
 }
 
 # open clipboard link with mpv
@@ -258,6 +273,9 @@ mpw() {
   mpv --player-operation-mode=pseudo-gui --ytdl-raw-options="cookies=~/.config/mpv/cookies.txt,playlist-end=${1:-50}" ytdl://:ytwatchlater &
 }
 
+mpvg() { mpv --player-operation-mode=pseudo-gui "$*" & }
+m() { mpv --player-operation-mode=pseudo-gui "$*" & }
+
 # mps - open mpv with yt query <count> <query>
 mps() {
   items=${3:-20}
@@ -266,7 +284,7 @@ mps() {
 
 # yts - download yt query <count> <query>
 ytq() {
-  youtube-dl --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' ytsearch"${1:-20}":$2
+  yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' ytsearch"${1:-20}":$2
 }
 
 # datetime
@@ -292,9 +310,7 @@ sth() {
   say -v Kanya $(trans -b :th "$@")
 }
 
-sths() {
-  say -v Kanya -r 130 $(trans -b :th "$@")
-}
+sch() { say -v Ting-Ting $(trans -b :zh "$@") }
 
 # using rsync locally (doesn't delete by default)
 rlocal() {
