@@ -2,12 +2,12 @@
   "title": "google chrome shortcuts",
   "rules": [
     {
-      "description": "chrome left_option devtools | left_command selector | right_opt tabs",
+      "description": "chrome left_control devtools | left_command selector | right_opt tabs",
       "manipulators": [
         {
           "type": "basic",
           "from": {
-            "key_code": "left_option",
+            "key_code": "left_control",
             "modifiers": {
               "optional": ["any" ]
             }
