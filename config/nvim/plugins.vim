@@ -141,7 +141,8 @@ let g:switch_mapping = "-"
 Plug 'pbrisbin/vim-mkdir'
 Plug 'dietsche/vim-lastplace'
 Plug 'vim-scripts/ReplaceWithRegister'
-nmap ,gr "*gr
+Plug 'vim-scripts/ReplaceWithSameIndentRegister'
+nmap ,gr "-gr
 map <cr>g griw
 map <cr>G gr$
 Plug 'wellle/targets.vim'
