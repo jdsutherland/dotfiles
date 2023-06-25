@@ -2,40 +2,44 @@ function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
 
-
-Plug 'lewis6991/gitsigns.nvim'
-
-" colors
-Plug 'rebelot/kanagawa.nvim'
-Plug 'yazeed1s/oh-lucy.nvim'
-Plug 'kvrohit/mellow.nvim'
-Plug 'olivercederborg/poimandres.nvim'
-Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
-Plug 'rose-pine/neovim', { 'as': 'rose-pine' }
-
-Plug 'Einenlum/yaml-revealer'
-
-Plug 'vim-scripts/applescript.vim'
-Plug 'lpinilla/vim-codepainter'
+" {{{ Maybe
+" ====== lua =========
 Plug 'pwntester/octo.nvim'
-Plug 'kentaroi/ultisnips-swift'
+Plug 'ethanholz/nvim-lastplace'
+Plug 'Pocco81/auto-save.nvim'
+Plug 'chrisgrieser/nvim-recorder' "replace macroscope
+Plug 'andrewferrier/debugprint.nvim'
+Plug 'ThePrimeagen/refactoring.nvim'
+Plug 'monaqa/dial.nvim'
+Plug 'jghauser/mkdir.nvim'
+Plug 'ThePrimeagen/harpoon'
+Plug 'windwp/nvim-autopairs'
+Plug 'nvim-neotest/neotest'
+Plug 'gbprod/substitute.nvim'
+Plug 'phelipetls/jsonpath.nvim'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'HiPhish/nvim-ts-rainbow2'
 
-Plug 'arthurxavierx/vim-caser'
-let g:caser_prefix = 'gS'
+" ====== viml ========
+Plug 'Einenlum/yaml-revealer'
+Plug 'sickill/vim-pasta'
+Plug 'wesQ3/vim-windowswap'
+Plug 'tpope/vim-jdaddy'
+
 " preview tags
 Plug 'skywind3000/vim-preview'
 nnoremap <space>( :PreviewTag<cr>
 noremap <c-n> :PreviewScroll +1<cr>
 noremap <c-p> :PreviewScroll -1<cr>
-Plug 'tweekmonster/startuptime.vim'
-Plug 'sk1418/Join'
-Plug 'junegunn/vader.vim'
+
+" }}} end Maybe
 
 " {{{ lua plugins
+Plug 'rebelot/kanagawa.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 Plug 'nvim-treesitter/playground'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'folke/todo-comments.nvim'
-Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'aserowy/tmux.nvim'
 nnoremap <silent> <left>  <cmd>lua require('tmux').resize_left()<cr>
@@ -59,8 +63,6 @@ nnoremap \fgi <cmd>Telescope gh issues<cr>
 nnoremap \fgp <cmd>Telescope gh pull_request<cr>
 nnoremap \fgg <cmd>Telescope gh gist<cr>
 " nnoremap \fF <cmd>Telescope run<cr>
-Plug 'Pocco81/AutoSave.nvim'
-nnoremap <c-s> :ASToggle<cr>
 Plug 'norcalli/nvim-colorizer.lua'
 
 " {{{ UI
@@ -76,26 +78,8 @@ Plug 'folke/zen-mode.nvim'
 
 " }}}
 
-" {{{ vim-stay
-Plug 'zhimsel/vim-stay'
-" HACK: https://github.com/zhimsel/vim-stay/issues/10 - fixes unexpected lcd
-augroup stay_no_lcd
-  autocmd!
-  if exists(':tcd') == 2
-    autocmd User BufStaySavePre  if haslocaldir() | let w:lcd = getcwd() | exe 'cd '.fnameescape(getcwd(-1, -1)) | endif
-  else
-    autocmd User BufStaySavePre  if haslocaldir() | let w:lcd = getcwd() | cd - | cd - | endif
-  endif
-  autocmd User BufStaySavePost if exists('w:lcd') | execute 'lcd' fnameescape(w:lcd) | unlet w:lcd | endif
-augroup END
-" }}}
-
 Plug 'carakan/pmv.vim' " packages
 Plug 'Konfekt/FastFold'
-Plug 'dbatten5/vim-macroscope', {'branch': 'main'}
-Plug 'dkarter/bullets.vim' " markdown lists
-let g:bullets_renumber_on_change = 0
-Plug 'bergercookie/vim-debugstring'
 
 " {{{ sideways.vim
 Plug 'AndrewRadev/sideways.vim'
@@ -117,48 +101,20 @@ nmap s,I <Plug>SidewaysArgumentInsertFirst
 nmap s,A <Plug>SidewaysArgumentAppendLast
 " }}}
 
-" {{{ vista
-Plug 'liuchengxu/vista.vim' " replaces tagbar
-let g:vista_finder_alternative_executives = ['ctags']
-let g:vista_stay_on_open = 0
-let g:vista_echo_cursor_strategy = 'floating_win'
-let g:vista_keep_fzf_colors = 1
-let g:vista_sidebar_width = 50
-" let g:vista_keep_fzf_colors = 1
-" use ctags here?
-nnoremap <silent> <space>O :silent Vista finder ctags<CR>
-nnoremap <silent> \z :Vista!!<CR>
-" }}}
-
-Plug 'AndrewRadev/linediff.vim'
 Plug 'AndrewRadev/tagalong.vim'
 Plug 'AndrewRadev/whitespaste.vim'
 Plug 'AndrewRadev/undoquit.vim'
-Plug 'AndrewRadev/exercism.vim'
-cnoreabbrev exercism Exercism
 Plug 'AndrewRadev/switch.vim'
 let g:switch_mapping = "-"
-Plug 'pbrisbin/vim-mkdir'
-Plug 'dietsche/vim-lastplace'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'vim-scripts/ReplaceWithSameIndentRegister'
 nmap ,gr "-gr
 map <cr>g griw
 map <cr>G gr$
+
 Plug 'wellle/targets.vim'
-Plug 'sickill/vim-pasta'
-Plug 'tommcdo/vim-exchange'
-Plug 'wesQ3/vim-windowswap'
-Plug 'flw-cn/vim-markdown'
 Plug 'turbio/bracey.vim', {'do': 'npm install --prefix server'} " change if https://github.com/turbio/bracey.vim/pull/56 not merged
-Plug 'mogelbrod/vim-jsonpath'
-Plug 'nathanaelkane/vim-indent-guides'
-nnoremap <tab>i :IndentGuidesToggle<cr>
-Plug 'markonm/traces.vim'
-let g:traces_preview_window = "winwidth('%') > 160 ? 'bot vnew' : 'bot 10new'"
-let g:traces_abolish_integration = 1
 Plug 'tpope/vim-apathy'
-Plug 'tpope/vim-classpath'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-dotenv'
@@ -169,13 +125,11 @@ Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-dadbod' | Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'diepm/vim-rest-console'
-Plug 'honza/vim-snippets'
 Plug 'christoomey/vim-conflicted'
 Plug 'christoomey/vim-titlecase'
 nmap <cr>t gtiw
@@ -191,7 +145,6 @@ nnoremap <space>= :UnstackFromClipboard<cr>
 Plug 'mattboehm/vim-accordion'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'duff/vim-ddldbl'
-Plug 'rbgrouleff/bclose.vim'
 Plug 'troydm/zoomwintab.vim'
 
 Plug 'rizzatti/dash.vim'
@@ -202,6 +155,8 @@ map <cr>k viwf.ey;Dash <C-R>"<CR>
 Plug 'tpope/vim-abolish'
 nnoremap <Leader>abs :%S/
 nnoremap <Leader>abb :%S// **/*<left><left><left><left><left><left>
+Plug 'arthurxavierx/vim-caser'
+let g:caser_prefix = 'gS'
 
 Plug 'tpope/vim-characterize'
 nmap <cr><space><space> <Plug>(characterize)
@@ -295,42 +250,6 @@ nmap <space>e <M-u>e
 " nmap <space>f <M-u>f
 nmap <space>k <M-u>k
 nmap <space>j <M-u>j
-" }}}
-
-" {{{ vim-test
-Plug 'janko-m/vim-test'
-" runs test in term, auto search for error location
-" @q macro mimics vim-unstack
-function! TestCustom(test_cmd)
-  execute 'tabnew'
-  call termopen(a:test_cmd)
-  " HACK: <CR> seems to trigger tmux move (?) so followed by <M-B> (tmux prev pane) to return
-  sleep 100m
-  let file_with_err_at_line = "\.[a-z]{1,4}\\:\\d+"
-  " NOTE: always 'Pattern not found' though it works...
-  call feedkeys("/".file_with_err_at_line."\<CR>")
-  " macro to open files (vert gF) from stacktrace
-  let @q="nlzz:execute 'match Error /\\%'.line('.').'l/'\<CR>b\\1"
-endfunction
-command! -nargs=+ TestCustom :call TestCustom(<q-args>)
-
-let test#custom_strategies = {'custom': function('TestCustom')}
-let test#strategy = 'vtr'
-let g:test#preserve_screen = 1
-" let g:test#go#gotest#options = '-v'
-nnoremap <silent> <space>tt :TestNearest<CR>
-nnoremap <silent> <space>tT :TestLast -strategy=custom<cr>
-nnoremap <silent> <space>ts :TestSuite<CR>
-nnoremap <silent> <space>tf :TestFile<CR>
-nnoremap <silent> <space>tl :TestLast<CR>
-nnoremap <silent> <space>tv :vsp<CR>:exec ':TestVisit'<CR>
-" }}}
-
-" {{{ auto-pairs
-Plug 'jiangmiao/auto-pairs'
-" disable in markdown
-au Filetype markdown let b:autopairs_loaded=1
-let g:AutoPairsShortcutJump = ''
 " }}}
 
 Plug 'tommcdo/vim-lion'
@@ -474,15 +393,6 @@ Plug 'mbbill/undotree'
 let g:undotree_SetFocusWhenToggle = 1
 nnoremap <silent> ,u :UndotreeToggle<CR>
 
-" poppy - rainbow parens  {{{
-Plug 'bounceme/poppy.vim'
-augroup Poppy
-  au!
-augroup END
-nnoremap <silent>\P :call clearmatches() \| let g:poppy = -get(g:,'poppy',-1) \|
-      \ exe 'au! Poppy CursorMoved *' . (g:poppy > 0 ? ' call PoppyInit()' : '') <cr>
-" }}}
-
 " {{{ vim-grepper (async)
 Plug 'mhinz/vim-grepper'
 let g:grepper = {}
@@ -502,19 +412,6 @@ Plug 'romainl/vim-qlist' " persist [I to qflist
 Plug 'stefandtw/quickfix-reflector.vim'
 let g:qf_join_changes = 1
 Plug 'wincent/loupe'
-
-" vim-better-whitespace {{{
-Plug 'ntpeters/vim-better-whitespace'
-let g:strip_whitespace_confirm = 0
-let g:better_whitespace_guicolor='#cc6666'
-let g:better_whitespace_filetypes_blacklist = ['diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'git']
-" }}}
-
-" limelight/goyo {{{
-Plug 'junegunn/limelight.vim'
-let g:limelight_bop = '^\s'
-let g:limelight_eop = '\ze\n^\s'
-nnoremap <silent><space>L :Limelight!!<cr>
 
 " writing {{{
 Plug 'reedes/vim-pencil'
@@ -544,6 +441,7 @@ function! g:grammarous#hooks.on_reset(errs) abort
 endfunction
 let g:grammarous#languagetool_cmd = 'languagetool'
 Plug 'jdsutherland/fzf-wordnet.vim'
+
 imap <c-s><c-d> <Plug>(fzf-complete-wordnet)
 Plug 'Ron89/thesaurus_query.vim'
 let g:tq_mthesaur_file='~/.vim/spell/thesaurus/mthesaur.txt'
@@ -649,25 +547,15 @@ nnoremap <leader>dp :diffput<space>
 nnoremap <leader>dg :diffget<space>
 " }}}
 
-Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'tpope/vim-rhubarb'
-
-Plug 'junegunn/vim-github-dashboard'
 Plug 'jdsutherland/vim-github-link-opener'
-Plug 'christoomey/vim-quicklink' " broken as of 2017 due to google api change
 Plug 'rhysd/git-messenger.vim'
 let g:git_messenger_floating_win_opts = { 'border': 'single' }
 let g:git_messenger_popup_content_margins = v:false
 nmap <space>m <Plug>(git-messenger)
 let g:git_messenger_always_into_popup = v:true
 let g:git_messenger_date_format = "%Y %b %d %X"
-
-" javascript {{{
-Plug 'jparise/vim-graphql'
-Plug 'jhkersul/vim-jest-snippets'
-Plug 'dsznajder/vscode-es7-javascript-react-snippets', { 'do': 'yarn install --frozen-lockfile && yarn compile' }
-" }}}
 
 " {{{ sideways.vim
 Plug 'AndrewRadev/sideways.vim'
@@ -693,8 +581,6 @@ Plug 'mattn/emmet-vim'
 let g:user_emmet_next_key = '<C-j>'
 imap <c-y><c-y> <Plug>(emmet-expand-abbr)
 
-Plug 'tpope/vim-jdaddy'
-
 " ruby {{{
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-rails'
@@ -705,41 +591,10 @@ let g:fold_rspec_foldlevel = 2 " init open/closed state of all folds (open unles
 let g:fold_rspec_foldminlines = 3 " disables closing of folds containing <= 2 lines
 " }}}
 
-" " elixir
-" TODO: necessary with treesitter and LSP?
-Plug 'elixir-editors/vim-elixir'
-" Plug 'slashmili/alchemist.vim'
-" let g:alchemist_tag_map = '<leader>f'
-
-" python {{{
-" TODO: replace w/ treesitter at some point?
-Plug 'tweekmonster/braceless.vim' " Python vaP
-let g:braceless_generate_scripts = 1
-autocmd FileType python,haml,coffee BracelessEnable +indent +fold
-autocmd FileType yaml BracelessEnable +fold
-" }}}
-
-" {{{ clojure TODO: keep?
-" Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
-" Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
-" Plug 'clojure-vim/async-clj-omni', { 'for': 'clojure' }
-" }}}
-
-" misc lang
-Plug 'neovimhaskell/haskell-vim'
-Plug 'enomsg/vim-haskellConcealPlus'
-Plug 'chr4/nginx.vim'
-Plug 'tmux-plugins/vim-tmux'
-Plug 'kkvh/vim-docker-tools'
-
 " fzf {{{
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jesseleite/vim-agriculture' " fzf rg pass args
-" fzf note taking
-Plug 'alok/notational-fzf-vim'
-let g:nv_search_paths = ['~/notes', '~/til']
-
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
