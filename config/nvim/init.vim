@@ -3,7 +3,6 @@ let g:plug_pwindow = 'vnew'
 source ~/.dotfiles/config/nvim/plugins.vim
 call plug#end()
 
-source ~/.dotfiles/config/nvim/general.vim
 source ~/.dotfiles/config/nvim/functions.vim
 source ~/.dotfiles/config/nvim/autocmds.vim
 source ~/.dotfiles/config/nvim/keys.vim
@@ -15,6 +14,7 @@ call operator#user#define_ex_command('vtr', 'VtrSendLinesToRunner')
 
 " {{{ lua config
 lua << EOF
+require('jdsutherland.general')
 require('lualine').setup{
   options = {
     theme = 'auto',
