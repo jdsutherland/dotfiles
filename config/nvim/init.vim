@@ -5,7 +5,6 @@ call plug#end()
 
 source ~/.dotfiles/config/nvim/functions.vim
 source ~/.dotfiles/config/nvim/autocmds.vim
-source ~/.dotfiles/config/nvim/keys.vim
 
 " Use kana/vim-operator-user for textobj with vtr
 " https://github.com/christoomey/vim-tmux-runner/pull/86#issuecomment-608474159
@@ -15,6 +14,7 @@ call operator#user#define_ex_command('vtr', 'VtrSendLinesToRunner')
 " {{{ lua config
 lua << EOF
 require('jdsutherland.general')
+require('jdsutherland.keymaps')
 require('lualine').setup{
   options = {
     theme = 'auto',
