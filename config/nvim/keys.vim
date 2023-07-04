@@ -70,7 +70,7 @@ nnoremap <Leader>sud :w !sudo tee %<cr>
 nnoremap <leader>wub :%s/<C-r><C-w>//c<left><left>
 nnoremap <Leader>pub :cfdo %s///gc<left><left><left>
 " replace all <cword> in line
-nnoremap <expr> <cr>l ':s/'.expand('<cword>').'//<left>'
+nnoremap <expr><cr>l ':s/'.expand('<cword>').'//<left>'
 
 " ---NAVIGATION---
 " open prev buffer
@@ -79,7 +79,7 @@ nnoremap <c-b> <C-^>
 nnoremap \s <c-w><c-p>
 " close recent split
 nnoremap ,fd :Mark<cr><c-w><c-p> :q<cr>
-nnoremap <silent> ,f <C-]>zz
+nnoremap <silent>,f <C-]>zz
 nnoremap <silent>,ft :tab split <CR>:exec("tag ".expand("<cword>"))<CR>
 " open tag in split
 nnoremap <silent> ,fS :sp<CR>:exec("tag ".expand("<cword>"))<CR>zt<C-w><C-p>
