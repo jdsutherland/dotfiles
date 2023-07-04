@@ -83,31 +83,6 @@ endfunction
 command! TmuxGitFileFullHistoryReverse :call <sid>TmuxGitFileFullHistoryReverse()
 " }}}
 
-" run :GoBuild or :GoTestCompile based on the go file
-function! BuildGoFiles()
-  let l:file = expand('%')
-  if l:file =~# '^\f\+_test\.go$'
-    call go#test#Test(0, 1)
-  elseif l:file =~# '^\f\+\.go$'
-    call go#cmd#Build(0)
-  endif
-endfunction
-
-" Don't use gutentags for go (gotags)
-function! MyCustomGutentagsEnableFunc(path) abort
-    return fnamemodify(a:path, ':e') != 'go'
-endfunction
-let g:gutentags_enabled_user_func = 'MyCustomGutentagsEnableFunc'
-
-" Remove `#` style comments (useful for rails generators)
-function! s:RemoveRubyComments()
-  execute '%s/^\s*#.*\n//g'
-  execute '%s/\(\n\n\)\n\+/\1/g'
-  execute 'nohl'
-  norm! gg
-endfunction
-command! RemoveRubyComments :call <sid>RemoveRubyComments()
-
 function! ResizeMin()
   if line('$') < winheight(winnr()) | exe 'resize ' . line('$') | endif
   set winfixheight
