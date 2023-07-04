@@ -63,8 +63,10 @@ nnoremap("<leader>ev", "<C-w><C-v><C-l>:e $MYVIMRC<cr>")
 nnoremap("<leader>ea", "<C-w><C-v><C-l>:e ~/.config/nvim/plugged/vim-snippets/snippets/")
 
 -- get filepath + name
-nnoremap("<leader>cf", ':let @* = vim.fn.expand("%:~")<CR>')
-nnoremap("<leader>cn", ':let @* = vim.fn.expand("%:p")<CR>')
+vim.cmd([[
+nnoremap <silent>,cf :let @* = expand("%:~")<CR>
+nnoremap <silent>,cn :let @* = expand("%:p")<CR>
+]])
 
 ---- open cword in batgrep
 local open_batgrep_in_tmux = [[:call system("tmux splitw -l 30% -h -c \"#{pane_current_path}\" 'batgrep -w -A 7 --smart-case --search-pattern '" . expand("<cword>"))<cr>]] -- .. vim.fn.expand("<cword>") .. [[")<cr>]]
