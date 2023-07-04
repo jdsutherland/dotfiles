@@ -11,32 +11,6 @@ call operator#user#define_ex_command('vtr', 'VtrSendLinesToRunner')
 lua << EOF
 require('jdsutherland.general')
 require('jdsutherland.keymaps')
-require('lualine').setup{
-  options = {
-    theme = 'auto',
-    section_separators = {''},
-    component_separators = {''},
-    disabled_filetypes = {},
-    icons_enabled = true,
-  },
-  sections = {
-    lualine_a = { {'mode', upper = true} },
-    lualine_b = { {'branch', icon = ''}, {'diff'} },
-    lualine_c = { {'filename', file_status = false, path = 1} },
-    lualine_x = { 'filetype' },
-    lualine_y = { 'ConflictedVersion', 'progress' },
-    lualine_z = { 'location' },
-  },
-  inactive_sections = {
-    lualine_a = {  },
-    lualine_b = { 'winnr' },
-    lualine_c = { 'filename' },
-    lualine_x = { 'location' },
-    lualine_y = { 'ConflictedVersion' },
-    lualine_z = {  }
-  },
-  extensions = { 'fzf', 'fugitive' }
-}
 
 local actions = require('telescope.actions')
 local telescope = require('telescope')
