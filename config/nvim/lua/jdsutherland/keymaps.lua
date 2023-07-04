@@ -148,7 +148,7 @@ for i = 1, 9 do
   -- TODO: probably change tabs to harpoon
   nnoremap('<leader>' .. i, ':execute "tabnext "' .. i .. '<CR>')
   -- Windows
-  nnoremap('<localleader>' .. i, ':execute "wincmd w"' .. i .. '<CR>')
+  nnoremap('<localleader>' .. i, ' :' .. i .. "wincmd w<CR>")
 end
 -- }}}
 
