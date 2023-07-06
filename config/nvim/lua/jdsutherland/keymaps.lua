@@ -48,8 +48,6 @@ vnoremap("<c-g>", "g<c-g>")
 -- META. NOTE: tmux metas: [b,j,l,k,p,i,p,TAB,E,c,C]
 nnoremap("<space>9", ":tabprev<cr>")
 nnoremap("<space>0", ":tabnext<cr>")
--- TODO: move under fugitive
-nnoremap([[<localleader>g]], [[:ToggleGStatus<cr>]])
 
 vnoremap(".", ":norm.<CR>")
 

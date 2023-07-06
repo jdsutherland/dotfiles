@@ -22,16 +22,6 @@ function! RenameFile()
     endif
 endfunction
 
-function! ToggleGStatus()
-  if buflisted(bufname('fugitive:///*/.git//$'))
-    execute ":bdelete" bufname('fugitive:///*/.git/')
-    wincmd p
-  else
-    vert Git
-  endif
-endfunction
-command! ToggleGStatus :call ToggleGStatus()
-
 " tmux runner
 function! SendFileViaVtr()
   let runners = {
