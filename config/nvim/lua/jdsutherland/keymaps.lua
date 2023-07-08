@@ -200,6 +200,7 @@ nnoremap([[<F6>]], [[<C-i>]])
 -- paste system clip without added newline above
 nmap([[cV]], [[cvgpO<esc>kdd]])
 nmap([[cv]], [[<Plug>SystemPasteLine]])
+nmap([[<leader>gr]], [["*gr]])
 
 -- dup line and move W
 nnoremap([[<cr><cr>]], [[:t.<cr>W]])

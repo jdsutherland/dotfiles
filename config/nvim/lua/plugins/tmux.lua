@@ -10,6 +10,7 @@ return {
           enable_default_keybindings = true,
           persist_zoom = true,
         },
+        copy_sync = { sync_clipboard = false },
       })
       nnoremap("<left>", ":lua require('tmux').resize_left()<cr>")
       nnoremap("<down>", ":lua require('tmux').resize_bottom()<cr>")
@@ -18,4 +19,3 @@ return {
     end
   }
 }
-
