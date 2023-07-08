@@ -46,6 +46,7 @@ if [[ -o interactive ]]; then
   alias s2='cd /Volumes/sd256'
   alias r8='ranger-cd /Volumes/seag8silver/Media'
   alias cnv='cd ~/.config/nvim'
+  alias cnl='cd ~/.local/share/nvim/lazy'
 
   # PS
   alias psa='ps aux'
@@ -87,6 +88,7 @@ if [[ -o interactive ]]; then
   alias gad='git add .'
   alias gI='forgit::ignore >> .gitignore'
   alias grooter='cd $(git root)'
+  alias rm_broken_symlinks='find -L . -type l -exec rm -i {} \;'
 
   # Branch (b)
   alias gb='git branch'

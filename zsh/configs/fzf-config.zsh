@@ -16,7 +16,7 @@ local color09='#87a987'
 local color0A='#8ba4b0'
 local color0B='#7a8382'
 local color0C='#c4746e'
-local color0D='#DAFEB4'
+local color0D='#dafeb4'
 local color0E='#a292a3'
 local color0F='#b98d7b'
 

@@ -160,10 +160,8 @@ inoremap([[<c-l>]], [[<c-x><c-l>]])
 -- split carriage returns
 nnoremap([[<cr>0]], [[/\r<cr>s<cr><esc>df<space>]])
 
--- TODO: remove after migrating from vim-plug
--- gh url to vim-plug
-nmap([[g2p]], [[cvf/ffvBcPlug<space><esc>wviWS']])
-nnoremap([[,pu]], [[:PlugUpdate<CR>]])
+-- TODO: this should probably be a snippet
+nmap([[g2p]], [[o<c-r>+<esc>Bdf/df/I'<esc>A'<esc>]])
 
 -- toggle conceal
 nnoremap([[<c-f>]], [[:exec &conceallevel ? "set conceallevel=0" : "set conceallevel=2"<CR>]])
