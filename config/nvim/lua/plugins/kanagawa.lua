@@ -3,7 +3,9 @@ return {
     'rebelot/kanagawa.nvim',
     lazy = false,
     priority = 1000,
+    dependencies = 'nvim-telescope/telescope.nvim',
     config = function()
+      local garyGreen = '#dafeb4'
       require('kanagawa').setup({
         compilation = true,
         colors = { theme = { all = { ui = { bg_gutter = "none" } } } },
@@ -12,15 +14,18 @@ return {
         overrides = function(colors)
           local theme = colors.theme
           return {
-            -- https://github.com/rebelot/kanagawa.nvim#borderless-telescope
-            -- TODO: make this darker and make text match fzf
+            -- my tweaks
+            Search = { fg = theme.ui.bg, bg = garyGreen },
             TelescopeTitle = { fg = theme.ui.special, bold = true },
-            TelescopePromptNormal = { bg = theme.ui.bg_p1 },
-            TelescopePromptBorder = { fg = theme.ui.bg_p1, bg = theme.ui.bg_p1 },
-            TelescopeResultsNormal = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m1 },
-            TelescopeResultsBorder = { fg = theme.ui.bg_m1, bg = theme.ui.bg_m1 },
-            TelescopePreviewNormal = { bg = theme.ui.bg_dim },
-            TelescopePreviewBorder = { bg = theme.ui.bg_dim, fg = theme.ui.bg_dim },
+            TelescopeResultsNormal = { fg = theme.ui.special, bg = theme.ui.bg },
+            TelescopeMatching = { fg = garyGreen },
+
+            -- https://github.com/rebelot/kanagawa.nvim#borderless-telescope
+            -- TelescopeResultsBorder = { fg = theme.ui.bg, bg = theme.ui.bg },
+            -- TelescopePreviewNormal = { bg = theme.ui.bg_dim },
+            -- TelescopePreviewBorder = { bg = theme.ui.bg_dim, fg = theme.ui.bg_dim },
+            -- TelescopePromptNormal = { bg = theme.ui.bg_p1 },
+            -- TelescopePromptBorder = { fg = theme.ui.bg_p1, bg = theme.ui.bg_p1 },
 
             -- https://github.com/rebelot/kanagawa.nvim#transparent-floating-windows
             NormalFloat = { bg = "none" },
