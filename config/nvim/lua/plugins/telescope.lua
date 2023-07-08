@@ -74,6 +74,8 @@ return {
     nnoremap([[<space>fh]], [[<cmd>Telescope help_tags<cr>]])
     nnoremap([[<space>fb]], [[<cmd>Telescope current_buffer_fuzzy_find<cr>]])
     nnoremap([[<space>fq]], [[<cmd>Telescope quickfix<cr>]])
+    telescope.load_extension('yank_history')
+    nnoremap([[<space>fp]], [[<cmd>Telescope yank_history<cr>]])
     -- highlight cword, open exact uses
     -- nmap <silent><space>sd [I ;let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr> ;Telescope quickfix<cr>
     nnoremap([[<localleader>fgi,]], [[<cmd>Telescope gh issues<cr>]])
