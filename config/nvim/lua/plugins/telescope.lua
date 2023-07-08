@@ -1,87 +1,114 @@
 return {
-  'nvim-telescope/telescope.nvim',
-  dependencies = {
-    "nvim-lua/plenary.nvim", -- Power telescope with FZF
-    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-    "nvim-telescope/telescope-github.nvim",
-    "nvim-telescope/telescope-live-grep-args.nvim",
-    "nvim-telescope/telescope-node-modules.nvim",
-  },
-  config = function()
-    local actions = require("telescope.actions")
-    require('telescope').setup({
-      defaults = {
-        layout_setup = {
-          horizontal = {
-            width_padding = 0.04,
-            height_padding = 0.1,
-            preview_width = 0.6,
+  {
+    'nvim-telescope/telescope.nvim',
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      "nvim-telescope/telescope-github.nvim",
+      "nvim-telescope/telescope-live-grep-args.nvim",
+      "nvim-telescope/telescope-node-modules.nvim",
+      'jeetsukumaran/telescope-buffer-lines.nvim',
+      'debugloop/telescope-undo.nvim',
       'gbprod/yanky.nvim'
+    },
+    config = function()
+      local actions = require("telescope.actions")
+      require('telescope').setup({
+        defaults = {
+          prompt_prefix = "   ",
+          selection_caret = "  ",
+          entry_prefix = "  ",
+          initial_mode = "insert",
+          selection_strategy = "reset",
+          sorting_strategy = "ascending",
+          layout_strategy = "horizontal",
+          layout_config = {
+            horizontal = { prompt_position = "top", preview_width = 0.55, results_width = 0.8 },
+            vertical = { mirror = false },
+            width = 0.87,
+            height = 0.80,
+            -- preview_cutoff = 120,
+          },
+          mappings = {
+            i = {
+              ["<Esc>"] = actions.close,
+              ["<C-j>"] = actions.move_selection_next,
+              ["<C-k>"] = actions.move_selection_previous,
+              ["<C-s>"] = actions.select_horizontal,
+              ["<C-t>"] = actions.select_tab,
+              ["<C-y>"] = actions.preview_scrolling_up,
+              ["<C-e>"] = actions.preview_scrolling_down,
+            },
           },
         },
-        mappings = {
-          i = {
-            ["<Esc>"] = actions.close, -- don't go into normal mode, just close
-            ["<C-j>"] = actions.move_selection_next, -- scroll the list with <c-j>
-            ["<C-k>"] = actions.move_selection_previous, -- scroll the list with <c-k>
-            -- ["<C-\\->"] = actions.select_horizontal, -- open selection in new horizantal split
-            -- ["<C-\\|>"] = actions.select_vertical, -- open selection in new vertical split
-            ["<C-t>"] = actions.select_tab, -- open selection in new tab
-            ["<C-y>"] = actions.preview_scrolling_up,
-            ["<C-e>"] = actions.preview_scrolling_down,
+        pickers = { find_files = { find_command = { "fd", "--type", "f", "--hidden", "--strip-cwd-prefix" } } },
+        extensions = {
+          fzf = {
+            fuzzy = true,                    -- false will only do exact matching
+            override_generic_sorter = false, -- override the generic sorter
+            override_file_sorter = true,     -- override the file sorter
+            case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+            -- the default case_mode is "smart_case"
+          },
+          vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "--trim",
+          },
+          file_ignore_patterns = { "node_modules" },
+
+          -- 'debugloop/telescope-undo.nvim'
+          undo = {
+            side_by_side = true,
+            layout_strategy = "vertical",
+            layout_config = {
+              preview_height = 0.65,
+            },
+            mappings = { i = { ["<cr>"] = require("telescope-undo.actions").restore } },
           },
         },
-      },
-      pickers = { find_files = { find_command = { "fd", "--type", "f", "--hidden", "--strip-cwd-prefix" } } },
-      extensions = {
-        fzf = {
-          fuzzy = true,                    -- false will only do exact matching
-          override_generic_sorter = false, -- override the generic sorter
-          override_file_sorter = true,     -- override the file sorter
-          case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-          -- the default case_mode is "smart_case"
-        },
-        vimgrep_arguments = {
-          "rg",
-          "--color=never",
-          "--no-heading",
-          "--with-filename",
-          "--line-number",
-          "--column",
-          "--smart-case",
-          "--trim",
-        },
-        file_ignore_patterns = { "node_modules" },
-      }
-    })
+      })
 
-    local telescope = require('telescope')
+      local telescope = require('telescope')
+      local utils = require("jdsutherland.utils")
+      local nnoremap = utils.nnoremap
 
-    if vim.fn.executable "gh" == 1 then
-      pcall(telescope.load_extension, "gh")
+      if vim.fn.executable "gh" == 1 then
+        pcall(telescope.load_extension, "gh")
+        nnoremap([[<localleader>fgi,]], [[<cmd>Telescope gh issues<cr>]])
+        nnoremap([[<localleader>fgp,]], [[<cmd>Telescope gh pull_request<cr>]])
+        nnoremap([[<localleader>fgg,]], [[<cmd>Telescope gh gist<cr>]])
+      end
+
+      -- TODO: map
+      nnoremap([[<space>ff]], [[<cmd>Telescope find_files<cr>]])
+      nnoremap([[<space>fg]], [[<cmd>Telescope live_grep<cr>]])
+      nnoremap([[<space>ft]], [[<cmd>Telescope buffers<cr>]])
+      nnoremap([[<space>fh]], [[<cmd>Telescope help_tags<cr>]])
+      nnoremap([[<space>f/]], [[<cmd>Telescope search_history<cr>]])
+      nnoremap([[<space>f;]], [[<cmd>Telescope command_history<cr>]])
+      nnoremap([[<space>fb]], [[<cmd>Telescope current_buffer_fuzzy_find<cr>]])
+      nnoremap([[<space>fq]], [[<cmd>Telescope quickfix<cr>]])
+      nnoremap([[<space>K]], [[<cmd>Telescope grep_string<cr>]])
+
+      telescope.load_extension('fzf')
+      telescope.load_extension('node_modules')
+      telescope.load_extension('live_grep_args')
+      nnoremap([[<space>fG]], [[<cmd>Telescope live_grep_args<cr>]])
+
+      telescope.load_extension('yank_history')
+      nnoremap([[<space>fp]], [[<cmd>Telescope yank_history<cr>]])
+
+      telescope.load_extension('buffer_lines')
+      vim.cmd([[nnoremap <C-s><c-l> <cmd>Telescope buffer_lines<cr>]])
+
+      telescope.load_extension("undo")
+      vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
     end
-
-    local utils = require("jdsutherland.utils")
-    local nnoremap = utils.nnoremap
-
-    telescope.load_extension('fzf')
-    telescope.load_extension('node_modules')
-    telescope.load_extension('live_grep_args')
-    -- TODO: map
-    nnoremap([[<space>ff]], [[<cmd>Telescope find_files<cr>]])
-    nnoremap([[<space>fG]], [[<cmd>Telescope live_grep_args<cr>]])
-    nnoremap([[<space>fg]], [[<cmd>Telescope live_grep<cr>]])
-    nnoremap([[<space>ft]], [[<cmd>Telescope buffers<cr>]])
-    nnoremap([[<space>fh]], [[<cmd>Telescope help_tags<cr>]])
-    nnoremap([[<space>fb]], [[<cmd>Telescope current_buffer_fuzzy_find<cr>]])
-    nnoremap([[<space>fq]], [[<cmd>Telescope quickfix<cr>]])
-    telescope.load_extension('yank_history')
-    nnoremap([[<space>fp]], [[<cmd>Telescope yank_history<cr>]])
-    -- highlight cword, open exact uses
-    -- nmap <silent><space>sd [I ;let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr> ;Telescope quickfix<cr>
-    nnoremap([[<localleader>fgi,]], [[<cmd>Telescope gh issues<cr>]])
-    nnoremap([[<localleader>fgp,]], [[<cmd>Telescope gh pull_request<cr>]])
-    nnoremap([[<localleader>fgg,]], [[<cmd>Telescope gh gist<cr>]])
-  end
+  }
 }
-
