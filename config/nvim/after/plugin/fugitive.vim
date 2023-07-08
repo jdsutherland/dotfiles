@@ -25,7 +25,11 @@ function! ToggleGStatus()
     execute ":bdelete" bufname('fugitive:///*/.git/')
     wincmd p
   else
-    vert Git
+    if winwidth(0) > 60
+      vert Git | vert resize 60
+    else
+      vert Git
+    endif
   endif
 endfunction
 command! ToggleGStatus :call ToggleGStatus()
