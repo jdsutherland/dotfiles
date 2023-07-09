@@ -8,6 +8,15 @@ return {
   { 'gbprod/stay-in-place.nvim', config = true },
   { "folke/todo-comments.nvim", opts = {} },
   {
+    'axkirillov/hbac.nvim',
+    config = true,
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons'
+    },
+  },
+  {
     'Mr-LLLLL/interestingwords.nvim',
     opts = {
       colors = { '#9999ff', '#ffb3ff', '#ff7272', '#ffd65c', '#99ffb3', '#a8957e', '#fff6cc' },
