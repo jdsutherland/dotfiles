@@ -9,7 +9,8 @@ return {
       "nvim-telescope/telescope-node-modules.nvim",
       'jeetsukumaran/telescope-buffer-lines.nvim',
       'debugloop/telescope-undo.nvim',
-      'gbprod/yanky.nvim'
+      'gbprod/yanky.nvim',
+      'ThePrimeagen/harpoon'
     },
     config = function()
       local actions = require("telescope.actions")
@@ -107,6 +108,9 @@ return {
 
       telescope.load_extension("undo")
       vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
+
+      require("telescope").load_extension('harpoon')
+      nnoremap([[<space>fm]], [[<cmd>Telescope harpoon marks<cr>]])
     end
   }
 }

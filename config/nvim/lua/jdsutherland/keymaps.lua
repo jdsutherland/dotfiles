@@ -143,7 +143,6 @@ nnoremap([[<c-w>\]], [[<c-w>t<c-w>H]])
 -- {{{ go to tab and window by number (1-9)
 for i = 1, 9 do
   -- Tabs
-  -- TODO: probably change tabs to harpoon
   nnoremap('<leader>' .. i, ':execute "tabnext "' .. i .. '<CR>')
   -- Windows
   nnoremap('<localleader>' .. i, ' :' .. i .. "wincmd w<CR>")
