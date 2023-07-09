@@ -8,7 +8,18 @@ return {
       local garyGreen = '#dafeb4'
       require('kanagawa').setup({
         compilation = true,
-        colors = { theme = { all = { ui = { bg_gutter = "none" } } } },
+        colors = {
+          theme = {
+            all = {
+              ui = { bg_gutter = "none" },
+            },
+            dragon = {
+              ui = {
+                fg_dim = "#c5c9c5" -- dragonWhite
+              }
+            }
+          },
+        },
         dimInactive = true,
         theme = "dragon",
         overrides = function(colors)
