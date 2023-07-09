@@ -157,6 +157,9 @@ nnoremap([[]w]], [[:lnext<cr>]])
 -- line complete
 inoremap([[<c-l>]], [[<c-x><c-l>]])
 
+-- nnoremap([[<leader>;]], [[A;<ESC>]])
+nnoremap([[<leader>,]], [[A,<ESC>]])
+
 -- split carriage returns
 nnoremap([[<cr>0]], [[/\r<cr>s<cr><esc>df<space>]])
 
