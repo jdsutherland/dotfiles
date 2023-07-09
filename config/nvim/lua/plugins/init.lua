@@ -17,17 +17,6 @@ return {
     },
   },
   {
-    'Mr-LLLLL/interestingwords.nvim',
-    opts = {
-      colors = { '#9999ff', '#ffb3ff', '#ff7272', '#ffd65c', '#99ffb3', '#a8957e', '#fff6cc' },
-      navigation = true, -- search icon w/ count for hlsearch
-      color_key = "<space>h",
-      cancel_color_key = "<space>H",
-      search_key = nil,
-      cancel_search_key = nil,
-    }
-  },
-  {
     "chrisgrieser/nvim-various-textobjs",
     opts = {
       -- TODO: use il, ae (maybe)
