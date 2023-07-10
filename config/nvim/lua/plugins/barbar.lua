@@ -2,8 +2,8 @@ return {
   {
     'romgrk/barbar.nvim',
     dependencies = {
-      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
-      'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+      'lewis6991/gitsigns.nvim',
+      'nvim-tree/nvim-web-devicons',
     },
     init = function() vim.g.barbar_auto_setup = false end,
     config = function()
@@ -11,14 +11,7 @@ return {
         icons = { button = false },
         hide = { inactive = true }
       })
-
-      local timer = vim.loop.new_timer()
-      timer:start(0, 10000, function()
-        vim.defer_fn(function()
-          vim.cmd 'BufferOrderByWindowNumber'
-        end, 0)
-
-      end)
+      vim.api.nvim_create_autocmd('BufEnter', { command = 'BufferOrderByWindowNumber' })
     end
   }
 }
