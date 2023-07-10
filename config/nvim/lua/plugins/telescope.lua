@@ -76,6 +76,7 @@ return {
       local telescope = require('telescope')
       local utils = require("jdsutherland.utils")
       local nnoremap = utils.nnoremap
+      local vnoremap = utils.vnoremap
 
       if vim.fn.executable "gh" == 1 then
         pcall(telescope.load_extension, "gh")
@@ -84,7 +85,6 @@ return {
         nnoremap([[<localleader>fgg,]], [[<cmd>Telescope gh gist<cr>]])
       end
 
-      -- TODO: map
       nnoremap([[<space>ff]], [[<cmd>Telescope find_files<cr>]])
       nnoremap([[<space>fg]], [[<cmd>Telescope live_grep<cr>]])
       nnoremap([[<space>ft]], [[<cmd>Telescope buffers<cr>]])
@@ -94,20 +94,22 @@ return {
       nnoremap([[<space>fb]], [[<cmd>Telescope current_buffer_fuzzy_find<cr>]])
       nnoremap([[<space>fq]], [[<cmd>Telescope quickfix<cr>]])
       nnoremap([[K]], [[<cmd>Telescope grep_string<cr>]])
+      vnoremap([[K]], [[<cmd>Telescope grep_string<cr>]])
 
       telescope.load_extension('fzf')
       telescope.load_extension('node_modules')
       telescope.load_extension('live_grep_args')
-      nnoremap([[<space>fG]], [[<cmd>Telescope live_grep_args<cr>]])
+      vnoremap([[<space>fk]], [[<cmd>Telescope live_grep_args<cr>]])
+      nnoremap([[<space>fk]], [[<cmd>Telescope live_grep_args<cr>]])
 
       telescope.load_extension('yank_history')
       nnoremap([[<space>fp]], [[<cmd>Telescope yank_history<cr>]])
 
       telescope.load_extension('buffer_lines')
-      vim.cmd([[nnoremap <C-s><c-l> <cmd>Telescope buffer_lines<cr>]])
+      vim.cmd([[nnoremap <space>fl <cmd>Telescope buffer_lines<cr>]])
 
       telescope.load_extension("undo")
-      vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
+      vim.keymap.set("n", "<space>fu", "<cmd>Telescope undo<cr>")
 
       require("telescope").load_extension('harpoon')
       nnoremap([[<space>fm]], [[<cmd>Telescope harpoon marks<cr>]])
