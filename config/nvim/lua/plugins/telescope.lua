@@ -11,9 +11,28 @@ return {
       'debugloop/telescope-undo.nvim',
       'gbprod/yanky.nvim',
       'ThePrimeagen/harpoon'
+      -- TODO install 'nvim-telescope/telescope-frecency.nvim'
     },
     config = function()
       local actions = require("telescope.actions")
+      local action_state = require("telescope.actions.state")
+
+      function actions.yank_selection(prompt_bufnr)
+        local selection = action_state.get_selected_entry(prompt_bufnr)
+        local value = selection.value
+        local prompt_title = action_state.get_current_picker(prompt_bufnr).prompt_title
+        local content
+        -- trim path:linenumber for grep type pickers
+        if string.lower(prompt_title):match("grep") then
+          content = value:match(":%d+:%d+:(.*)")
+        else
+          content = value
+        end
+        -- Put the content into the default yank register
+        vim.fn.setreg('"', content)
+        actions.close(prompt_bufnr)
+      end
+
       require('telescope').setup({
         defaults = {
           prompt_prefix = "   ",
@@ -39,6 +58,7 @@ return {
               ["<C-t>"] = actions.select_tab,
               ["<C-y>"] = actions.preview_scrolling_up,
               ["<C-e>"] = actions.preview_scrolling_down,
+              ["<c-o>"] = actions.yank_selection
             },
           },
         },
