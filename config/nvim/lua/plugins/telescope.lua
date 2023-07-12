@@ -106,6 +106,7 @@ return {
       end
 
       nnoremap([[<space>ff]], [[<cmd>Telescope find_files<cr>]])
+      nnoremap([[<space>fF]], [[<cmd>lua require'telescope.builtin'.find_files({ find_command = {'fd', '--hidden', '--no-ignore', '--exclude', '.git', '--exclude', 'node_modules' }})<cr>]])
       nnoremap([[<space>fg]], [[<cmd>Telescope live_grep<cr>]])
       nnoremap([[<space>ft]], [[<cmd>Telescope buffers<cr>]])
       nnoremap([[<space>fh]], [[<cmd>Telescope help_tags<cr>]])
