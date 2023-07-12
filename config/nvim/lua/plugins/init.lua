@@ -3,10 +3,21 @@ local nnoremap = utils.nnoremap
 
 return {
   { 'ethanholz/nvim-lastplace', config = true },
+  { 'kazhala/close-buffers.nvim', cmd = 'BDelete' },
   { 'NvChad/nvim-colorizer.lua', config = true },
   { 'mcauley-penney/tidy.nvim', config = true },
   { 'gbprod/stay-in-place.nvim', config = true },
   { "folke/todo-comments.nvim", opts = {} },
+  { 'folke/tokyonight.nvim', opts = { dim_inactive = true }, lazy = true },
+  { "catppuccin/nvim", name = "catppuccin", lazy = true },
+  {
+    'lukas-reineke/headlines.nvim',
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require('headlines').setup()
+      vim.cmd [[highlight CodeBlock guibg=#1c1c1c]]
+    end
+  },
   {
     'axkirillov/hbac.nvim',
     config = true,
@@ -14,13 +25,6 @@ return {
       'nvim-telescope/telescope.nvim',
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons'
-    },
-  },
-  {
-    "chrisgrieser/nvim-various-textobjs",
-    opts = {
-      -- TODO: use il, ae (maybe)
-      useDefaultKeymaps = true
     },
   },
   {
@@ -41,12 +45,13 @@ return {
   },
   {
     "okuuva/auto-save.nvim",
-    cmd = "ASToggle", -- optional for lazy loading on command
+    cmd = "ASToggle",
     event = { "InsertLeave", "TextChanged" },
     opts = { execution_message = { enabled = false } },
   },
   {
-    'windwp/nvim-autopairs', config = function()
+    'windwp/nvim-autopairs',
+    config = function()
       require("nvim-autopairs").setup({ event = "InsertEnter" })
     end
   },
@@ -70,14 +75,16 @@ return {
   'tpope/vim-ragtag',
   {
     'tpope/vim-dadbod',
-    dependencies = { 'kristijanhusak/vim-dadbod-ui' }
+    dependencies = { 'kristijanhusak/vim-dadbod-ui' },
+    cmd = { 'DB' }
   },
   {
     'tpope/vim-fugitive',
     dependencies = {
       'tpope/vim-rhubarb',
       'rbong/vim-flog',
-    }
+    },
+    cmd = { "Git", "Git blame", "GBrowse" }
   },
   {
     'AndrewRadev/switch.vim',

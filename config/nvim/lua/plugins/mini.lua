@@ -30,10 +30,7 @@ return {
     "chrisgrieser/nvim-various-textobjs",
     version = '',
     config = function()
-      -- TODO: use il, ae (maybe)
-
       require('various-textobjs').setup({ useDefaultKeymaps = false })
-
       local keymap = vim.keymap.set
 
       -- 1st true means inner
@@ -66,7 +63,6 @@ return {
 
       --------------------------------------------------------------------------------------
       -- TODO put these into the ftplugins or autocms for the filetypes you want to use them with
-
       -- keymap(
       --   { "o", "x" },
       --   "YOUR_MAPPING",
