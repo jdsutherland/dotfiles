@@ -69,7 +69,6 @@ return {
   'tpope/vim-repeat',
   'tpope/vim-scriptease',
   'tpope/vim-sleuth',
-  -- 'wellle/targets.vim',
   'tpope/vim-unimpaired',
   'tpope/vim-vinegar',
   'tpope/vim-ragtag',
@@ -91,4 +90,12 @@ return {
     cmd = "Switch",
     keys = { { "-", "<cmd>Switch<cr>", desc = "Switch" } },
   },
+  {
+    -- TODO: implement this using tree-sitter
+    'AndrewRadev/sideways.vim',
+    keys = {
+      { '<leader>aa', '<Plug>SidewaysArgumentAppendAfter', desc = 'Append arg at pos' },
+      { '<leader>aj', '<Plug>SidewaysArgumentAppendLast', desc = 'Append last arg' },
+    }
+  }
 }

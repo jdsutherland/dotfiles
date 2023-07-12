@@ -99,6 +99,14 @@ return {
             goto_previous_start = {
               ['[m'] = '@function.outer',
             },
+          swap = {
+            enable = true,
+            swap_next = {
+              ["><leader>"] = "@parameter.inner",
+            },
+            swap_previous = {
+              ["<<leader>"] = "@parameter.inner",
+            },
           },
           select = {
             enable = true,
