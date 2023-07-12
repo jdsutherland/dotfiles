@@ -3,12 +3,12 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     dependencies = {
-      -- show treesitter nodes
-      "nvim-treesitter/playground", -- enable more advanced treesitter-aware text objects
-      "nvim-treesitter/nvim-treesitter-textobjects", -- add rainbow highlighting to parens and brackets
+      "nvim-treesitter/playground",
+      "nvim-treesitter/nvim-treesitter-textobjects",
       "JoosepAlviste/nvim-ts-context-commentstring",
       'RRethy/nvim-treesitter-endwise',
       'RRethy/nvim-treesitter-textsubjects',
+      'nvim-treesitter/nvim-treesitter-context',
     },
     config = function()
       require("nvim-treesitter.configs").setup({
@@ -26,7 +26,6 @@ return {
           "html",
           "javascript",
           "jsdoc",
-          "json",
           "json",
           "json5",
           "jsonc",
@@ -113,6 +112,7 @@ return {
           },
         },
       })
+      require'treesitter-context'.setup{}
     end
   },
 }
