@@ -228,7 +228,9 @@ ydlj() {
 
 # medium quality (<720p)
 ydlm() { yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' "$@" }
-yy() { yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720]' "$@" }
+yy() {
+  yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720]+bestaudio/best' "$@"
+}
 
 ydla() {
   yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' --external-downloader aria2c "$@"
