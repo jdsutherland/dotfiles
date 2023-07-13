@@ -8,8 +8,6 @@ return {
       "nvim-telescope/telescope-live-grep-args.nvim",
       "nvim-telescope/telescope-node-modules.nvim",
       'jeetsukumaran/telescope-buffer-lines.nvim',
-      'debugloop/telescope-undo.nvim',
-      'gbprod/yanky.nvim',
       'ThePrimeagen/harpoon'
       -- TODO install 'nvim-telescope/telescope-frecency.nvim'
     },
@@ -80,16 +78,6 @@ return {
             "--trim",
           },
           file_ignore_patterns = { "node_modules" },
-
-          -- 'debugloop/telescope-undo.nvim'
-          undo = {
-            side_by_side = true,
-            layout_strategy = "vertical",
-            layout_config = {
-              preview_height = 0.65,
-            },
-            mappings = { i = { ["<cr>"] = require("telescope-undo.actions").restore } },
-          },
         },
       })
 
@@ -128,9 +116,6 @@ return {
 
       telescope.load_extension('buffer_lines')
       vim.cmd([[nnoremap <space>fl <cmd>Telescope buffer_lines<cr>]])
-
-      telescope.load_extension("undo")
-      vim.keymap.set("n", "<space>fu", "<cmd>Telescope undo<cr>")
 
       require("telescope").load_extension('harpoon')
       nnoremap([[<space>fm]], [[<cmd>Telescope harpoon marks<cr>]])

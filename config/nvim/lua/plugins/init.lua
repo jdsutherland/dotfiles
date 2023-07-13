@@ -97,5 +97,10 @@ return {
       { '<leader>aa', '<Plug>SidewaysArgumentAppendAfter', desc = 'Append arg at pos' },
       { '<leader>aj', '<Plug>SidewaysArgumentAppendLast', desc = 'Append last arg' },
     }
-  }
+  },
+  {
+    'mbbill/undotree',
+    keys = { { '<leader>u', '<cmd>UndotreeToggle<cr>' } },
+    config = function() vim.g.undotree_SetFocusWhenToggle = 1 end
+  },
 }
