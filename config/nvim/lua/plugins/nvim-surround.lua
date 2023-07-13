@@ -6,16 +6,16 @@ return {
       require("nvim-surround").setup({
         vim.cmd([[
         " TODO: working from surround.vim but probably more elegant way to achieve this in nvim-surround
-        " surround Function 
+        " surround Function
         nmap ,F ysiwf
 
         " ,# Surround a word with #{ruby interpolation}
-        nmap ,# ysiw}i#<esc>E
-        vmap ,# c#{<C-R>"}<ESC>
+        autocmd FileType ruby,eruby nmap <buffer> nmap ,# ysiw}i#<esc>E
+        autocmd FileType ruby,eruby nmap <buffer> vmap ,# c#{<C-R>"}<ESC>
 
         " ,$ Surround a word with ${js interpolation}
-        nmap ,$ ysiw}i$<esc>E
-        vmap ,$ c${<C-R>"}<ESC>
+        autocmd FileType javascript,typescript,javascriptreact,tyescriptreact nmap <buffer> ,$ ysiw}i$<esc>E
+        autocmd FileType javascript,typescript,javascriptreact,tyescriptreact nmap <buffer> vmap ,$ c${<C-R>"}<ESC>
 
         " ," Surround a word with "quotes"
         nmap ," ysiw"
