@@ -21,15 +21,13 @@ opt.scrolloff = 3
 opt.visualbell = true
 opt.lazyredraw = true
 opt.history = 10000
-opt.updatetime = 250
--- TODO: trying lower amount
-opt.timeoutlen = 300
 opt.statusline = "%t"
 opt.ignorecase = true
 opt.smartcase = true
 opt.gdefault = true
 opt.showmatch = true
 opt.wrap = true
+opt.breakindent = true
 opt.linebreak = true
 opt.wildmode = "longest:full"
 opt.wildignore:append("tmp/**")
@@ -54,6 +52,19 @@ opt.grepprg = "rg --smart-case --vimgrep"
 opt.undodir = "~/.config/nvim/undodir"
 opt.showmode = false
 opt.iskeyword:append("-")
+
+-- Keep signcolumn on by default
+vim.wo.signcolumn = 'yes'
+
+-- Set completeopt to have a better completion experience
+vim.o.completeopt = 'menuone,noselect'
+
+-- Decrease update time
+vim.o.updatetime = 250
+vim.o.timeout = true
+vim.o.timeoutlen = 300
+
+
 
 -- TODO: keep?
 -- opt.completeopt:remove("preview")
