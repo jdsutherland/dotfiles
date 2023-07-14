@@ -38,18 +38,21 @@ return {
       keymap({ "o", "x" }, "ai", "<cmd>lua require('various-textobjs').indentation(false, true)<CR>")
       keymap({ "o", "x" }, "iI", "<cmd>lua require('various-textobjs').indentation(true, true)<CR>")
       keymap({ "o", "x" }, "aI", "<cmd>lua require('various-textobjs').indentation(false, false)<CR>")
-      keymap({ "o", "x" }, "ad", "<cmd>lua require('various-textobjs').subword(true)<CR>")
+
       keymap({ "o", "x" }, "id", "<cmd>lua require('various-textobjs').subword(false)<CR>")
+      keymap({ "o", "x" }, "ad", "<cmd>lua require('various-textobjs').subword(true)<CR>")
+
       keymap({ "o", "x" }, "ae", "<cmd>lua require('various-textobjs').entireBuffer()<CR>")
+
       keymap({ "o", "x" }, "il", "<cmd>lua require('various-textobjs').lineCharacterwise(true)<CR>")
       keymap({ "o", "x" }, "al", "<cmd>lua require('various-textobjs').lineCharacterwise(false)<CR>")
       keymap({ "o", "x" }, "|", "<cmd>lua require('various-textobjs').column()<CR>")
 
-      keymap({ "o", "x" }, "av", "<cmd>lua require('various-textobjs').value(true)<CR>")
-      keymap({ "o", "x" }, "iv", "<cmd>lua require('various-textobjs').value(false)<CR>")
+      keymap({ "o", "x" }, "iv", "<cmd>lua require('various-textobjs').value(true)<CR>")
+      keymap({ "o", "x" }, "av", "<cmd>lua require('various-textobjs').value(false)<CR>")
 
-      keymap({ "o", "x" }, "ak", "<cmd>lua require('various-textobjs').key(true)<CR>")
-      keymap({ "o", "x" }, "ik", "<cmd>lua require('various-textobjs').key(false)<CR>")
+      keymap({ "o", "x" }, "ik", "<cmd>lua require('various-textobjs').key(true)<CR>")
+      keymap({ "o", "x" }, "ak", "<cmd>lua require('various-textobjs').key(false)<CR>")
 
       keymap({ "o", "x" }, "L", "<cmd>lua require('various-textobjs').url()<CR>")
 
@@ -58,8 +61,8 @@ return {
       keymap({ "o", "x" }, "iz", "<cmd>lua require('various-textobjs').closedFold(true)<CR>")
       keymap({ "o", "x" }, "az", "<cmd>lua require('various-textobjs').closedFold(false)<CR>")
 
-      keymap({ "o", "x" }, "am", "<cmd>lua require('various-textobjs').chainMember(true)<CR>")
-      keymap({ "o", "x" }, "im", "<cmd>lua require('various-textobjs').chainMember(false)<CR>")
+      keymap({ "o", "x" }, "im", "<cmd>lua require('various-textobjs').chainMember(true)<CR>")
+      keymap({ "o", "x" }, "am", "<cmd>lua require('various-textobjs').chainMember(false)<CR>")
 
       --------------------------------------------------------------------------------------
       -- TODO put these into the ftplugins or autocms for the filetypes you want to use them with
