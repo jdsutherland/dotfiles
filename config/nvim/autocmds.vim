@@ -3,9 +3,9 @@ augroup SaveFocusedLost
     autocmd FocusLost * silent! wall
 augroup END
 
-au BufRead,BufNewFile *.json set filetype=json
-au BufRead,BufNewFile *.babelrc set filetype=json
-au BufRead,BufNewFile *.eslintrc set filetype=json
+" au BufRead,BufNewFile *.json set filetype=json
+" au BufRead,BufNewFile *.babelrc set filetype=json
+" au BufRead,BufNewFile *.eslintrc set filetype=json
 
 " HACK: open in default app without vim reading buffer
 augroup binary_nonvim_open
@@ -33,8 +33,8 @@ autocmd FileType gitcommit setlocal spell complete+=kspell
 
 autocmd FileType elixir inoremap <buffer> ,tt \|>
 
-autocmd FileType html,eruby,htmldjango,scss,handlebars,less,css,javascript.jsx EmmetInstall
-autocmd BufNewFile,BufRead *.ng EmmetInstall
+" autocmd FileType html,eruby,htmldjango,scss,handlebars,less,css,javascript.jsx EmmetInstall
+" autocmd BufNewFile,BufRead *.ng EmmetInstall
 
 " swap ; and : for easier typing
 autocmd FileType go,python,ruby,eruby,eruby.yaml,elixir,haskell,typescript,typescriptreact,yaml,yaml,docker-compose,json inoremap <buffer> ; :
@@ -48,14 +48,14 @@ autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescriptreact 
 autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescriptreact noremap <buffer> F; F:
 
 " autocmd BufEnter * EnableStripWhitespaceOnSave
-autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
+" autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 
 " resize when closing tmux pane
 autocmd VimResized * wincmd =
 
 autocmd FileType help wincmd L | vert resize 80
 
-au BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
+" au BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
 
 " {{{ package info
 function! s:ShowGemInfo()
@@ -101,5 +101,5 @@ au BufEnter * if expand('%:t') ==# 'package.json' || expand('%:t') ==# 'package-
 " }}}
 
 " vim-plug
-autocmd FileType vim syntax keyword Function Plug
-autocmd FileType vim,zsh,tmux setlocal foldmethod=marker
+" autocmd FileType vim syntax keyword Function Plug
+" autocmd FileType vim,zsh,tmux setlocal foldmethod=marker
