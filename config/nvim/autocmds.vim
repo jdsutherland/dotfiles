@@ -53,7 +53,7 @@ autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 " resize when closing tmux pane
 autocmd VimResized * wincmd =
 
-autocmd FileType help wincmd L
+autocmd FileType help wincmd L | vert resize 80
 
 au BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
 
