@@ -232,6 +232,10 @@ yy() {
   yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720]+bestaudio/best' "$@"
 }
 
+yyp() {
+  yt-dlp --download-archive downloaded.txt --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720]+bestaudio/best' "$@"
+}
+
 ydla() {
   yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' --external-downloader aria2c "$@"
 }
@@ -392,6 +396,9 @@ gfwd() { git log --reverse --pretty=%H master | grep -A 1 $(git rev-parse HEAD) 
 grev() { git checkout HEAD~ }
 
 glinesby() { for f in $(git ls-files); do git blame $f | grep "${1:-Sutherland}"; done }
+
+ggcode() { git log -S "$@" }
+gglog() { git log -E --grep "$@" }
 
 # fzf-gh-issues
 fgi() {

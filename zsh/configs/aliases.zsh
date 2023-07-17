@@ -20,6 +20,7 @@ if [[ -o interactive ]]; then
   # remove ansi escape colors
   alias -g DECOLOR="| gsed -r 's/\x1B\[(;?[0-9]{1,3})+[mGK]//g'"
   alias -g SILENT="> /dev/null 2>&1"
+  alias -g NOERR="2> /dev/null"
   alias count='wc -l'
   alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
   alias cpwd="pwd | tr -d '\n' | pbcopy"
