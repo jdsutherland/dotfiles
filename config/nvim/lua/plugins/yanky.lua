@@ -21,8 +21,6 @@ return {
       })
       vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfterFilter)")
       vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBeforeFilter)")
-      vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
-      vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
       vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
       vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
       vim.keymap.set({"n","x"}, "y", "<Plug>(YankyYank)")
