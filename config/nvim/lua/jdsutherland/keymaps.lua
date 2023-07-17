@@ -34,10 +34,11 @@ nnoremap("`", "'")
 -- ^ goes to first character; more useful
 nnoremap("0", "^")
 nnoremap("^", "0")
+vnoremap("0", "^")
 -- 4 goes to end of line
 nnoremap("4", "g_")
 vnoremap("4", "g_")
-vnoremap("$", "4")
+
 -- move vertically by visual line
 nnoremap("j", "gj")
 nnoremap("k", "gk")
@@ -52,10 +53,6 @@ nnoremap("<space>0", ":tabnext<cr>")
 vnoremap(".", ":norm.<CR>")
 
 nnoremap("co<bar>", ":set colorcolumn=<C-R>=&colorcolumn != 0 ? 0 : 81<CR><CR>")
-
--- TODO: change/remove these
-nnoremap("<leader>rc", ":so $MYVIMRC<CR>")
-nnoremap("<leader>ev", "<C-w><C-v><C-l>:e $MYVIMRC<cr>")
 
 -- TODO: update this to new snippet?
 nnoremap("<leader>ea", "<C-w><C-v><C-l>:e ~/.config/nvim/plugged/vim-snippets/snippets/")
@@ -165,15 +162,8 @@ nnoremap([[<cr>0]], [[/\r<cr>s<cr><esc>df<space>]])
 -- TODO: this should probably be a snippet
 nmap([[g2p]], [[o<c-r>+<esc>Bdf/df/I'<esc>A'<esc>]])
 
--- toggle conceal
-nnoremap([[<c-f>]], [[:exec &conceallevel ? "set conceallevel=0" : "set conceallevel=2"<CR>]])
-
--- select to end of line
-nmap([[<space>v]], [[v4]])
--- copy system clipboard to end of line
-nmap([[<space>c]], [[cp4]])
+-- highlight without moving TODO: simplify
 nnoremap([[<space>i]], [[:let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>]])
--- clear search hl
 nnoremap([[<space>u]], [[:nohls<cr>]])
 -- quit
 nnoremap([[<space>Q]], [[:qall!<cr>]])
@@ -221,20 +211,15 @@ nnoremap([[<c-w>l]], [[<c-w>vgF]])
 nmap([[<c-w>s]], [[<c-w>f]])
 
 -- {{{ imode
-inoremap([[,rr]], [[=>]])
-inoremap([[,ar]], [[()<space>=><space>]])
-inoremap([[,aa]], [[->]])
-inoremap([[,zz]], [[<-]])
-inoremap([[,uu]], [[__]])
-inoremap([[,.]], [[/>]])
--- inoremap <expr> <C-E> col('.')>strlen(getline('.'))<bar><bar>pumvisible()?"\<Lt>C-E>":"\<Lt>End>"
 inoremap([[<C-A>]], [[<C-O>^]])
 inoremap([[<C-X><C-A>]], [[<C-A>]])
 
 -- upcase current word
 inoremap([[<c-u>]], [[<esc>viwUe]])
-imap([[<m-m>]], [[_]])
-inoremap([[<c-d>]], [[<backspace>]])
+imap([[…]], [[_]]) -- <m-;>
+imap([[“]], [[(]]) -- <m-[>
+imap([[‘]], [[)]]) -- <m-]>
+-- inoremap([[<c-d>]], [[<backspace>]])
 -- }}}
 
 -- {{{ command maps
