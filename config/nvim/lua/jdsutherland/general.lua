@@ -1,9 +1,9 @@
 local g = vim.g
 local opt = vim.opt
 
-g.mapleader = ','
-g.maplocalleader = '\\'
-g.netrw_liststyle = 3
+vim.g.mapleader = ','
+vim.g.maplocalleader = '\\'
+vim.g.netrw_liststyle = 3
 
 opt.smarttab = true
 opt.autowrite = true
@@ -19,7 +19,6 @@ opt.smartindent = true
 opt.autoindent = true
 opt.scrolloff = 3
 opt.visualbell = true
-opt.lazyredraw = true
 opt.history = 10000
 opt.statusline = "%t"
 opt.ignorecase = true
@@ -49,7 +48,6 @@ opt.diffopt:append("vertical")
 opt.termguicolors = true
 opt.listchars = {tab='→\\ ',trail='∙',nbsp='•',eol='¶'}
 opt.grepprg = "rg --smart-case --vimgrep"
-opt.undodir = "~/.config/nvim/undodir"
 opt.showmode = false
 opt.iskeyword:append("-")
 
@@ -57,18 +55,19 @@ opt.iskeyword:append("-")
 vim.wo.signcolumn = 'yes'
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+opt.completeopt = 'menuone,noselect'
 
 -- Decrease update time
-vim.o.updatetime = 250
-vim.o.timeout = true
-vim.o.timeoutlen = 300
+opt.updatetime = 250
+opt.timeout = true
+opt.timeoutlen = 300
 
 
 
 -- TODO: keep?
 -- opt.completeopt:remove("preview")
-opt.formatoptions = "qrn1"
-opt.formatoptions:remove("cro")
+-- TODO: not sure what this is for?
+-- opt.formatoptions = "qrn1"
+-- opt.formatoptions:remove("cro")
 
 vim.cmd 'cabbrev vsf vert sfind'
