@@ -1,15 +1,28 @@
-local utils = require("jdsutherland.utils")
-local nnoremap = utils.nnoremap
-
 return {
   { 'ethanholz/nvim-lastplace', config = true },
-  { 'kazhala/close-buffers.nvim', cmd = 'BDelete' },
-  { 'NvChad/nvim-colorizer.lua', config = true },
+  { 'kazhala/close-buffers.nvim', cmd = 'BDelete',
+    keys = { {'<space>bd', '<cmd>BDelete hidden<cr>'} }
+  },
+  {
+    'stevearc/aerial.nvim',
+    keys = { { "<localleader>z", "<cmd>AerialToggle!<cr>", desc = "Aerial Toggle" } },
+    cmd = "AerialToggle",
+    opts = {},
+  },
+  {
+    'NvChad/nvim-colorizer.lua',
+    config = function()
+      require("colorizer").setup {
+        user_default_options = { names = false }
+      }
+    end
+  },
   { 'mcauley-penney/tidy.nvim', config = true },
   { 'gbprod/stay-in-place.nvim', config = true },
   { "folke/todo-comments.nvim", opts = {} },
   { 'folke/tokyonight.nvim', opts = { dim_inactive = true }, lazy = true },
   { "catppuccin/nvim", name = "catppuccin", lazy = true },
+  { 'rose-pine/neovim', name = 'rose-pine', opts = { dim_nc_background = true }, lazy = true },
   {
     'lukas-reineke/headlines.nvim',
     dependencies = "nvim-treesitter/nvim-treesitter",
@@ -55,6 +68,11 @@ return {
       require("nvim-autopairs").setup({ event = "InsertEnter" })
     end
   },
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {},
+  },
   'jghauser/mkdir.nvim',
   -- =========== vimscript plugins ===========
   'troydm/zoomwintab.vim',
@@ -83,7 +101,7 @@ return {
       'tpope/vim-rhubarb',
       'rbong/vim-flog',
     },
-    cmd = { "Git", "Git blame", "GBrowse" }
+    cmd = { "Git", "GBrowse", "Gread" }
   },
   {
     'AndrewRadev/switch.vim',
