@@ -2,9 +2,15 @@
 return {
   {
     "kylechui/nvim-surround",
-    config = function()
-      require("nvim-surround").setup({
-        vim.cmd([[
+    opts = {
+      aliases = {
+        ["b"] = { "}", "]", ")", ">" },
+      },
+    },
+    config = function(_, opts)
+      require("nvim-surround").setup(opts)
+
+      vim.cmd([[
         " TODO: working from surround.vim but probably more elegant way to achieve this in nvim-surround
         " surround Function
         nmap ,F ysiwf
@@ -52,7 +58,6 @@ return {
         " autocmd FileType javascriptreact,typescriptreact,typescript.tsx let b:surround_120 = "<\r />"
         " autocmd FileType javascriptreact,typescriptreact,typescript.tsx nmap ,X ysiwxe
         ]])
-      })
     end
   }
 }
