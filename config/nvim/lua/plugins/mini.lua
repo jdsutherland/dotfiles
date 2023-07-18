@@ -14,8 +14,41 @@ return {
       require('mini.move').setup {}
       -- TODO: use this but grab the [e and [<space> from unimpaired
       -- require('mini.bracketed').setup {}
+      vim.cmd[[highlight MiniIndentscopeSymbol guifg=#35393F]]
     end
   },
+  {
+    "echasnovski/mini.indentscope",
+    version = false,
+    event = { "BufReadPre", "BufNewFile" },
+    init = function()
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = {
+          "dashboard",
+          "neo-tree",
+          "Trouble",
+          "lazy",
+          "mason",
+          "notify",
+          "toggleterm",
+          "lazyterm",
+          "ruby",
+        },
+        callback = function()
+          vim.b.miniindentscope_disable = true
+        end,
+      })
+    end,
+    config = function()
+      local iscope = require('mini.indentscope')
+      iscope.setup({
+        symbol = "│",
+        options = { try_as_border = true },
+        draw = { animation = iscope.gen_animation.none() },
+      })
+    end
+  },
+
   {
     -- this is so similar to splitjoin that i'm throwing it in here
     "Wansmer/treesj",
