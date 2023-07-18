@@ -100,7 +100,14 @@ return {
     end
   },
   { 'rmagatti/goto-preview',
-    opts = {  default_mappings = true },
+    keys = {
+      { '<space>ll', "<cmd>lua require('goto-preview').goto_preview_definition()<CR>" },
+      { '<space>lr', "<cmd>lua require('goto-preview').goto_preview_references()<CR>" },
+      { '<space>lt', "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>" },
+      { '<space>li', "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>" },
+      { '<space>lc', "<cmd>lua require('goto-preview').close_all_win()<CR>" },
+    },
+    config = true
   },
   -- { 'https://git.sr.ht/~whynothugo/lsp_lines.nvim', opts = {}, },
   -- {
