@@ -131,7 +131,6 @@ nnoremap([[<leader>L]], [[:set list!<CR>]])
 
 -- splits
 nnoremap([[vv]], [[<C-w>v]])
-nnoremap([[ss]], [[<C-w>s]])
 -- vertical to horizontal ( | -> -- )
 nnoremap([[<c-w>-]], [[<c-w>t<c-w>K]])
 -- horizontal to vertical ( -- -> | )

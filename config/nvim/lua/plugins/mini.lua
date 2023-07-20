@@ -10,7 +10,7 @@ return {
 
       }
       require('mini.comment').setup { options = { ignore_blank_line = true } }
-      require('mini.splitjoin').setup { mappings = { toggle = 'sj' } }
+      require('mini.splitjoin').setup { mappings = { toggle = '<tab>j' } }
       require('mini.move').setup {}
       -- TODO: use this but grab the [e and [<space> from unimpaired
       -- require('mini.bracketed').setup {}
@@ -54,7 +54,7 @@ return {
     "Wansmer/treesj",
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     keys = {
-      { "sk", "<cmd>TSJToggle<cr>", desc = "Join Toggle" },
+      { "<tab>k", "<cmd>TSJToggle<cr>", desc = "Join Toggle" },
     },
     opts = { use_default_keymaps = false, max_join_length = 150 },
   },
