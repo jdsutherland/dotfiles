@@ -113,6 +113,8 @@ return {
       { '<space>lt', "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>" },
       { '<space>li', "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>" },
       { '<space>lc', "<cmd>lua require('goto-preview').close_all_win()<CR>" },
+      -- TODO: improve this. see https://github.com/rmagatti/goto-preview/issues/90
+      { '<space>lv', ":vs<cr>:lua require('goto-preview').close_all_win()<CR>zt" },
     },
     config = true
   },
