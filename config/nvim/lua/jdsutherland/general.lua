@@ -30,8 +30,9 @@ opt.breakindent = true
 opt.linebreak = true
 opt.wildmode = "longest:full"
 opt.wildignore:append("tmp/**")
-opt.spellfile = "~/.vim/spell/en.utf-8.add"
-opt.thesaurus = "~/.vim/spell/thesaurus/mthesaur.txt"
+vim.opt.spellfile = os.getenv('HOME') .. "/.config/nvim/spell/en.utf-8.add"
+vim.opt.thesaurus = os.getenv('HOME') .. "/.config/nvim/spell/thesaurus/mthesaur.txt"
+vim.opt.undodir = os.getenv('HOME') .. '/.config/nvim/undodir'
 opt.undofile = true
 opt.swapfile = false
 
