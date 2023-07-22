@@ -1,8 +1,5 @@
 return {
   { 'ethanholz/nvim-lastplace', config = true },
-  { 'kazhala/close-buffers.nvim', cmd = 'BDelete',
-    keys = { {'<space>bd', '<cmd>BDelete hidden<cr>'} }
-  },
   {
     'stevearc/aerial.nvim',
     keys = { { "<localleader>z", "<cmd>AerialToggle!<cr>", desc = "Aerial Toggle" } },

@@ -12,6 +12,7 @@ return {
         hide = { inactive = true }
       })
       vim.api.nvim_create_autocmd('BufEnter', { command = 'BufferOrderByWindowNumber' })
+      vim.keymap.set('n', '<space>bh', '<cmd>BufferCloseAllButVisible<cr>', { noremap = true})
     end
   }
 }
