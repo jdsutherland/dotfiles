@@ -1,12 +1,6 @@
 return {
   { 'ethanholz/nvim-lastplace', config = true },
   {
-    'stevearc/aerial.nvim',
-    keys = { { "<localleader>z", "<cmd>AerialToggle!<cr>", desc = "Aerial Toggle" } },
-    cmd = "AerialToggle",
-    opts = {},
-  },
-  {
     'NvChad/nvim-colorizer.lua',
     opts = {
       user_default_options = { names = false }
