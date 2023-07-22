@@ -64,6 +64,12 @@ return {
   },
   'jghauser/mkdir.nvim',
   {
+    'mrjones2014/dash.nvim',
+    run = 'make install',
+    cmd = { 'Dash', 'DashWord' },
+    keys = { {'gk', '<cmd>DashWord<cr>'} }
+  },
+  {
     "kdheepak/lazygit.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
