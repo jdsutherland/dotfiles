@@ -1,5 +1,4 @@
 local utils = require("jdsutherland.utils")
-local termcodes = utils.termcodes
 local nmap = utils.nmap
 local vmap = utils.vmap
 local imap = utils.imap
@@ -139,7 +138,6 @@ nnoremap([[<c-w>\]], [[<c-w>t<c-w>H]])
 -- {{{ go to tab and window by number (1-9)
 for i = 1, 9 do
   -- Tabs
-  nnoremap('<leader>' .. i, ':execute "tabnext "' .. i .. '<CR>')
   -- Windows
   nnoremap('<localleader>' .. i, ' :' .. i .. "wincmd w<CR>")
 end
@@ -178,8 +176,6 @@ nnoremap([[<cr><space>]], [[:w<cr>]])
 -- copy previous paragraph (useful css)
 nnoremap([[cpp]], [[mz(yap'zpjW]])
 
-nnoremap([[<space>1]], [[:!open %<cr>]])
-
 -- HACK: karabiner coupled
 nnoremap([[<M-S-z>]], [[:TmuxGitIndividualFileHistory<cr>]])
 nnoremap([[<M-S-x>]], [[:TmuxGitFileFullHistory<cr>]])
@@ -194,11 +190,6 @@ nmap([[<leader>gr]], [["*gr]])
 -- dup line and move W
 nnoremap([[<cr><cr>]], [[:t.<cr>W]])
 
--- -- Now you can leave the terminal-mode with <Esc>.
--- -- https://stackoverflow.com/questions/47871857/vim-fugitive-with-neovim-terminal-emulator
-tnoremap([[<Esc>]], [[<C-\><C-n>]])
-tnoremap([[<C-v><Esc>]], [[<Esc>]])
-
 -- indent paragraph and preserve location
 nnoremap([[<tab><tab>]], [[mz=ap'z:delmark z<cr>]])
 
@@ -211,25 +202,19 @@ nmap([[<c-w>s]], [[<c-w>f]])
 
 -- {{{ imode
 inoremap([[<C-A>]], [[<C-O>^]])
+-- TODO: what does this do?
 inoremap([[<C-X><C-A>]], [[<C-A>]])
 
 -- upcase current word
 inoremap([[<c-u>]], [[<esc>viwUe]])
 imap([[…]], [[_]]) -- <m-;>
+cmap([[…]], [[_]]) -- <m-;>
 imap([[“]], [[(]]) -- <m-[>
+cmap([[“]], [[(]]) -- <m-[>
 imap([[‘]], [[)]]) -- <m-]>
+cmap([[‘]], [[)]]) -- <m-]>
 -- inoremap([[<c-d>]], [[<backspace>]])
 -- }}}
-
--- {{{ command maps
-cnoremap([[<c-j>]], [[<down>]])
-cnoremap([[<c-k>]], [[<up>]])
-cnoremap([[<c-h>]], [[<left>]])
-cnoremap([[<c-l>]], [[<right>]])
-cnoremap([[<c-d>]], [[<backspace>]])
-cnoremap([[<c-a>]], [[<home>]])
-cnoremap([[<C-X><C-A>]], [[<C-A>]])
-cmap([[<m-m>]], [[_]])
 
 -- move word but keep default popupmenu
 vim.api.nvim_set_keymap('c', '<C-p>', [[pumvisible() ? "<C-p>" : "<C-right>"]], { expr = true })
@@ -258,3 +243,11 @@ inoremap([[<c-s><c-s>]], [[<c-g>u<Esc>[s1z=`]A<c-g>u]])
 nnoremap([[<c-g>]], [[1<c-g>]])
 
 vnoremap([[<c-w>]], [[<del><del>]])
+
+function close_most_recent_split()
+    local current_window = vim.api.nvim_get_current_win()
+    vim.cmd('wincmd p | close')
+    vim.api.nvim_set_current_win(current_window)
+end
+_G.close_most_recent_split = close_most_recent_split
+nnoremap('<localleader>c', ':lua close_most_recent_split()<CR>')
