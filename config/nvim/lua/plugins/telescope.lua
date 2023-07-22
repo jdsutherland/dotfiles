@@ -8,7 +8,8 @@ return {
       "nvim-telescope/telescope-live-grep-args.nvim",
       "nvim-telescope/telescope-node-modules.nvim",
       'jeetsukumaran/telescope-buffer-lines.nvim',
-      'ThePrimeagen/harpoon'
+      'ThePrimeagen/harpoon',
+      'benfowler/telescope-luasnip.nvim',
       -- TODO install 'nvim-telescope/telescope-frecency.nvim'
     },
     config = function()
@@ -119,6 +120,9 @@ return {
 
       require("telescope").load_extension('harpoon')
       nnoremap([[<space>fm]], [[<cmd>Telescope harpoon marks<cr>]])
+
+      require('telescope').load_extension('luasnip')
+      nnoremap([[<space>fs]], [[<cmd>Telescope luasnip<cr>]])
     end
   }
 }
