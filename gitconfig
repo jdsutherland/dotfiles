@@ -138,3 +138,5 @@
 [log]
   date = format:%Y-%m-%d %a %H:%M %z
   ; date = relative
+[init]
+	defaultBranch = main

@@ -106,7 +106,7 @@ maps() { open "https://www.google.com/maps/dir/$(getloc)/$@" }
 
 # tree with sensible ignores
 t() {
-  tree -I "fonts|images|node_modules|bin|obj|__pycache__|tmp|cache|dist" -C ${@:-.} | less -F
+  tree -I "fonts|images|node_modules|bin|obj|__pycache__|tmp|cache|dist|vendor" -C ${@:-.} | less -F
 }
 
 f() {
@@ -232,9 +232,14 @@ yy() {
   yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720]+bestaudio/best' "$@"
 }
 
-yyp() {
+yyd() {
   yt-dlp --download-archive downloaded.txt --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720]+bestaudio/best' "$@"
 }
+
+yyp() {
+  yt-dlp --download-archive downloaded.txt --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(autonumber)s-%(title)s.%(ext)s" -f 'bestvideo[height<=720]+bestaudio/best' "$@"
+}
+
 
 ydla() {
   yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' --external-downloader aria2c "$@"
@@ -397,8 +402,13 @@ grev() { git checkout HEAD~ }
 
 glinesby() { for f in $(git ls-files); do git blame $f | grep "${1:-Sutherland}"; done }
 
-ggcode() { git log -S "$@" }
-gglog() { git log -E --grep "$@" }
+gcode() { git log -S "$@" --stat }
+glog() { git log -E --grep "$@" --stat }
+
+# checkout a pr w/ fzf preview
+ghpr() {
+  GH_FORCE_TTY=100% gh pr list | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 3 | awk '{print $1}' | xargs gh pr checkout
+}
 
 # fzf-gh-issues
 fgi() {

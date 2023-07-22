@@ -15,6 +15,7 @@ return {
 
       local opts = {expr = true, noremap = true, silent = true}
       -- resize floating windows, otherwise tmux resize
+      -- TODO: keep this?
       vim.keymap.set(
         'n',
         '<left>',

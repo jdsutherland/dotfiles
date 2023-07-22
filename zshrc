@@ -59,6 +59,8 @@ export PATH="$PATH:$GOROOT/bin"
 
 export LS_COLORS=$(vivid generate kanagawa-dragon)
 export BAT_PAGER=less
+# lazygit uses this to change config dir
+export XDG_CONFIG_HOME="$HOME/.config"
 
 # Show contents of directory after cd-ing into it
 chpwd() {

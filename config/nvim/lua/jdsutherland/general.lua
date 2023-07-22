@@ -26,7 +26,8 @@ opt.smartcase = true
 opt.gdefault = true
 opt.showmatch = true
 opt.wrap = true
-opt.breakindent = true
+-- TODO: set this for noncode files (help etc)
+-- opt.breakindent = true
 opt.linebreak = true
 opt.wildmode = "longest:full"
 opt.wildignore:append("tmp/**")

@@ -33,4 +33,4 @@ function! ToggleGStatus()
   endif
 endfunction
 command! ToggleGStatus :call ToggleGStatus()
-nnoremap <localleader>g :ToggleGStatus<cr>
+nnoremap <silent> <localleader>g :ToggleGStatus<cr>
