@@ -1,0 +1,31 @@
+git:
+  paging:
+    colorArg: always
+    useConfig: true
+
+gui:
+  theme:
+    lightTheme: false
+    activeBorderColor:
+    - green
+    - bold
+    inactiveBorderColor:
+    - white
+    optionsTextColor:
+    - blue
+    selectedLineBgColor:
+    - reverse
+    selectedRangeBgColor:
+    - blue
+    cherryPickedCommitBgColor:
+    - cyan
+    cherryPickedCommitFgColor:
+    - blue
+    unstagedChangesColor:
+    - red
+    selectedLineBgColor:
+      - '#223249'
+    selectedRangeBgColor:
+      - '#223249'
+  nerdFontsVersion: "3"
+  showFileTree: false # for rendering changes files in a tree format

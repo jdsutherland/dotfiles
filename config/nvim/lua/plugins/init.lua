@@ -63,6 +63,13 @@ return {
     opts = {},
   },
   'jghauser/mkdir.nvim',
+  {
+    "kdheepak/lazygit.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    keys = { {'<localleader>G', '<cmd>:LazyGit<cr>'} }
+  },
   -- =========== vimscript plugins ===========
   'troydm/zoomwintab.vim',
   'jdsutherland/vim-github-link-opener',
