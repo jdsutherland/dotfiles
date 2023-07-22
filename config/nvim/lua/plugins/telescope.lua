@@ -88,7 +88,7 @@ return {
       local vnoremap = utils.vnoremap
 
       if vim.fn.executable "gh" == 1 then
-        pcall(telescope.load_extension, "gh")
+        pcall(require("telescope").load_extension, "gh")
         nnoremap([[<localleader>fgi,]], [[<cmd>Telescope gh issues<cr>]])
         nnoremap([[<localleader>fgp,]], [[<cmd>Telescope gh pull_request<cr>]])
         nnoremap([[<localleader>fgg,]], [[<cmd>Telescope gh gist<cr>]])
@@ -96,21 +96,22 @@ return {
 
       nnoremap([[<space>ff]], [[<cmd>Telescope find_files<cr>]])
       nnoremap([[<space>fF]], [[<cmd>lua require'telescope.builtin'.find_files({ find_command = {'fd', '--hidden', '--no-ignore', '--exclude', '.git', '--exclude', 'node_modules' }})<cr>]])
-      nnoremap([[<space>fg]], [[<cmd>Telescope live_grep<cr>]])
+      nnoremap([[<space>fG]], [[<cmd>Telescope live_grep<cr>]])
       nnoremap([[<space>ft]], [[<cmd>Telescope buffers<cr>]])
       nnoremap([[<space>fh]], [[<cmd>Telescope help_tags<cr>]])
+      nnoremap([[<space>f\]], [[<cmd>Telescope keymaps<cr>]])
       nnoremap([[<space>f/]], [[<cmd>Telescope search_history<cr>]])
       nnoremap([[<space>f;]], [[<cmd>Telescope command_history<cr>]])
       nnoremap([[<space>fb]], [[<cmd>Telescope current_buffer_fuzzy_find<cr>]])
       nnoremap([[<space>fq]], [[<cmd>Telescope quickfix<cr>]])
-      nnoremap([[K]], [[<cmd>Telescope grep_string<cr>]])
-      vnoremap([[K]], [[<cmd>Telescope grep_string<cr>]])
+      nnoremap([[<space>k]], [[<cmd>Telescope grep_string<cr>]])
+      vnoremap([[<space>k]], [[<cmd>Telescope grep_string<cr>]])
 
       telescope.load_extension('fzf')
       telescope.load_extension('node_modules')
       telescope.load_extension('live_grep_args')
-      vnoremap([[<space>fk]], [[<cmd>Telescope live_grep_args<cr>]])
-      nnoremap([[<space>fk]], [[<cmd>Telescope live_grep_args<cr>]])
+      vnoremap([[<space>fg]], [[<cmd>Telescope live_grep_args<cr>]])
+      nnoremap([[<space>fg]], [[<cmd>Telescope live_grep_args<cr>]])
 
       telescope.load_extension('yank_history')
       nnoremap([[<space>fp]], [[<cmd>Telescope yank_history<cr>]])
