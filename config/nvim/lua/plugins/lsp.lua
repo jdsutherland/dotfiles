@@ -33,23 +33,34 @@ return {
         "tsserver",
       })
 
-      lsp.on_attach(function(client, bufnr)
-        local opts = {buffer = bufnr, remap = false}
+      lsp.on_attach(function(_, bufnr)
+        local function opts_desc(desc)
+          return {buffer = bufnr, remap = false, desc = desc}
+        end
+
         local _ = vim.lsp
 
-        vim.keymap.set("n", "gd", _.buf.definition, opts)
-        vim.keymap.set("n", "gs", _.buf.signature_help, opts) -- TODO: keep?
-        vim.keymap.set("n", "<c-f>", _.buf.hover, opts)
-        vim.keymap.set("i", "<F6>", _.buf.signature_help, opts)
-        vim.keymap.set("n", "<space>vws", _.buf.workspace_symbol, opts)
-        vim.keymap.set("n", "<space>vd", vim.diagnostic.open_float, opts)
-        vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
-        vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
-        vim.keymap.set("n", "<space>vca", _.buf.code_action, opts)
-        vim.keymap.set("n", "<space>vrr", _.buf.references, opts)
-        vim.keymap.set("n", "<space>vi", _.buf.implementation, opts) -- TODO: keep?
-        vim.keymap.set("n", "<space>vrn", _.buf.rename, opts)
-        vim.keymap.set('n', '<space>vtd', _.buf.type_definition, opts)
+        vim.keymap.set("n", "gd", _.buf.definition, opts_desc('Goto Definition (LSP)'))
+        -- vim.keymap.set("n", "gs", _.buf.signature_help, opts) -- TODO: keep?
+        vim.keymap.set("n", "<c-f>", _.buf.hover, opts_desc('Hover'))
+        vim.keymap.set("i", "<F6>", _.buf.signature_help, opts_desc('Sig Help'))
+        vim.keymap.set("n", "<space>vws", _.buf.workspace_symbol, opts_desc('workspace symbol'))
+        vim.keymap.set("n", "<space>vd", vim.diagnostic.open_float, opts_desc('workspace symbol'))
+        vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts_desc('workspace symbol'))
+        vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts_desc('Goto prev diag'))
+        vim.keymap.set("n", "<space>vca", _.buf.code_action, opts_desc('Goto next diag'))
+        vim.keymap.set("n", "<space>vrr", _.buf.references, opts_desc('qf refs (LSP)'))
+        vim.keymap.set("n", "<space>vi", _.buf.implementation, opts_desc('implementation (LSP)')) -- TODO: keep?
+        vim.keymap.set("n", "<space>vrn", _.buf.rename, opts_desc('Rename (LSP)'))
+        vim.keymap.set('n', '<space>vtd', _.buf.type_definition, opts_desc('Type def (LSP)'))
+
+        -- TODO: move to telescope?
+        vim.keymap.set('n', '<space>fd', require('telescope.builtin').lsp_document_symbols, opts_desc('Document Symbols'))
+        vim.keymap.set('n', '<space>fo', function() require("telescope.builtin").lsp_document_symbols({
+          symbols = { "method", "function", "class", "struct", "interface" },
+          symbol_width = 60
+        }) end, opts_desc('Function Symbols'))
+        vim.keymap.set('n', '<space>fw', require('telescope.builtin').lsp_dynamic_workspace_symbols, opts_desc('[W]orkspace Symbols'))
       end)
 
       -- Fix Undefined global 'vim'
@@ -93,10 +104,6 @@ return {
           ['<C-k>'] = cmp_action.luasnip_jump_backward(),
         }
       })
-
-      -- TODO: move to telescope?
-      vim.keymap.set('n', '<space>fd', require('telescope.builtin').lsp_document_symbols)
-      vim.keymap.set('n', '<space>fw', require('telescope.builtin').lsp_dynamic_workspace_symbols)
     end
   },
   { 'rmagatti/goto-preview',
