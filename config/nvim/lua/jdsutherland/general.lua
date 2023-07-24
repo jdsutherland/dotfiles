@@ -38,6 +38,7 @@ opt.undofile = true
 opt.swapfile = false
 
 opt.foldmethod = "expr"
+-- TODO: does this default and ufo overrides?
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.foldlevelstart = 99
 opt.foldnestmax = 10
