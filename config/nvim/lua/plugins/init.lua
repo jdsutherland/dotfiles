@@ -77,6 +77,19 @@ return {
     keys = { {'<localleader>G', '<cmd>:LazyGit<cr>'} }
   },
   -- =========== vimscript plugins ===========
+  {
+    'rhysd/git-messenger.vim',
+    dependencies = 'mattn/webapi-vim',
+    keys = { {'<space>m', '<Plug>(git-messenger)'} },
+    config = function ()
+      vim.cmd([[
+      let g:git_messenger_floating_win_opts = { 'border': 'single' }
+      let g:git_messenger_popup_content_margins = v:false
+      let g:git_messenger_always_into_popup = v:true
+      let g:git_messenger_date_format = "%Y %b %d %X"
+      ]])
+    end
+  },
   'troydm/zoomwintab.vim',
   'jdsutherland/vim-github-link-opener',
   'christoomey/vim-system-copy',
