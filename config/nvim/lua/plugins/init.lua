@@ -76,6 +76,11 @@ return {
     },
     keys = { {'<localleader>G', '<cmd>:LazyGit<cr>'} }
   },
+  {
+    'notjedi/nvim-rooter.lua',
+    cmd = { 'Rooter', 'RooterToggle' },
+    opts = { manual = true },
+  },
   -- =========== vimscript plugins ===========
   {
     'rhysd/git-messenger.vim',
