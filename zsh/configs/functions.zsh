@@ -317,10 +317,6 @@ days(){
   mdfind -onlyin . "$query" | quote
 }
 
-sth() {
-  say -v Kanya $(trans -b :th "$@")
-}
-
 sch() { say -v Ting-Ting $(trans -b :zh "$@") }
 
 # using rsync locally (doesn't delete by default)
