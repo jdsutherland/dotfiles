@@ -1,10 +1,8 @@
-local g = vim.g
-local opt = vim.opt
-
 vim.g.mapleader = ','
 vim.g.maplocalleader = '\\'
 vim.g.netrw_liststyle = 3
 
+local opt = vim.opt
 opt.smarttab = true
 opt.autowrite = true
 opt.expandtab = true
@@ -64,8 +62,6 @@ opt.completeopt = 'menuone,noselect'
 opt.updatetime = 250
 opt.timeout = true
 opt.timeoutlen = 300
-
-
 
 -- TODO: keep?
 -- opt.completeopt:remove("preview")

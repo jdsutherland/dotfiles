@@ -163,8 +163,8 @@ bind ]:${hyper}   ${righthalf}
 bind t:${hyper}     focus 'Alacritty'
 # HACK: coupled to karabiner remap hyper+w b/c triggers WiFiDiagnostic
 # bind `:${hyper}     focus 'WhatsApp'
-# bind q:${hyper}     focus 'Dash'
-bind q:${hyper}     focus 'Brave'
+# TODO: see if both work if one isn't open
+bind q:${hyper}     focus 'Anki'
 bind g:${hyper}     focus 'Finder'
 bind p:${hyper}     focus 'Preview'
 # bind m:${hyper}     focus 'Marked 2'
@@ -175,5 +175,4 @@ bind d:${hyper}     focus 'Discord'
 # bind z:${hyper}     focus 'Books'
 bind v:${hyper}     focus 'mpv'
 # bind n:${hyper}     focus 'Stickies'
-bind x:${hyper}     focus 'Anki'
 bind b:${hyper}     focus ${browser}

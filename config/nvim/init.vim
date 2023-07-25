@@ -3,7 +3,7 @@
 " source ~/.dotfiles/config/nvim/plugins.vim
 " call plug#end()
 
-" source ~/.dotfiles/config/nvim/functions.vim
+source ~/.dotfiles/config/nvim/functions.vim
 source ~/.dotfiles/config/nvim/autocmds.vim
 
 " Use kana/vim-operator-user for textobj with vtr
