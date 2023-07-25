@@ -77,6 +77,14 @@ return {
     keys = { {'<localleader>G', '<cmd>:LazyGit<cr>'} }
   },
   {
+    'akinsho/git-conflict.nvim',
+    version = "*",
+    opts = { default_mappings = {
+      next = ']g',
+      prev = '[g',
+    }},
+  },
+  {
     'notjedi/nvim-rooter.lua',
     cmd = { 'Rooter', 'RooterToggle' },
     opts = { manual = true },
