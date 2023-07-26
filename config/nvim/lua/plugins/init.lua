@@ -84,11 +84,6 @@ return {
       prev = '[g',
     }},
   },
-  {
-    'notjedi/nvim-rooter.lua',
-    cmd = { 'Rooter', 'RooterToggle' },
-    opts = { manual = true },
-  },
   -- =========== vimscript plugins ===========
   {
     'rhysd/git-messenger.vim',
