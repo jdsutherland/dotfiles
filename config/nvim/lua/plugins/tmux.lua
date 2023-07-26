@@ -1,6 +1,3 @@
-local utils = require("jdsutherland.utils")
-local nnoremap = utils.nnoremap
-
 return {
   {
     'aserowy/tmux.nvim',
@@ -43,6 +40,11 @@ return {
         [[v:lua.vim.api.nvim_win_get_config(0).relative != "" ? "<c-w>-" : ":lua require('tmux').resize_top()<cr>"]],
         opts
       )
+
+      vim.keymap.set('t', '<c-h>', [[<cmd>lua require("tmux").move_left()<cr>]])
+      vim.keymap.set('t', '<c-j>', [[<cmd>lua require("tmux").move_down()<cr>]])
+      vim.keymap.set('t', '<c-k>', [[<cmd>lua require("tmux").move_up()<cr>]])
+      vim.keymap.set('t', '<c-l>', [[<cmd>lua require("tmux").move_right()<cr>]])
     end
   }
 }
