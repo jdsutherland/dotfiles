@@ -88,7 +88,7 @@ xnoremap # :<C-u>call VisualStarSearchSet('?')<CR>?<C-R>=@/<CR><CR>
 
 -- Mappings for quick search & replace. Global set to default
 -- Do a / search first, then leave pattern empty in :s// to use previous
-nnoremap([[<leader>sub]], [[:%s///<left>]])
+nnoremap([[<localleader>S]], [[:%s///<left>]])
 -- replace cword on current line
 vim.cmd([[nnoremap <expr><cr>l ':s/'.expand('<cword>').'//<left>']])
 
