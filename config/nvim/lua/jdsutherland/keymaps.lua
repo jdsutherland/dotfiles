@@ -118,9 +118,8 @@ nnoremap([[<space>lc]], [[:pclose<CR>]])
 
 vim.cmd([[
 nmap <expr> <space>zz foldclosed('.') != -1 ? 'za' : 'zc'
-nnoremap <expr> <space>zx &foldlevel ? 'zM' :'zR'
-nnoremap <expr> <space>za 'zA'
-nnoremap <expr> <leader>Z 'zR'
+nnoremap <expr> <space>z<space> &foldlevel ? 'zM' :'zR'
+nnoremap <expr> <space>z 'zA'
 ]])
 
 nnoremap([[<space>D]], [[:bd<CR>]])
