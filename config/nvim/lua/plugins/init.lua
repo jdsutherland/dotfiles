@@ -1,4 +1,35 @@
 return {
+  {
+    -- TODO: try oxi
+    'nvim-pack/nvim-spectre',
+    config = true,
+    opts = function()
+      vim.keymap.set(
+        'n',
+        '<leader>S',
+        '<cmd>lua require("spectre").toggle()<CR>',
+        {desc = "Toggle Spectre"}
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>sw',
+        '<cmd>lua require("spectre").open_visual({select_word=true})<CR>',
+        {desc = "Search current word"}
+      )
+      vim.keymap.set(
+        'v',
+        '<leader>sw',
+        '<esc><cmd>lua require("spectre").open_visual()<CR>',
+        {desc = "Search current word"}
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>sp',
+        '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>',
+        {desc = "Search on current file"}
+      )
+    end
+  },
   { 'ethanholz/nvim-lastplace', config = true },
   {
     'NvChad/nvim-colorizer.lua',
@@ -67,7 +98,7 @@ return {
     'mrjones2014/dash.nvim',
     run = 'make install',
     cmd = { 'Dash', 'DashWord' },
-    keys = { {'gk', '<cmd>DashWord<cr>'} }
+    keys = { {'<space>gk', '<cmd>DashWord<cr>'} }
   },
   {
     "kdheepak/lazygit.nvim",
@@ -110,6 +141,7 @@ return {
   'tpope/vim-unimpaired',
   'tpope/vim-vinegar',
   'tpope/vim-ragtag',
+  'AndrewRadev/tagalong.vim',
   {
     'tpope/vim-dadbod',
     dependencies = { 'kristijanhusak/vim-dadbod-ui' },
@@ -119,7 +151,7 @@ return {
     'tpope/vim-fugitive',
     dependencies = {
       'tpope/vim-rhubarb',
-      'rbong/vim-flog',
+      { 'rbong/vim-flog', cmd = { 'Flog' } },
     },
     cmd = { "Git", "GBrowse", "Gread" }
   },
