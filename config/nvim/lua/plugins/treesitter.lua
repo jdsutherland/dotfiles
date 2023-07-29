@@ -11,6 +11,17 @@ return {
       'RRethy/nvim-treesitter-endwise',
       'RRethy/nvim-treesitter-textsubjects',
       'nvim-treesitter/nvim-treesitter-context',
+      {
+        "andymass/vim-matchup",
+        event = "BufReadPost",
+        init = function()
+          vim.o.matchpairs = "(:),{:},[:],<:>"
+        end,
+        config = function()
+          vim.g.matchup_matchparen_deferred = 1
+          vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
+        end,
+      },
     },
     cmd = { "TSUpdateSync" },
     keys = {
@@ -85,6 +96,11 @@ return {
 
       -- RRethy/nvim-treesitter-endwise,
       endwise = {
+        enable = true,
+      },
+
+      -- andymass/vim-matchup
+      matchup = {
         enable = true,
       },
 
