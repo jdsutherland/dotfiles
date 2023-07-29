@@ -77,12 +77,10 @@ return {
     keys = { {'<localleader>G', '<cmd>:LazyGit<cr>'} }
   },
   {
-    'akinsho/git-conflict.nvim',
-    version = "*",
-    opts = { default_mappings = {
-      next = ']g',
-      prev = '[g',
-    }},
+    "sindrets/diffview.nvim",
+    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
+    config = true,
+    keys = { { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "DiffView" } },
   },
   -- =========== vimscript plugins ===========
   {

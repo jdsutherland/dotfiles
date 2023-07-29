@@ -69,6 +69,8 @@
   vdf = difftool
   vv = branch -vv
   web-url = "!funct() { git config remote.origin.url | sed -e\"s/git@/https:\\/\\//\" -e\"s/\\.git$//\" | sed -E \"s/(\\/\\/[^:]*):/\\1\\//\"; }; funct"
+  mergetool = "!nvim -c DiffviewOpen"
+  dt = "! args=$@; shift $#; nvim -c \"DiffviewOpen $args\""
 [core]
   excludesfile = ~/.gitignore
   attributesFile = ~/.gitattributes
@@ -84,6 +86,11 @@
   rebase = true
 [merge]
   ff = only
+  tool = nvim
+[mergetool "nvim"]
+    cmd = nvim -f -c \"DiffviewOpen\"
+[mergetool]
+    prompt = false
 [credential]
   helper = osxkeychain
 [rerere]
