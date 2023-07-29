@@ -30,3 +30,10 @@ gui:
       - '#223249'
   nerdFontsVersion: "3"
   showFileTree: false # for rendering changes files in a tree format
+
+customCommands:
+  - key: "M"
+    command: "git mergetool {{ .SelectedFile.Name }}"
+    context: "files"
+    loadingText: "opening git mergetool"
+    subprocess: true
