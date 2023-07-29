@@ -59,6 +59,16 @@ return {
     opts = { use_default_keymaps = false, max_join_length = 150 },
   },
   {
+    -- TODO: see if this gets used
+    'David-Kunz/treesitter-unit',
+    config = function()
+      vim.api.nvim_set_keymap('x', 'iu', ':lua require"treesitter-unit".select()<CR>', {noremap=true})
+      vim.api.nvim_set_keymap('x', 'au', ':lua require"treesitter-unit".select(true)<CR>', {noremap=true})
+      vim.api.nvim_set_keymap('o', 'iu', ':<c-u>lua require"treesitter-unit".select()<CR>', {noremap=true})
+      vim.api.nvim_set_keymap('o', 'au', ':<c-u>lua require"treesitter-unit".select(true)<CR>', {noremap=true})
+    end
+  },
+  {
     -- similar to mini.ai so putting here
     "chrisgrieser/nvim-various-textobjs",
     version = '',
