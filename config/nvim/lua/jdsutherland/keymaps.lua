@@ -117,9 +117,9 @@ nnoremap([[<space>lc]], [[:pclose<CR>]])
 -- nnoremap([[<leader>Z]], [['zR']])
 
 vim.cmd([[
-nmap <expr> <space>zz foldclosed('.') != -1 ? 'za' : 'zc'
-nnoremap <expr> <space>z<space> &foldlevel ? 'zM' :'zR'
-nnoremap <expr> <space>z 'zA'
+nmap <expr> gj foldclosed('.') != -1 ? 'za' : 'zc'
+nnoremap <expr> gl &foldlevel ? 'zM' :'zR'
+nnoremap <expr> gk 'zA'
 ]])
 
 nnoremap([[<space>D]], [[:bd<CR>]])
@@ -251,3 +251,7 @@ function close_most_recent_split()
 end
 _G.close_most_recent_split = close_most_recent_split
 nnoremap('<localleader>c', ':lua close_most_recent_split()<CR>')
+
+vim.cmd([[
+nnoremap <silent><cr>f :exec &conceallevel ? "set conceallevel=0" : "set conceallevel=2"<CR>
+]])
