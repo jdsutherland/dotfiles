@@ -53,8 +53,6 @@ autocmd FileType go,python,ruby,eruby,elixir,haskell,typescript,typescriptreact 
 " resize when closing tmux pane
 autocmd VimResized * wincmd =
 
-autocmd FileType help wincmd L | vert resize 80
-
 " au BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
 
 " {{{ package info
