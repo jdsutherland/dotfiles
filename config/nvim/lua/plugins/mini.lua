@@ -11,7 +11,7 @@ return {
       }
       require('mini.comment').setup { options = { ignore_blank_line = true } }
       require('mini.splitjoin').setup { mappings = { toggle = '<tab>j' } }
-      require('mini.move').setup {}
+      require('mini.sessions').setup {}
       -- TODO: use this but grab the [e and [<space> from unimpaired
       -- require('mini.bracketed').setup {}
       vim.cmd[[highlight MiniIndentscopeSymbol guifg=#35393F]]

@@ -104,7 +104,6 @@ return {
   'tpope/vim-apathy',
   'tpope/vim-dispatch',
   'tpope/vim-dotenv',
-  'tpope/vim-obsession',
   'tpope/vim-repeat',
   'tpope/vim-scriptease',
   'tpope/vim-sleuth',
