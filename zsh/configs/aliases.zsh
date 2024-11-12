@@ -406,8 +406,8 @@ if [[ -o interactive ]]; then
   alias brewc='brew cleanup'
   # }}}
 
-  alias l='exa --long --sort=modified --group-directories-first'
-  alias le='exa --long --git --sort=created --group-directories-first'
+  alias l='eza --long --sort=modified --group-directories-first'
+  alias le='eza --long --git --sort=created --group-directories-first'
   alias ll='lsd -la'
   alias x='xargs'
   alias xx='xargs -I{}'

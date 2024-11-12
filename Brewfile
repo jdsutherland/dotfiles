@@ -26,7 +26,7 @@
 # elixir: Functional metaprogramming aware language built on Erlang VM
 # emscripten: LLVM bytecode to JavaScript compiler
 # bat-extras: Bash scripts that integrate bat with various command-line tools
-# exa: Modern replacement for 'ls'
+# eza: Modern replacement for 'ls'
 # exercism: Command-line tool to interact with exercism.io
 # exiftool: Perl lib for reading and writing EXIF metadata
 # fd: Simple, fast and user-friendly alternative to find
@@ -174,7 +174,7 @@ brew "dust"
 brew "duti"
 brew "elixir"
 brew "emscripten"
-brew "exa"
+brew "eza"
 brew "exercism"
 brew "exiftool"
 brew "fd"

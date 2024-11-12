@@ -64,7 +64,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 
 # Show contents of directory after cd-ing into it
 chpwd() {
-  exa --long --git --sort=accessed --group-directories-first
+  eza --long --git --sort=accessed --group-directories-first
 }
 
 unsetopt correctall
