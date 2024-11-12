@@ -119,9 +119,6 @@ return {
       telescope.load_extension('buffer_lines')
       vim.cmd([[nnoremap <space>fl <cmd>Telescope buffer_lines<cr>]])
 
-      require("telescope").load_extension('harpoon')
-      nnoremap([[<space>fm]], [[<cmd>Telescope harpoon marks<cr>]])
-
       require('telescope').load_extension('luasnip')
       nnoremap([[<space>fs]], [[<cmd>Telescope luasnip<cr>]])
     end
