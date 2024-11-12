@@ -1,34 +1,21 @@
 return {
   {
+    -- overloads h & l to quickly fold
+    "chrisgrieser/nvim-origami",
+    event = "BufReadPost", -- later or on keypress would prevent saving folds
+    opts = true, -- needed even when using default config
+  },
+  {
     -- TODO: try oxi
     'nvim-pack/nvim-spectre',
-    config = true,
-    opts = function()
-      vim.keymap.set(
-        'n',
-        '<leader>S',
-        '<cmd>lua require("spectre").toggle()<CR>',
-        {desc = "Toggle Spectre"}
-      )
-      vim.keymap.set(
-        'n',
-        '<leader>sw',
-        '<cmd>lua require("spectre").open_visual({select_word=true})<CR>',
-        {desc = "Search current word"}
-      )
-      vim.keymap.set(
-        'v',
-        '<leader>sw',
-        '<esc><cmd>lua require("spectre").open_visual()<CR>',
-        {desc = "Search current word"}
-      )
-      vim.keymap.set(
-        'n',
-        '<leader>sp',
-        '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>',
-        {desc = "Search on current file"}
-      )
-    end
+    opts = {},
+    cmd = "Spectre",
+    keys = {
+      { '<leader>S', function() require("spectre").toggle() end, desc = "Toggle Spectre" },
+      { '<leader>sw', function() require("spectre").open_visual({select_word=true}) end, mode = 'n', desc = "Search current word" },
+      { '<leader>sw', function() require("spectre").open_visual() end, mode = 'v', desc = "Search current word" },
+      { '<leader>sp', function() require("spectre").open_file_search({select_word=true}) end, desc = "Search in current file" }
+    }
   },
   { 'ethanholz/nvim-lastplace', config = true },
   {
@@ -80,7 +67,7 @@ return {
     "okuuva/auto-save.nvim",
     cmd = "ASToggle",
     event = { "InsertLeave", "TextChanged" },
-    opts = { execution_message = { enabled = false } },
+    opts = {},
   },
   {
     'windwp/nvim-autopairs',
