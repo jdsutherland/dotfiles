@@ -5,6 +5,7 @@ function -() { cd - }
 # If piping something in, copy it.
 # If just doing `clip`, paste it.
 clip() { [ -t 0 ] && pbpaste || pbcopy;}
+cclip() { cat "$1" | pbcopy }
 
 first() { awk '{print $1}' }
 second() { awk '{print $2}' }
@@ -192,17 +193,23 @@ ref() { cd `pwd` }
 
 # gets the total running time of videos recursively from the working dir
 vidtime() {
-  total_length=0
+  local total_length=0
+  local file duration
 
-  for file in *.(mp4|avi|mkv|mov|flv|wmv|mpg|mpeg|webm|3gp)
-  do
-    duration=$(ffprobe -i "$file" -show_entries format=duration -v quiet -of csv="p=0")
-    total_length=$(echo "$total_length + $duration" | bc)
+  setopt extended_glob
+
+  for file in **/*.(mp4|avi|mkv|mov|flv|wmv|mpg|mpeg|webm|3gp)(.N); do
+    if [[ -f "$file" ]]; then
+      duration=$(ffprobe -i "$file" -show_entries format=duration -v quiet -of csv="p=0")
+      if [[ $duration =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+        total_length=$(echo "$total_length + $duration" | bc)
+      fi
+    fi
   done
 
-  hours=$((total_length / 3600))
-  minutes=$(( (total_length % 3600) / 60 ))
-  seconds=$((total_length % 60))
+  local hours=$((total_length / 3600))
+  local minutes=$(( (total_length % 3600) / 60 ))
+  local seconds=$((total_length % 60))
 
   printf "%02d:%02d:%02d\n" $hours $minutes $seconds
 }
@@ -229,7 +236,11 @@ ydlj() {
 # medium quality (<720p)
 ydlm() { yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' "$@" }
 yy() {
-  yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720]+bestaudio/best' "$@"
+  yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -S vcodec:h264,fps,res:720,acodec:m4a "$@"
+}
+
+yywl() {
+  yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --cookies="~/.config/mpv/cookies.txt" -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720]+bestaudio/best' --playlist-end=${1:-50} 'https://www.youtube.com/playlist?list=WL"'
 }
 
 yyd() {
@@ -239,7 +250,6 @@ yyd() {
 yyp() {
   yt-dlp --download-archive downloaded.txt --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(autonumber)s-%(title)s.%(ext)s" -f 'bestvideo[height<=720]+bestaudio/best' "$@"
 }
-
 
 ydla() {
   yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' --external-downloader aria2c "$@"
@@ -266,26 +276,29 @@ ydlps() {
   yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt -f 'bestvideo[height<=550][vcodec=vp9]+bestaudio[acodec=opus]' -cio "%(autonumber)s-%(title)s.%(ext)s" "$@"
 }
 
-# open clipboard link with mpv
+# open clipboard link with iina
 mp() {
-  mpv "$(pbpaste)" --ytdl-format="bestvideo[height<=?1080][fps<=?30][vcodec!=?vp9]+bestaudio/best" > /dev/null 2>&1
+  iina "$(pbpaste)" --ytdl-format="bestvideo[height<=?1080][fps<=?30][vcodec!=?vp9]+bestaudio/best" > /dev/null 2>&1
 }
 
 ytn() {
-  mpv --no-video --ytdl-format=bestaudio ytdl://ytsearch10:"'$*'"
+  iina --no-video --ytdl-format=bestaudio ytdl://ytsearch10:"'$*'"
 }
 
 yts() {
-  mpv ytdl://ytsearch10:"'$*'"
+  iina ytdl://ytsearch10:"'$*'"
 }
 
-# mpv youtube-dl watch-later
+# iina youtube-dl watch-later
 mpw() {
-  mpv --player-operation-mode=pseudo-gui --ytdl-raw-options="cookies=~/.config/mpv/cookies.txt,playlist-end=${1:-50}" ytdl://:ytwatchlater &
+  iina --player-operation-mode=pseudo-gui --ytdl-raw-options="cookies=~/.config/mpv/cookies.txt,playlist-end=${1:-50}" ytdl://:ytwatchlater &
 }
 
 mpvg() { mpv --player-operation-mode=pseudo-gui "$*" & }
-m() { mpv --player-operation-mode=pseudo-gui "$*" & }
+m() { iina --player-operation-mode=pseudo-gui "$*" & }
+
+# find mpv
+fm() { fd -L -t file -p "$1" | xargs mpv }
 
 # mps - open mpv with yt query <count> <query>
 mps() {
@@ -317,7 +330,11 @@ days(){
   mdfind -onlyin . "$query" | quote
 }
 
-sch() { say -v Ting-Ting $(trans -b :zh "$@") }
+sch() {
+  translation=$(trans -b :zh "$1")
+  echo "$translation"
+  say -v Tingting "$translation"
+}
 
 # using rsync locally (doesn't delete by default)
 rlocal() {
@@ -547,4 +564,9 @@ rgafz() {
 	)" &&
 	echo "opening $file" &&
 	open "$file"
+}
+
+# <url-with-json-response>
+vjson() {
+  curl "$1" | jq . | nvim -c "set ft=json"
 }

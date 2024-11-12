@@ -62,6 +62,7 @@ if [[ -o interactive ]]; then
   alias mpvi='e ~/.dotfiles/config/mpv/input.conf'
   alias mpvr="mpv --script-opts=radiostart=true"
   alias se='e ~/.dotfiles/slate'
+  alias he='e ~/.dotfiles/hammerspoon/init.lua'
   alias me='e ~/.dotfiles/config/mpv/mpv.conf'
   alias mi='e ~/.dotfiles/config/mpv/input.conf'
   alias sshe='e ~/.ssh/config'
@@ -486,3 +487,5 @@ if [[ -o interactive ]]; then
     alias zshrc='e -N $HOME/.zshrc && source $HOME/.zshrc'
   fi
 fi
+
+alias python2='/Users/j/.asdf/installs/python/2.7.18/bin/python2'
