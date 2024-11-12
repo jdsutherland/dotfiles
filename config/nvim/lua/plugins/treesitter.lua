@@ -91,9 +91,6 @@ return {
         },
       },
 
-      -- JoosepAlviste/nvim-ts-context-commentstring
-      context_commentstring = { enable = true },
-
       -- RRethy/nvim-treesitter-endwise,
       endwise = {
         enable = true,
@@ -159,6 +156,7 @@ return {
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
       require'treesitter-context'.setup()
+      require('ts_context_commentstring').setup{}
     end
   },
 }
