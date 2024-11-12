@@ -19,7 +19,7 @@ return {
     },
   },
   event = "BufRead",
-  kays = {
+  keys = {
     { "K", function()
       local winid = require('ufo').peekFoldedLinesUnderCursor()
       if not winid then
@@ -28,7 +28,9 @@ return {
     end }
   },
   opts = function(_, opts)
-    opts.close_fold_kinds = { "imports", "comment" }
+    opts.close_fold_kinds_for_ft = {
+        default = {'imports', 'comment'},
+    }
     opts.preview = {
       win_config = {
         border = { "", "─", "", "", "", "─", "", "" },
