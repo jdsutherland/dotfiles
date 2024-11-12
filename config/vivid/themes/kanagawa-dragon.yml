@@ -108,6 +108,9 @@ programming:
   foreground: dragonGreen
 
 media:
+  3d:
+    foreground: dragonPink
+
   image:
     foreground: dragonPink
 
