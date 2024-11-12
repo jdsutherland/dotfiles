@@ -11,6 +11,7 @@ return {
       'RRethy/nvim-treesitter-endwise',
       'RRethy/nvim-treesitter-textsubjects',
       'nvim-treesitter/nvim-treesitter-context',
+      'phelipetls/jsonpath.nvim',
       {
         "andymass/vim-matchup",
         event = "BufReadPost",
