@@ -348,7 +348,7 @@ if [[ -o interactive ]]; then
   alias o='open'
   alias nosleep=caffeinate
   alias ngh='npm repo'
-  alias pvids='mpv **/*.(mp4|webm|mkv|mov|m4v|avi) > /dev/null 2>&1 &'
+  alias pvids='iina --no-stdin **/*.(mp4|webm|mkv|mov|m4v|avi) > /dev/null 2>&1 &'
   alias ra='ranger-cd'
   alias Ra='ranger'
   # alias rcup="command rcup -v | grep -v identical"
