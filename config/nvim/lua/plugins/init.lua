@@ -128,6 +128,7 @@ return {
   'tpope/vim-unimpaired',
   'tpope/vim-vinegar',
   'tpope/vim-ragtag',
+  'tpope/vim-rails',
   'AndrewRadev/tagalong.vim',
   {
     'tpope/vim-dadbod',
