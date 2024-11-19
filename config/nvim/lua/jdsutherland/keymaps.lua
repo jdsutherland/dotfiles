@@ -216,10 +216,6 @@ cmap([[‘]], [[)]]) -- <m-]>
 -- inoremap([[<c-d>]], [[<backspace>]])
 -- }}}
 
--- move word but keep default popupmenu
-vim.api.nvim_set_keymap('c', '<C-p>', [[pumvisible() ? "<C-p>" : "<C-right>"]], { expr = true })
-vim.api.nvim_set_keymap('c', '<C-n>', [[pumvisible() ? "<C-n>" : "<C-left>"]], { expr = true })
-
 -- shortcut to edit file in the same directory as the current file
 vim.cmd([[cnoremap %% <C-R>=expand("%:p:h").'/'<cr>]])
 

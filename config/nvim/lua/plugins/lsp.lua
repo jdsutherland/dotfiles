@@ -155,6 +155,8 @@ return {
           -- Snippet navigation
           ['<C-j>'] = cmp_action.luasnip_jump_forward(),
           ['<C-k>'] = cmp_action.luasnip_jump_backward(),
+          ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+          ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
           -- scroll up and down the documentation window
           ['<C-u>'] = cmp.mapping.scroll_docs(-4),
           ['<C-d>'] = cmp.mapping.scroll_docs(4),
