@@ -46,6 +46,10 @@ return {
         end
         local _ = vim.lsp
 
+        vim.keymap.set("n", "gd", _.buf.definition, opts_desc('Goto Definition (LSP)'))
+        vim.keymap.set("n", "<localleader>sh", _.buf.signature_help, opts_desc("Signature help")) -- TODO: keep?
+        vim.keymap.set("n", "<c-f>", _.buf.hover, opts_desc('Hover'))
+        vim.keymap.set("i", "<F6>", _.buf.signature_help, opts_desc('Sig Help'))
         vim.keymap.set("n", "<space>vws", _.buf.workspace_symbol, opts_desc('Workspace Symbol'))
         vim.keymap.set("n", "<space>vd", vim.diagnostic.open_float, opts_desc('Diagnostics Float'))
         vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts_desc('Next Diagnostic'))
