@@ -295,7 +295,7 @@ mpw() {
 }
 
 mpvg() { mpv --player-operation-mode=pseudo-gui "$*" & }
-m() { iina --player-operation-mode=pseudo-gui "$*" & }
+m() { iina --no-stdin "$*" & }
 
 # find mpv
 fm() { fd -L -t file -p "$1" | xargs mpv }
