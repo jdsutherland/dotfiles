@@ -39,9 +39,10 @@ return {
             -- TelescopePromptBorder = { fg = theme.ui.bg_p1, bg = theme.ui.bg_p1 },
 
             -- https://github.com/rebelot/kanagawa.nvim#transparent-floating-windows
-            NormalFloat = { bg = "none" },
-            FloatBorder = { bg = "none" },
+            NormalFloat = { bg = theme.ui.bg },
+            FloatBorder = { bg = theme.ui.bg },
             FloatTitle = { bg = "none" },
+
             -- Save an hlgroup with dark background and dimmed foreground
             -- so that you can use it where your still want darker windows.
             -- E.g.: autocmd TermOpen * setlocal winhighlight=Normal:NormalDark
