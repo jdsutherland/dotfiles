@@ -9,7 +9,7 @@ return {
       {                                      -- Optional
         'williamboman/mason.nvim',
         build = function()
-          pcall(vim.cmd, 'MasonUpdate')
+          pcall(function() vim.cmd('MasonUpdate') end)
         end,
       },
       {'williamboman/mason-lspconfig.nvim'}, -- Optional
