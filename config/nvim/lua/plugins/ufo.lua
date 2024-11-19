@@ -20,12 +20,6 @@ return {
   },
   event = "BufRead",
   keys = {
-    { "K", function()
-      local winid = require('ufo').peekFoldedLinesUnderCursor()
-      if not winid then
-        vim.lsp.buf.hover()
-      end
-    end }
   },
   opts = function(_, opts)
     opts.close_fold_kinds_for_ft = {
