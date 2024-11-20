@@ -1,5 +1,4 @@
 return {
-  { 'folke/lazydev.nvim', config = true }, -- Use lazydev.nvim instead of neodev.nvim
   {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v4.x',
@@ -92,7 +91,6 @@ return {
           'pyright',
           'rust_analyzer',
           'ruby_lsp',
-          'ts_ls',
           'vimls',
           'yamlls',
         },
@@ -100,7 +98,7 @@ return {
           function(server_name)
             require('lspconfig')[server_name].setup({})
           end
-        }
+        },
       })
 
       -- Configure the Lua language server (`lua_ls`) for Neovim
@@ -185,4 +183,18 @@ return {
       autofold_depth = 1,
     }
   },
+  {
+    'pmizio/typescript-tools.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+    config = function()
+      local lsp_zero = require('lsp-zero')
+      require("typescript-tools").setup({
+        capabilities = lsp_zero.get_capabilities(),
+        settings = {
+          complete_function_calls = true,
+        },
+      })
+    end,
+  },
+  { 'folke/lazydev.nvim', config = true },
 }
