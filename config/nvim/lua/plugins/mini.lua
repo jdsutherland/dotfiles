@@ -12,6 +12,28 @@ return {
       require('mini.comment').setup { options = { ignore_blank_line = true } }
       require('mini.splitjoin').setup { mappings = { toggle = '<tab>j' } }
       require('mini.sessions').setup {}
+
+      require('mini.files').setup {
+        windows = {
+          preview = true,
+          width_preview = 80,
+        }
+      }
+      -- -- Map '-' to open mini.files
+      -- vim.keymap.set('n', '-', function()
+      --   require('mini.files').open()
+      -- end, { desc = 'Open mini.files' })
+
+      vim.keymap.set('n', '<space>-', function()
+        local current_file = vim.api.nvim_buf_get_name(0) -- Get the current buffer's file path
+        local current_dir = vim.fn.fnamemodify(current_file, ':h') -- Get the directory of the file
+
+        -- Toggle mini.files using the recommended approach
+        if not require('mini.files').close() then
+          require('mini.files').open(current_dir)
+        end
+      end, { desc = 'Toggle mini.files in current buffer folder' })
+
       -- TODO: use this but grab the [e and [<space> from unimpaired
       -- require('mini.bracketed').setup {}
       vim.cmd[[highlight MiniIndentscopeSymbol guifg=#35393F]]
