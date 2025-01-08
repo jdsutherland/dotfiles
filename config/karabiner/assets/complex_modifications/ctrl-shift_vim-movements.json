@@ -51,6 +51,11 @@
         },
         {
           "type": "basic",
+          "from": { "key_code": "semicolon", "modifiers": { "mandatory": [ "left_control", "left_shift" ] } },
+          "to": [ { "key_code": "return_or_enter" } ]
+        },
+        {
+          "type": "basic",
           "from": { "key_code": "period", "modifiers": { "mandatory": [ "left_control", "left_shift" ] } },
           "to": [ { "key_code": "delete_forward" } ]
         },
@@ -66,12 +71,12 @@
         },
         {
           "type": "basic",
-          "from": { "key_code": "semicolon", "modifiers": { "mandatory": [ "left_control", "left_shift" ] } },
+          "from": { "key_code": "open_bracket", "modifiers": { "mandatory": [ "left_control", "left_shift" ] } },
           "to": [ { "key_code": "page_down" } ]
         },
         {
           "type": "basic",
-          "from": { "key_code": "quote", "modifiers": { "mandatory": [ "left_control", "left_shift" ] } },
+          "from": { "key_code": "close_bracket", "modifiers": { "mandatory": [ "left_control", "left_shift" ] } },
           "to": [ { "key_code": "page_up" } ]
         }
       ]
