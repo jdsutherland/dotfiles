@@ -21,6 +21,8 @@ return {
     nnoremap <localleader>vc :VtrSendCtrlC<cr>
     nnoremap <localleader>vf :VtrSendFile<cr>
     nnoremap <localleader>va :VtrAttachToPane<cr>
+    nnoremap <localleader>V :VtrSendLinesToRunner<cr>
+    vmap <localleader>V :VtrSendLinesToRunner<cr>
     " on startup, attach to pane below
     autocmd VimEnter * if !system("tmux display-message -p '#{pane_at_bottom}'") | execute 'VtrAttachToPane' system('tmux display -p -t "{down-of}" "#{pane_index}"')
 
