@@ -4,25 +4,12 @@ local utils = {}
 
 -- yanked from https://github.com/nicknisi/dotfiles/blob/main/config/nvim/lua/utils.lua
 local function make_keymap_fn(mode, o)
-  -- copy the opts table as extends will mutate opts
   local parent_opts = vim.deepcopy(o)
   return function(combo, mapping, opts)
     assert(combo ~= mode, string.format("The combo should not be the same as the mode for %s", combo))
     local _opts = opts and vim.deepcopy(opts) or {}
-
-    if type(mapping) == "function" then
-      local fn_id = globals._create(mapping)
-      mapping = string.format("<cmd>lua globals._execute(%s)<cr>", fn_id)
-    end
-
-    if _opts.bufnr then
-      local bufnr = _opts.bufnr
-      _opts.bufnr = nil
-      _opts = vim.tbl_extend("keep", _opts, parent_opts)
-      api.nvim_buf_set_keymap(bufnr, mode, combo, mapping, _opts)
-    else
-      api.nvim_set_keymap(mode, combo, mapping, vim.tbl_extend("keep", _opts, parent_opts))
-    end
+    _opts = vim.tbl_extend("keep", _opts, parent_opts)
+    vim.keymap.set(mode, combo, mapping, _opts)
   end
 end
 

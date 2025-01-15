@@ -129,6 +129,7 @@ return {
   'tpope/vim-ragtag',
   'tpope/vim-rails',
   'AndrewRadev/tagalong.vim',
+  'tommcdo/vim-exchange',
   {
     'tpope/vim-dadbod',
     dependencies = { 'kristijanhusak/vim-dadbod-ui' },

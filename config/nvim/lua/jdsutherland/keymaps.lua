@@ -17,10 +17,11 @@ nnoremap('Y', 'y$')
 nmap('Q', '@q')
 
 -- Reselect pasted text. Mnem: 'Get pasted'
-nnoremap("gp", "'[v']")
+nnoremap("gp", "`[v`]")
+-- nnoremap("gp", "'[v']") -- TODO: see what works
 -- often 'select previous paste' used to indent; these maps cut out the middleman
-nnoremap("<space>[", "`[V`]<")
-nnoremap("<space>]", "`[V`]>")
+nnoremap("<space>[", "`[v`]<")
+nnoremap("<space>]", "`[v`]>")
 -- Go to position of last edit. Mnem: 'Go to Edit'
 nnoremap("ge", "`.")
 
@@ -202,8 +203,6 @@ nmap([[<c-w>s]], [[<c-w>f]])
 
 -- {{{ imode
 inoremap([[<C-A>]], [[<C-O>^]])
--- TODO: what does this do?
-inoremap([[<C-X><C-A>]], [[<C-A>]])
 
 -- upcase current word
 inoremap([[<c-u>]], [[<esc>viwUe]])

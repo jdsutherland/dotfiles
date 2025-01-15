@@ -13,7 +13,8 @@ return {
       '#fab387',
       '#89b4fa'
     },
-    navigation = true, -- search icon w/ count for hlsearch
+    navigation = false, -- search icon w/ count for hlsearch
+    search_count = true, -- search icon w/ count for hlsearch
     color_key = "<space>h",
     cancel_color_key = "<space>H",
     search_key = nil,
