@@ -31,6 +31,12 @@ return {
             TelescopeResultsNormal = { fg = theme.ui.special, bg = theme.ui.bg },
             TelescopeMatching = { fg = garyGreen },
 
+            -- don't like orange for constants since they're everywhere
+
+            -- Keep constants like GROUPS in orange
+            -- ["@constant.javascript"] = { fg = colors.palette.dragonOrange2 },
+            -- Make readonly variables (e.g., `modalBackground`) white
+            ["@lsp.typemod.variable.readonly.javascript"] = { fg = colors.palette.dragonWhite },
             -- https://github.com/rebelot/kanagawa.nvim#borderless-telescope
             -- TelescopeResultsBorder = { fg = theme.ui.bg, bg = theme.ui.bg },
             -- TelescopePreviewNormal = { bg = theme.ui.bg_dim },
