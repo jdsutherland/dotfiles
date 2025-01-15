@@ -67,6 +67,7 @@ return {
             fuzzy = true,                    -- false will only do exact matching
             override_generic_sorter = true, -- override the generic sorter
             override_file_sorter = true,     -- override the file sorter
+            case_mode = "smart_case",
           },
           vimgrep_arguments = {
             "rg",
@@ -121,6 +122,70 @@ return {
 
       require('telescope').load_extension('luasnip')
       nnoremap([[<space>fs]], [[<cmd>Telescope luasnip<cr>]])
+
+      -- Check if a file or directory exists
+      local function exists(path)
+        return vim.fn.filereadable(path) == 1 or vim.fn.isdirectory(path) == 1
+      end
+
+      -- Map Telescope to search in the current buffer's folder
+      nnoremap('<Space>f.', function()
+        require('telescope.builtin').find_files({
+          cwd = vim.fn.expand('%:h'),
+        })
+      end, { desc = "Find files in current dir" })
+
+
+      -- Framework specific mappings
+      -- Rails
+      if exists('config/routes.rb') then
+        nnoremap('<Space>ec', function()
+          require('telescope.builtin').find_files({ cwd = 'app/controllers' })
+        end, { desc = "Find Rails controllers" })
+
+        nnoremap('<Space>eh', function()
+          require('telescope.builtin').find_files({ cwd = 'app/helpers' })
+        end, { desc = "Find Rails helpers" })
+
+        nnoremap('<Space>ei', function()
+          require('telescope.builtin').find_files({ cwd = 'config/initializers' })
+        end, { desc = "Find Rails initializers" })
+
+        nnoremap('<Space>em', function()
+          require('telescope.builtin').find_files({ cwd = 'app/models' })
+        end, { desc = "Find Rails models" })
+
+        nnoremap('<Space>es', function()
+          require('telescope.builtin').find_files({ cwd = 'app/assets/stylesheets' })
+        end, { desc = "Find Rails stylesheets" })
+
+        nnoremap('<Space>ev', function()
+          require('telescope.builtin').find_files({ cwd = 'app/views' })
+        end, { desc = "Find Rails views" })
+
+        if exists('test') then
+          nnoremap('<Space>et', function()
+            require('telescope.builtin').find_files({ cwd = 'test' })
+          end, { desc = "Find Rails tests" })
+        else
+          nnoremap('<Space>et', function()
+            require('telescope.builtin').find_files({ cwd = 'spec' })
+          end, { desc = "Find Rails specs" })
+        end
+      -- React
+      elseif exists('src/index.js') then
+        nnoremap('<Space>ec', function()
+          require('telescope.builtin').find_files({ cwd = 'src/components' })
+        end, { desc = "Find React components" })
+
+        nnoremap('<Space>es', function()
+          require('telescope.builtin').find_files({ cwd = 'src/styles' })
+        end, { desc = "Find React styles" })
+
+        nnoremap('<Space>et', function()
+          require('telescope.builtin').find_files({ cwd = 'src/__tests__/components' })
+        end, { desc = "Find React tests" })
+      end
     end
   }
 }
