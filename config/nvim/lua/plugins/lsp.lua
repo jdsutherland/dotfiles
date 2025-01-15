@@ -112,7 +112,6 @@ return {
               globals = { 'vim' },
             },
             workspace = {
-              library = vim.api.nvim_get_runtime_file("", true),
               checkThirdParty = false,
             },
           },
@@ -172,7 +171,9 @@ return {
       -- TODO: improve this. see https://github.com/rmagatti/goto-preview/issues/90
       { '<space>lv', ":vs<cr>:lua require('goto-preview').close_all_win()<CR>zt" },
     },
-    config = true
+    opts = {
+      height = 15
+    }
   },
   {
     'simrat39/symbols-outline.nvim',
