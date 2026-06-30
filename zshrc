@@ -11,7 +11,10 @@ source ~/.zinit/bin/zinit.zsh
 
 # Add Homebrew site-functions to fpath (optional, for Homebrew completions)
 fpath+=("$(brew --prefix)/share/zsh/site-functions")
-export PATH="$HOME/.asdf/shims:$PATH"
+# asdf version manager (Node, Go, Ruby, Python, etc.)
+export ASDF_DATA_DIR="$HOME/.asdf"
+export PATH="$ASDF_DATA_DIR/shims:$PATH"
+fpath+=("$(brew --prefix asdf)/share/zsh/site-functions")
 
 # Load Prezto's completion module with zinit
 zinit ice wait lucid blockf
