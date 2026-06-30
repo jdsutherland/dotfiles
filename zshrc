@@ -87,7 +87,7 @@ KEYTIMEOUT=25
 
 # TODO: remove once https://github.com/so-fancy/diff-so-fancy/pull/398 merged
 export PATH="$HOME/.dotfiles/bin/diff-so-fancy:$PATH"
-export TERM="alacritty"
+# TERM is set by Ghostty config and ~/.zshenv
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
