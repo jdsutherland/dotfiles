@@ -83,7 +83,10 @@ unsetopt multios
 
 KEYTIMEOUT=25
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# fzf shell integration (completions + key bindings)
+fzf_shell="$(brew --prefix fzf)/shell"
+[ -f "$fzf_shell/key-bindings.zsh" ] && source "$fzf_shell/key-bindings.zsh"
+[ -f "$fzf_shell/completion.zsh" ] && source "$fzf_shell/completion.zsh"
 
 # TODO: remove once https://github.com/so-fancy/diff-so-fancy/pull/398 merged
 export PATH="$HOME/.dotfiles/bin/diff-so-fancy:$PATH"

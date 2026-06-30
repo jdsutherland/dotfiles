@@ -331,8 +331,6 @@ if [[ -o interactive ]]; then
   alias gwX='git rm -rf'
   # }}}
 
-  eval "$(hub alias -s)"
-
   # App
   alias surgec='echo -ne '\n' | surge 2>/dev/null | egrep -o "\w+\.surge\.sh" | xargs -I{} echo "https://"{}'
   alias mongostart='brew services start mongodb'
