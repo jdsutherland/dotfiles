@@ -40,12 +40,3 @@ keybind = ctrl+q=esc:\x11
 keybind = alt+delete=reset_font_size
 keybind = alt+equal=increase_font_size:1
 keybind = alt+minus=decrease_font_size:1
-
-# Map Command key to Option-key escape sequences for tmux navigation
-keybind = super+j=text:\x1bj
-keybind = super+k=text:\x1bk
-keybind = super+l=text:\x1bl
-keybind = super+h=text:\x1bh
-keybind = super+o=text:\x1bo
-keybind = super+p=text:\x1bp
-keybind = super+Tab=text:\x1b\x09

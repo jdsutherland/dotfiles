@@ -391,7 +391,7 @@
             ]
           },
           {
-            "description": "ghostty: left_cmd tap -> tmux zoom (tmux.conf hack)",
+            "description": "ghostty: l_cmd => l_opt (cmd DNE in vim/tmux) / tap tmux zoom (tmux.conf hack)",
             "manipulators": [
               {
                 "type": "basic",
@@ -411,7 +411,10 @@
                       "^com\\.mitchellh\\.ghostty$"
                     ]
                   }
-                ]
+                ],
+                "to": {
+                  "key_code": "left_option"
+                }
               }
             ]
           },
