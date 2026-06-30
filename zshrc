@@ -5,8 +5,17 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+
 # {{{ zinit
 source ~/.zinit/bin/zinit.zsh
+
+# Add Homebrew site-functions to fpath (optional, for Homebrew completions)
+fpath+=("$(brew --prefix)/share/zsh/site-functions")
+export PATH="$HOME/.asdf/shims:$PATH"
+
+# Load Prezto's completion module with zinit
+zinit ice wait lucid blockf
+zinit snippet PZT::modules/completion
 
 zinit ice pick"async.zsh" src"pure.zsh"
 zinit ice depth=1; zinit light romkatv/powerlevel10k
@@ -19,18 +28,16 @@ zinit wait lucid light-mode for \
     atinit"zicompinit; zicdreplay" \
         "zdharma-continuum/fast-syntax-highlighting" \
     atload"_zsh_autosuggest_start" \
-        "zsh-users/zsh-autosuggestions" \
+        "zsh-users/zsh-autosuggestions"
 
-zinit ice wait lucid blockf
-zinit snippet PZT::modules/completion
-
-# NOTE: Must be after PZT completion. https://github.com/Aloxaf/fzf-tab/issues/199
+# Load fzf-tab after completions are initialized
 zinit light Aloxaf/fzf-tab
 
 zinit light softmoth/zsh-vim-mode
 zinit snippet PZT::modules/directory
 zinit snippet PZT::modules/history
 zinit snippet PZT::modules/docker/alias.zsh
+zinit wait lucid for MichaelAquilina/zsh-autoswitch-virtualenv
 
 # zsh-users/zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#373b41"
@@ -45,7 +52,6 @@ alias e=$EDITOR
 alias vim="nvim"
 alias vi="nvim"
 
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
 # TODO: completions not working
 # . /opt/homebrew/share/zsh/site-functions/
 # . /opt/homebrew/etc/bash_completion.d
@@ -85,3 +91,4 @@ export TERM="alacritty"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[ -f ~/.zshenv_private ] && source ~/.zshenv_private
