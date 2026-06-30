@@ -5,11 +5,10 @@ return {
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     dependencies = {
-      "nvim-treesitter/playground",
       "nvim-treesitter/nvim-treesitter-textobjects",
       "JoosepAlviste/nvim-ts-context-commentstring",
       'RRethy/nvim-treesitter-endwise',
-      'RRethy/nvim-treesitter-textsubjects',
+      -- textsubjects removed: depends on removed define_modules API
       'nvim-treesitter/nvim-treesitter-context',
       'phelipetls/jsonpath.nvim',
       {
@@ -73,24 +72,7 @@ return {
       },
       highlight = { enable = true, use_languagetree = true },
       indent = { enable = true },
-      playground = {
-        enable = false,
-        disable = {},
-        updatetime = 25,
-        persist_queries = false,
-        keybindings = {
-          toggle_query_editor = "o",
-          toggle_hl_groups = "i",
-          toggle_injected_languages = "t",
-          toggle_anonymous_nodes = "a",
-          toggle_language_display = "I",
-          focus_language = "f",
-          unfocus_language = "F",
-          update = "R",
-          goto_node = "<cr>",
-          show_help = "?",
-        },
-      },
+      -- playground removed: deprecated, use :InspectTree, :EditQuery, :Inspect instead
 
       -- RRethy/nvim-treesitter-endwise,
       endwise = {
@@ -155,7 +137,7 @@ return {
     },
 
     config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
+      require("nvim-treesitter.config").setup(opts)
       require'treesitter-context'.setup()
       require('ts_context_commentstring').setup{}
     end
