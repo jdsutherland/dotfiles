@@ -35,6 +35,9 @@ clipboard-write = allow
 # Key bindings
 keybind = super+v=paste_from_clipboard
 keybind = super+c=copy_to_clipboard
+# Karabiner remaps cmd+v→opt+v and cmd+c→opt+c, so bind opt versions too
+keybind = alt+v=paste_from_clipboard
+keybind = alt+c=copy_to_clipboard
 keybind = ctrl+slash=text:\x1f
 keybind = ctrl+q=esc:\x11
 keybind = alt+delete=reset_font_size
