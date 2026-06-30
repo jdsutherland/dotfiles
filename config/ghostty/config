@@ -1,0 +1,43 @@
+# Ghostty config — translated from Alacritty
+# https://ghostty.org/docs/config/reference
+
+# Window
+window-decoration = none
+maximize = true
+
+# Font
+font-family = IosevkaTerm Nerd Font
+font-style = Medium
+font-family-bold = IosevkaTerm Nerd Font
+font-style-bold = Bold
+font-family-italic = IosevkaTerm Nerd Font
+font-style-italic = Italic
+font-size = 14
+
+# Theme — Kanagawa Dragon (built-in)
+theme = Kanagawa Dragon
+
+# Cursor
+cursor-style = block
+
+# Mouse
+mouse-hide-while-typing = true
+mouse-scroll-multiplier = 3
+
+# Scrollback
+scrollback-limit = 10000000
+
+# Clipboard
+clipboard-read = true
+clipboard-write = true
+
+# Key bindings
+keybind = super+v=paste_from_clipboard
+keybind = super+c=copy_to_clipboard
+keybind = ctrl+slash=esc:\x1f
+keybind = ctrl+q=esc:\x11
+keybind = alt+delete=reset_font_size
+keybind = alt+equals=increase_font_size
+keybind = alt+minus=decrease_font_size
+keybind = super+k=clear_screen
+keybind = mouse_middle=paste_from_selection
