@@ -78,8 +78,7 @@
   pager = diff-so-fancy | less --tabs=4 -RFX
   autocrlf = input
 [pager]
-  ; TODO: remove full path once https://github.com/so-fancy/diff-so-fancy/pull/398 merged
-  diff = ~/.bin/diff-so-fancy/diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
+  diff = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
 [push]
   default = simple
 [pull]
