@@ -26,6 +26,7 @@
 |---------|--------|
 | Opt+Space → Cmd+Space | Alfred fix |
 | Ctrl+I → F6 | Vim tab separate from Ctrl+I |
+| left_cmd → left_opt (held) | Cmd acts as Opt in terminal for tmux binds |
 | left_cmd tap → Opt+Tab | Tmux zoom (pane toggle) |
 | fn tap → Opt+Shift+z | Tmux git individual file history |
 | left_ctrl tap → Opt+Shift+x | Tmux git file full history |
@@ -40,18 +41,12 @@
 |---------|--------|
 | super+v | Paste from clipboard |
 | super+c | Copy to clipboard |
-| ctrl+/, super+slash → `\x1f` | Fzf-git-browser (gfzf) |
+| ctrl+/, ctrl+slash → `\x1f` | Fzf-git-browser (gfzf) |
 | ctrl+q → `\x11` | (sent as escape sequence) |
 | alt+delete | Reset font size |
 | alt+= | Increase font size 1pt |
 | alt+- | Decrease font size 1pt |
-| super+j → `\x1bj` | Tmux: previous window (M-j) |
-| super+k → `\x1bk` | Tmux: next window (M-k) |
-| super+l → `\x1bl` | Tmux: last window (M-l) |
-| super+h → `\x1bh` | Tmux: select left pane |
-| super+o → `\x1bo` | Tmux: cycle panes |
-| super+p → `\x1bp` | Tmux: switch client |
-| super+Tab → `\x1b\x09` | Tmux: zoom (may not work, macOS captures it) |
+<!-- super+key navigation bindings removed — handled by Karabiner cmd→opt remap -->
 
 ---
 
