@@ -1,7 +1,6 @@
 return {
   {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v4.x',
+    'neovim/nvim-lspconfig',
     dependencies = {
       -- LSP Support
       {'neovim/nvim-lspconfig'},             -- Required
@@ -63,14 +62,9 @@ return {
       -- },
     },
     config = function()
-      -- Initialize lsp-zero
-      local lsp = require("lsp-zero")
-
       -- Set up on_attach for keybindings and other settings
-      local lsp_attach = (function(_, bufnr)
-        lsp.default_keymaps({ buffer = bufnr })
-
-        -- Additional custom keybindings
+      local on_attach = function(client, bufnr)
+        -- Default keymaps (replaces lsp-zero.default_keymaps)
         local function opts_desc(desc)
           return {buffer = bufnr, remap = false, desc = desc}
         end
@@ -97,13 +91,12 @@ return {
           symbol_width = 60
         }) end, opts_desc('Function Symbols'))
         vim.keymap.set('n', '<space>fw', require('telescope.builtin').lsp_dynamic_workspace_symbols, opts_desc('[W]orkspace Symbols'))
-      end)
+      end
 
-      lsp.extend_lspconfig({
+      -- Set global defaults for all LSP clients
+      vim.lsp.config('*', {
         capabilities = require('cmp_nvim_lsp').default_capabilities(),
-        lsp_attach = lsp_attach,
-        float_border = 'rounded',
-        sign_text = true,
+        on_attach = on_attach,
       })
 
       -- Mason setup for managing external language servers
@@ -127,13 +120,13 @@ return {
         },
         handlers = {
           function(server_name)
-            require('lspconfig')[server_name].setup({})
+            vim.lsp.enable(server_name)
           end
         },
       })
 
       -- Configure the Lua language server (`lua_ls`) for Neovim
-      require("lspconfig").lua_ls.setup({
+      vim.lsp.config('lua_ls', {
         settings = {
           Lua = {
             runtime = {
@@ -148,13 +141,11 @@ return {
           },
         },
       })
-
-      -- Initialize the LSP setup
-      lsp.setup()
+      vim.lsp.enable('lua_ls')
 
       -- Autocompletion setup
       local cmp = require("cmp")
-      local cmp_action = require('lsp-zero').cmp_action()
+      local luasnip = require("luasnip")
 
       require("luasnip.loaders.from_vscode").lazy_load()
       require'luasnip'.filetype_extend("ruby", {"rails"})
@@ -182,8 +173,20 @@ return {
             end
           end,
           -- Snippet navigation
-          ['<C-j>'] = cmp_action.luasnip_jump_forward(),
-          ['<C-k>'] = cmp_action.luasnip_jump_backward(),
+          ['<C-j>'] = function(fallback)
+            if luasnip.expand_or_jumpable() then
+              luasnip.expand_or_jump()
+            else
+              fallback()
+            end
+          end,
+          ['<C-k>'] = function(fallback)
+            if luasnip.jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
+            end
+          end,
           ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
           ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
           -- scroll up and down the documentation window
@@ -220,9 +223,8 @@ return {
     'pmizio/typescript-tools.nvim',
     dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
     config = function()
-      local lsp_zero = require('lsp-zero')
       require("typescript-tools").setup({
-        capabilities = lsp_zero.get_capabilities(),
+        capabilities = require('cmp_nvim_lsp').default_capabilities(),
         settings = {
           complete_function_calls = true,
         },
