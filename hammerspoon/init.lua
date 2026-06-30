@@ -4,6 +4,22 @@
 config = {}
 local hyper = {"cmd", "alt", "ctrl", "shift"}
 
+-- Hyper+key app focusing (moved from Slate)
+hs.hotkey.bind(hyper, "t", function() hs.application.launchOrFocus("Alacritty") end)
+hs.hotkey.bind(hyper, "q", function() hs.application.launchOrFocus("Anki") end)
+hs.hotkey.bind(hyper, "a", function() hs.application.launchOrFocus("Brave Browser Beta") end)
+hs.hotkey.bind(hyper, "g", function() hs.application.launchOrFocus("Finder") end)
+hs.hotkey.bind(hyper, "p", function() hs.application.launchOrFocus("Preview") end)
+hs.hotkey.bind(hyper, "c", function() hs.application.launchOrFocus("ChatGPT") end)
+hs.hotkey.bind(hyper, "r", function() hs.application.launchOrFocus("Microsoft Excel") end)
+hs.hotkey.bind(hyper, "e", function() hs.application.launchOrFocus("Evernote") end)
+hs.hotkey.bind(hyper, "d", function() hs.application.launchOrFocus("Discord") end)
+hs.hotkey.bind(hyper, "z", function() hs.application.launchOrFocus("Gemini") end)
+hs.hotkey.bind(hyper, "x", function() hs.application.launchOrFocus("Claude") end)
+hs.hotkey.bind(hyper, "v", function() hs.application.launchOrFocus("mpv") end)
+hs.hotkey.bind(hyper, "n", function() hs.application.launchOrFocus("Notion") end)
+hs.hotkey.bind(hyper, "b", function() hs.application.launchOrFocus("Google Chrome") end)
+
 -- function focusBrave()
 --   hs.application.launchOrFocus("Brave Browser Beta")
 -- end

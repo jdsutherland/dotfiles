@@ -147,9 +147,9 @@ bind 3:${hyper} sequence layout 1monitor
 bind 4:${hyper} sequence layout 2notifications
 bind space:${hyper} hide 'current'
 
-## Application aliases
-alias browser  'Google Chrome'
-alias editor   'Code'
+## Application aliases (moved to Hammerspoon)
+# alias browser  'Google Chrome'
+# alias editor   'Code'
 
 ## Location bindings
 # These are laid out to be used with the right hand
@@ -160,23 +160,4 @@ bind i:${hyper}   ${full}
 bind [:${hyper}   ${lefthalf}
 bind ]:${hyper}   ${righthalf}
 
-## App bindings
-bind t:${hyper}     focus 'Alacritty'
-# HACK: coupled to karabiner remap hyper+w b/c triggers WiFiDiagnostic
-# bind `:${hyper}     focus 'WhatsApp'
-# TODO: see if both work if one isn't open
-bind q:${hyper}     focus 'Anki'
-bind a:${hyper}     focus 'Brave Browser Beta'
-bind g:${hyper}     focus 'Finder'
-bind p:${hyper}     focus 'Preview'
-bind c:${hyper}     focus 'ChatGPT'
-# bind m:${hyper}     focus 'Marked 2'
-# bind r:${hyper}     focus 'Reeder'
-bind r:${hyper}     focus 'Microsoft Excel'
-bind e:${hyper}     focus 'Evernote'
-bind d:${hyper}     focus 'Discord'
-bind z:${hyper}     focus 'Gemini'
-bind x:${hyper}     focus 'Claude'
-bind v:${hyper}     focus 'mpv'
-bind n:${hyper}     focus 'Notion'
-bind b:${hyper}     focus ${browser}
+## App bindings (moved to Hammerspoon)
