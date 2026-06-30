@@ -39,8 +39,10 @@
 
 | Binding | Effect |
 |---------|--------|
-| super+v | Paste from clipboard |
-| super+c | Copy to clipboard |
+| super+v | Paste from clipboard (standard macOS) |
+| super+c | Copy to clipboard (standard macOS) |
+| alt+v | Paste (Karabiner remap compat — cmd+v→opt+v) |
+| alt+c | Copy (Karabiner remap compat — cmd+c→opt+c) |
 | ctrl+/, ctrl+slash → `\x1f` | Fzf-git-browser (gfzf) |
 | ctrl+q → `\x11` | (sent as escape sequence) |
 | alt+delete | Reset font size |
