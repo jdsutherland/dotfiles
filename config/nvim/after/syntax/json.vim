@@ -1,6 +1,6 @@
-if !has('conceal')
-	finish
-endif
+" if !has('conceal')
+" 	finish
+" endif
 
-syntax keyword jsonBoolean true conceal cchar=✓
-syntax keyword jsonBoolean false conceal cchar=✗
+" syntax keyword jsonBoolean true conceal cchar=✓
+" syntax keyword jsonBoolean false conceal cchar=✗
