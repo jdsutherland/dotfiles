@@ -88,7 +88,8 @@ layout 2notifications 'Brave Beta':REPEAT                                       
 layout 2notifications 'Microsoft Excel':REPEAT                                           ${2-full}
 layout 2notifications 'Marked 2':REPEAT                                                  ${2-full}
 layout 2notifications 'Preview':REPEAT                                                   ${2-full}
-layout 2notifications 'Anki':REPEAT                                                      ${2-full}
+layout 2notifications 'Anki':REPEAT                                                      ${2-left}
+layout 2notifications 'ChatGT':REPEAT                                                      ${2-left}
 layout 2notifications 'Skitch':REPEAT                                                    ${2-full}
 layout 2notifications 'Finder':REPEAT                                                    ${2-left}
 layout 2notifications 'Alfred Preferences':REPEAT                                        ${2-right}
@@ -139,7 +140,7 @@ default 1mpv      resolutions:${mon-laptop}
 # ## Key aliases
 alias hyper ctrl;shift;alt;cmd
 
-bind ':${hyper} grid
+# bind ':${hyper} grid
 bind 1:${hyper} ${notifications}
 bind 2:${hyper} sequence layout 1notifications
 bind 3:${hyper} sequence layout 1monitor
@@ -165,14 +166,17 @@ bind t:${hyper}     focus 'Alacritty'
 # bind `:${hyper}     focus 'WhatsApp'
 # TODO: see if both work if one isn't open
 bind q:${hyper}     focus 'Anki'
+bind a:${hyper}     focus 'Brave Browser Beta'
 bind g:${hyper}     focus 'Finder'
 bind p:${hyper}     focus 'Preview'
+bind c:${hyper}     focus 'ChatGPT'
 # bind m:${hyper}     focus 'Marked 2'
 # bind r:${hyper}     focus 'Reeder'
 bind r:${hyper}     focus 'Microsoft Excel'
 bind e:${hyper}     focus 'Evernote'
 bind d:${hyper}     focus 'Discord'
-# bind z:${hyper}     focus 'Books'
+bind z:${hyper}     focus 'Gemini'
+bind x:${hyper}     focus 'Claude'
 bind v:${hyper}     focus 'mpv'
-# bind n:${hyper}     focus 'Stickies'
+bind n:${hyper}     focus 'Notion'
 bind b:${hyper}     focus ${browser}
