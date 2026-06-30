@@ -37,7 +37,5 @@ keybind = super+c=copy_to_clipboard
 keybind = ctrl+slash=esc:\x1f
 keybind = ctrl+q=esc:\x11
 keybind = alt+delete=reset_font_size
-keybind = alt+equals=increase_font_size
-keybind = alt+minus=decrease_font_size
-keybind = super+k=clear_screen
-keybind = mouse_middle=paste_from_selection
+keybind = alt+==increase_font_size
+keybind = alt+-=decrease_font_size
