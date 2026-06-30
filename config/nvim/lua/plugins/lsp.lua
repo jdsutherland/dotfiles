@@ -30,36 +30,37 @@ return {
           below = "↖ "  -- when the hint is on the line below the current line
         }
       }},
-      {
-        "zbirenbaum/copilot.lua",
-        event = "InsertEnter", -- Lazy load Copilot when entering insert mode
-        config = function()
-          require("copilot").setup({
-            suggestion = {
-              enabled = true,
-              auto_trigger = true, -- Automatically show suggestions
-              debounce = 75,       -- Reduce delay before showing suggestions
-              keymap = {
-                accept = "<c-f>",
-                next = "<c-j>",
-                prev = "<c-k>",
-                dismiss = "<C-x>",
-              },
-            },
-            panel = {
-              enabled = true,
-              auto_refresh = true
-            },
-          })
-        end,
-      },
-      {
-        "zbirenbaum/copilot-cmp",
-        after = { "copilot.lua", "nvim-cmp" }, -- Ensure it loads after copilot.lua and nvim-cmp
-        config = function()
-          require("copilot_cmp").setup()
-        end,
-      },
+      -- Disabled: needs Node.js — install via asdf then uncomment
+      -- {
+      --   "zbirenbaum/copilot.lua",
+      --   event = "InsertEnter", -- Lazy load Copilot when entering insert mode
+      --   config = function()
+      --     require("copilot").setup({
+      --       suggestion = {
+      --         enabled = true,
+      --         auto_trigger = true, -- Automatically show suggestions
+      --         debounce = 75,       -- Reduce delay before showing suggestions
+      --         keymap = {
+      --           accept = "<c-f>",
+      --           next = "<c-j>",
+      --           prev = "<c-k>",
+      --           dismiss = "<C-x>",
+      --         },
+      --       },
+      --       panel = {
+      --         enabled = true,
+      --         auto_refresh = true
+      --       },
+      --     })
+      --   end,
+      -- },
+      -- {
+      --   "zbirenbaum/copilot-cmp",
+      --   after = { "copilot.lua", "nvim-cmp" }, -- Ensure it loads after copilot.lua and nvim-cmp
+      --   config = function()
+      --     require("copilot_cmp").setup()
+      --   end,
+      -- },
     },
     config = function()
       -- Initialize lsp-zero
@@ -170,7 +171,7 @@ return {
           {name = "nvim_lua"},
           {name = "buffer", keyword_length = 3},
           {name = "luasnip", keyword_length = 2},
-          {name = "copilot", group_index = 2},
+          -- {name = "copilot", group_index = 2}, -- disabled: needs Node.js
         },
         mapping = {
           ["<C-f>"] = function(fallback)
