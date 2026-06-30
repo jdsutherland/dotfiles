@@ -117,8 +117,8 @@ function! SetupCommandAlias(input, output)
     \ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:input.'")'
     \ .'? ("'.a:output.'") : ("'.a:input.'"))'
 endfunction
-call SetupCommandAlias('grep', 'Grepper')
-call SetupCommandAlias('GG', 'GrepperRg')
+" call SetupCommandAlias('grep', 'Grepper')
+" call SetupCommandAlias('GG', 'GrepperRg')
 
 function! VisualStarSearchSet(cmdtype,...)
   let temp = @"

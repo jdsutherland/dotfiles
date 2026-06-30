@@ -1,4 +1,4 @@
-setlocal foldmethod=marker
+" setlocal foldmethod=marker
 setlocal sw=2
 
 " execute visual selection (works for functions)

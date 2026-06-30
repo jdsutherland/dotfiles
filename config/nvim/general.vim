@@ -86,6 +86,9 @@ set iskeyword+=-
 let g:netrw_liststyle = 3
 cabbrev vsf vert sfind
 
+" try with nvim-origami
+set startofline
+
 " TODO: move to keys?
 cnoremap YMD <C-R>=strftime("%Y-%m-%d")<CR>
 inoremap YMD <C-R>=strftime("%Y-%m-%d")<CR>

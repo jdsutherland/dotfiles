@@ -134,6 +134,7 @@ Plug 'christoomey/vim-conflicted'
 Plug 'christoomey/vim-titlecase'
 nmap <cr>t gtiw
 Plug 'christoomey/vim-sort-motion'
+let g:sort_motion = 'gS'
 Plug 'christoomey/vim-system-copy'
 Plug 'vim-scripts/SyntaxAttr.vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
