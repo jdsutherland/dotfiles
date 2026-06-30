@@ -8,6 +8,6 @@
 export LESS="ij.5KMRX"
 
 # Add homebrew binaries
-export PATH="/usr/local/bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
 
 export PATH="$HOME/.npm-packages/bin:$PATH"
