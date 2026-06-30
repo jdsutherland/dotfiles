@@ -37,7 +37,7 @@ conflicted() {
 
 # fd - cd to selected directory
 fcd() {
-  local dir
+  local dir,
   dir=$(find ${1:-.} -path '*/\.*' -prune \
                   -o -type d -print 2> /dev/null | fzf +m) &&
   cd "$dir"
@@ -234,7 +234,10 @@ ydlj() {
 }
 
 # medium quality (<720p)
-ydlm() { yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -f 'bestvideo[height<=720][vcodec=vp9]+bestaudio[acodec=opus]' "$@" }
+ydlm () {
+    yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -o "%(title)s.%(ext)s" -f "bestvideo[height<=720]+bestaudio/best[height<=720]" "$1"
+}
+
 yy() {
   yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames -cio "%(title)s.%(ext)s" -S vcodec:h264,fps,res:720,acodec:m4a "$@"
 }
@@ -276,26 +279,25 @@ ydlps() {
   yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt -f 'bestvideo[height<=550][vcodec=vp9]+bestaudio[acodec=opus]' -cio "%(autonumber)s-%(title)s.%(ext)s" "$@"
 }
 
-# open clipboard link with iina
+# open clipboard link with mpv
 mp() {
-  iina "$(pbpaste)" --ytdl-format="bestvideo[height<=?1080][fps<=?30][vcodec!=?vp9]+bestaudio/best" > /dev/null 2>&1
+  mpv "$(pbpaste)" --ytdl-format="bestvideo[height<=?1080][fps<=?30][vcodec!=?vp9]+bestaudio/best" > /dev/null 2>&1
 }
 
 ytn() {
-  iina --no-video --ytdl-format=bestaudio ytdl://ytsearch10:"'$*'"
+  mpv --no-video --ytdl-format=bestaudio ytdl://ytsearch10:"'$*'"
 }
 
 yts() {
-  iina ytdl://ytsearch10:"'$*'"
+  mpv ytdl://ytsearch10:"'$*'"
 }
 
-# iina youtube-dl watch-later
 mpw() {
-  iina --player-operation-mode=pseudo-gui --ytdl-raw-options="cookies=~/.config/mpv/cookies.txt,playlist-end=${1:-50}" ytdl://:ytwatchlater &
+  mpv --player-operation-mode=pseudo-gui --ytdl-raw-options="cookies=~/.config/mpv/cookies.txt,playlist-end=${1:-50}" ytdl://:ytwatchlater &
 }
 
 mpvg() { mpv --player-operation-mode=pseudo-gui "$*" & }
-m() { iina --no-stdin "$*" & }
+m() { mpv "$@" & }
 
 # find mpv
 fm() { fd -L -t file -p "$1" | xargs mpv }
@@ -334,6 +336,10 @@ sch() {
   translation=$(trans -b :zh "$1")
   echo "$translation"
   say -v Tingting "$translation"
+}
+
+subzh() {
+  OpenSubtitlesDownload.py -l zh-CN "$1"
 }
 
 # using rsync locally (doesn't delete by default)
@@ -569,4 +575,8 @@ rgafz() {
 # <url-with-json-response>
 vjson() {
   curl "$1" | jq . | nvim -c "set ft=json"
+}
+
+jqv(){
+  jq . | nvim -c "set ft=json"
 }
