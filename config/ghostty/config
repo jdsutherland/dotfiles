@@ -28,8 +28,8 @@ mouse-scroll-multiplier = 3
 scrollback-limit = 10000000
 
 # Clipboard
-clipboard-read = true
-clipboard-write = true
+clipboard-read = allow
+clipboard-write = allow
 
 # Key bindings
 keybind = super+v=paste_from_clipboard
@@ -37,5 +37,5 @@ keybind = super+c=copy_to_clipboard
 keybind = ctrl+slash=esc:\x1f
 keybind = ctrl+q=esc:\x11
 keybind = alt+delete=reset_font_size
-keybind = alt+equal=increase_font_size
-keybind = alt+minus=decrease_font_size
+keybind = alt+equal=increase_font_size:1
+keybind = alt+minus=decrease_font_size:1
