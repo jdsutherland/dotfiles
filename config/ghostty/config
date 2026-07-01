@@ -7,13 +7,13 @@ maximize = true
 
 # Font
 font-family = IosevkaTerm Nerd Font
-term = xterm-256color
+term = xterm-ghostty
 font-style = Medium
 font-family-bold = IosevkaTerm Nerd Font
 font-style-bold = Bold
 font-family-italic = IosevkaTerm Nerd Font
 font-style-italic = Italic
-font-size = 14
+font-size = 13
 
 # Theme — Kanagawa Dragon (built-in)
 theme = Kanagawa Dragon
@@ -26,7 +26,7 @@ mouse-hide-while-typing = true
 mouse-scroll-multiplier = 3
 
 # Scrollback
-scrollback-limit = 10000000
+scrollback-limit = 1000000
 
 # Clipboard
 clipboard-read = allow

@@ -5,7 +5,7 @@ config = {}
 local hyper = {"cmd", "alt", "ctrl", "shift"}
 
 -- Hyper+key app focusing (moved from Slate)
-hs.hotkey.bind(hyper, "t", function() hs.application.launchOrFocus("Alacritty") end)
+hs.hotkey.bind(hyper, "t", function() hs.application.launchOrFocus("Ghostty") end)
 hs.hotkey.bind(hyper, "q", function() hs.application.launchOrFocus("Anki") end)
 hs.hotkey.bind(hyper, "a", function() hs.application.launchOrFocus("Brave Browser Beta") end)
 hs.hotkey.bind(hyper, "g", function() hs.application.launchOrFocus("Finder") end)
