@@ -4,6 +4,21 @@
 config = {}
 local hyper = {"cmd", "alt", "ctrl", "shift"}
 
+local function focusMpv()
+  local app = hs.application.find("mpv")
+
+  if app then
+    app:activate()
+    return
+  end
+
+  hs.execute("/opt/homebrew/bin/mpv --idle=yes --force-window=yes >/dev/null 2>&1 &")
+  hs.timer.doAfter(0.5, function()
+    local launched = hs.application.find("mpv")
+    if launched then launched:activate() end
+  end)
+end
+
 -- Hyper+key app focusing (moved from Slate)
 hs.hotkey.bind(hyper, "t", function() hs.application.launchOrFocus("Ghostty") end)
 hs.hotkey.bind(hyper, "q", function() hs.application.launchOrFocus("Anki") end)
@@ -16,7 +31,7 @@ hs.hotkey.bind(hyper, "e", function() hs.application.launchOrFocus("Evernote") e
 hs.hotkey.bind(hyper, "d", function() hs.application.launchOrFocus("Discord") end)
 hs.hotkey.bind(hyper, "z", function() hs.application.launchOrFocus("Gemini") end)
 hs.hotkey.bind(hyper, "x", function() hs.application.launchOrFocus("Claude") end)
-hs.hotkey.bind(hyper, "v", function() hs.application.launchOrFocus("mpv") end)
+hs.hotkey.bind(hyper, "v", focusMpv)
 hs.hotkey.bind(hyper, "n", function() hs.application.launchOrFocus("Notion") end)
 hs.hotkey.bind(hyper, "b", function() hs.application.launchOrFocus("Google Chrome") end)
 
