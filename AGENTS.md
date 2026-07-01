@@ -14,7 +14,7 @@ This repo uses git worktrees to let multiple agents work simultaneously on diffe
 
 | Agent | Task | Branch | Worktree | Status |
 |-------|------|--------|----------|--------|
-| main | carapace integration | `carapace-integration` | `~/.dotfiles-wip/carapace` | done — merged to master |
+| — | — | — | — | — |
 
 ## Task Lifecycle
 
