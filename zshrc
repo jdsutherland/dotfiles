@@ -33,14 +33,7 @@ zinit wait lucid light-mode for \
     atload"_zsh_autosuggest_start" \
         "zsh-users/zsh-autosuggestions"
 
-# Carapace — multi-shell completion engine (load before fzf-tab)
-# https://carapace.sh
-zpcompinit
-export CARAPACE_BRIDGES='zsh,fish,bash'
-zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
-source <(carapace _carapace zsh)
-
-# Load fzf-tab after completions and carapace are initialized
+# Load fzf-tab after completions are initialized
 zinit light Aloxaf/fzf-tab
 
 zinit light softmoth/zsh-vim-mode
