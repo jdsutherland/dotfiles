@@ -64,6 +64,33 @@ source <(carapace _carapace zsh)
 # Bridge mode: use existing zsh/fish/bash completions alongside Carapace
 export CARAPACE_BRIDGES='zsh,fish,bash'
 
+export PATH="$HOME/.bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+
+export GOPATH="$HOME/go"
+export PATH="$PATH:$GOPATH/bin"
+export PATH="$PATH:$GOROOT/bin"
+
+export LS_COLORS=$(vivid generate kanagawa-dragon)
+export BAT_PAGER=less
+# lazygit uses this to change config dir
+export XDG_CONFIG_HOME="$HOME/.config"
+
+# Show contents of directory after cd-ing into it
+chpwd() {
+  eza --long --git --sort=accessed --group-directories-first
+}
+
+unsetopt correctall
+# Allow [ or ] wherever you want
+# (Prevents "zsh: no matches found: ...")
+unsetopt nomatch
+
+# https://github.com/gabebw/dotfiles/pull/15
+unsetopt multios
+
+KEYTIMEOUT=25
+
 # fzf shell integration (completions + key bindings)
 fzf_shell="$(brew --prefix fzf)/shell"
 [ -f "$fzf_shell/key-bindings.zsh" ] && source "$fzf_shell/key-bindings.zsh"
