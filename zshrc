@@ -58,6 +58,9 @@ alias vi="nvim"
 # TODO: completions not working
 # . /opt/homebrew/share/zsh/site-functions/
 
+# Ensure compinit has run before carapace (needs compdef)
+zpcompinit
+
 # Carapace — multi-shell completion engine
 # https://carapace.sh
 source <(carapace _carapace zsh)
