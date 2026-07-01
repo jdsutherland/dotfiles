@@ -8,12 +8,8 @@ maximize = true
 # Font
 font-family = IosevkaTerm Nerd Font
 term = xterm-ghostty
-font-style = Medium
-font-family-bold = IosevkaTerm Nerd Font
-font-style-bold = Bold
-font-family-italic = IosevkaTerm Nerd Font
-font-style-italic = Italic
-font-size = 13
+font-family = Maple Mono NF
+font-size = 12
 
 # Theme — Kanagawa Dragon (built-in)
 theme = Kanagawa Dragon
@@ -43,3 +39,7 @@ keybind = ctrl+q=esc:\x11
 keybind = alt+delete=reset_font_size
 keybind = alt+equal=increase_font_size:1
 keybind = alt+minus=decrease_font_size:1
+
+bell-features = no-attention
+fullscreen = false
+confirm-close-surface = false
