@@ -29,7 +29,7 @@ mouse-scroll-multiplier = 3
 scrollback-limit = 1000000
 
 # Clipboard
-clipboard-read = allow
+clipboard-read = ask
 clipboard-write = allow
 
 # Key bindings
