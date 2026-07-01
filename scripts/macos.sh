@@ -7,7 +7,7 @@ echo "Applying macOS defaults..."
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 defaults write -g InitialKeyRepeat -int 7
-defaults write -g KeyRepeat -int 2
+defaults write -g KeyRepeat -int 1
 
 # Trackpad / mouse
 defaults write -g com.apple.trackpad.scaling -float 2.5
