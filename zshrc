@@ -57,7 +57,12 @@ alias vi="nvim"
 
 # TODO: completions not working
 # . /opt/homebrew/share/zsh/site-functions/
-# . /opt/homebrew/etc/bash_completion.d
+
+# Carapace — multi-shell completion engine
+# https://carapace.sh
+source <(carapace _carapace zsh)
+# Bridge mode: use existing zsh/fish/bash completions alongside Carapace
+export CARAPACE_BRIDGES='zsh,fish,bash'
 
 export PATH="$HOME/.bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
