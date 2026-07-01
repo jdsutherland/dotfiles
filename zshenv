@@ -11,6 +11,3 @@ export LESS="ij.5KMRX"
 export PATH="/opt/homebrew/bin:$PATH"
 
 export PATH="$HOME/.npm-packages/bin:$PATH"
-
-# Fix terminal compatibility (less, tmux, etc.)
-export TERM=xterm-256color
