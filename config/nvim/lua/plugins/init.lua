@@ -1,9 +1,24 @@
 return {
   {
-    -- overloads h & l to quickly fold
+    -- overloads h & l to quickly fold; v2.0 replaces nvim-ufo
     "chrisgrieser/nvim-origami",
-    event = "BufReadPost", -- later or on keypress would prevent saving folds
-    opts = true, -- needed even when using default config
+    event = "VeryLazy",
+    init = function()
+      vim.o.foldlevel = 99
+      vim.o.foldlevelstart = 99
+    end,
+    opts = {
+      useLspFoldsWithTreesitterFallback = { enabled = true },
+      pauseFoldsOnSearch = true,
+      foldtext = {
+        enabled = true,
+        lineCount = { template = "%d lines" },
+        diagnosticsCount = true,
+        gitsignsCount = true,
+      },
+      autoFold = { enabled = true, kinds = { "comment", "imports" } },
+      foldKeymaps = { setup = true },
+    },
   },
   {
     'MeanderingProgrammer/render-markdown.nvim',
