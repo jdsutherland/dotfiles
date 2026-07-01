@@ -9,6 +9,9 @@ fi
 # {{{ zinit
 source ~/.zinit/bin/zinit.zsh
 
+# Custom completion functions
+fpath+=("$HOME/.zsh/completions")
+
 # Add Homebrew site-functions to fpath (optional, for Homebrew completions)
 fpath+=("$(brew --prefix)/share/zsh/site-functions")
 # asdf version manager (Node, Go, Ruby, Python, etc.)
