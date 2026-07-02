@@ -250,3 +250,23 @@ nnoremap('<localleader>c', ':lua close_most_recent_split()<CR>')
 vim.cmd([[
 nnoremap <silent><cr>f :exec &conceallevel ? "set conceallevel=0" : "set conceallevel=2"<CR>
 ]])
+
+-- Enhanced <C-c> to close floating windows and clear search highlights
+local function enhanced_ctrl_c()
+  -- Close any open floating windows (e.g. LSP hover)
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    local config = vim.api.nvim_win_get_config(win)
+    if config.relative ~= '' then
+      vim.api.nvim_win_close(win, true)
+    end
+  end
+
+  -- Clear search highlighting
+  vim.cmd('nohlsearch')
+
+  -- Feed ESC to exit any active mode
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'n', true)
+end
+
+nnoremap('<C-c>', enhanced_ctrl_c)
+
