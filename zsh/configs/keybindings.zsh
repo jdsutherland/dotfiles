@@ -65,44 +65,8 @@ fzf-play-widget() { playlists; zle reset-prompt }
 zle     -N   fzf-play-widget
 bindkey '^x^p' fzf-play-widget
 
-# {{{ git fzf
-join-lines() {
-  local item
-  while read item; do
-    echo -n "${(q)item} "
-  done
-}
-
-# Git branches
-fzf-gitfile-widget() {
-  local result=$(fzf-gitfile | join-lines); zle reset-prompt; LBUFFER+=$result
-}
-zle     -N   fzf-gitfile-widget
-bindkey '^g^f' fzf-gitfile-widget
-
-fzf-gittag-widget() {
-  local result=$(fzf-gittag | join-lines); zle reset-prompt; LBUFFER+=$result
-}
-zle     -N   fzf-gittag-widget
-bindkey '^g^t' fzf-gittag-widget
-
-fzf-gitbranch-widget() {
-  local result=$(fzf-gitbranch | join-lines); zle reset-prompt; LBUFFER+=$result
-}
-zle     -N   fzf-gitbranch-widget
-bindkey '^g^b' fzf-gitbranch-widget
-
-fzf-gitremote-widget() {
-  local result=$(fzf-gitremote | join-lines); zle reset-prompt; LBUFFER+=$result
-}
-zle     -N   fzf-gitremote-widget
-bindkey '^g^r' fzf-gitremote-widget
-
-fzf-githash-widget() {
-  local result=$(fzf-githash | join-lines); zle reset-prompt; LBUFFER+=$result
-}
-zle     -N   fzf-githash-widget
-bindkey '^g^g' fzf-githash-widget
+# {{{ git fzf — official fzf-git.sh handles files/branches/tags/remotes/hashes/stashes/etc
+# Custom widgets removed; official fzf-git.zsh sets up its own keybindings (^g prefix)
 
 fzf-git-browser-widget() { gfzf; zle reset-prompt }
 zle     -N   fzf-git-browser-widget
