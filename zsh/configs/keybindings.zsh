@@ -67,6 +67,9 @@ bindkey '^x^p' fzf-play-widget
 
 # {{{ git fzf — official fzf-git.sh handles files/branches/tags/remotes/hashes/stashes/etc
 # Custom widgets removed; official fzf-git.zsh sets up its own keybindings (^g prefix)
+# Unbind ^g from send-break so fzf-git's ^g prefix bindings work
+bindkey -M emacs '^g' undefined-key
+
 # Override hashes (^g^h) → ^g^g, reflogs (^g^l) → ^g^u (h/l conflict with tmux)
 bindkey -M emacs '^g^g' fzf-git-hashes-widget
 bindkey -M vicmd '^g^g' fzf-git-hashes-widget

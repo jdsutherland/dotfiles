@@ -49,6 +49,9 @@ zinit wait lucid for MichaelAquilina/zsh-autoswitch-virtualenv
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#373b41"
 # }}}
 
+# Unbind ^g from send-break so fzf-git's ^g prefix bindings work
+bindkey -M emacs '^g' undefined-key
+
 for zsh_source in $HOME/.zsh/configs/*.zsh; do
   source $zsh_source
 done
