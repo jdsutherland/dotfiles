@@ -440,7 +440,7 @@ fgi() {
 fgp() {
   gh pr list --limit 100 | fzf --preview "gh pr view {+1}" \
     --header="enter: diff, C-o: checkout, C-b: browser, C-s: search" \
-    --bind="ctrl-m:execute(gh pr diff --color=always {+1} | diff-so-fancy | less -R),ctrl-o:execute(gh pr checkout {+1}),ctrl-b:execute(gh pr view {+1} --web),ctrl-s:reload(gh pr list --state all --search {q} --limit 999 | rg -v Bump)"
+    --bind="ctrl-m:execute(gh pr diff --color=always {+1} | delta | less -R),ctrl-o:execute(gh pr checkout {+1}),ctrl-b:execute(gh pr view {+1} --web),ctrl-s:reload(gh pr list --state all --search {q} --limit 999 | rg -v Bump)"
 }
 
 gauthor() {
@@ -472,10 +472,10 @@ gpr-sha() {
   hub browse -- "pull/$pr_num"
 }
 
-# open a github pr in diff-so-fancy
+# open a github pr in delta
 gdifpr() {
   url="$(dirname $1).patch"
-  curl -L "$url" | diff-so-fancy | less -RFX
+  curl -L "$url" | delta | less -RFX
 }
 
 # }}}
@@ -519,11 +519,11 @@ tmpdf() { local dir="`mktemp`".pdf; briss -s "$1" -d "$dir" && open $dir }
 fn() { type $1 | field 3 | xargs bat }
 
 dif() {
-  git diff --no-index "$@" | diff-so-fancy | less -RFX
+  git diff --no-index "$@" | delta | less -RFX
 }
 
 dsf() {
-  diff -u -r "$@" | diff-so-fancy | less -RFX
+  diff -u -r "$@" | delta | less -RFX
 }
 
 # rails {{{

@@ -21,7 +21,7 @@
   deleted = log --topo-order --stat --diff-filter=D
   df = diff --word-diff --color-words
   diffpull=!git fetch $1 && git log --stat HEAD..@{u}
-  dsf = "!f() { [ \"$GIT_PREFIX\" != \"\" ] && cd "$GIT_PREFIX"; git diff --color $@ | diff-so-fancy | less --tabs=4 -RFX; }; f"
+  dsf = "!f() { [ \"$GIT_PREFIX\" != \"\" ] && cd "$GIT_PREFIX"; git diff --color $@ | delta | less --tabs=4 -RFX; }; f"
   fpop = !git stash show -p | git apply && git stash drop
   fix-graft = !git fetch --unshallow ; TODO: test & see if this suffices or steps listed at https://stackoverflow.com/questions/49731594/git-shallow-clone-how-do-i-remove-the-grafted-tag-and-what-is-it req
   ; vim-plug expects name origin (for repo)  (gh cli names fork origin and renames origin upstream)
@@ -75,17 +75,23 @@
   excludesfile = ~/.gitignore
   attributesFile = ~/.gitattributes
   editor = "nvim"
-  pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = delta
   autocrlf = input
 [pager]
-  diff = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
+  diff = delta
+[delta]
+  features = diff-so-fancy
+  navigate = true
 [push]
   default = simple
 [pull]
   rebase = true
 [merge]
   ff = only
+  conflictStyle = zdiff3
   tool = nvim
+[interactive]
+  diffFilter = delta --color-only
 [mergetool "nvim"]
     cmd = nvim -f -c \"DiffviewOpen\"
 [mergetool]
@@ -123,8 +129,6 @@
   oldHighlight = "red bold 52"
   newNormal = "green bold"
   newHighlight = "green bold 22"
-[diff-so-fancy]
-  markEmptyLines = false
 [ghi]
   token = !security find-internet-password -a jdsutherland -s github.com -l 'ghi token' -w
 [filter "lfs"]
