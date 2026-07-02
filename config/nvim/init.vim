@@ -6,13 +6,6 @@
 source ~/.dotfiles/config/nvim/functions.vim
 source ~/.dotfiles/config/nvim/autocmds.vim
 
-" Use kana/vim-operator-user for textobj with vtr
-" https://github.com/christoomey/vim-tmux-runner/pull/86#issuecomment-608474159
-
-" TODO: move this
-" map \V <Plug>(operator-vtr)
-" call operator#user#define_ex_command('vtr', 'VtrSendLinesToRunner')
-
 " {{{ lua config
 lua << EOF
 require('jdsutherland.general')
