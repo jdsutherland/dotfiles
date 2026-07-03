@@ -113,8 +113,8 @@ vim.api.nvim_create_autocmd('VimLeavePre', {
   end,
 })
 
--- Restore session on startup (only if no files were specified)
-if vim.fn.argc() == 0 then
+-- Restore session on startup (only if no files were specified and not suppressed)
+if vim.fn.argc() == 0 and not vim.g.no_session_restore then
   vim.api.nvim_create_autocmd('VimEnter', {
     desc = 'Restore session on startup',
     group = vim.api.nvim_create_augroup('auto-session-restore', { clear = true }),
