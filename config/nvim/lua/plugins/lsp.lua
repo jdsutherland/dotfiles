@@ -66,6 +66,29 @@ return {
       -- Rounded borders on all floating windows (hover, diagnostics, etc.)
       vim.o.winborder = 'rounded'
 
+      -- Diagnostic display: cleaner inline text with prefix, colored line numbers
+      vim.diagnostic.config {
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = "",
+            [vim.diagnostic.severity.WARN]  = "",
+            [vim.diagnostic.severity.INFO]  = "",
+            [vim.diagnostic.severity.HINT]  = "",
+          },
+          numhl = {
+            [vim.diagnostic.severity.WARN]  = "WarningMsg",
+            [vim.diagnostic.severity.ERROR] = "ErrorMsg",
+            [vim.diagnostic.severity.INFO]  = "DiagnosticInfo",
+            [vim.diagnostic.severity.HINT]  = "DiagnosticHint",
+          },
+        },
+        virtual_text = {
+          spacing = 4,
+          source = "if_many",
+          prefix = "●",
+        },
+      }
+
       -- Set global capabilities for all LSP clients
       vim.lsp.config('*', {
         capabilities = require('cmp_nvim_lsp').default_capabilities(),
