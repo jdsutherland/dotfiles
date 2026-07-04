@@ -1,10 +1,10 @@
 source ~/.dotfiles/config/nvim/functions.vim
-source ~/.dotfiles/config/nvim/autocmds.vim
 
 " {{{ lua config
 lua << EOF
 require('jdsutherland.general')
 require('jdsutherland.keymaps')
+require('jdsutherland.autocmds')
 
 -- Init lazy.nvim plugin manager.
 -- Plugins are automatically sourced in config/nvim/lua/plugins/*
