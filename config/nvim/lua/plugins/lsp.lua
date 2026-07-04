@@ -66,27 +66,12 @@ return {
       -- Rounded borders on all floating windows (hover, diagnostics, etc.)
       vim.o.winborder = 'rounded'
 
-      -- Diagnostic display: cleaner inline text with prefix, colored line numbers
+      -- Diagnostic display: off by default, toggle on with <leader>xd
       vim.diagnostic.config {
-        signs = {
-          text = {
-            [vim.diagnostic.severity.ERROR] = "",
-            [vim.diagnostic.severity.WARN]  = "",
-            [vim.diagnostic.severity.INFO]  = "",
-            [vim.diagnostic.severity.HINT]  = "",
-          },
-          numhl = {
-            [vim.diagnostic.severity.WARN]  = "WarningMsg",
-            [vim.diagnostic.severity.ERROR] = "ErrorMsg",
-            [vim.diagnostic.severity.INFO]  = "DiagnosticInfo",
-            [vim.diagnostic.severity.HINT]  = "DiagnosticHint",
-          },
-        },
-        virtual_text = {
-          spacing = 4,
-          source = "if_many",
-          prefix = "●",
-        },
+        underline = false,
+        signs = false,
+        virtual_text = false,
+        update_in_insert = false,
       }
 
       -- Set global capabilities for all LSP clients
@@ -138,6 +123,17 @@ return {
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
             end
           end, opts_desc('Toggle inlay [h]ints'))
+
+          -- Toggle all diagnostic decorations (underline, signs, virtual text)
+          vim.keymap.set('n', '<leader>xd', function()
+            local cfg = vim.diagnostic.config
+            local on = cfg().underline ~= false or cfg().signs ~= false
+            if on then
+              cfg { underline = false, signs = false, virtual_text = false }
+            else
+              cfg { underline = true, signs = true, virtual_text = { spacing = 4, source = 'if_many', prefix = '●' } }
+            end
+          end, opts_desc('Toggle diagnostic display'))
 
           -- Telescope bindings for LSP-related searches
           vim.keymap.set('n', '<space>fd', require('telescope.builtin').lsp_document_symbols, opts_desc('Document Symbols'))
