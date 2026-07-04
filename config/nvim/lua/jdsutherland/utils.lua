@@ -128,5 +128,100 @@ if vim.fn.argc() == 0 and not vim.g.no_session_restore then
   })
 end
 
+-- ============================================================================
+-- Utility functions migrated from functions.vim
+-- ============================================================================
+
+--- Replace fancy typographic characters with plain equivalents
+function utils.remove_fancy_characters()
+  vim.cmd([[%s/\v(\u201c|\u201d)/"/ge]])
+  vim.cmd([[%s/\v(\u2018|\u2019)/'/ge]])
+  vim.cmd([[%s/\u2013/--/ge]])
+  vim.cmd([[%s/\u2014/---/ge]])
+  vim.cmd([[%s/\u2026/.../ge]])
+  vim.cmd([[%s/\r/ /ge]])
+end
+vim.api.nvim_create_user_command("RemoveFancyCharacters", utils.remove_fancy_characters, {})
+
+--- Rename current file
+function utils.rename_file()
+  local old_name = vim.fn.expand("%")
+  local new_name = vim.fn.input("New file name: ", vim.fn.expand("%"), "file")
+  if new_name ~= "" and new_name ~= old_name then
+    vim.cmd("saveas " .. vim.fn.fnameescape(new_name))
+    vim.cmd("silent !rm " .. vim.fn.fnameescape(old_name))
+    vim.cmd("redraw")
+  end
+end
+
+--- Send current file to language runner via vim-tmux-runner
+function utils.send_file_via_vtr()
+  local runners = {
+    haskell = "ghci",
+    ruby = "ruby",
+    javascript = "node",
+    python = "python",
+    sh = "sh",
+  }
+  local runner = runners[vim.bo.filetype]
+  if runner then
+    vim.cmd("VtrSendCommandToRunner " .. runner .. " " .. vim.fn.expand("%"))
+  else
+    vim.notify("Unable to determine runner for " .. vim.bo.filetype, vim.log.levels.ERROR)
+  end
+end
+
+--- Pretty-print current buffer as JSON
+function utils.pretty_json()
+  vim.cmd("%%!jq .")
+  vim.bo.filetype = "json"
+end
+vim.api.nvim_create_user_command("PrettyJSON", utils.pretty_json, {})
+
+-- Tmux git history helpers
+function utils.tmux_git_individual_file_history()
+  local filepath = vim.fn.shellescape(vim.fn.expand("%"))
+  vim.fn.system("tmux splitw -l 30% -h -c '#{pane_current_path}' 'git log --patch --follow " .. filepath .. "; read'")
+end
+vim.api.nvim_create_user_command("TmuxGitIndividualFileHistory", utils.tmux_git_individual_file_history, {})
+
+function utils.tmux_git_file_individual_history_reverse()
+  local filepath = vim.fn.shellescape(vim.fn.expand("%"))
+  vim.fn.system("tmux splitw -l 30% -h -c '#{pane_current_path}' 'git log --patch --reverse --follow " .. filepath .. "; read'")
+end
+vim.api.nvim_create_user_command("TmuxGitFileIndividualHistoryReverse", utils.tmux_git_file_individual_history_reverse, {})
+
+function utils.tmux_git_file_full_history()
+  local filepath = vim.fn.shellescape(vim.fn.expand("%"))
+  vim.fn.system("tmux splitw -l 30% -h -c '#{pane_current_path}' 'git log --stat --patch --full-diff " .. filepath .. "; read'")
+end
+vim.api.nvim_create_user_command("TmuxGitFileFullHistory", utils.tmux_git_file_full_history, {})
+
+function utils.tmux_git_file_full_history_reverse()
+  local filepath = vim.fn.shellescape(vim.fn.expand("%"))
+  vim.fn.system("tmux splitw -l 30% -h -c '#{pane_current_path}' 'git log --stat --patch --reverse --full-diff " .. filepath .. "; read'")
+end
+vim.api.nvim_create_user_command("TmuxGitFileFullHistoryReverse", utils.tmux_git_file_full_history_reverse, {})
+
+--- Resize window to fit content, then fix height
+function utils.resize_min()
+  local line_count = vim.fn.line("$")
+  local winheight = vim.fn.winheight(0)
+  if line_count < winheight then
+    vim.cmd("resize " .. line_count)
+  end
+  vim.opt_local.winfixheight = true
+end
+vim.api.nvim_create_user_command("ResizeMin", utils.resize_min, {})
+vim.keymap.set("n", "<cr>m", ":ResizeMin<CR>", { silent = true })
+
+--- System paste with trimmed newlines
+function utils.sys_paste_trim_newlines()
+  vim.cmd("normal \\<Plug>SystemPasteLine")
+  vim.cmd("%%s/\\r/\\r/")
+  vim.cmd("nohl")
+end
+vim.api.nvim_create_user_command("PPP", utils.sys_paste_trim_newlines, {})
+
 return utils
 

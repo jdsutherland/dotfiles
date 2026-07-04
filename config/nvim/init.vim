@@ -1,5 +1,3 @@
-source ~/.dotfiles/config/nvim/functions.vim
-
 " {{{ lua config
 lua << EOF
 require('jdsutherland.general')
