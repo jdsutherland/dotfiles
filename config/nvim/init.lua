@@ -1,11 +1,12 @@
--- Ensure Neovim can find Lua modules in the dotfiles repo
-vim.opt.rtp:prepend("/Users/j/.dotfiles/config/nvim")
-
 require('jdsutherland.general')
 require('jdsutherland.keymaps')
 require('jdsutherland.autocmds')
 
 -- Init lazy.nvim plugin manager.
+-- Plugins are automatically sourced in config/nvim/lua/plugins/*
+-- Plugins with little to no configuration live in config/nvim/lua/plugins/init.lua
+-- otherwise, each plugin has an associated file in config/nvim/lua/plugins
+-- see https://github.com/folke/lazy.nvim/blob/main/README.md#-structuring-your-plugins
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
