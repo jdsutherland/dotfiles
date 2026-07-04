@@ -21,6 +21,7 @@ return {
       {'saadparwaiz1/cmp_luasnip'},
       {'rafamadriz/friendly-snippets'},
       {'j-hui/fidget.nvim', opts = {} },
+      {'b0o/schemastore.nvim' },
       {'ray-x/lsp_signature.nvim', opts = {
         transparency = 10,
         hint_enable = true,
@@ -203,6 +204,23 @@ return {
         },
       })
       vim.lsp.enable('lua_ls')
+
+      -- JSON Schema support via schemastore for jsonls/yamlls
+      vim.lsp.config('jsonls', {
+        settings = {
+          json = {
+            schemas = require('schemastore').json.schemas(),
+            validate = { enable = true },
+          },
+        },
+      })
+      vim.lsp.config('yamlls', {
+        settings = {
+          yaml = {
+            schemas = require('schemastore').yaml.schemas(),
+          },
+        },
+      })
 
       -- Autocompletion setup
       local cmp = require("cmp")
