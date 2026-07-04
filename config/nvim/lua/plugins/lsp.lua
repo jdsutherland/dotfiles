@@ -66,56 +66,59 @@ return {
       -- Rounded borders on all floating windows (hover, diagnostics, etc.)
       vim.o.winborder = 'rounded'
 
-      -- Set up on_attach for keybindings and other settings
-      local on_attach = function(client, bufnr)
-        -- Default keymaps (replaces lsp-zero.default_keymaps)
-        local function opts_desc(desc)
-          return {buffer = bufnr, remap = false, desc = desc}
-        end
-        local _ = vim.lsp
-
-        vim.keymap.set("n", "gd", _.buf.definition, opts_desc('Goto Definition (LSP)'))
-        vim.keymap.set("n", "<localleader>sh", _.buf.signature_help, opts_desc("Signature help")) -- TODO: keep?
-        vim.keymap.set("n", "<c-f>", _.buf.hover, opts_desc('Hover'))
-        vim.keymap.set("i", "<F6>", _.buf.signature_help, opts_desc('Sig Help'))
-        vim.keymap.set("n", "<space>vws", _.buf.workspace_symbol, opts_desc('Workspace Symbol'))
-        vim.keymap.set("n", "<space>vd", vim.diagnostic.open_float, opts_desc('Diagnostics Float'))
-        vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts_desc('Next Diagnostic'))
-        vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts_desc('Previous Diagnostic'))
-        vim.keymap.set("n", "<space>vca", _.buf.code_action, opts_desc('Code Action'))
-        vim.keymap.set("n", "<space>vrr", _.buf.references, opts_desc('References'))
-        vim.keymap.set("n", "<space>vrn", _.buf.rename, opts_desc('Rename'))
-        vim.keymap.set('n', '<space>vtd', _.buf.type_definition, opts_desc('Type Definition'))
-
-        -- Telescope bindings for LSP-related searches
-        -- TODO: move to telescope?
-        vim.keymap.set('n', '<space>fd', require('telescope.builtin').lsp_document_symbols, opts_desc('Document Symbols'))
-        vim.keymap.set('n', '<space>fo', function() require("telescope.builtin").lsp_document_symbols({
-          symbols = { "method", "function", "class", "struct", "interface" },
-          symbol_width = 60
-        }) end, opts_desc('Function Symbols'))
-        vim.keymap.set('n', '<space>fw', require('telescope.builtin').lsp_dynamic_workspace_symbols, opts_desc('[W]orkspace Symbols'))
-
-        -- Highlight references of the word under cursor when hovering
-        if client.server_capabilities.documentHighlightProvider then
-          local highlight_augroup = vim.api.nvim_create_augroup('lsp-document-highlight', { clear = false })
-          vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-            buffer = bufnr,
-            group = highlight_augroup,
-            callback = vim.lsp.buf.document_highlight,
-          })
-          vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-            buffer = bufnr,
-            group = highlight_augroup,
-            callback = vim.lsp.buf.clear_references,
-          })
-        end
-      end
-
-      -- Set global defaults for all LSP clients
+      -- Set global capabilities for all LSP clients
       vim.lsp.config('*', {
         capabilities = require('cmp_nvim_lsp').default_capabilities(),
-        on_attach = on_attach,
+      })
+
+      -- LspAttach autocommand: set buffer-local keymaps when LSP client attaches
+      vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup('lsp-keymaps', { clear = true }),
+        callback = function(event)
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
+          if not client then return end
+          local bufnr = event.buf
+
+          local function opts_desc(desc)
+            return {buffer = bufnr, remap = false, desc = desc}
+          end
+
+          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts_desc('Goto Definition'))
+          vim.keymap.set('n', '<c-f>', vim.lsp.buf.hover, opts_desc('Hover'))
+          vim.keymap.set('n', '<localleader>sh', vim.lsp.buf.signature_help, opts_desc('Signature help'))
+          vim.keymap.set('i', '<F6>', vim.lsp.buf.signature_help, opts_desc('Sig Help'))
+          vim.keymap.set('n', '<space>vws', vim.lsp.buf.workspace_symbol, opts_desc('Workspace Symbol'))
+          vim.keymap.set('n', '<space>vd', vim.diagnostic.open_float, opts_desc('Diagnostics Float'))
+          vim.keymap.set('n', '[d', vim.diagnostic.goto_next, opts_desc('Next Diagnostic'))
+          vim.keymap.set('n', ']d', vim.diagnostic.goto_prev, opts_desc('Previous Diagnostic'))
+          vim.keymap.set('n', '<space>vca', vim.lsp.buf.code_action, opts_desc('Code Action'))
+          vim.keymap.set('n', '<space>vrr', vim.lsp.buf.references, opts_desc('References'))
+          vim.keymap.set('n', '<space>vrn', vim.lsp.buf.rename, opts_desc('Rename'))
+          vim.keymap.set('n', '<space>vtd', vim.lsp.buf.type_definition, opts_desc('Type Definition'))
+
+          -- Telescope bindings for LSP-related searches
+          vim.keymap.set('n', '<space>fd', require('telescope.builtin').lsp_document_symbols, opts_desc('Document Symbols'))
+          vim.keymap.set('n', '<space>fo', function() require('telescope.builtin').lsp_document_symbols({
+            symbols = { 'method', 'function', 'class', 'struct', 'interface' },
+            symbol_width = 60,
+          }) end, opts_desc('Function Symbols'))
+          vim.keymap.set('n', '<space>fw', require('telescope.builtin').lsp_dynamic_workspace_symbols, opts_desc('Workspace Symbols'))
+
+          -- Highlight references of the word under cursor when hovering
+          if client.server_capabilities.documentHighlightProvider then
+            local highlight_augroup = vim.api.nvim_create_augroup('lsp-document-highlight', { clear = false })
+            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+              buffer = bufnr,
+              group = highlight_augroup,
+              callback = vim.lsp.buf.document_highlight,
+            })
+            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+              buffer = bufnr,
+              group = highlight_augroup,
+              callback = vim.lsp.buf.clear_references,
+            })
+          end
+        end,
       })
 
       -- Mason setup for managing external language servers
@@ -123,6 +126,7 @@ return {
 
       require('mason-lspconfig').setup({
         ensure_installed = {
+          'pyright',
           'bashls',
           'clangd',
           'cssls',
@@ -131,7 +135,6 @@ return {
           'jsonls',
           'lua_ls',
           'marksman',
-          'pyright',
           'rust_analyzer',
           'ruby_lsp',
           'vimls',
