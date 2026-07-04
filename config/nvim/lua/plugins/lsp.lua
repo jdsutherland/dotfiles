@@ -66,10 +66,10 @@ return {
       -- Rounded borders on all floating windows (hover, diagnostics, etc.)
       vim.o.winborder = 'rounded'
 
-      -- Diagnostic display: off by default, toggle on with <leader>xd
+      -- Diagnostic display: underline always off, signs always on, toggle virtual_text
       vim.diagnostic.config {
         underline = false,
-        signs = false,
+        signs = true,
         virtual_text = false,
         update_in_insert = false,
       }
@@ -124,16 +124,16 @@ return {
             end
           end, opts_desc('Toggle inlay [h]ints'))
 
-          -- Toggle all diagnostic decorations (underline, signs, virtual text)
+          -- Toggle virtual text diagnostics only (underline stays off, signs stay on)
           vim.keymap.set('n', '<leader>xd', function()
             local cfg = vim.diagnostic.config
-            local on = cfg().underline ~= false or cfg().signs ~= false
+            local on = cfg().virtual_text ~= false
             if on then
-              cfg { underline = false, signs = false, virtual_text = false }
+              cfg { virtual_text = false }
             else
-              cfg { underline = true, signs = true, virtual_text = { spacing = 4, source = 'if_many', prefix = '●' } }
+              cfg { virtual_text = { spacing = 4, source = 'if_many', prefix = '●' } }
             end
-          end, opts_desc('Toggle diagnostic display'))
+          end, opts_desc('Toggle virtual text'))
 
           -- Telescope bindings for LSP-related searches
           vim.keymap.set('n', '<space>fd', require('telescope.builtin').lsp_document_symbols, opts_desc('Document Symbols'))
