@@ -95,6 +95,26 @@ return {
           vim.keymap.set('n', '<space>vrr', vim.lsp.buf.references, opts_desc('References'))
           vim.keymap.set('n', '<space>vrn', vim.lsp.buf.rename, opts_desc('Rename'))
           vim.keymap.set('n', '<space>vtd', vim.lsp.buf.type_definition, opts_desc('Type Definition'))
+          -- Organize imports: remove unused, then sort remaining
+          vim.keymap.set('n', 'gO', function()
+            vim.lsp.buf.code_action({
+              context = { only = { 'source.removeUnusedImports' }, diagnostics = {} },
+              apply = true,
+            })
+            vim.defer_fn(function()
+              vim.lsp.buf.code_action({
+                context = { only = { 'source.organizeImports' }, diagnostics = {} },
+                apply = true,
+              })
+            end, 100)
+          end, opts_desc('Organize imports'))
+
+          -- Toggle inlay hints
+          vim.keymap.set('n', '<leader>hh', function()
+            if client.server_capabilities.inlayHintProvider then
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+            end
+          end, opts_desc('Toggle inlay [h]ints'))
 
           -- Telescope bindings for LSP-related searches
           vim.keymap.set('n', '<space>fd', require('telescope.builtin').lsp_document_symbols, opts_desc('Document Symbols'))
