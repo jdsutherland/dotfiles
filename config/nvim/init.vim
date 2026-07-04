@@ -1,8 +1,3 @@
-" call plug#begin('~/.config/nvim/plugged')
-" let g:plug_pwindow = 'vnew'
-" source ~/.dotfiles/config/nvim/plugins.vim
-" call plug#end()
-
 source ~/.dotfiles/config/nvim/functions.vim
 source ~/.dotfiles/config/nvim/autocmds.vim
 
