@@ -20,6 +20,7 @@ return {
       {'hrsh7th/cmp-buffer'},
       {'saadparwaiz1/cmp_luasnip'},
       {'rafamadriz/friendly-snippets'},
+      {'j-hui/fidget.nvim', opts = {} },
       {'ray-x/lsp_signature.nvim', opts = {
         transparency = 10,
         hint_enable = true,
@@ -62,6 +63,9 @@ return {
       -- },
     },
     config = function()
+      -- Rounded borders on all floating windows (hover, diagnostics, etc.)
+      vim.o.winborder = 'rounded'
+
       -- Set up on_attach for keybindings and other settings
       local on_attach = function(client, bufnr)
         -- Default keymaps (replaces lsp-zero.default_keymaps)
@@ -91,6 +95,21 @@ return {
           symbol_width = 60
         }) end, opts_desc('Function Symbols'))
         vim.keymap.set('n', '<space>fw', require('telescope.builtin').lsp_dynamic_workspace_symbols, opts_desc('[W]orkspace Symbols'))
+
+        -- Highlight references of the word under cursor when hovering
+        if client.server_capabilities.documentHighlightProvider then
+          local highlight_augroup = vim.api.nvim_create_augroup('lsp-document-highlight', { clear = false })
+          vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+            buffer = bufnr,
+            group = highlight_augroup,
+            callback = vim.lsp.buf.document_highlight,
+          })
+          vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+            buffer = bufnr,
+            group = highlight_augroup,
+            callback = vim.lsp.buf.clear_references,
+          })
+        end
       end
 
       -- Set global defaults for all LSP clients
