@@ -166,7 +166,7 @@ return {
 
       require('mason-lspconfig').setup({
         ensure_installed = {
-          'pyright',
+          'basedpyright',
           'bashls',
           'clangd',
           'cssls',
