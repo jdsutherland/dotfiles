@@ -187,6 +187,31 @@ return {
         },
       })
 
+      -- Unused import/variable diagnostics for pyright
+      vim.lsp.config('basedpyright', {
+        settings = {
+          python = {
+            analysis = {
+              diagnosticSeverity = {
+                reportUnusedImport = "information",
+                reportUnusedVariable = "information",
+              },
+            },
+          },
+        },
+      })
+
+      -- Run clippy instead of cargo check for rust-analyzer (catches unused imports, etc.)
+      vim.lsp.config('rust_analyzer', {
+        settings = {
+          ['rust-analyzer'] = {
+            checkOnSave = {
+              command = 'clippy',
+            },
+          },
+        },
+      })
+
       -- Configure the Lua language server (`lua_ls`) for Neovim
       vim.lsp.config('lua_ls', {
         settings = {
