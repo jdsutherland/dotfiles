@@ -137,7 +137,6 @@ return {
     end
   },
   'troydm/zoomwintab.vim',
-  'jdsutherland/vim-github-link-opener',
   'christoomey/vim-system-copy',
   'vim-scripts/ReplaceWithRegister',
   'vim-scripts/ReplaceWithSameIndentRegister',
