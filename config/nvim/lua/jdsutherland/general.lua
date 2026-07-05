@@ -32,7 +32,7 @@ opt.wildmode = "longest:full"
 opt.wildignore:append("tmp/**")
 vim.opt.spellfile = os.getenv('HOME') .. "/.config/nvim/spell/en.utf-8.add"
 vim.opt.thesaurus = os.getenv('HOME') .. "/.config/nvim/spell/thesaurus/mthesaur.txt"
-vim.opt.undodir = os.getenv('HOME') .. '/.config/nvim/undodir'
+vim.opt.undodir = vim.fn.stdpath('data') .. '/undo'
 opt.undofile = true
 opt.swapfile = false
 
