@@ -95,7 +95,6 @@ fzf_shell="$(brew --prefix fzf)/shell"
 
 # zoxide — smart directory navigation (replaces z.lua)
 eval "$(zoxide init zsh)"
-alias zf='zi'
 
 # TODO: remove once https://github.com/so-fancy/diff-so-fancy/pull/398 merged
 export PATH="$HOME/.dotfiles/bin/diff-so-fancy:$PATH"

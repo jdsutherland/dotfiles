@@ -412,7 +412,7 @@ if [[ -o interactive ]]; then
   alias ll='lsd -la'
   alias x='xargs'
   alias xx='xargs -I{}'
-  alias zf='z -I' # always use fzf select
+  alias zf='zi' # zoxide interactive fzf select
   alias xee="open -a Xee³"
   alias apr="apropos"
 
