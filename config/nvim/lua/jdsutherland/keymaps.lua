@@ -66,8 +66,7 @@ nnoremap <silent>,cn :let @* = expand("%:p")<CR>
 ---- open cword in batgrep
 local open_batgrep_in_tmux = [[:call system("tmux splitw -l 30% -h -c \"#{pane_current_path}\" 'batgrep -w -A 7 --smart-case --search-pattern '" . expand("<cword>"))<cr>]] -- .. vim.fn.expand("<cword>") .. [[")<cr>]]
 nnoremap([[<localleader>*]], open_batgrep_in_tmux)
----- TODO: move near Grepper
-nnoremap("<leader>*", ":Grepper -tool rg -noprompt -cword<CR>")
+
 
 vim.cmd([[
 function! VisualStarSearchSet(cmdtype,...)
@@ -82,7 +81,6 @@ function! VisualStarSearchSet(cmdtype,...)
   let @/ = substitute(@/, '\.', '\\.', 'g')
   let @" = temp
 endfunction
-xnoremap ,* :<C-u>call VisualStarSearchSet('/')<CR>:Grepper -tool rg -query <C-R>=@/<CR><CR>
 xnoremap * :<C-u>call VisualStarSearchSet('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call VisualStarSearchSet('?')<CR>?<C-R>=@/<CR><CR>
 ]])
