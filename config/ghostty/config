@@ -6,7 +6,6 @@ window-decoration = none
 maximize = true
 
 # Font
-font-family = IosevkaTerm Nerd Font
 term = xterm-ghostty
 font-family = Maple Mono NF
 font-size = 12
