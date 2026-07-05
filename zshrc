@@ -30,7 +30,6 @@ zinit wait lucid light-mode for \
     "hlissner/zsh-autopair" \
     "ael-code/zsh-colored-man-pages" \
     "wfxr/forgit" \
-    "skywind3000/z.lua" \
     atinit"zicompinit; zicdreplay" \
         "zdharma-continuum/fast-syntax-highlighting" \
     atload"_zsh_autosuggest_start" \
@@ -93,6 +92,10 @@ KEYTIMEOUT=25
 fzf_shell="$(brew --prefix fzf)/shell"
 [ -f "$fzf_shell/key-bindings.zsh" ] && source "$fzf_shell/key-bindings.zsh"
 [ -f "$fzf_shell/completion.zsh" ] && source "$fzf_shell/completion.zsh"
+
+# zoxide — smart directory navigation (replaces z.lua)
+eval "$(zoxide init zsh)"
+alias zf='zi'
 
 # TODO: remove once https://github.com/so-fancy/diff-so-fancy/pull/398 merged
 export PATH="$HOME/.dotfiles/bin/diff-so-fancy:$PATH"
