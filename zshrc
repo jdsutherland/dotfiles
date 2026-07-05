@@ -94,6 +94,7 @@ fzf_shell="$(brew --prefix fzf)/shell"
 [ -f "$fzf_shell/completion.zsh" ] && source "$fzf_shell/completion.zsh"
 
 # zoxide — smart directory navigation (replaces z.lua)
+unalias zi 2>/dev/null
 eval "$(zoxide init zsh)"
 
 # TODO: remove once https://github.com/so-fancy/diff-so-fancy/pull/398 merged
