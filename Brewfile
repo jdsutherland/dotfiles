@@ -279,6 +279,12 @@ brew "zinit"
 brew "zoxide"
 brew "zsh"
 
+# formatters for Neovim conform.nvim
+brew "black"
+brew "prettier"
+brew "rubocop"
+brew "zigfmt"
+
 # casks
 cask "alfred"
 cask "alt-c"
