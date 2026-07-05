@@ -67,7 +67,7 @@ if [[ -o interactive ]]; then
   alias mi='e ~/.dotfiles/config/mpv/input.conf'
   alias sshe='e ~/.ssh/config'
   alias te='e ~/.dotfiles/tmux.conf'
-  alias ve='e ~/.dotfiles/config/nvim/init.vim'
+  alias ve='e ~/.dotfiles/config/nvim/init.lua'
   alias ze='e ~/.dotfiles/zshrc'
   alias zs='source ~/.zshrc'
 
