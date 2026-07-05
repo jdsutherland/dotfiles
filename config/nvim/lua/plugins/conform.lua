@@ -1,3 +1,4 @@
+
 return {
   'stevearc/conform.nvim',
   lazy = true,
@@ -19,6 +20,66 @@ return {
   opts = {
     notify_on_error = true,
     format_on_save = function(bufnr)
+      -- Only auto-format if the project has a formatter config file
+      local has_config = function(files)
+        local dir = vim.fn.getcwd()
+        for _, f in ipairs(files) do
+          -- Walk up directory tree from cwd to root
+          local test_dir = dir
+          while test_dir ~= '' do
+            if vim.fn.filereadable(test_dir .. '/' .. f) == 1 then
+              return true
+            end
+            local parent = vim.fn.fnamemodify(test_dir, ':h')
+            if parent == test_dir then
+              break
+            end
+            test_dir = parent
+          end
+        end
+        return false
+      end
+
+      local ft = vim.bo[bufnr].filetype
+      if ft == 'python' and not has_config({ 'pyproject.toml', 'setup.cfg' }) then
+        return
+      end
+      if ft == 'ruby' and not has_config({ '.rubocop.yml' }) then
+        return
+      end
+      if ft == 'lua' and not has_config({ 'stylua.toml' }) then
+        return
+      end
+      if ft == 'c' or ft == 'cpp' or ft == 'cuda' then
+        if not has_config({ '.clang-format' }) then
+          return
+        end
+      end
+      if ft == 'rust' and not has_config({ 'rustfmt.toml' }) then
+        return
+      end
+      if ft == 'zig' and not has_config({ 'zigfmt.toml' }) then
+        return
+      end
+      if ft == 'elixir' and not has_config({ 'mix.exs' }) then
+        return
+      end
+      if ft == 'clojure' and not has_config({ '.cljfmt.clj', 'cljfmt.edn' }) then
+        return
+      end
+      if ft == 'swift' and not has_config({ '.swiftformat' }) then
+        return
+      end
+      if ft == 'haskell' and not has_config({ 'fourmolu.yaml', 'ormolu.yaml' }) then
+        return
+      end
+      -- prettier: .prettierrc, .prettierrc.yml, .prettierrc.toml, .prettierrc.json
+      if vim.startswith(ft, 'javascript') or vim.startswith(ft, 'typescript') or ft == 'json' or ft == 'yaml' or ft == 'html' or ft == 'css' or ft == 'markdown' then
+        if not has_config({ '.prettierrc', '.prettierrc.yml', '.prettierrc.toml', '.prettierrc.json', 'prettier.config.js' }) then
+          return
+        end
+      end
+
       return { timeout_ms = 1000, lsp_format = 'fallback' }
     end,
     formatters_by_ft = {
