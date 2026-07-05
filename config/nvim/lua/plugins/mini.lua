@@ -11,7 +11,6 @@ return {
       }
       require('mini.comment').setup { options = { ignore_blank_line = true } }
       require('mini.splitjoin').setup { mappings = { toggle = '<tab>j' } }
-      require('mini.sessions').setup {}
 
       require('mini.files').setup {
         windows = {
