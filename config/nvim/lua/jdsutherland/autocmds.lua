@@ -3,16 +3,16 @@
 local augroup = vim.api.nvim_create_augroup
 
 -- Autosave on focus lost
-augroup("SaveFocusedLost", { clear = true })
+local save_focused_lost_group = augroup("SaveFocusedLost", { clear = true })
 vim.api.nvim_create_autocmd("FocusLost", {
-  group = augroup("SaveFocusedLost", {}),
+  group = save_focused_lost_group,
   command = "silent! wall",
 })
 
 -- Open binary/image/doc files in system default app
-augroup("binary_nonvim_open", { clear = true })
+local binary_nonvim_open_group = augroup("binary_nonvim_open", { clear = true })
 vim.api.nvim_create_autocmd("BufReadCmd", {
-  group = augroup("binary_nonvim_open", {}),
+  group = binary_nonvim_open_group,
   pattern = "*.jpg,*.jpeg,*.png,*.gif,*.svg,*.doc,*.doc*,*.xlxs,*.xlx*,*.ppt*",
   callback = function()
     vim.cmd("silent execute '!open " .. vim.fn.shellescape(vim.fn.expand("<afile>")) .. " &>/dev/null'")
@@ -39,9 +39,9 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 -- Quickfix window: wrap and auto-height
-augroup("quickfix", { clear = true })
+local quickfix_group = augroup("quickfix", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("quickfix", {}),
+  group = quickfix_group,
   pattern = "qf",
   callback = function()
     vim.opt_local.wrap = true
