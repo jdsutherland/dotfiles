@@ -2,9 +2,13 @@ return {
   'stevearc/conform.nvim',
   lazy = true,
   event = { 'BufWritePre' },
+  dependencies = {
+    'zapling/mason-conform.nvim',
+  },
   keys = {
     {
-      '<leader>f',
+      -- TODO: map necessary?
+      '<leader>ff',
       function()
         require('conform').format { async = true, lsp_format = 'fallback' }
       end,
