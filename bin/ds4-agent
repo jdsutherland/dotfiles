@@ -1,0 +1,25 @@
+#!/bin/bash
+DS4_DIR="/Users/j/code/clones/ds4"
+
+# Tell the Metal backend where to find the shader files
+export DS4_METAL_FLASH_ATTN_SOURCE="$DS4_DIR/metal/flash_attn.metal"
+export DS4_METAL_DENSE_SOURCE="$DS4_DIR/metal/dense.metal"
+export DS4_METAL_MOE_SOURCE="$DS4_DIR/metal/moe.metal"
+export DS4_METAL_DSV4_HC_SOURCE="$DS4_DIR/metal/dsv4_hc.metal"
+export DS4_METAL_UNARY_SOURCE="$DS4_DIR/metal/unary.metal"
+export DS4_METAL_DSV4_KV_SOURCE="$DS4_DIR/metal/dsv4_kv.metal"
+export DS4_METAL_DSV4_ROPE_SOURCE="$DS4_DIR/metal/dsv4_rope.metal"
+export DS4_METAL_DSV4_MISC_SOURCE="$DS4_DIR/metal/dsv4_misc.metal"
+export DS4_METAL_ARGSORT_SOURCE="$DS4_DIR/metal/argsort.metal"
+export DS4_METAL_CPY_SOURCE="$DS4_DIR/metal/cpy.metal"
+export DS4_METAL_CONCAT_SOURCE="$DS4_DIR/metal/concat.metal"
+export DS4_METAL_GET_ROWS_SOURCE="$DS4_DIR/metal/get_rows.metal"
+export DS4_METAL_SUM_ROWS_SOURCE="$DS4_DIR/metal/sum_rows.metal"
+export DS4_METAL_SOFTMAX_SOURCE="$DS4_DIR/metal/softmax.metal"
+export DS4_METAL_REPEAT_SOURCE="$DS4_DIR/metal/repeat.metal"
+export DS4_METAL_GLU_SOURCE="$DS4_DIR/metal/glu.metal"
+export DS4_METAL_NORM_SOURCE="$DS4_DIR/metal/norm.metal"
+export DS4_METAL_BIN_SOURCE="$DS4_DIR/metal/bin.metal"
+export DS4_METAL_SET_ROWS_SOURCE="$DS4_DIR/metal/set_rows.metal"
+
+exec "$DS4_DIR/ds4-agent" -m "$DS4_DIR/ds4flash.gguf" "$@"
