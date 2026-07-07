@@ -84,19 +84,6 @@ return {
         enable = true,
       },
 
-      -- RRethy/nvim-treesitter-textsubjects
-      textsubjects = {
-        enable = true,
-        prev_selection = ',',
-        keymaps = {
-          -- textobj <cr>
-          ['<cr>'] = 'textsubjects-smart',
-          -- TODO find where these are useful
-          [';'] = 'textsubjects-container-outer',
-          ['i;'] = 'textsubjects-container-inner',
-        },
-      },
-
       -- nvim-treesitter/nvim-treesitter-textobjects
       textobjects = {
         move = {

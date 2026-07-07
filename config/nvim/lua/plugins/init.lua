@@ -74,7 +74,6 @@ return {
     cmd = "ZenMode",
     opts = { plugins = {
       tmux = true,
-      alacritty = { enabled = true, font = "15" },
     } },
     keys = { { "<c-w>t", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
   },

@@ -13,7 +13,19 @@ vim.api.nvim_create_autocmd("FocusLost", {
 local binary_nonvim_open_group = augroup("binary_nonvim_open", { clear = true })
 vim.api.nvim_create_autocmd("BufReadCmd", {
   group = binary_nonvim_open_group,
-  pattern = "*.jpg,*.jpeg,*.png,*.gif,*.svg,*.doc,*.doc*,*.xlxs,*.xlx*,*.ppt*",
+  pattern = {
+    "*.jpg",
+    "*.jpeg",
+    "*.png",
+    "*.gif",
+    "*.svg",
+    "*.doc",
+    "*.docx",
+    "*.xls",
+    "*.xlsx",
+    "*.ppt",
+    "*.pptx",
+  },
   callback = function()
     vim.cmd("silent execute '!open " .. vim.fn.shellescape(vim.fn.expand("<afile>")) .. " &>/dev/null'")
     local tobedeleted = vim.fn.bufnr("%")
@@ -34,7 +46,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 
 -- Read EPUB/mobi/rtf/odp/odt through pandoc
 vim.api.nvim_create_autocmd("BufReadPost", {
-  pattern = "*.epub,*.mobi,*.rtf,*.odp,*.odt",
+  pattern = { "*.epub", "*.mobi", "*.rtf", "*.odp", "*.odt" },
   command = "silent %!pandoc '%' -tplain -o /dev/stdout",
 })
 
@@ -138,7 +150,7 @@ vim.api.nvim_create_user_command("ShowPackageInfo", function()
 end, {})
 
 vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = "package.json;package-lock.json;yarn.lock",
+  pattern = { "package.json", "package-lock.json", "yarn.lock", "pnpm-lock.yaml" },
   callback = function()
     vim.keymap.set("n", "<space><space>", ":ShowPackageInfo<CR>", { buffer = true, silent = true })
   end,

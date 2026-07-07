@@ -48,6 +48,17 @@ return {
             height = 0.80,
             -- preview_cutoff = 120,
           },
+          vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "--trim",
+          },
+          file_ignore_patterns = { "node_modules" },
           mappings = {
             i = {
               ["<Esc>"] = actions.close,
@@ -69,17 +80,6 @@ return {
             override_file_sorter = true,     -- override the file sorter
             case_mode = "smart_case",
           },
-          vimgrep_arguments = {
-            "rg",
-            "--color=never",
-            "--no-heading",
-            "--with-filename",
-            "--line-number",
-            "--column",
-            "--smart-case",
-            "--trim",
-          },
-          file_ignore_patterns = { "node_modules" },
         },
       })
 

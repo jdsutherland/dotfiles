@@ -97,7 +97,7 @@ nnoremap("<c-b>", "<C-^>")
 -- jump between previous split
 nnoremap([[\s]], [[<c-w><c-p>]])
 -- close recent split
-nnoremap([[,fd]], [[:Mark<cr><c-w><c-p> :q<cr>]])
+nnoremap([[,fd]], [[<c-w><c-p> :q<cr>]])
 nnoremap([[,f]], [[<C-]>zz]])
 nnoremap([[,ft]], [[:tab split <CR>:exec("tag ".expand("<cword>"))<CR>]])
 -- open tag in split
@@ -267,4 +267,3 @@ local function enhanced_ctrl_c()
 end
 
 nnoremap('<C-c>', enhanced_ctrl_c)
-
