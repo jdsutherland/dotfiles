@@ -38,7 +38,7 @@ opt.swapfile = false
 
 opt.foldmethod = "expr"
 -- origami v2.0 manages fold settings
-opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldlevelstart = 99
 opt.foldnestmax = 10
 opt.foldenable = false

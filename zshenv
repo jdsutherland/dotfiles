@@ -7,7 +7,13 @@
 # X - Don't send clear screen signal
 export LESS="ij.5KMRX"
 
-# Add homebrew binaries
-export PATH="/opt/homebrew/bin:$PATH"
-
-export PATH="$HOME/.npm-packages/bin:$PATH"
+# Keep version-manager shims ahead of Homebrew for tools like node/npm.
+export ASDF_DATA_DIR="${ASDF_DATA_DIR:-$HOME/.asdf}"
+typeset -U path
+path=(
+  "$ASDF_DATA_DIR/shims"
+  "$HOME/.npm-packages/bin"
+  /opt/homebrew/bin
+  $path
+)
+export PATH

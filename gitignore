@@ -23,3 +23,5 @@ tmp/
 
 # solargraph
 config/definitions.rb
+
+**/.claude/settings.local.json

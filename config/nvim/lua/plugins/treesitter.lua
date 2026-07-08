@@ -1,14 +1,49 @@
+-- nvim-treesitter main branch: the old module system (highlight/indent/etc.
+-- opts) is gone. Highlighting and indent are started per-buffer via the
+-- FileType autocmd below; companion plugins attach themselves.
+local ensure_installed = {
+  "bash",
+  "c",
+  "comment",
+  "cpp",
+  "css",
+  "diff",
+  "git_rebase",
+  "gitcommit",
+  "gitignore",
+  "go",
+  "html",
+  "javascript",
+  "jsdoc",
+  "json",
+  "json5",
+  "lua",
+  "markdown",
+  "markdown_inline",
+  "python",
+  "query",
+  "regex",
+  "ruby",
+  "rust",
+  "toml",
+  "tsx",
+  "typescript",
+  "vim",
+  "vimdoc",
+  "yaml",
+}
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     version = false,
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
+      { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
       "JoosepAlviste/nvim-ts-context-commentstring",
       'RRethy/nvim-treesitter-endwise',
-      -- textsubjects removed: depends on removed define_modules API
       'nvim-treesitter/nvim-treesitter-context',
       'phelipetls/jsonpath.nvim',
       {
@@ -23,108 +58,68 @@ return {
         end,
       },
     },
-    cmd = { "TSUpdateSync" },
-    keys = {
-      { "<c-space>", desc = "Increment selection" },
-      { "<bs>", desc = "Decrement selection", mode = "x" },
-    },
-    opts = {
-      ensure_installed = {
-        "bash",
-        "c",
-        "comment",
-        "cpp",
-        "css",
-        "diff",
-        "git_rebase",
-        "gitcommit",
-        "gitignore",
-        "go",
-        "html",
-        "javascript",
-        "jsdoc",
-        "json",
-        "json5",
-        "jsonc",
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "python",
-        "query",
-        "regex",
-        "ruby",
-        "rust",
-        "toml",
-        "tsx",
-        "typescript",
-        "vim",
-        "vimdoc",
-        "yaml",
-      },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "<C-space>",
-          node_incremental = "<C-space>",
-          scope_incremental = false,
-          node_decremental = "<bs>",
-        },
-      },
-      highlight = { enable = true, use_languagetree = true },
-      indent = { enable = true },
-      -- playground removed: deprecated, use :InspectTree, :EditQuery, :Inspect instead
+    config = function()
+      require("nvim-treesitter").install(ensure_installed)
 
-      -- RRethy/nvim-treesitter-endwise,
-      endwise = {
-        enable = true,
-      },
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("jdsutherland_treesitter", { clear = true }),
+        callback = function(args)
+          local lang = vim.treesitter.language.get_lang(args.match)
+          if not lang or not pcall(vim.treesitter.start, args.buf, lang) then
+            return
+          end
+          vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end,
+      })
 
-      -- andymass/vim-matchup
-      matchup = {
-        enable = true,
-      },
+      -- incremental selection via builtin |v_an|/|v_in| (nvim 0.12+)
+      vim.keymap.set("n", "<C-space>", "van", { remap = true, desc = "Increment selection" })
+      vim.keymap.set("x", "<C-space>", "an", { remap = true, desc = "Increment selection" })
+      vim.keymap.set("x", "<bs>", "in", { remap = true, desc = "Decrement selection" })
 
-      -- nvim-treesitter/nvim-treesitter-textobjects
-      textobjects = {
-        move = {
-          enable = true,
-          goto_next_start = {
-            [']m'] = '@function.outer',
-          },
-          goto_previous_start = {
-            ['[m'] = '@function.outer',
-          },
-          goto_next = {
-            ["]C"] = "@conditional.outer",
-          },
-          goto_previous = {
-            ["[C"] = "@conditional.outer",
-          }
-        },
-        swap = {
-          enable = true,
-          swap_next = {
-            ["><leader>"] = "@parameter.inner",
-          },
-          swap_previous = {
-            ["<<leader>"] = "@parameter.inner",
-          },
-        },
+      require("nvim-treesitter-textobjects").setup {
         select = {
-          enable = true,
           lookahead = true, -- automatically jump forward to matching textobj
-          keymaps = {
-            ["af"] = "@function.outer",
-            ["if"] = "@function.inner",
-            ["ac"] = "@class.outer",
-            ["ic"] = "@class.inner",
-          },
         },
-      },
-    },
+        move = {
+          set_jumps = true,
+        },
+      }
 
-    config = function(_, opts)
-      require("nvim-treesitter.config").setup(opts)
+      local ts_select = require("nvim-treesitter-textobjects.select")
+      for lhs, query in pairs({
+        af = "@function.outer",
+        ["if"] = "@function.inner",
+        ac = "@class.outer",
+        ic = "@class.inner",
+      }) do
+        vim.keymap.set({ "x", "o" }, lhs, function()
+          ts_select.select_textobject(query, "textobjects")
+        end)
+      end
+
+      local ts_move = require("nvim-treesitter-textobjects.move")
+      vim.keymap.set({ "n", "x", "o" }, "]m", function()
+        ts_move.goto_next_start("@function.outer", "textobjects")
+      end)
+      vim.keymap.set({ "n", "x", "o" }, "[m", function()
+        ts_move.goto_previous_start("@function.outer", "textobjects")
+      end)
+      vim.keymap.set({ "n", "x", "o" }, "]C", function()
+        ts_move.goto_next("@conditional.outer", "textobjects")
+      end)
+      vim.keymap.set({ "n", "x", "o" }, "[C", function()
+        ts_move.goto_previous("@conditional.outer", "textobjects")
+      end)
+
+      local ts_swap = require("nvim-treesitter-textobjects.swap")
+      vim.keymap.set("n", "><leader>", function()
+        ts_swap.swap_next("@parameter.inner")
+      end)
+      vim.keymap.set("n", "<<leader>", function()
+        ts_swap.swap_previous("@parameter.inner")
+      end)
+
       require'treesitter-context'.setup()
       require('ts_context_commentstring').setup{}
     end

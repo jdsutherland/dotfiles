@@ -5,6 +5,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Re-assert PATH order from zshenv: on macOS, /etc/zprofile's path_helper runs
+# after zshenv in login shells and moves system dirs ahead of our prepends.
+# typeset -U path (set in zshenv) collapses the duplicates.
+path=("$ASDF_DATA_DIR/shims" "$HOME/.npm-packages/bin" /opt/homebrew/bin $path)
+
 
 # {{{ zinit
 source ~/.zinit/bin/zinit.zsh
@@ -14,9 +19,7 @@ fpath+=("$HOME/.zsh/completions")
 
 # Add Homebrew site-functions to fpath (optional, for Homebrew completions)
 fpath+=("$(brew --prefix)/share/zsh/site-functions")
-# asdf version manager (Node, Go, Ruby, Python, etc.)
-export ASDF_DATA_DIR="$HOME/.asdf"
-export PATH="$ASDF_DATA_DIR/shims:$PATH"
+# asdf version manager completions
 fpath+=("$(brew --prefix asdf)/share/zsh/site-functions")
 
 # Load Prezto's completion module with zinit
