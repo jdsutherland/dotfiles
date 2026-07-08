@@ -242,8 +242,8 @@ return {
           ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
           ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
           -- Snippet navigation (luasnip)
-          ['<C-j>'] = { 'snippet_jump_forward', 'fallback' },
-          ['<C-k>'] = { 'snippet_jump_backward', 'fallback' },
+          ['<C-j>'] = { 'snippet_forward', 'fallback' },
+          ['<C-k>'] = { 'snippet_backward', 'fallback' },
         },
 
         -- Show documentation when selecting
