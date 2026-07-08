@@ -12,25 +12,12 @@ return {
       },
       {'williamboman/mason-lspconfig.nvim'}, -- Optional
 
-      -- Autocompletion
-      {'hrsh7th/nvim-cmp'},     -- Required
-      {'hrsh7th/cmp-nvim-lsp'}, -- Required
-      {'L3MON4D3/LuaSnip'},     -- Required
-      {'hrsh7th/cmp-path'},
-      {'hrsh7th/cmp-buffer'},
-      {'saadparwaiz1/cmp_luasnip'},
+      -- Autocompletion (blink.cmp replaces nvim-cmp + cmp plugins + lsp_signature)
+      {'saghen/blink.cmp', version = '1.*'},
       {'rafamadriz/friendly-snippets'},
+      {'L3MON4D3/LuaSnip'},                  -- Optional: snippet engine for blink
       {'j-hui/fidget.nvim', opts = {} },
       {'b0o/schemastore.nvim' },
-      {'ray-x/lsp_signature.nvim', opts = {
-        transparency = 10,
-        hint_enable = true,
-        hint_prefix = {
-          above = "↙ ",  -- when the hint is on the line above the current line
-          current = "← ",  -- when the hint is on the same line
-          below = "↖ "  -- when the hint is on the line below the current line
-        }
-      }},
       -- Disabled: needs Node.js — install via asdf then uncomment
       -- {
       --   "zbirenbaum/copilot.lua",
@@ -57,7 +44,7 @@ return {
       -- },
       -- {
       --   "zbirenbaum/copilot-cmp",
-      --   after = { "copilot.lua", "nvim-cmp" }, -- Ensure it loads after copilot.lua and nvim-cmp
+      --   after = { "copilot.lua", "blink.cmp" },
       --   config = function()
       --     require("copilot_cmp").setup()
       --   end,
@@ -74,11 +61,6 @@ return {
         virtual_text = false,
         update_in_insert = false,
       }
-
-      -- Set global capabilities for all LSP clients
-      vim.lsp.config('*', {
-        capabilities = require('cmp_nvim_lsp').default_capabilities(),
-      })
 
       -- LspAttach autocommand: set buffer-local keymaps when LSP client attaches
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -247,56 +229,55 @@ return {
         },
       })
 
-      -- Autocompletion setup
-      local cmp = require("cmp")
-      local luasnip = require("luasnip")
+      -- blink.cmp setup
+      require('blink.cmp').setup({
+        -- 'default' (C-y to accept), 'super-tab' (tab to accept), 'enter', 'none'
+        keymap = {
+          preset = 'default',
 
-      require("luasnip.loaders.from_vscode").lazy_load()
-      require'luasnip'.filetype_extend("ruby", {"rails"})
+          -- Replicate your previous nvim-cmp mappings
+          ['<C-f>'] = { 'accept', 'fallback' },
+          ['<C-n>'] = { 'select_next', 'fallback' },
+          ['<C-p>'] = { 'select_prev', 'fallback' },
+          ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
+          ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
+          -- Snippet navigation (luasnip)
+          ['<C-j>'] = { 'snippet_jump_forward', 'fallback' },
+          ['<C-k>'] = { 'snippet_jump_backward', 'fallback' },
+        },
 
-      cmp.setup({
-        -- Autocomplete menu behavior
-        preselect = 'item',
+        -- Show documentation when selecting
         completion = {
-          completeopt = 'menu,menuone,noinsert'
+          documentation = { auto_show = true, auto_show_delay_ms = 500 },
+          menu = {
+            draw = {
+              columns = {
+                { "label", "label_description", gap = 1 },
+                { "kind_icon", "kind" }
+              },
+            },
+          },
         },
+
         sources = {
-          {name = "path"},
-          {name = "nvim_lsp"},
-          {name = "nvim_lua"},
-          {name = "buffer", keyword_length = 3},
-          {name = "luasnip", keyword_length = 2},
-          -- {name = "copilot", group_index = 2}, -- disabled: needs Node.js
+          default = { 'lsp', 'buffer', 'snippets', 'path' },
+          providers = {
+            buffer = {
+              opts = {
+                -- Match your previous keyword_length = 3 for buffer
+                min_keyword_length = 3,
+              },
+            },
+            snippets = {
+              opts = {
+                friendly_snippets = true,
+              },
+            },
+          },
         },
-        mapping = {
-          ["<C-f>"] = function(fallback)
-            if cmp.visible() then
-              cmp.confirm({ select = true })
-            else
-              fallback()
-            end
-          end,
-          -- Snippet navigation
-          ['<C-j>'] = function(fallback)
-            if luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
-            else
-              fallback()
-            end
-          end,
-          ['<C-k>'] = function(fallback)
-            if luasnip.jumpable(-1) then
-              luasnip.jump(-1)
-            else
-              fallback()
-            end
-          end,
-          ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-          ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-          -- scroll up and down the documentation window
-          ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-d>'] = cmp.mapping.scroll_docs(4),
-        }
+
+        -- Signature help built-in (replaces lsp_signature.nvim)
+        signature = { enabled = true },
       })
     end
   },
@@ -328,7 +309,6 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
     config = function()
       require("typescript-tools").setup({
-        capabilities = require('cmp_nvim_lsp').default_capabilities(),
         settings = {
           complete_function_calls = true,
         },
