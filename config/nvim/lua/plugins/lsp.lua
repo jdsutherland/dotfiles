@@ -263,10 +263,7 @@ return {
           default = { 'lsp', 'buffer', 'snippets', 'path' },
           providers = {
             buffer = {
-              opts = {
-                -- Match your previous keyword_length = 3 for buffer
-                min_keyword_length = 3,
-              },
+              min_keyword_length = 3,
             },
             snippets = {
               opts = {
