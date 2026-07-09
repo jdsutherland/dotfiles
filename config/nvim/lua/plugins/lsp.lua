@@ -18,37 +18,6 @@ return {
       {'L3MON4D3/LuaSnip'},                  -- Optional: snippet engine for blink
       {'j-hui/fidget.nvim', opts = {} },
       {'b0o/schemastore.nvim' },
-      -- Disabled: needs Node.js — install via asdf then uncomment
-      -- {
-      --   "zbirenbaum/copilot.lua",
-      --   event = "InsertEnter", -- Lazy load Copilot when entering insert mode
-      --   config = function()
-      --     require("copilot").setup({
-      --       suggestion = {
-      --         enabled = true,
-      --         auto_trigger = true, -- Automatically show suggestions
-      --         debounce = 75,       -- Reduce delay before showing suggestions
-      --         keymap = {
-      --           accept = "<c-f>",
-      --           next = "<c-j>",
-      --           prev = "<c-k>",
-      --           dismiss = "<C-x>",
-      --         },
-      --       },
-      --       panel = {
-      --         enabled = true,
-      --         auto_refresh = true
-      --       },
-      --     })
-      --   end,
-      -- },
-      -- {
-      --   "zbirenbaum/copilot-cmp",
-      --   after = { "copilot.lua", "blink.cmp" },
-      --   config = function()
-      --     require("copilot_cmp").setup()
-      --   end,
-      -- },
     },
     config = function()
       -- Rounded borders on all floating windows (hover, diagnostics, etc.)
