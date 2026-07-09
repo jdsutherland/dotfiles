@@ -276,12 +276,12 @@ return {
     }
   },
   {
-    'simrat39/symbols-outline.nvim',
-    keys = { {"<localleader>z", "<cmd>SymbolsOutline<cr>"} },
+    'hedyhli/outline.nvim',
+    keys = { {"<localleader>z", "<cmd>Outline<cr>"} },
     opts = {
-      preview_bg_highlight = 'NormalFloat',
-      auto_preview = true,
-      autofold_depth = 1,
+      preview_window = {
+        auto_preview = true,
+      },
     }
   },
   {
