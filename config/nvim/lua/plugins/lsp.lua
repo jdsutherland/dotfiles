@@ -134,7 +134,21 @@ return {
         handlers = {
           function(server_name)
             vim.lsp.enable(server_name)
-          end
+          end,
+        },
+      })
+
+      -- Rails completions for metaprogrammed methods: index tapioca DSL RBIs (ruby-lsp only
+      -- indexes *.rb by default) and let the Tapioca addon regenerate them
+      -- on file changes. No-op in projects without tapioca in the bundle.
+      vim.lsp.config('ruby_lsp', {
+        init_options = {
+          enabledFeatureFlags = {
+            tapiocaAddon = true,
+          },
+          indexing = {
+            included_patterns = { 'sorbet/rbi/dsl/**/*.rbi' },
+          },
         },
       })
 
