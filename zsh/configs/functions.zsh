@@ -580,3 +580,24 @@ vjson() {
 jqv(){
   jq . | nvim -c "set ft=json"
 }
+
+# pi coding agent: run against a named account profile. Each profile is its
+# own PI_CODING_AGENT_DIR with separate credentials, so `/login` in one
+# doesn't affect another - use this to pick which ChatGPT/business account
+# a session runs as. First run for a new profile: `pia work2`, then `/login`.
+pia() {
+  if [[ -z "$1" ]]; then
+    echo "usage: pia <profile> [pi args...]" >&2
+    return 1
+  fi
+  local profile="$1"; shift
+  PI_CODING_AGENT_DIR="$HOME/.pi/agent-$profile" pi "$@"
+}
+
+# list configured pi account profiles (created by `pia <profile>`)
+pia-list() {
+  local d
+  for d in "$HOME"/.pi/agent-*(N); do
+    basename "$d" | sed 's/^agent-//'
+  done
+}
