@@ -1,6 +1,18 @@
 #!/bin/bash
-if [[ "$(uname)" =~ Darwin ]]; then 
-  cat - | pbcopy 
-else 
+# Not real xclip - only implements the copy direction (stdin -> clipboard) via
+# pbcopy. Any tool that finds this on PATH via `executable("xclip")` and
+# expects real xclip's read/paste behavior (-o/-out) will silently get empty
+# output instead of an error unless we refuse explicitly below. Bit anki.nvim
+# this way: it checked for xclip, called it with -o, and got a silent empty
+# clipboard read instead of falling through to pngpaste.
+if [[ "$(uname)" =~ Darwin ]]; then
+  for arg in "$@"; do
+    if [[ "$arg" == "-o" || "$arg" == "-out" ]]; then
+      echo "xclip (pbcopy-only shim, see ~/.bin/xclip): -o/-out (read/paste) is not implemented" >&2
+      exit 1
+    fi
+  done
+  cat - | pbcopy
+else
   cat - | xclip
 fi
