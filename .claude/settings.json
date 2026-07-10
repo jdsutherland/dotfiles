@@ -1,0 +1,11 @@
+{
+  "enabledPlugins": {
+    "commit-commands@claude-plugins-official": true
+  },
+  "syntaxHighlightingDisabled": false,
+  "tui": "fullscreen",
+  "theme": "auto",
+  "permissions": {
+    "additionalDirectories": ["~/.claude"]
+  }
+}
