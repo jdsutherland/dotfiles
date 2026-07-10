@@ -23,7 +23,8 @@ source ~/.zinit/bin/zinit.zsh
 fpath+=("$HOME/.zsh/completions")
 
 # Add Homebrew site-functions to fpath (optional, for Homebrew completions)
-fpath+=("$(brew --prefix)/share/zsh/site-functions")
+# Hardcoded prefix avoids a `brew --prefix` subprocess fork on every shell start.
+fpath+=("/opt/homebrew/share/zsh/site-functions")
 # mise provides its own shell integration and completions through activation.
 
 # Load Prezto's completion module with zinit
@@ -96,7 +97,7 @@ unsetopt multios
 KEYTIMEOUT=25
 
 # fzf shell integration (completions + key bindings)
-fzf_shell="$(brew --prefix fzf)/shell"
+fzf_shell="/opt/homebrew/opt/fzf/shell"
 [ -f "$fzf_shell/key-bindings.zsh" ] && source "$fzf_shell/key-bindings.zsh"
 [ -f "$fzf_shell/completion.zsh" ] && source "$fzf_shell/completion.zsh"
 
