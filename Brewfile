@@ -2,7 +2,7 @@
 # aria2: Download with resuming and segmented downloading
 # ascii: List ASCII idiomatic names and octal/decimal code-point forms
 # asciinema: Record and share terminal sessions
-# asdf: Extendable version manager with support for Ruby, Node.js, Erlang & more
+# mise: Polyglot runtime and tool version manager
 # bandwhich: Terminal bandwidth utilization tool
 # bash: Bourne-Again SHell, a UNIX command interpreter
 # bats-core: Bash Automated Testing System
@@ -146,7 +146,8 @@ brew "ansiweather"
 brew "aria2"
 brew "ascii"
 brew "asciinema"
-brew "asdf"
+brew "mise"
+brew "uv"
 brew "bandwhich"
 brew "bash"
 brew "bat-extras"
@@ -194,7 +195,7 @@ brew "gradle"
 brew "graphviz"
 brew "grep"
 brew "grex"
-brew "gtk"+3
+brew "gtk+3"
 brew "hexyl"
 brew "highlight"
 brew "httpie"

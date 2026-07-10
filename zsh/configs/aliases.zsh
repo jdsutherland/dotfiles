@@ -488,4 +488,5 @@ if [[ -o interactive ]]; then
   fi
 fi
 
-alias python2='/Users/j/.asdf/installs/python/2.7.18/bin/python2'
+# Legacy Python 2, installed and selected through mise when needed.
+python2() { mise exec python@2.7.18 -- python2 "$@"; }

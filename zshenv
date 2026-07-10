@@ -7,11 +7,10 @@
 # X - Don't send clear screen signal
 export LESS="ij.5KMRX"
 
-# Keep version-manager shims ahead of Homebrew for tools like node/npm.
-export ASDF_DATA_DIR="${ASDF_DATA_DIR:-$HOME/.asdf}"
+# Keep user-installed tools ahead of Homebrew and system binaries.
 typeset -U path
 path=(
-  "$ASDF_DATA_DIR/shims"
+  "$HOME/.local/bin"
   "$HOME/.npm-packages/bin"
   /opt/homebrew/bin
   $path

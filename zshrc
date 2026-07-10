@@ -8,7 +8,12 @@ fi
 # Re-assert PATH order from zshenv: on macOS, /etc/zprofile's path_helper runs
 # after zshenv in login shells and moves system dirs ahead of our prepends.
 # typeset -U path (set in zshenv) collapses the duplicates.
-path=("$ASDF_DATA_DIR/shims" "$HOME/.npm-packages/bin" /opt/homebrew/bin $path)
+path=("$HOME/.local/bin" "$HOME/.npm-packages/bin" /opt/homebrew/bin $path)
+
+# Activate mise so runtimes are selected from .tool-versions or mise.toml.
+if (( $+commands[mise] )); then
+  eval "$(mise activate zsh)"
+fi
 
 
 # {{{ zinit
@@ -19,8 +24,7 @@ fpath+=("$HOME/.zsh/completions")
 
 # Add Homebrew site-functions to fpath (optional, for Homebrew completions)
 fpath+=("$(brew --prefix)/share/zsh/site-functions")
-# asdf version manager completions
-fpath+=("$(brew --prefix asdf)/share/zsh/site-functions")
+# mise provides its own shell integration and completions through activation.
 
 # Load Prezto's completion module with zinit
 zinit ice wait lucid blockf

@@ -154,37 +154,37 @@ fzh() {
   print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf --query="'" +s --tac | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
 }
 
-# asdf install
+# mise install
 vmi() {
   local lang=${1}
+  local -a versions
 
   if [[ ! $lang ]]; then
-    lang=$(asdf plugin-list | fzf)
+    lang=$(mise registry | awk 'NR > 1 {print $1}' | fzf)
   fi
 
   if [[ $lang ]]; then
-    local versions=$(asdf list-all $lang | tail -r | fzf -m)
-    if [[ $versions ]]; then
-      for version in $(echo $versions);
-      do; asdf install $lang $version; done;
-    fi
+    versions=("${(@f)$(mise ls-remote "$lang" | tail -r | fzf -m)}")
+    for version in $versions; do
+      mise install "$lang@$version"
+    done
   fi
 }
 
-# asdf clean
+# mise clean
 vmc() {
   local lang=${1}
+  local -a versions
 
   if [[ ! $lang ]]; then
-    lang=$(asdf plugin-list | fzf)
+    lang=$(mise ls | awk 'NR > 1 {print $1}' | fzf)
   fi
 
   if [[ $lang ]]; then
-    local versions=$(asdf list $lang | fzf -m)
-    if [[ $versions ]]; then
-      for version in $(echo $versions);
-      do; asdf uninstall $lang $version; done;
-    fi
+    versions=("${(@f)$(mise ls "$lang" | awk 'NR > 1 {print $1}' | fzf -m)}")
+    for version in $versions; do
+      mise uninstall "$lang@$version"
+    done
   fi
 }
 

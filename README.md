@@ -25,6 +25,16 @@ Assumes macOS.
 It will install [rcm][] and use that to safely symlink the dotfiles, prompting you
 if a file already exists (like if you already have `~/.zshrc`).
 
+### Runtime tooling
+
+[mise][] manages language runtimes and reads the existing `tool-versions` file.
+[uv][] handles Python environments and dependencies; use `uv venv`, `uv add`,
+and commit the resulting `uv.lock` in Python projects.
+
+After updating Homebrew packages, open a new shell so mise activation takes effect.
+
+[mise]:https://mise.jdx.dev/
+[uv]:https://docs.astral.sh/uv/
 [rcm]:https://github.com/thoughtbot/rcm
 [slate]:https://github.com/mattr-/slate
 [Karabiner-Elements]:https://github.com/pqrs-org/Karabiner-Elements
