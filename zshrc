@@ -74,7 +74,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
-export PATH="$PATH:$GOROOT/bin"
 
 export LS_COLORS=$(vivid generate kanagawa-dragon)
 export BAT_PAGER=less
