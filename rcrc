@@ -1,1 +1,1 @@
-EXCLUDES="README.md scripts packages reference .gitignore"
+EXCLUDES="README.md scripts packages reference .gitignore AGENTS.md"
