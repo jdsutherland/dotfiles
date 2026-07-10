@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(curl:*)",
+      "Bash(sh)",
+      "Bash(source ~/.zshrc)",
+      "Bash(brew install:*)",
+      "Bash(brew bundle:*)",
+      "Bash(grep:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Skill(ship)",
+      "Skill(always-allow)"
+    ]
+  }
+}
