@@ -104,8 +104,6 @@ fzf_shell="$(brew --prefix fzf)/shell"
 unalias zi 2>/dev/null
 eval "$(zoxide init zsh)"
 
-# TODO: remove once https://github.com/so-fancy/diff-so-fancy/pull/398 merged
-export PATH="$HOME/.dotfiles/bin/diff-so-fancy:$PATH"
 # TERM is set by Ghostty config and ~/.zshenv
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
