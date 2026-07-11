@@ -32,10 +32,13 @@ brew bundle --file="$DOTFILES/Brewfile"
 info "Symlinking dotfiles (rcup)"
 rcup -v
 
-# 4. Language runtimes (reads ~/.tool-versions, symlinked by rcup in step 3)
+# 4. Language runtimes. mise discovers ~/.tool-versions (symlinked by rcup in
+# step 3) by walking UP from the current directory, not as a global config, so
+# run it from $HOME to be sure it is found no matter where this script was
+# invoked from.
 if command -v mise >/dev/null 2>&1; then
   info "Installing language runtimes (mise)"
-  mise install
+  (cd "$HOME" && mise install)
 fi
 
 # 5. macOS system defaults (optional)
