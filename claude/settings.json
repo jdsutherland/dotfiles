@@ -4,11 +4,26 @@
       "~/.claude"
     ]
   },
+  "model": "opus",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.dotfiles/claude/hooks/rm-guard.sh",
+            "statusMessage": "Checking rm targets"
+          }
+        ]
+      }
+    ]
+  },
   "enabledPlugins": {
     "commit-commands@claude-plugins-official": true
   },
   "syntaxHighlightingDisabled": false,
   "tui": "fullscreen",
   "theme": "auto",
-  "model": "opus"
+  "agentPushNotifEnabled": true
 }
