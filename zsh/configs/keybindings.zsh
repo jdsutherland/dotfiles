@@ -66,44 +66,14 @@ zle     -N   fzf-play-widget
 bindkey '^x^p' fzf-play-widget
 
 # {{{ git fzf
-join-lines() {
-  local item
-  while read item; do
-    echo -n "${(q)item} "
-  done
-}
+# files/branches/tags/remotes/hashes/stashes/reflogs/worktrees/each-ref widgets
+# come from junegunn/fzf-git.sh (loaded in .zshrc), bound to C-g C-<key>.
+# Override: put hashes on C-g C-g — his default C-g C-h is eaten by tmux's C-h
+# pane-navigation (vim-tmux-navigator's root-level bind).
+bindkey -r '^g^h'
+bindkey '^g^g' fzf-git-hashes-widget
 
-# Git branches
-fzf-gitfile-widget() {
-  local result=$(fzf-gitfile | join-lines); zle reset-prompt; LBUFFER+=$result
-}
-zle     -N   fzf-gitfile-widget
-bindkey '^g^f' fzf-gitfile-widget
-
-fzf-gittag-widget() {
-  local result=$(fzf-gittag | join-lines); zle reset-prompt; LBUFFER+=$result
-}
-zle     -N   fzf-gittag-widget
-bindkey '^g^t' fzf-gittag-widget
-
-fzf-gitbranch-widget() {
-  local result=$(fzf-gitbranch | join-lines); zle reset-prompt; LBUFFER+=$result
-}
-zle     -N   fzf-gitbranch-widget
-bindkey '^g^b' fzf-gitbranch-widget
-
-fzf-gitremote-widget() {
-  local result=$(fzf-gitremote | join-lines); zle reset-prompt; LBUFFER+=$result
-}
-zle     -N   fzf-gitremote-widget
-bindkey '^g^r' fzf-gitremote-widget
-
-fzf-githash-widget() {
-  local result=$(fzf-githash | join-lines); zle reset-prompt; LBUFFER+=$result
-}
-zle     -N   fzf-githash-widget
-bindkey '^g^g' fzf-githash-widget
-
+# Custom git browser (no fzf-git.sh equivalent); keep on C-/ (C-_).
 fzf-git-browser-widget() { gfzf; zle reset-prompt }
 zle     -N   fzf-git-browser-widget
 bindkey '^_' fzf-git-browser-widget

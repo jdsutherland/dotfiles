@@ -53,6 +53,10 @@ zinit wait lucid light-mode for \
 zinit light Aloxaf/fzf-tab
 
 zinit light softmoth/zsh-vim-mode
+# git objects as C-g C-<key> widgets (files/branches/tags/remotes/hashes/…).
+# Load synchronously (not turbo) so the widgets exist before keybindings.zsh
+# runs its C-g C-g hash override.
+zinit light junegunn/fzf-git.sh
 zinit snippet PZT::modules/directory
 zinit snippet PZT::modules/history
 zinit snippet PZT::modules/docker/alias.zsh
