@@ -6,6 +6,7 @@
       "Bash(sh)",
       "Bash(source ~/.zshrc)",
       "Bash(brew install:*)",
+      "Bash(~/.local/bin/mise doctor:*)",
       "Bash(brew bundle:*)",
       "Bash(grep:*)",
       "Bash(git add:*)",
