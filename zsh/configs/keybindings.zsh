@@ -68,10 +68,10 @@ bindkey '^x^p' fzf-play-widget
 # {{{ git fzf
 # files/branches/tags/remotes/hashes/stashes/reflogs/worktrees/each-ref widgets
 # come from junegunn/fzf-git.sh (loaded in .zshrc), bound to C-g C-<key>.
-# Override: put hashes on C-g C-g — his default C-g C-h is eaten by tmux's C-h
-# pane-navigation (vim-tmux-navigator's root-level bind).
-bindkey -r '^g^h'
-bindkey '^g^g' fzf-git-hashes-widget
+# Overrides: his defaults C-g C-h (hashes) and C-g C-l (reflogs) collide with
+# tmux's C-h / C-l pane-navigation (vim-tmux-navigator root binds), so remap:
+bindkey -r '^g^h'; bindkey '^g^g' fzf-git-hashes-widget    # hashes  -> C-g C-g
+bindkey -r '^g^l'; bindkey '^g^u' fzf-git-lreflogs-widget  # reflogs -> C-g C-u
 
 # Custom git browser (no fzf-git.sh equivalent); keep on C-/ (C-_).
 fzf-git-browser-widget() { gfzf; zle reset-prompt }

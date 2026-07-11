@@ -199,9 +199,22 @@
 | ^P | Vim-fzf-preview |
 | ^O | Ranger-cd |
 | ^x^p | Fzf playlist widget |
-| ^g^f | Fzf git file widget |
-| ^g^t | Fzf git tag widget |
-| ^g^b | Fzf git branch widget |
-| ^g^r | Fzf git remote widget |
-| ^g^g | Fzf git hash widget |
 | ^_ (Ctrl+/) | Fzf git browser (gfzf) |
+
+### Git fzf (junegunn/fzf-git.sh)
+
+`C-g` prefix, then a second key. Selects git objects and inserts them into the
+command line. Hashes and reflogs are remapped off their defaults (`C-g C-h` /
+`C-g C-l`) because tmux's `C-h` / `C-l` pane-navigation intercepts those.
+
+| Binding | Effect |
+|---------|--------|
+| ^g^f | Files |
+| ^g^b | Branches |
+| ^g^t | Tags |
+| ^g^r | Remotes |
+| ^g^g | Commit hashes (default `C-g C-h` remapped — tmux `C-h`) |
+| ^g^s | Stashes |
+| ^g^u | Reflogs (default `C-g C-l` remapped — tmux `C-l`) |
+| ^g^w | Worktrees |
+| ^g^e | Each ref (`for-each-ref`) |
