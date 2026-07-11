@@ -62,6 +62,7 @@ brew "yt-dlp"
 brew "mpv"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
+# Modern shell for the GitHub era
 brew "nushell"
 # Paste PNG into files
 brew "pngpaste"
@@ -99,6 +100,7 @@ brew "uv"
 brew "viddy"
 # Generator for LS_COLORS with support for multiple color themes
 brew "vivid"
+# Friendly and fast tool for sending HTTP requests
 brew "xh"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
