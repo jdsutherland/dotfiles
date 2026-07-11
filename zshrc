@@ -17,6 +17,12 @@ fi
 
 
 # {{{ zinit
+# Self-install zinit on a fresh machine so a new shell never errors on the
+# source below (the install script does not need a separate zinit step).
+if [[ ! -f ~/.zinit/bin/zinit.zsh ]]; then
+  print -P "%F{33}Installing zinit (zdharma-continuum)…%f"
+  command git clone https://github.com/zdharma-continuum/zinit.git ~/.zinit/bin
+fi
 source ~/.zinit/bin/zinit.zsh
 
 # Custom completion functions
