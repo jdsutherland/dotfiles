@@ -31,7 +31,9 @@ end
 local root_dir = expand_path(settings.root_directory)
 local media_extensions = {}
 for ext in string.gmatch(settings.media_extensions, "[^,]+") do
-    table.insert(media_extensions, ext:lower():gsub("%s+", ""))
+    -- extra parens truncate gsub's 2nd return (the substitution count) so
+    -- table.insert receives one value, not (string, count).
+    table.insert(media_extensions, (ext:lower():gsub("%s+", "")))
 end
 
 local active = false
