@@ -22,8 +22,6 @@ brew "bat-extras"
 brew "black"
 # Cross-platform make
 brew "cmake"
-# Good-lookin' diffs with diff-highlight and more
-brew "diff-so-fancy"
 # Pack, ship and run any application as a lightweight container
 brew "docker"
 # Modern, maintained replacement for ls
