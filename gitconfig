@@ -11,8 +11,8 @@
   bom = push --set-upstream origin master
   ca = commit --amend
   car = commit --amend --no-edit
-  cistatus = "!hub ci-status"
-  compare = !hub compare
+  cistatus = !gh pr checks
+  compare = "!funct() { open \"$(git web-url)/compare/$(git current-branch)\" ;}; funct"
   conflicted = !nvim +Conflicted
   copysha = "!git rev-parse HEAD | tr -d '\n' | pbcopy"
   count = !git log --oneline | wc -l | awk '{print $1}'
@@ -29,7 +29,7 @@
   full-commit = !git cat-file -p $(git rev-parse HEAD)
   gcode = log -S          ; grep code
   glog = log -E -i --grep ; grep log
-  issues = !hub browse -- issues
+  issues = !gh issue list --web
   lnames = !git --no-pager show --name-only $1
   main2master = !git branch -m master main && git branch -u origin/main
   master = checkout master
@@ -45,7 +45,7 @@
   pbr = log --patch --reverse --follow
   pf = push --force-with-lease
   pr-number = "!funct() { git merge-commits $1 | head -n1 | sed -n \"s/^.*Merge pull request #\\\\s*\\\\([0-9]*\\\\).*$/\\\\1/p\"; }; funct"
-  pulls = !hub browse -- pulls
+  pulls = !gh pr list --web
   renamed = log --topo-order --stat --diff-filter=R
   rim = !git rebase --interactive $(git merge-base master HEAD)
   riu = !git rebase -i $(git upstream)

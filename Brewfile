@@ -44,8 +44,6 @@ brew "gnu-sed"
 brew "libyaml"
 # Client library for huggingface.co hub
 brew "hf"
-# Add GitHub support to git on the command-line
-brew "hub"
 # Tools and libraries to manipulate images in select formats
 brew "imagemagick"
 # Simple terminal UI for git commands
