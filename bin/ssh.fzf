@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+# MIT License
+#
+# Copyright (c) 2026 Junegunn Choi
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+set -eu
+
+# Excerpt from https://github.com/junegunn/fzf/blob/master/shell/completion.bash
+__fzf_list_hosts() {
+  command cat <(command tail -n +1 ~/.ssh/config ~/.ssh/config.d/* /etc/ssh/ssh_config 2> /dev/null | command grep -i '^\s*host\(name\)\? ' | command awk '{for (i = 2; i <= NF; i++) print $1 " " $i}' | command grep -v '[*?%]') \
+    <(command grep -oE '^[[a-z0-9.,:-]+' ~/.ssh/known_hosts 2> /dev/null | command tr ',' '\n' | command tr -d '[' | command awk '{ print $1 " " $1 }') \
+    <(command grep -v '^\s*\(#\|$\)' /etc/hosts 2> /dev/null | command grep -Fv '0.0.0.0' | command sed 's/#.*//') |
+    command awk '{for (i = 2; i <= NF; i++) print $i}' | command sort -u
+}
+
+hosts=("$@")
+
+if [[ ${#hosts[@]} -eq 0 ]]; then
+  hosts=(
+    $(__fzf_list_hosts |
+      fzf --header 'Press CTRL-Y to copy host names to the clipboard' \
+          --style full --reverse --multi \
+          --bind 'ctrl-y:execute-silent(echo -n {+} | pbcopy)+clear-selection+bell' \
+          --preview 'dig {}')
+  )
+fi
+
+[[ ${#hosts[@]} -eq 0 ]] && exit 1
+
+# Single host selected
+if [[ ${#hosts[@]} -eq 1 ]]; then
+  ssh "${hosts[0]}"
+  exit $?
+fi
+
+# Multiple hosts selected, but not in tmux.
+if ! [[ $TMUX ]]; then
+  for host in "${hosts[@]}"; do
+    echo ssh "$host"
+  done
+  exit $?
+fi
+
+# Multiple hosts selected, in tmux.
+# Open a new window and use split panes to open each host.
+idx=0
+for host in "${hosts[@]}"; do
+  if [[ $idx -eq 0 ]]; then
+    tmux new-window -a "echo -en '\x1b]2;ssh $host\x1b\\'; ssh $host; read"
+    tmux set-window-option pane-border-status top
+    tmux set-window-option synchronize-panes on > /dev/null
+    tmux set-window-option pane-border-format '#{pane_index} #{pane_title}'
+  else
+    tmux split-window "echo -en '\x1b]2;ssh $host\x1b\\'; ssh $host; read"
+    tmux select-layout tiled > /dev/null
+  fi
+
+  idx=$((idx + 1))
+done

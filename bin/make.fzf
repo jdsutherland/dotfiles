@@ -1,0 +1,133 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# MIT License
+#
+# Copyright (c) 2026 Junegunn Choi
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+require 'stringio'
+
+gems = %w[ansi256 reline]
+begin
+  gems.each { require it }
+rescue LoadError
+  require 'bundler/inline'
+  gemfile(true) do
+    source 'https://rubygems.org'
+    gems.each { gem it }
+  end
+end
+
+unless %w[GNUmakefile makefile Makefile].any? { |f| File.exist?(f) }
+  warn 'No Makefile found'
+  exit 1
+end
+
+output = `make -qp 2>/dev/null`
+chunks = output.split(/^$/).map(&:strip)
+chunks = chunks.select { it.each_line.first&.match?(%r{^[a-zA-Z0-9][^$#/\t=]*:}) }
+
+bat = %w[bat batcat].find { |cmd| system("command -v #{cmd} > /dev/null 2>&1") }
+bat_cmd = bat && [bat, '--style=plain', '--color=always', '-l', 'Makefile']
+
+command = 'fzf --multi --ansi --read0 --print0 --style full --reverse --gap ' \
+          '--highlight-line --tiebreak begin'
+
+# Thread pool with unbounded queue and limited concurrency
+class Pool
+  class Future
+    def initialize(queue) = @queue = queue
+    def value = @value ||= @queue.pop
+  end
+
+  def initialize(size)
+    @queue = Queue.new
+    size.times do
+      Thread.new do
+        while (job = @queue.pop)
+          callable, result = job
+          result << callable.call
+        end
+      end
+    end
+  end
+
+  def submit(&block)
+    result = Queue.new
+    @queue << [block, result]
+    Future.new(result)
+  end
+end
+
+pool = Pool.new(16)
+futures = chunks.map do |chunk|
+  pool.submit do
+    head, *rest = chunk.lines
+    name, deps = head.split(':', 2).map(&:strip)
+    rest = rest.drop_while { it.start_with?('#') }
+    text = "#{name}: #{deps}\n#{rest.join}"
+    io = StringIO.new
+    if bat_cmd
+      formatted = IO.popen(bat_cmd, 'r+') do
+        it.write(text)
+        it.close_write
+        it.read
+      end
+      io.print(formatted.chomp)
+    else
+      io.puts [name.blue.bold, deps.dim.italic].join(': ')
+      io.print rest.join("\n")
+    end
+    io.string
+  end
+end
+
+target_name = ->(chunk) { chunk.each_line.first.plain.split(':', 2).first.strip }
+
+targets = IO.popen(command.split + ARGV, 'r+') do |io|
+  futures.each do |future|
+    io.print(future.value)
+    io.print("\x0")
+  end
+  io.close_write
+  io.read.split("\x0").map(&target_name)
+end
+
+exit if targets.empty?
+
+all_targets = chunks.map(&target_name)
+Reline.completion_proc = ->(input) { all_targets.select { it.start_with?(input) } }
+
+command = "make #{targets.join(' ')}"
+Reline.pre_input_hook = lambda do
+  Reline.insert_text(command)
+  Reline.redisplay
+  Reline.pre_input_hook = nil
+end
+
+command =
+  begin
+    Reline.readline('$ '.blue.bold, false)
+  rescue Interrupt
+    nil
+  end
+exit if command.nil? || command.strip.empty?
+exec(command)
