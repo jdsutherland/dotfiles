@@ -99,7 +99,7 @@
 | hyper+4 | Layout: 2-notifications |
 
 ### Window Layouts (automatic)
-- **2monitors**: Alacritty left, Chrome right, Preview full on ASUS, etc.
+- **2monitors**: Ghostty left, Chrome right, Preview full on ASUS, etc.
 - **1monitor**: Full screen for most apps
 - **1dev**: Term leftmost, Chrome rightless (3/4 split)
 - **1pdf**: Preview leftmost, Chrome/term rightless
@@ -111,7 +111,7 @@
 
 | Binding | Effect |
 |---------|--------|
-| hyper+t | Focus Alacritty |
+| hyper+t | Focus Ghostty |
 | hyper+q | Focus Anki |
 | hyper+a | Focus Brave Browser Beta |
 | hyper+g | Focus Finder |
