@@ -42,7 +42,8 @@ if command -v mise >/dev/null 2>&1; then
 fi
 
 # 5. Destructive Command Guard (agent safety)
-if ! command -v dcg &>/dev/null; then
+DCG_BIN="${DCG_BIN:-$HOME/.local/bin/dcg}"
+if [[ ! -x "$DCG_BIN" ]]; then
   curl -fsSL "https://raw.githubusercontent.com/Dicklesworthstone/destructive_command_guard/main/install.sh?$(date +%s)" | bash -s -- --easy-mode
 fi
 

@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "dcg"
+            "command": "$HOME/.local/bin/dcg"
           }
         ]
       }

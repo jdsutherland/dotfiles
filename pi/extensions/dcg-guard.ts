@@ -2,7 +2,7 @@
 // https://github.com/Dicklesworthstone/destructive_command_guard
 import { spawn } from "node:child_process";
 
-const DCG_BIN = process.env.DCG_BIN ?? "dcg";
+const DCG_BIN = process.env.DCG_BIN ?? `${process.env.HOME ?? ""}/.local/bin/dcg`;
 
 function dcgDecision(command: string): Promise<{ deny: boolean; reason: string }> {
   return new Promise((resolve) => {
@@ -15,9 +15,12 @@ function dcgDecision(command: string): Promise<{ deny: boolean; reason: string }
       stdout += chunk.toString();
     });
 
-    // Fail open if dcg can't be found / spawned, so a broken install never
-    // wedges Pi. Flip this to resolve({ deny: true, ... }) to fail closed.
-    child.on("error", () => resolve({ deny: false, reason: "" }));
+    // Fail closed if dcg cannot be found or spawned. An agent must not lose
+    // destructive-command protection because its guard is unavailable.
+    child.on("error", () => resolve({
+      deny: true,
+      reason: `dcg unavailable at ${DCG_BIN}; refusing to run the command.`,
+    }));
 
     child.on("close", (code) => {
       if (code === 1) {
@@ -31,9 +34,13 @@ function dcgDecision(command: string): Promise<{ deny: boolean; reason: string }
           /* keep the default reason */
         }
         resolve({ deny: true, reason });
-      } else {
-        // 0 = allowed; >=3 = dcg error -> fail open.
+      } else if (code === 0) {
         resolve({ deny: false, reason: "" });
+      } else {
+        resolve({
+          deny: true,
+          reason: `dcg failed with exit code ${code ?? "unknown"}; refusing to run the command.`,
+        });
       }
     });
   });

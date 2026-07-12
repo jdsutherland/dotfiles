@@ -12,7 +12,7 @@
           {
             "name": "dcg",
             "type": "command",
-            "command": "/Users/j/.local/bin/dcg",
+            "command": "$HOME/.local/bin/dcg",
             "timeout": 5000
           }
         ]
