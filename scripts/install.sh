@@ -41,7 +41,12 @@ if command -v mise >/dev/null 2>&1; then
   mise install
 fi
 
-# 5. macOS system defaults (optional)
+# 5. Destructive Command Guard (agent safety)
+if ! command -v dcg &>/dev/null; then
+  curl -fsSL "https://raw.githubusercontent.com/Dicklesworthstone/destructive_command_guard/main/install.sh?$(date +%s)" | bash -s -- --easy-mode
+fi
+
+# 6. macOS system defaults (optional)
 read -r -p $'\nApply macOS defaults (scripts/macos.sh)? [y/N] ' reply
 case "$reply" in
   [yY]) "$DOTFILES/scripts/macos.sh" ;;
