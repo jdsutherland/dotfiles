@@ -206,7 +206,7 @@ local function render_menu()
     local cc0 = mp.get_property_osd("osd-ass-cc/0")
     local cc1 = mp.get_property_osd("osd-ass-cc/1")
 
-    local text = cc0 .. "{\\an7\\fs26\\b1\\c&HE5C500&}📁 Select Video Playlist Folder\\N\\N"
+    local text = cc0 .. "{\\an7\\fs18\\b1\\c&HE5C500&}📁 Select Video Playlist Folder\\N\\N"
 
     local start_idx = 1
     local end_idx = #items
@@ -222,17 +222,17 @@ local function render_menu()
     for i = start_idx, end_idx do
         local label = items[i].label
         if i == selected_idx then
-            text = text .. "{\\fs22\\b1\\c&H33FF33&}  ▶  " .. label .. "{\\r}\\N"
+            text = text .. "{\\fs15\\b1\\c&H33FF33&}  ▶  " .. label .. "{\\r}\\N"
         else
-            text = text .. "{\\fs22\\c&HCCCCCC&}     " .. label .. "{\\r}\\N"
+            text = text .. "{\\fs15\\c&HCCCCCC&}     " .. label .. "{\\r}\\N"
         end
     end
 
     if end_idx < #items then
-        text = text .. "{\\fs18\\c&H888888&}     ... and " .. (#items - end_idx) .. " more{\\r}\\N"
+        text = text .. "{\\fs12\\c&H888888&}     ... and " .. (#items - end_idx) .. " more{\\r}\\N"
     end
 
-    text = text .. "\\N{\\fs16\\c&H999999&}⌨  [j/k] Navigate  |  [Enter] Load  |  [Esc/q] Close" ..
+    text = text .. "\\N{\\fs11\\c&H999999&}⌨  [j/k] Navigate  |  [Enter] Load  |  [Esc/q] Close" ..
         "\\N★  " .. settings.key_add .. " add · " .. settings.key_remove ..
         " remove current file (while watching){\\r}" .. cc1
 
