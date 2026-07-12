@@ -336,8 +336,8 @@ mp.add_forced_key_binding(settings.key_remove, 'watchlist_remove', watchlist_rem
 -- Auto-open the picker when mpv starts without any files;
 -- if the watchlist has entries, load and play the first one immediately.
 if mp.get_property_number('playlist-count', 0) == 0 then
-    read_watchlist()
-    if next(watchlist_lines) then
+    local wl = read_watchlist()
+    if #wl > 0 then
         load_watchlist()
     else
         toggle_menu()
