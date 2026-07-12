@@ -333,7 +333,13 @@ mp.add_key_binding(settings.key_add, 'watchlist_add', watchlist_add)
 -- forced: X is bound to `add audio-delay 0.100` in input.conf; this overrides it.
 mp.add_forced_key_binding(settings.key_remove, 'watchlist_remove', watchlist_remove)
 
--- Auto-open the picker when mpv starts without any files
+-- Auto-open the picker when mpv starts without any files;
+-- if the watchlist has entries, load and play the first one immediately.
 if mp.get_property_number('playlist-count', 0) == 0 then
-    toggle_menu()
+    read_watchlist()
+    if next(watchlist_lines) then
+        load_watchlist()
+    else
+        toggle_menu()
+    end
 end
