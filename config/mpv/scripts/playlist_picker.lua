@@ -339,7 +339,6 @@ if mp.get_property_number('playlist-count', 0) == 0 then
     local wl = read_watchlist()
     if #wl > 0 then
         load_watchlist()
-    else
-        toggle_menu()
     end
+    toggle_menu()
 end
