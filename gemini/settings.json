@@ -1,0 +1,22 @@
+{
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  },
+  "hooks": {
+    "BeforeTool": [
+      {
+        "matcher": "run_shell_command",
+        "hooks": [
+          {
+            "name": "dcg",
+            "type": "command",
+            "command": "/Users/j/.local/bin/dcg",
+            "timeout": 5000
+          }
+        ]
+      }
+    ]
+  }
+}
