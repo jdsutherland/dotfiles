@@ -25,10 +25,6 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/j/.local/bin/dcg"
-          },
-          {
-            "type": "command",
             "command": "$HOME/.dotfiles/claude/hooks/rm-guard.sh",
             "statusMessage": "Checking rm targets"
           }
