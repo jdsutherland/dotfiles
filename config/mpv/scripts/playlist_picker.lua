@@ -332,3 +332,8 @@ mp.add_key_binding(settings.key_toggle, 'vids_picker_toggle', toggle_menu)
 mp.add_key_binding(settings.key_add, 'watchlist_add', watchlist_add)
 -- forced: X is bound to `add audio-delay 0.100` in input.conf; this overrides it.
 mp.add_forced_key_binding(settings.key_remove, 'watchlist_remove', watchlist_remove)
+
+-- Auto-open the picker when mpv starts without any files
+if mp.get_property_number('playlist-count', 0) == 0 then
+    toggle_menu()
+end
