@@ -120,14 +120,4 @@ eval "$(zoxide init zsh)"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 [ -f ~/.zshenv_private ] && source ~/.zshenv_private
 
-# dcg: warn if hook was silently removed from Claude Code settings. Checks
-# both settings.json and settings.local.json since Claude Code merges them
-# and the hook may live in either (it's in settings.local.json here).
-if command -v dcg &>/dev/null && command -v jq &>/dev/null; then
-  _dcg_found=0
-  for _dcg_f in "$HOME/.claude/settings.json" "$HOME/.claude/settings.local.json"; do
-    [ -f "$_dcg_f" ] && jq -e '.hooks.PreToolUse[]? | select(.hooks[]?.command | test("dcg$"))' "$_dcg_f" &>/dev/null && _dcg_found=1
-  done
-  [ "$_dcg_found" -eq 0 ] && printf '\033[1;33m[dcg] Hook missing from ~/.claude/settings*.json — run: dcg install\033[0m\n'
-  unset _dcg_found _dcg_f
-fi
+

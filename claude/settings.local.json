@@ -25,8 +25,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "$HOME/.dotfiles/claude/hooks/rm-guard.sh",
-            "statusMessage": "Checking rm targets"
+            "command": "dcg"
           }
         ]
       }
