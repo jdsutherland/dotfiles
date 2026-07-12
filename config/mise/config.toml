@@ -1,0 +1,11 @@
+# mise global config — applies in every directory (unlike a bare
+# .tool-versions file, which mise only discovers by walking up from the
+# current directory, so it silently no-ops anywhere outside $HOME, e.g. /tmp).
+# See: https://mise.jdx.dev/configuration.html
+
+[tools]
+bun = "1.3.14"
+go = "1.26.5"
+python = "3.14.6t"
+rust = "1.97.0"
+ruby = "4.0.5"

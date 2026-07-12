@@ -25,14 +25,17 @@ is available.
 2. runs `brew bundle` to install formulae, casks, and taps from the `Brewfile`,
 3. runs `rcup` ([rcm][]) to symlink the dotfiles, prompting before overwriting
    anything that already exists (e.g. an existing `~/.zshrc`),
-4. runs `mise install` for language runtimes from `tool-versions`,
+4. runs `mise install` for language runtimes from `config/mise/config.toml`,
 5. optionally applies macOS defaults (`scripts/macos.sh`).
 
 zinit installs itself on the first new shell, so it is not a separate step.
 
 ### Runtime tooling
 
-[mise][] manages language runtimes and reads the existing `tool-versions` file.
+[mise][] manages language runtimes via `~/.config/mise/config.toml` — mise's
+true global config, so runtimes are available in every directory (a bare
+`.tool-versions` file only applies where mise finds it by walking up from the
+current directory, e.g. it silently no-ops outside `$HOME`).
 [uv][] handles Python environments and dependencies; use `uv venv`, `uv add`,
 and commit the resulting `uv.lock` in Python projects.
 
