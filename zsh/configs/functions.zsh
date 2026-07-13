@@ -225,7 +225,7 @@ imv() {
 }
 
 ydl() {
-  yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt -ci "$@"
+  yt-dlp --write-sub --embed-subs --no-mtime --no-overwrites --restrict-filenames --download-archive archive.txt --output "%(upload_date>%Y-%m-%d)s_%(title)s.%(ext)s" -ci "$@"
 }
 
 # json -- used to download only videos matching filenames `fd QUERY | xargs jq .id | xargs youtube-dl`
