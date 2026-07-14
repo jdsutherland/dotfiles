@@ -288,8 +288,20 @@ return {
     'pmizio/typescript-tools.nvim',
     dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
     config = function()
+      -- typescript-tools.nvim only auto-detects a local project's
+      -- node_modules or npm's global root — neither covers mise's install
+      -- location, so resolve it explicitly. `mise where` returns the current
+      -- version's directory dynamically, so this stays correct across
+      -- upgrades instead of hardcoding a version number.
+      local mise_ts_dir = vim.fn.system("mise where npm:typescript 2>/dev/null"):gsub("%s+$", "")
+      local tsserver_path = nil
+      if vim.v.shell_error == 0 and mise_ts_dir ~= "" then
+        tsserver_path = mise_ts_dir .. "/lib/node_modules/typescript/lib/tsserver.js"
+      end
+
       require("typescript-tools").setup({
         settings = {
+          tsserver_path = tsserver_path,
           complete_function_calls = true,
         },
       })
