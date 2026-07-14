@@ -288,11 +288,12 @@ return {
     'pmizio/typescript-tools.nvim',
     dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
     config = function()
-      -- typescript-tools.nvim only auto-detects a local project's
-      -- node_modules or npm's global root — neither covers mise's install
-      -- location, so resolve it explicitly. `mise where` returns the current
-      -- version's directory dynamically, so this stays correct across
-      -- upgrades instead of hardcoding a version number.
+      -- Mason's typescript-language-server package currently bundles
+      -- typescript@7.x, which dropped tsserver.js entirely (same break as
+      -- typescript@latest) — so Mason doesn't actually solve this. Resolve
+      -- an explicit, version-pinned install via mise instead. `mise where`
+      -- returns the current version's directory dynamically, so this stays
+      -- correct across upgrades instead of hardcoding a version number.
       local mise_ts_dir = vim.fn.system("mise where npm:typescript 2>/dev/null"):gsub("%s+$", "")
       local tsserver_path = nil
       if vim.v.shell_error == 0 and mise_ts_dir ~= "" then
