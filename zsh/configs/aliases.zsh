@@ -80,7 +80,7 @@ if [[ -o interactive ]]; then
   alias amend='git commit --amend'
   alias fixgit='git config branch.master.remote origin && git config branch.master.merge refs/heads/master'
   alias gitundo='git commit --amend'
-  alias ginfo='onefetch && tokei'
+  alias ginfo='onefetch --number-of-file-churns=10 && tokei'
   alias ginit='git init && git add . && git commit -m "Add initial"'
   alias gap='git add -p'
   alias gst='git status'
