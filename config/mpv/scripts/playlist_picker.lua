@@ -111,6 +111,16 @@ end
 
 -- ---------------------------------------------------------------- watchlist
 
+-- Check if a local path exists; remote URLs / relative paths are left alone.
+local function file_exists(path)
+    -- treat URLs or relative paths as "exists" so we don't reject them
+    if path:match("^%a[%w+.-]*://") or path:sub(1,1) ~= "/" then
+        return true
+    end
+    local info = utils.file_info(path)
+    return info ~= nil
+end
+
 local function read_watchlist()
     local lines = {}
     local f = io.open(watchlist_path, "r")
@@ -123,6 +133,21 @@ local function read_watchlist()
         f:close()
     end
     return lines
+end
+
+-- Returns (filtered_list, skipped_list, skipped_count)
+local function read_watchlist_filtered()
+    local raw = read_watchlist()
+    local filtered = {}
+    local skipped = {}
+    for _, p in ipairs(raw) do
+        if file_exists(p) then
+            table.insert(filtered, p)
+        else
+            table.insert(skipped, p)
+        end
+    end
+    return filtered, skipped, #skipped
 end
 
 local function write_watchlist(lines)
@@ -148,11 +173,36 @@ local function current_abs_path()
 end
 
 local function load_watchlist()
-    local lines = read_watchlist()
+    local lines, skipped, n_skipped = read_watchlist_filtered()
+    if n_skipped > 0 then
+        -- log the missing files to the console
+        local log = "Watchlist skipped " .. n_skipped .. " missing file(s):\n"
+        for _, p in ipairs(skipped) do
+            log = log .. "  " .. p .. "\n"
+        end
+        log = log .. "Edit " .. watchlist_path .. " to remove stale entries"
+        msg.warn(log)
+    end
     if #lines == 0 then
-        mp.osd_message("Watchlist is empty — press " .. settings.key_add ..
-            " while watching to add files", 4)
+        local msg = "Watchlist is empty"
+        if n_skipped > 0 then
+            msg = msg .. " — " .. n_skipped .. " file(s) missing:\n"
+            -- show up to 3 paths in the OSD so the user sees them
+            local shown = 0
+            for _, p in ipairs(skipped) do
+                if shown >= 3 then
+                    msg = msg .. "  ... and more"
+                    break
+                end
+                msg = msg .. "  " .. p .. "\n"
+                shown = shown + 1
+            end
+        end
+        mp.osd_message(msg, 5)
         return
+    end
+    if n_skipped > 0 then
+        mp.osd_message("Skipped " .. n_skipped .. " missing watchlist entries", 3)
     end
     -- loadfile append just queues entries; media isn't opened until played,
     -- so this stays fast even for very large lists.
@@ -275,9 +325,39 @@ local function select_item()
     end
 
     local files = get_media_files_in_dir(item.path)
+    -- filter out any that vanished between scan and load
+    local filtered = {}
+    local skipped = {}
+    for _, f in ipairs(files) do
+        if file_exists(f) then
+            table.insert(filtered, f)
+        else
+            table.insert(skipped, f)
+        end
+    end
+    files = filtered
     if #files == 0 then
-        mp.osd_message("No media files found in " .. item.label, 3)
+        if #skipped > 0 then
+            mp.osd_message("All " .. #skipped .. " files in " .. item.label .. " are gone", 3)
+            local details = "Folder " .. item.label .. ": all " .. #skipped ..
+                            " file(s) have disappeared:\n"
+            for _, p in ipairs(skipped) do
+                details = details .. "  " .. p .. "\n"
+            end
+            msg.warn(details)
+        else
+            mp.osd_message("No media files found in " .. item.label, 3)
+        end
         return
+    end
+    if #skipped > 0 then
+        mp.osd_message("Skipped " .. #skipped .. " missing file(s)", 2)
+        local details = "Folder " .. item.label .. ": skipped " .. #skipped ..
+                        " missing file(s):\n"
+        for _, p in ipairs(skipped) do
+            details = details .. "  " .. p .. "\n"
+        end
+        msg.warn(details)
     end
     mp.commandv("loadfile", files[1], "replace")
     for i = 2, #files do
@@ -310,9 +390,18 @@ local function toggle_menu()
     table.sort(dirs)
 
     items = {}
+    local wl_filtered, skipped_wl, n_skipped_wl = read_watchlist_filtered()
+    if n_skipped_wl > 0 then
+        local log = "Watchlist: " .. n_skipped_wl .. " missing file(s) skipped (menu label reflects valid entries):\n"
+        for _, p in ipairs(skipped_wl) do
+            log = log .. "  " .. p .. "\n"
+        end
+        log = log .. "Edit " .. watchlist_path .. " to remove stale entries"
+        msg.warn(log)
+    end
     table.insert(items, {
         kind = "watchlist",
-        label = "⭐ Watchlist (" .. #read_watchlist() .. ")",
+        label = "⭐ Watchlist (" .. #wl_filtered .. ")",
     })
     for _, dir in ipairs(dirs) do
         table.insert(items, {
@@ -335,8 +424,10 @@ mp.add_forced_key_binding(settings.key_remove, 'watchlist_remove', watchlist_rem
 
 -- Auto-open the picker when mpv starts without any files;
 -- if the watchlist has entries, load and play the first one immediately.
+-- Also set keep-open to prevent mpv from quitting on playlist errors.
+mp.set_property("keep-open", "yes")
 if mp.get_property_number('playlist-count', 0) == 0 then
-    local wl = read_watchlist()
+    local wl = read_watchlist_filtered()
     if #wl > 0 then
         load_watchlist()
     end
