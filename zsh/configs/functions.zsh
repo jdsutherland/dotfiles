@@ -381,6 +381,90 @@ notify() {
 }
 
 # git {{{
+ginfo() {
+  local exts=(
+    py rs go
+    js jsx ts tsx
+    java kt kts
+    rb php
+    c h cc cpp hpp
+    cs swift scala
+    sh zsh
+  )
+
+  local excludes=(
+    generated
+    vendor
+    node_modules
+    target
+    dist
+    build
+    coverage
+    __pycache__
+  )
+
+  local fd_args=(--type f --print0)
+
+  for ext in "${exts[@]}"; do
+    fd_args+=(--extension "$ext")
+  done
+
+  for dir in "${excludes[@]}"; do
+    fd_args+=(--exclude "$dir")
+  done
+
+  (
+    onefetch --number-of-file-churns=10
+
+    echo
+    echo "=== Language Breakdown ==="
+    tokei
+
+    echo
+    echo "=== Largest Code Files (LOC) ==="
+    fd "${fd_args[@]}" \
+      | xargs -0 wc -l \
+      | grep -vE '^[[:space:]]*[0-9]+[[:space:]]+total$' \
+      | sort -nr \
+      | head -10
+
+    echo
+    echo "=== Largest Directories (Code LOC) ==="
+    fd "${fd_args[@]}" \
+      | while IFS= read -r -d '' file; do
+          file=${file#./}
+
+          case "$file" in
+            */*)
+              directory=${file%%/*}
+              ;;
+            *)
+              directory="(root)"
+              ;;
+          esac
+
+          printf '%s\t%s\n' "$(wc -l < "$file")" "$directory"
+        done \
+      | awk -F '\t' '
+          { loc[$2] += $1 }
+          END {
+            for (dir in loc)
+              printf "%7d %s\n", loc[dir], dir
+          }
+        ' \
+      | sort -nr \
+      | head -10
+
+    echo
+    echo "=== Directory Tree ==="
+    tree \
+      -L 3 \
+      -d \
+      -C \
+      -I "fonts|images|node_modules|bin|obj|__pycache__|tmp|cache|dist|vendor|target|build|coverage|generated"
+  ) | less -FRX
+}
+
 # git clone append name
 gcn() {
   name="$(basename $1)_$2"

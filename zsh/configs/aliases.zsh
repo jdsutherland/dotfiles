@@ -80,7 +80,6 @@ if [[ -o interactive ]]; then
   alias amend='git commit --amend'
   alias fixgit='git config branch.master.remote origin && git config branch.master.merge refs/heads/master'
   alias gitundo='git commit --amend'
-  alias ginfo='onefetch --number-of-file-churns=10 && tokei'
   alias ginit='git init && git add . && git commit -m "Add initial"'
   alias gap='git add -p'
   alias gst='git status'
@@ -350,6 +349,7 @@ if [[ -o interactive ]]; then
   # alias rcup="command rcup -v | grep -v identical"
   alias st='speedtest'
   alias t1='tree -L 1 * -C | less -F'
+  alias td='tree -I "fonts|images|node_modules|bin|obj|__pycache__|tmp|cache|dist|vendor" -C -d | less -F'
   alias th="tree -a -I 'node_modules|.git' -C"
   alias tl='tldr'
   alias tmuxks='tmux kill-session -t'
