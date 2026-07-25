@@ -32,6 +32,7 @@ hs.hotkey.bind(hyper, "v", focusMpv)
 hs.hotkey.bind(hyper, "n", function() hs.application.launchOrFocus("Notion") end)
 hs.hotkey.bind(hyper, "b", function() hs.application.launchOrFocus("Google Chrome") end)
 hs.hotkey.bind(hyper, "f", function() hs.application.launchOrFocus("Obsidian") end)
+hs.hotkey.bind(hyper, "y", function() hs.application.launchOrFocus("Books") end)
 
 -- function focusBrave()
 --   hs.application.launchOrFocus("Brave Browser Beta")
