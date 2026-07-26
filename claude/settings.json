@@ -25,13 +25,20 @@
   },
   "enabledPlugins": {
     "commit-commands@claude-plugins-official": true,
-    "fleet@fleet-local": true
+    "fleet@fleet-local": true,
+    "sessions@sessions": true
   },
   "extraKnownMarketplaces": {
     "fleet-local": {
       "source": {
         "source": "directory",
         "path": "/Users/j/.local/share/fleet-marketplace"
+      }
+    },
+    "sessions": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/j/.local/share/sessions"
       }
     }
   },

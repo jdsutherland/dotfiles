@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "sessions": {
+      "command": "/opt/homebrew/bin/sessions",
+      "args": [
+        "--mcp"
+      ]
+    }
+  }
+}
