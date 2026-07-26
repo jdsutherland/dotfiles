@@ -59,9 +59,7 @@
       "Read",
       "Task",
       "WebFetch(domain:*)",
-      "WebSearch",
-      "Skill(ship)",
-      "Skill(always-allow)"
+      "WebSearch"
     ],
     "deny": [
       "Read(./.env)",
