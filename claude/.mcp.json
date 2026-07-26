@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "sessions": {
-      "command": "/opt/homebrew/bin/sessions",
+      "command": "/Users/j/.bin/sessions",
       "args": [
         "--mcp"
       ]
