@@ -1,22 +1,91 @@
 {
   "permissions": {
-    "additionalDirectories": [
-      "~/.claude"
-    ],
     "allow": [
-      "WebSearch",
-      "Bash(curl:*)",
-      "Bash(sh)",
-      "Bash(source ~/.zshrc)",
+      "Bash(basename *)",
+      "Bash(brew info *)",
+      "Bash(brew list *)",
       "Bash(brew install:*)",
-      "Bash(~/.local/bin/mise doctor:*)",
       "Bash(brew bundle:*)",
+      "Bash(bun *)",
+      "Bash(bunx *)",
+      "Bash(curl *)",
+      "Bash(cut *)",
+      "Bash(date *)",
+      "Bash(df *)",
+      "Bash(diff *)",
+      "Bash(dirname *)",
+      "Bash(docker *)",
+      "Bash(du *)",
+      "Bash(echo *)",
+      "Bash(file *)",
+      "Bash(gh *)",
+      "Bash(git *)",
+      "Bash(hostname *)",
+      "Bash(id *)",
+      "Bash(jq *)",
+      "Bash(ls *)",
+      "Bash(md5 *)",
+      "Bash(mkdir *)",
+      "Bash(node *)",
+      "Bash(npm *)",
+      "Bash(pip list *)",
+      "Bash(pip show *)",
+      "Bash(pnpm *)",
+      "Bash(ps *)",
+      "Bash(pwd *)",
+      "Bash(python --version *)",
+      "Bash(readlink *)",
+      "Bash(realpath *)",
+      "Bash(ruby --version *)",
+      "Bash(shasum *)",
+      "Bash(sort *)",
+      "Bash(stat *)",
+      "Bash(tr *)",
+      "Bash(tree *)",
+      "Bash(uname *)",
+      "Bash(uniq *)",
+      "Bash(wc *)",
+      "Bash(wget *)",
+      "Bash(which *)",
+      "Bash(whoami *)",
+      "Bash(yq *)",
+      "Bash(mise *)",
+      "Bash(asdf *)",
+      "Bash(source ~/.zshrc)",
       "Bash(grep:*)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
+      "ExitPlanMode(*)",
+      "Glob",
+      "Grep",
+      "Read",
+      "Task",
+      "WebFetch(domain:*)",
+      "WebSearch",
       "Skill(ship)",
       "Skill(always-allow)"
-    ]
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.ssh/**)",
+      "Bash(dd *)",
+      "Bash(diskutil *)",
+      "Bash(mkfs *)",
+      "Bash(rm -rf / *)",
+      "Bash(rm -rf /* *)",
+      "Bash(rm -rf ~ *)",
+      "Bash(rm -rf $HOME *)",
+      "Bash(sudo rm -rf / *)",
+      "Bash(sudo rm -rf /* *)"
+    ],
+    "ask": [
+      "Bash(gh pr merge *)",
+      "Bash(docker push *)",
+      "Bash(npm publish *)"
+    ],
+    "defaultMode": "auto",
+    "additionalDirectories": ["~/.claude/"]
   },
   "hooks": {
     "PreToolUse": [
@@ -30,12 +99,5 @@
         ]
       }
     ]
-  },
-  "enabledPlugins": {
-    "commit-commands@claude-plugins-official": true
-  },
-  "syntaxHighlightingDisabled": false,
-  "tui": "fullscreen",
-  "theme": "auto",
-  "agentPushNotifEnabled": true
+  }
 }

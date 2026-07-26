@@ -1,0 +1,19 @@
+{
+  "enabledPlugins": {
+    "commit-commands@claude-plugins-official": true
+  },
+  "syntaxHighlightingDisabled": false,
+  "tui": "fullscreen",
+  "theme": "auto",
+  "cleanupPeriodDays": 365,
+  "env": {
+    "CLAUDE_CODE_DISABLE_1M_CONTEXT": "0",
+    "CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING": "1",
+    "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "0",
+    "xCLAUDE_CODE_EFFORT_LEVEL": "max",
+    "CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION": "1",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "CLAUDE_CODE_NO_FLICKER": "1",
+    "CLAUDE_CODE_TMUX_TRUECOLOR": "1"
+  }
+}
