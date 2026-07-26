@@ -1,10 +1,4 @@
 {
-  "enabledPlugins": {
-    "commit-commands@claude-plugins-official": true
-  },
-  "syntaxHighlightingDisabled": false,
-  "tui": "fullscreen",
-  "theme": "auto",
   "cleanupPeriodDays": 365,
   "env": {
     "CLAUDE_CODE_DISABLE_1M_CONTEXT": "0",
@@ -15,5 +9,33 @@
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
     "CLAUDE_CODE_NO_FLICKER": "1",
     "CLAUDE_CODE_TMUX_TRUECOLOR": "1"
-  }
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "dcg"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "commit-commands@claude-plugins-official": true,
+    "fleet@fleet-local": true
+  },
+  "extraKnownMarketplaces": {
+    "fleet-local": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/j/.local/share/fleet-marketplace"
+      }
+    }
+  },
+  "syntaxHighlightingDisabled": false,
+  "tui": "fullscreen",
+  "theme": "auto"
 }
