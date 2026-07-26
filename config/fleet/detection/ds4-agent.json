@@ -1,0 +1,11 @@
+{
+  "linesFromBottom": 15,
+  "promptMarker": "ds4-agent>",
+  "rules": [
+    {
+      "id": "busy.generation-stats",
+      "pattern": "generation \\d+ tokens \\d+(\\.\\d+)?\\s*t/s",
+      "state": "BUSY"
+    }
+  ]
+}
