@@ -128,6 +128,10 @@ rh() {
   rg --follow --no-messages -uu -p "$@" 2> /dev/null | less -XRF
 }
 
+sc() {
+  sessions context "${@}" | bat -p -l md
+}
+
 # list of uniq words matching regex
 runiq() {  rg -INo "$@" | awk NF | sort | uniq }
 
