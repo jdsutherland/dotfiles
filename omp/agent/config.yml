@@ -1,0 +1,16 @@
+modelRoles:
+  default: openai-codex/gpt-5.6-sol
+  smol: openai-codex/gpt-5.6-sol:medium
+symbolPreset: nerd
+theme:
+  dark: dark-tokyo-night
+setupVersion: 1
+defaultThinkingLevel: auto
+statusLine:
+  separator: powerline-thin
+terminal:
+  showProgress: false
+display:
+  shimmer: disabled
+skills:
+  enabled: false
