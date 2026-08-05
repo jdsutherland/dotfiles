@@ -44,5 +44,6 @@
   },
   "syntaxHighlightingDisabled": false,
   "tui": "fullscreen",
-  "theme": "auto"
+  "theme": "auto",
+  "agentPushNotifEnabled": true
 }
