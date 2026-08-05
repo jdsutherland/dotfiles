@@ -1,19 +1,63 @@
 config = {}
 local hyper = {"cmd", "alt", "ctrl", "shift"}
 
-local function focusMpv()
-  local app = hs.application.find("mpv")
+local function mpvApplications()
+  local apps = {}
 
-  if app then
-    app:activate()
+  for _, app in ipairs(hs.application.runningApplications()) do
+    if app:name() == "mpv" then
+      table.insert(apps, app)
+    end
+  end
+
+  table.sort(apps, function(a, b)
+    return a:pid() < b:pid()
+  end)
+
+  return apps
+end
+
+local frontmost = hs.application.frontmostApplication()
+local lastMpvPid = frontmost and frontmost:name() == "mpv" and frontmost:pid() or nil
+
+config.mpvWatcher = hs.application.watcher.new(function(_, eventType, app)
+  if eventType == hs.application.watcher.activated and app and app:name() == "mpv" then
+    lastMpvPid = app:pid()
+  end
+end):start()
+
+local function focusMpv()
+  local apps = mpvApplications()
+
+  if #apps == 0 then
+    hs.execute("/opt/homebrew/bin/mpv --idle=yes --force-window=yes >/dev/null 2>&1 &")
+    hs.timer.doAfter(0.5, function()
+      local launched = mpvApplications()[1]
+      if launched then launched:activate(true) end
+    end)
     return
   end
 
-  hs.execute("/opt/homebrew/bin/mpv --idle=yes --force-window=yes >/dev/null 2>&1 &")
-  hs.timer.doAfter(0.5, function()
-    local launched = hs.application.find("mpv")
-    if launched then launched:activate() end
-  end)
+  local current = hs.application.frontmostApplication()
+  local target
+
+  for index, app in ipairs(apps) do
+    if current and app:pid() == current:pid() then
+      target = apps[(index % #apps) + 1]
+      break
+    end
+  end
+
+  if not target and lastMpvPid then
+    for _, app in ipairs(apps) do
+      if app:pid() == lastMpvPid then
+        target = app
+        break
+      end
+    end
+  end
+
+  (target or apps[1]):activate(true)
 end
 
 -- Hyper+key app focusing (moved from Slate)
