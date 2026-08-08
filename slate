@@ -154,7 +154,7 @@ bind space:${hyper} hide 'current'
 ## Location bindings
 # These are laid out to be used with the right hand
 # and to complement the focus bindings
-bind o:${hyper}   throw next
+# hyper+o is handled by Hammerspoon so bundle-less mpv windows can move displays.
 bind u:${hyper}   undo
 bind i:${hyper}   ${full}
 bind [:${hyper}   ${lefthalf}

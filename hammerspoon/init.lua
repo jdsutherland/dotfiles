@@ -26,6 +26,31 @@ config.mpvWatcher = hs.application.watcher.new(function(_, eventType, app)
   end
 end):start()
 
+local function moveFocusedWindowToNextDisplay()
+  local app = hs.application.frontmostApplication()
+  local window = app and (app:focusedWindow() or app:mainWindow() or app:allWindows()[1])
+  local screens = hs.screen.allScreens()
+
+  if not window or #screens < 2 then return end
+
+  local targetScreen = window:screen():next()
+
+  if app:name() == "mpv" then
+    for index, screen in ipairs(screens) do
+      if screen:id() == targetScreen:id() then
+        local functionKey = 12 + index
+        if functionKey <= 24 then
+          hs.eventtap.keyStroke({}, "f" .. functionKey, 0, app)
+        end
+        return
+      end
+    end
+    return
+  end
+
+  window:moveToScreen(targetScreen, false, true)
+end
+
 local function focusMpv()
   local apps = mpvApplications()
 
@@ -73,6 +98,7 @@ hs.hotkey.bind(hyper, "d", function() hs.application.launchOrFocus("Discord") en
 hs.hotkey.bind(hyper, "z", function() hs.application.launchOrFocus("Gemini") end)
 hs.hotkey.bind(hyper, "x", function() hs.application.launchOrFocus("Claude") end)
 hs.hotkey.bind(hyper, "v", focusMpv)
+hs.hotkey.bind(hyper, "o", moveFocusedWindowToNextDisplay)
 hs.hotkey.bind(hyper, "n", function() hs.application.launchOrFocus("Notion") end)
 hs.hotkey.bind(hyper, "b", function() hs.application.launchOrFocus("Google Chrome") end)
 hs.hotkey.bind(hyper, "y", function() hs.application.launchOrFocus("Books") end)
