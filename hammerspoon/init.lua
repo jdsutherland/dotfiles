@@ -29,29 +29,135 @@ config.mpvWatcher = hs.application.watcher.new(function(_, eventType, app)
   end
 end):start()
 
-local function moveFocusedWindowToNextDisplay()
+-- Per-display window geometry, remembered as unit rects so a frame saved on the
+-- laptop still makes sense on the differently proportioned external.
+local rememberedFrames = {}
+
+local function focusedWindow(app)
+  return app and (app:focusedWindow() or app:mainWindow() or app:allWindows()[1])
+end
+
+-- hs.timer objects stop themselves when garbage collected, so a bare doAfter is
+-- a race against the collector. Hold a reference until it has fired.
+local pendingTimers = {}
+
+local function later(delay, fn)
+  local timer
+  timer = hs.timer.doAfter(delay, function()
+    pendingTimers[timer] = nil
+    fn()
+  end)
+  pendingTimers[timer] = true
+end
+
+local function isFillingScreen(window, screen)
+  return window:frame() == screen:fullFrame()
+end
+
+local function rememberFrame(window, screen)
+  local id = window:id()
+  if not id then return end
+
+  rememberedFrames[id] = rememberedFrames[id] or {}
+  rememberedFrames[id][screen:id()] = screen:toUnitRect(window:frame())
+end
+
+-- Places the window where it last sat on this screen, filling the screen if we
+-- have never seen it there. Doubles as the move itself for well-behaved apps.
+local function applyFrame(window, screen)
+  local id = window:id()
+  local saved = id and rememberedFrames[id] and rememberedFrames[id][screen:id()]
+
+  -- Duration 0: hs.window.animationDuration defaults to 0.2s of easing we don't want.
+  window:setFrame(screen:fromUnitRect(saved or hs.geometry.unitrect(0, 0, 1, 1)), 0)
+end
+
+-- mpv refuses Accessibility moves onto a display with a negative origin (an
+-- external placed above the built-in), while accepting them in the other
+-- direction. Rather than guess at the rule, learn which screens reject the fast
+-- path so we only ever pay for that discovery once.
+local axRejects = {}
+
+local function rejectsAX(screen)
+  return axRejects[screen:id()]
+end
+
+local function noteAXRejected(screen)
+  axRejects[screen:id()] = true
+end
+
+-- Rearranging displays invalidates what we learned.
+config.screenWatcher = hs.screen.watcher.new(function() axRejects = {} end):start()
+
+-- Fallback for when mpv won't take an Accessibility move: ask it to relocate
+-- itself. move-screen.lua bounces it through fullscreen, because mpv only reads
+-- the screen option at window creation.
+local function moveMpvViaScript(app, screens, targetScreen, reframe)
+  for index, screen in ipairs(screens) do
+    if screen:id() == targetScreen:id() then
+      -- mpv's macOS keymap stops at F20, so only the first 8 displays are reachable.
+      local functionKey = 12 + index
+      if functionKey <= 20 then
+        hs.eventtap.keyStroke({}, "f" .. functionKey, 0, app)
+      end
+
+      if reframe then
+        later(0.75, function()
+          local moved = focusedWindow(app)
+          if moved and moved:screen():id() == targetScreen:id() then
+            applyFrame(moved, targetScreen)
+          end
+        end)
+      end
+
+      return
+    end
+  end
+end
+
+-- Exposed so `hs -c` can drive and time this without a keypress.
+function config.moveNextDisplay()
   local app = hs.application.frontmostApplication()
-  local window = app and (app:focusedWindow() or app:mainWindow() or app:allWindows()[1])
+  local window = focusedWindow(app)
   local screens = hs.screen.allScreens()
 
   if not window or #screens < 2 then return end
 
-  local targetScreen = window:screen():next()
+  local currentScreen = window:screen()
+  local targetScreen = currentScreen:next()
 
-  if app:name() == "mpv" then
-    for index, screen in ipairs(screens) do
-      if screen:id() == targetScreen:id() then
-        local functionKey = 12 + index
-        if functionKey <= 24 then
-          hs.eventtap.keyStroke({}, "f" .. functionKey, 0, app)
-        end
-        return
-      end
-    end
+  -- A fullscreen window has no geometry worth keeping, and reframing it would
+  -- only knock it out of fullscreen.
+  local wasFilling = isFillingScreen(window, currentScreen)
+  local isMpv = app:name() == "mpv"
+
+  if wasFilling then
+    if isMpv then moveMpvViaScript(app, screens, targetScreen, false) end
     return
   end
 
-  window:moveToScreen(targetScreen, false, true)
+  rememberFrame(window, currentScreen)
+
+  -- A known-rejecting screen would just flash the window in place before the
+  -- bounce, so skip straight to the bounce.
+  if isMpv and rejectsAX(targetScreen) then
+    moveMpvViaScript(app, screens, targetScreen, true)
+    return
+  end
+
+  applyFrame(window, targetScreen)
+
+  if not isMpv then return end
+
+  -- Instant when the move takes; we only pay this probe the first time a given
+  -- display turns out to reject it.
+  later(0.1, function()
+    local moved = focusedWindow(app)
+    if moved and moved:screen():id() ~= targetScreen:id() then
+      noteAXRejected(targetScreen)
+      moveMpvViaScript(app, screens, targetScreen, true)
+    end
+  end)
 end
 
 local function focusMpv()
@@ -101,7 +207,7 @@ hs.hotkey.bind(hyper, "d", function() hs.application.launchOrFocus("Discord") en
 hs.hotkey.bind(hyper, "z", function() hs.application.launchOrFocus("Gemini") end)
 hs.hotkey.bind(hyper, "x", function() hs.application.launchOrFocus("Claude") end)
 hs.hotkey.bind(hyper, "v", focusMpv)
-hs.hotkey.bind(hyper, "o", moveFocusedWindowToNextDisplay)
+hs.hotkey.bind(hyper, "o", config.moveNextDisplay)
 hs.hotkey.bind(hyper, "n", function() hs.application.launchOrFocus("Notion") end)
 hs.hotkey.bind(hyper, "b", function() hs.application.launchOrFocus("Google Chrome") end)
 hs.hotkey.bind(hyper, "y", function() hs.application.launchOrFocus("Books") end)
