@@ -1,6 +1,9 @@
 config = {}
 local hyper = {"cmd", "alt", "ctrl", "shift"}
 
+-- Enables the `hs` CLI to talk to this config (hs -c '...', hs -c 'hs.reload()').
+require("hs.ipc")
+
 local function mpvApplications()
   local apps = {}
 
