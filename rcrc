@@ -1,1 +1,14 @@
-EXCLUDES="README.md scripts .gitignore AGENTS.md"
+EXCLUDES="README.md scripts .gitignore AGENTS.md keyd"
+
+# keyd/default.conf lives in the repo for version control but is installed to
+# /etc/keyd/default.conf by scripts/omarchy.sh, not symlinked into $HOME.
+case "$(uname -s)" in
+  Darwin)
+    TAGS="mac"
+    ;;
+  Linux)
+    TAGS="omarchy"
+    # mac-only tools; there's no Linux equivalent to symlink these to.
+    EXCLUDES="$EXCLUDES hammerspoon slate config/karabiner Brewfile"
+    ;;
+esac
