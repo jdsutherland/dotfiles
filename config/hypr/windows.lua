@@ -10,3 +10,8 @@ o.window(".*", { float = true })
 -- and applies opacity = "0.97 0.9" (focused/unfocused), letting the
 -- wallpaper show through. Full opacity instead.
 o.window({ tag = "terminal" }, { opacity = "1.0 1.0" })
+
+-- Instant transitions everywhere (open/close/move/resize/fullscreen) --
+-- no per-window "just the fullscreen transition" option exists in
+-- Hyprland, animation is all-or-nothing per window.
+o.window(".*", { animation = "none" })
