@@ -1,0 +1,5 @@
+# These currently match Ghostty's own Linux defaults (verified via
+# `ghostty +show-config`), but declared explicitly so this repo doesn't
+# silently depend on upstream defaults staying that way.
+keybind = ctrl+shift+v=paste_from_clipboard
+keybind = ctrl+shift+c=copy_to_clipboard
