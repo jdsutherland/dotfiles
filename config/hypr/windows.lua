@@ -31,3 +31,9 @@ o.window("chrome-web.whatsapp.com__-Default", { fullscreen = true })
 o.window("obsidian", { fullscreen = true })
 o.window("chrome-messages.google.com__web_conversations-Default", { fullscreen = true })
 o.window("chrome-docs.google.com__spreadsheets_-Default", { fullscreen = true })
+
+-- Experiment: pin specific apps to specific workspaces by default, as an
+-- alternative to (or alongside) the float+fullscreen hyper-focus model
+-- above. Starting with just these two.
+o.window("chromium", { workspace = "1" })
+o.window("com.mitchellh.ghostty", { workspace = "2" })
