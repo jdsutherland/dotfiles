@@ -15,3 +15,19 @@ o.window({ tag = "terminal" }, { opacity = "1.0 1.0" })
 -- no per-window "just the fullscreen transition" option exists in
 -- Hyprland, animation is all-or-nothing per window.
 o.window(".*", { animation = "none" })
+
+-- Fullscreen whenever shown, for the hyper+letter app-focus targets (see
+-- bindings.lua) -- one app fills the view at a time, mac-like, rather
+-- than floating-centered. Chromium deliberately excluded (regular
+-- browsing wants a normal resizable window, not force-fullscreen).
+o.window("com.mitchellh.ghostty", { fullscreen = true })
+o.window("org.gnome.Nautilus", { fullscreen = true })
+o.window("org.gnome.Evince", { fullscreen = true })
+o.window("chrome-chatgpt.com__-Default", { fullscreen = true })
+o.window("libreoffice-calc", { fullscreen = true })
+o.window("chrome-discord.com__channels_@me-Default", { fullscreen = true })
+o.window("mpv", { fullscreen = true })
+o.window("chrome-web.whatsapp.com__-Default", { fullscreen = true })
+o.window("obsidian", { fullscreen = true })
+o.window("chrome-messages.google.com__web_conversations-Default", { fullscreen = true })
+o.window("chrome-docs.google.com__spreadsheets_-Default", { fullscreen = true })
