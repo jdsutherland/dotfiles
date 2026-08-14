@@ -38,7 +38,7 @@ o.bind("SUPER + SHIFT + ALT + CTRL + C", "ChatGPT", { webapp = "https://chatgpt.
 o.bind("SUPER + SHIFT + ALT + CTRL + R", "LibreOffice Calc", { launch = "libreoffice --calc", focus = "^libreoffice-calc$" })
 o.bind("SUPER + SHIFT + ALT + CTRL + D", "Discord", { webapp = "https://discord.com/channels/@me", focus = true })
 o.bind("SUPER + SHIFT + ALT + CTRL + V", "mpv", { launch = "mpv --idle=yes --force-window=yes", focus = "^mpv$" })
-o.bind("SUPER + SHIFT + ALT + CTRL + B", "Chromium", { launch = "chromium", focus = "^[Cc]hromium$" })
+o.bind("SUPER + SHIFT + ALT + CTRL + B", "Chrome", { launch = "google-chrome-stable", focus = "^google-chrome$" })
 -- xkbcommon names the grave keysym "grave"; the upper-case "GRAVE" does not match.
 o.bind("SUPER + SHIFT + ALT + CTRL + grave", "WhatsApp", { webapp = "https://web.whatsapp.com/", focus = true })
 o.bind("SUPER + SHIFT + ALT + CTRL + E", "Obsidian", { launch = "obsidian", focus = "^obsidian$" })
