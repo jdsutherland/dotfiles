@@ -1,3 +1,7 @@
+# Smaller than mac's 12pt -- same font renders visually larger on this
+# Linux/GTK stack. 9 matches what 3 manual ctrl+minus presses landed on.
+font-size = 9
+
 # These currently match Ghostty's own Linux defaults (verified via
 # `ghostty +show-config`), but declared explicitly so this repo doesn't
 # silently depend on upstream defaults staying that way.
