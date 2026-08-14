@@ -1,3 +1,9 @@
+# Theme — driven by `omarchy theme set`, which writes the palette to
+# ~/.local/state/omarchy/current/theme/ghostty.conf (see omarchy's own ghostty
+# template). The ?"..." form is optional so a missing theme state on a fresh
+# boot doesn't error.
+config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
+
 # Smaller than mac's 12pt -- same font renders visually larger on this
 # Linux/GTK stack. 9 matches what 3 manual ctrl+minus presses landed on.
 font-size = 9

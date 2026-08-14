@@ -10,8 +10,8 @@ term = xterm-ghostty
 font-family = Maple Mono NF
 # font-size differs per platform -- see platform (mac) / tag-omarchy/config/ghostty/platform (Omarchy).
 
-# Theme — Kanagawa Dragon (built-in)
-theme = Kanagawa Dragon
+# Theme differs per platform -- see platform (mac: built-in Kanagawa Dragon) /
+# tag-omarchy/config/ghostty/platform (Omarchy: theme-driven via config-file).
 
 # Cursor
 cursor-style = block
