@@ -98,11 +98,37 @@ on_recording_start = false
 on_recording_stop = false
 
 # Show notification with transcribed text after transcription completes
-on_transcription = false
+on_transcription = true
+show_engine_icon = false
 
 [text]
 spoken_punctuation = false
 smart_auto_submit = false
+
+[meeting]
+enabled = false
+
+[meeting.diarization]
+enabled = false
+
+[meeting.audio]
+source = "mic"
+
+[osd]
+enabled = true
+frontend = "gtk4"
+position = "bottom-center"
+width_px = 400
+height_px = 48
+margin_px = 24
+top_margin = 0.85
+opacity = 0.95
+waveform_window_secs = 3.0
+peak_decay_db_per_sec = 6.0
+waveform_gain = 10.0
+
+[status]
+icon_theme = "emoji"
 
 # [text]
 # Text processing options (word replacements, spoken punctuation)
