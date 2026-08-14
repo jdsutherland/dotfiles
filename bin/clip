@@ -1,0 +1,34 @@
+#!/bin/bash
+# Cross-platform clipboard bridge.
+#
+# Copy:   pipe text to stdin (or redirect a file)  ->  writes to the clipboard
+# Paste:  run with a TTY stdin (no pipe)           ->  prints the clipboard
+#
+# macOS uses pbcopy/pbpaste; Linux prefers Wayland's wl-copy/wl-paste and
+# falls back to X11's xclip when wl-clipboard isn't installed.
+
+if [[ -t 0 ]]; then
+  # Paste
+  if [[ "$(uname -s)" == Darwin ]]; then
+    exec pbpaste
+  elif command -v wl-paste >/dev/null 2>&1; then
+    exec wl-paste
+  elif command -v xclip >/dev/null 2>&1; then
+    exec xclip -selection clipboard -o
+  else
+    echo "clip: no paste backend (install wl-clipboard or xclip)" >&2
+    exit 1
+  fi
+else
+  # Copy
+  if [[ "$(uname -s)" == Darwin ]]; then
+    exec pbcopy
+  elif command -v wl-copy >/dev/null 2>&1; then
+    exec wl-copy
+  elif command -v xclip >/dev/null 2>&1; then
+    exec xclip -selection clipboard
+  else
+    echo "clip: no copy backend (install wl-clipboard or xclip)" >&2
+    exit 1
+  fi
+fi

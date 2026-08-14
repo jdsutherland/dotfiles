@@ -14,5 +14,12 @@ if [[ "$(uname)" =~ Darwin ]]; then
   done
   cat - | pbcopy
 else
-  cat - | xclip
+  if command -v wl-copy >/dev/null 2>&1; then
+    cat - | wl-copy
+  elif command -v xclip >/dev/null 2>&1; then
+    cat - | xclip
+  else
+    echo "xclip shim: no clipboard backend (install wl-clipboard or xclip)" >&2
+    exit 1
+  fi
 fi

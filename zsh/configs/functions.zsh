@@ -4,8 +4,10 @@ function -() { cd - }
 
 # If piping something in, copy it.
 # If just doing `clip`, paste it.
-clip() { [ -t 0 ] && pbpaste || pbcopy;}
-cclip() { cat "$1" | pbcopy }
+# Delegates to the cross-platform ~/.bin/clip helper (pbcopy/pbpaste on macOS,
+# wl-copy/wl-paste on Wayland, xclip on X11).
+clip() { "$HOME/.bin/clip" "$@"; }
+cclip() { "$HOME/.bin/clip" < "$1"; }
 
 first() { awk '{print $1}' }
 second() { awk '{print $2}' }
