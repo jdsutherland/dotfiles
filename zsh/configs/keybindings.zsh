@@ -23,7 +23,7 @@ bindkey '^[[B' down-line-or-search
 
 # Copy the most recent command to the clipboard
 function _pbcopy_last_command(){
-  history | tail -1 | sed 's/ *[0-9]* *//' | pbcopy && \
+  history | tail -1 | sed 's/ *[0-9]* *//' | clip && \
     tmux display-message "Previous command coppied to clipboard"
 }
 zle -N pbcopy-last-command _pbcopy_last_command
@@ -52,7 +52,7 @@ bindkey -s '^P' ' vim-fzf-preview\n'
 
 ranger-cd() {
     tempfile="$(mktemp -t tmp.XXXXXX)"
-    /opt/homebrew/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
+    ranger --choosedir="$tempfile" "${@:-$(pwd)}"
     test -f "$tempfile" &&
     if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
         cd -- "$(cat "$tempfile")"

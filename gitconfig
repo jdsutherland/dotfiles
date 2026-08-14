@@ -14,7 +14,7 @@
   cistatus = !gh pr checks
   compare = "!funct() { open \"$(git web-url)/compare/$(git current-branch)\" ;}; funct"
   conflicted = !nvim +Conflicted
-  copysha = "!git rev-parse HEAD | tr -d '\n' | pbcopy"
+  copysha = "!git rev-parse HEAD | tr -d '\n' | clip"
   count = !git log --oneline | wc -l | awk '{print $1}'
   current-branch = !git rev-parse --abbrev-ref HEAD 2> /dev/null | sed 's/^HEAD$//'
   dc = diff --word-diff --cached --color-words
