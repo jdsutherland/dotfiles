@@ -23,7 +23,7 @@ if [[ -o interactive ]]; then
   alias -g NOERR="2> /dev/null"
   alias count='wc -l'
   alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
-  alias cpwd="pwd | tr -d '\n' | pbcopy"
+  alias cpwd="pwd | tr -d '\n' | clip"
   # alias diff='colordiff -wu'
   alias fw='{ alias; functions; } | fzf'
 
@@ -443,7 +443,7 @@ if [[ -o interactive ]]; then
   alias yt='yarn test'
 
   # OS Specific
-  if [ '$UNAME' = Darwin ]; then
+  if [ "$UNAME" = Darwin ]; then
     # Other OSX only aliases
     alias dbg='open /Applications/MacGDBp.app'
     alias imgsize='sips -g pixelWidth -g pixelHeight'
@@ -456,7 +456,7 @@ if [[ -o interactive ]]; then
     alias updatedb='sudo /usr/libexec/locate.updatedb'
   fi
 
-  if [ '$UNAME' = Linux ]; then
+  if [ "$UNAME" = Linux ]; then
     alias a2dismod='sudo a2dismod'
     alias a2dissite='sudo a2dissite'
     alias a2enmod='sudo a2enmod'

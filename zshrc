@@ -8,7 +8,10 @@ fi
 # Re-assert PATH order from zshenv: on macOS, /etc/zprofile's path_helper runs
 # after zshenv in login shells and moves system dirs ahead of our prepends.
 # typeset -U path (set in zshenv) collapses the duplicates.
-path=("$HOME/.local/bin" "$HOME/.npm-packages/bin" /opt/homebrew/bin $path)
+typeset -U path
+_path_prepends=("$HOME/.local/bin" "$HOME/.npm-packages/bin" "$HOME/.bin")
+[[ -n "$HOMEBREW_PREFIX" && -d "$HOMEBREW_PREFIX/bin" ]] && _path_prepends+=("$HOMEBREW_PREFIX/bin")
+path=($_path_prepends $path)
 
 # Activate mise so runtimes are selected from .tool-versions or mise.toml.
 if (( $+commands[mise] )); then
@@ -28,9 +31,12 @@ source ~/.zinit/bin/zinit.zsh
 # Custom completion functions
 fpath+=("$HOME/.zsh/completions")
 
-# Add Homebrew site-functions to fpath (optional, for Homebrew completions)
-# Hardcoded prefix avoids a `brew --prefix` subprocess fork on every shell start.
-fpath+=("/opt/homebrew/share/zsh/site-functions")
+# Add Homebrew site-functions to fpath (optional, for Homebrew completions).
+# Uses the prefix computed in zshenv, avoiding a `brew --prefix` subprocess
+# fork on every shell start.
+if [[ -n "$HOMEBREW_PREFIX" && -d "$HOMEBREW_PREFIX/share/zsh/site-functions" ]]; then
+  fpath+=("$HOMEBREW_PREFIX/share/zsh/site-functions")
+fi
 # mise provides its own shell integration and completions through activation.
 
 # Load Prezto's completion module with zinit
@@ -106,7 +112,10 @@ unsetopt multios
 KEYTIMEOUT=25
 
 # fzf shell integration (completions + key bindings)
-fzf_shell="/opt/homebrew/opt/fzf/shell"
+case "$UNAME" in
+  Darwin) fzf_shell="/opt/homebrew/opt/fzf/shell" ;;
+  *)      fzf_shell="/usr/share/fzf" ;;
+esac
 [ -f "$fzf_shell/key-bindings.zsh" ] && source "$fzf_shell/key-bindings.zsh"
 [ -f "$fzf_shell/completion.zsh" ] && source "$fzf_shell/completion.zsh"
 
