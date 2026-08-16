@@ -45,12 +45,17 @@ o.bind("SUPER + SHIFT + ALT + CTRL + E", "Obsidian", { launch = "obsidian", focu
 o.bind("SUPER + SHIFT + ALT + CTRL + M", "Google Messages", { webapp = "https://messages.google.com/web/conversations", focus = true })
 o.bind("SUPER + SHIFT + ALT + CTRL + S", "Google Sheets", { webapp = "https://docs.google.com/spreadsheets/", focus = true })
 
--- Move Keybindings and window-split off SUPER+J/K so J/K can be vim-style
--- directional window focus. Unbind the Omarchy defaults first, then rebind.
+-- Vim-style navigation: J/K move workspaces (left/right), H/L focus windows
+-- (left/right). Move Keybindings, window-split, and workspace-layout off
+-- their old keys; unbind the Omarchy defaults first, then rebind.
 hl.unbind("SUPER + K")
 hl.unbind("SUPER + J")
+hl.unbind("SUPER + L")
 
 o.bind("SUPER + apostrophe", "Keybindings", "omarchy-menu-keybindings")
 o.bind("SUPER + backslash", "Toggle window split", hl.dsp.layout("togglesplit"))
-o.bind("SUPER + J", "Focus left window", hl.dsp.focus({ direction = "l" }))
-o.bind("SUPER + K", "Focus right window", hl.dsp.focus({ direction = "r" }))
+o.bind("SUPER + Q", "Toggle workspace layout", "omarchy-hyprland-workspace-layout-toggle")
+o.bind("SUPER + J", "Previous workspace", hl.dsp.focus({ workspace = "e-1" }))
+o.bind("SUPER + K", "Next workspace", hl.dsp.focus({ workspace = "e+1" }))
+o.bind("SUPER + H", "Focus left window", hl.dsp.focus({ direction = "l" }))
+o.bind("SUPER + L", "Focus right window", hl.dsp.focus({ direction = "r" }))
