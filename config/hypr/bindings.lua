@@ -44,37 +44,3 @@ o.bind("SUPER + SHIFT + ALT + CTRL + grave", "WhatsApp", { webapp = "https://web
 o.bind("SUPER + SHIFT + ALT + CTRL + E", "Obsidian", { launch = "obsidian", focus = "^obsidian$" })
 o.bind("SUPER + SHIFT + ALT + CTRL + M", "Google Messages", { webapp = "https://messages.google.com/web/conversations", focus = true })
 o.bind("SUPER + SHIFT + ALT + CTRL + S", "Google Sheets", { webapp = "https://docs.google.com/spreadsheets/", focus = true })
-
--- vim-style directional window focus (C-h/j/k/l), mirroring the tmux nav
--- binds. Inside a terminal the chord is forwarded so tmux keeps its own
--- C-h/j/k/l pane navigation; outside a terminal it moves Hyprland focus.
-local function active_window_is_terminal()
-  local window = hl.get_active_window()
-  if not window then
-    return false
-  end
-  for _, tag in ipairs(window.tags or {}) do
-    if tag:gsub("%*$", "") == "terminal" then
-      return true
-    end
-  end
-  return false
-end
-
-local function focus_or_forward(mods, key, direction)
-  return function()
-    if active_window_is_terminal() then
-      hl.dispatch(hl.dsp.send_key_state({ mods = mods, key = key, state = "down" }))
-      hl.timer(function()
-        hl.dispatch(hl.dsp.send_key_state({ mods = mods, key = key, state = "up" }))
-      end, { timeout = 50, type = "oneshot" })
-    else
-      hl.dispatch(hl.dsp.focus({ direction = direction }))
-    end
-  end
-end
-
-o.bind("CTRL + H", "Focus left window", focus_or_forward("CTRL", "H", "l"))
-o.bind("CTRL + J", "Focus below window", focus_or_forward("CTRL", "J", "d"))
-o.bind("CTRL + K", "Focus above window", focus_or_forward("CTRL", "K", "u"))
-o.bind("CTRL + L", "Focus right window", focus_or_forward("CTRL", "L", "r"))
