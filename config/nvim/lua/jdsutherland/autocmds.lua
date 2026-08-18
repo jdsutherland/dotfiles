@@ -27,7 +27,8 @@ vim.api.nvim_create_autocmd("BufReadCmd", {
     "*.pptx",
   },
   callback = function()
-    vim.cmd("silent execute '!open " .. vim.fn.shellescape(vim.fn.expand("<afile>")) .. " &>/dev/null'")
+    local opener = vim.fn.has("mac") == 1 and "open" or "xdg-open"
+    vim.cmd("silent execute '!" .. opener .. " " .. vim.fn.shellescape(vim.fn.expand("<afile>")) .. " &>/dev/null'")
     local tobedeleted = vim.fn.bufnr("%")
     vim.cmd("b#")
     vim.cmd("bd! " .. tobedeleted)
