@@ -1,13 +1,20 @@
 # Keybinding Reference
 
 ## Modifier Notation
-- `hyper` = Ctrl+Shift+Opt+Cmd (Caps Lock held)
+- `hyper` = Ctrl+Shift+Opt+Cmd (macOS, Caps Lock held) / Ctrl+Super+Alt+Shift
+  (Omarchy, right Alt held — see keyd below)
 - `M-` = Option key (Meta/Alt)
-- `super` = Command key (in Ghostty config)
+- `super` = Command key on macOS (in Ghostty config); the Super/Windows key
+  on Omarchy
+- On Omarchy, keyd swaps `leftalt`/`leftmeta` so *physical key position*
+  matches the mac keyboard rather than matching key names: the innermost
+  key next to Space sends Super (Cmd's position, feeding Hyprland's
+  SUPER-based defaults), and the next key out sends Alt (Option's
+  position, feeding tmux's `M-`, Ghostty's `alt+`, and nvim's Alt binds).
 
 ---
 
-## Karabiner-Elements — System-Level Remaps
+## Karabiner-Elements — System-Level Remaps (macOS)
 
 | Binding | Effect | File |
 |---------|--------|------|
@@ -35,20 +42,80 @@
 
 ---
 
-## Ghostty — Terminal Keybindings
+## keyd — System-Level Remaps (Omarchy)
+
+`/etc/keyd/default.conf`, symlinked from `keyd/default.conf` (installed by
+`scripts/omarchy.sh` rather than rcup, since `/etc` is root-owned). Panic
+sequence if a bad reload breaks input: `backspace+escape+enter` kills keyd.
+
+| Binding | Effect | Mac equivalent |
+|---------|--------|-----------------|
+| leftalt held → Super | Physical position match (see Modifier Notation) | leftmeta (Cmd) |
+| leftalt tap → SUPER+ALT+F | Hyprland full width | — |
+| leftmeta held → Alt | Physical position match | leftalt (Opt) |
+| Caps Lock held → Ctrl | Generic ctrl from either key | Karabiner hyper base |
+| Caps Lock tap → Escape | Quick escape | Caps Lock tap → Escape |
+| rightalt held → hyper (ctrl+super+alt+shift) | Falls through to Hyprland's `bindings.lua` | Caps Lock held → hyper |
+| rightalt tap → SUPER+CTRL+TAB | Hyprland "former workspace" (back-and-forth toggle) | — |
+| rightcontrol held → AltGr | Unused on US layout, takes over rightalt's stock role | — |
+
+### Ctrl+Shift Vim Movements (`[control+shift]` layer)
+
+Full port of Karabiner's `ctrl-shift_vim-movements`. Known conflicts
+accepted for now: VS Code/Electron Command Palette on P, browser DevTools
+Inspect on I, Chrome incognito/Nautilus new-folder on N, Firefox bookmarks
+on O, Chrome console on J, Firefox console on K, Linux's own unicode entry
+on U.
 
 | Binding | Effect |
 |---------|--------|
-| super+v | Paste from clipboard (standard macOS) |
-| super+c | Copy to clipboard (standard macOS) |
-| alt+v | Paste (Karabiner remap compat — cmd+v→opt+v) |
-| alt+c | Copy (Karabiner remap compat — cmd+c→opt+c) |
-| ctrl+/, ctrl+slash → `\x1f` | Fzf-git-browser (gfzf) |
-| ctrl+q → `\x11` | (sent as escape sequence) |
-| alt+delete | Reset font size |
-| alt+= | Increase font size 1pt |
-| alt+- | Decrease font size 1pt |
-<!-- super+key navigation bindings removed — handled by Karabiner cmd→opt remap -->
+| ctrl+shift+h/j/k/l | ←/↓/↑/→ |
+| ctrl+shift+p / n | Word left / right (`C-left` / `C-right`) |
+| ctrl+shift+i / o | Delete word left / right (`C-backspace` / `C-delete`) |
+| ctrl+shift+u / y | Undo / redo (`C-z` / `C-S-z`) |
+| ctrl+shift+, / . | Backspace / delete |
+| ctrl+shift+; | Enter |
+| ctrl+shift+[ / ] | Page down / up |
+| ctrl+shift+= | Clipboard history (`super+ctrl+v`) — mimics the mac Karabiner bind |
+
+### keyd-application-mapper — Per-App Overlays
+
+`~/.config/keyd/app.conf`, applied by `keyd-application-mapper` as a
+runtime overlay on top of `/etc/keyd/*.conf` whenever a matching window is
+focused (cleared on focus-out); autostarted by Hyprland, see
+`config/hypr/autostart.lua`.
+
+| App | Binding | Effect | Mac equivalent |
+|-----|---------|--------|-----------------|
+| Ghostty | leftalt tap → Alt+z | tmux zoom (`M-z`) | left_cmd tap → Opt+Tab (`M-Tab`) |
+| Chrome | ctrl+h / l | Back / forward (`alt+left` / `alt+right`) | Karabiner browser binds |
+| Chrome | ctrl+j / k | Previous / next tab | Karabiner browser binds |
+| Chrome | ctrl+d | Close tab (`ctrl+w`) | — |
+| Chrome | ctrl+r | Reopen closed tab (`ctrl+shift+t`) | — |
+
+---
+
+## Ghostty — Terminal Keybindings
+
+Shared config (`config/ghostty/config`) plus a platform-specific file
+(`platform` for mac, `tag-omarchy/config/ghostty/platform` for Omarchy) for
+the parts that genuinely differ: clipboard binds, font size (9pt on
+Omarchy vs. 12pt on mac — same font renders visibly larger on this
+Linux/GTK stack), and theme (mac hardcodes Kanagawa Dragon; Omarchy follows
+`omarchy theme set`).
+
+| Binding | Effect | Platform |
+|---------|--------|----------|
+| super+v | Paste from clipboard | mac |
+| super+c | Copy to clipboard | mac |
+| alt+v | Paste (Karabiner remap compat — cmd+v→opt+v) | mac |
+| ctrl+shift+v | Paste from clipboard | Omarchy |
+| ctrl+shift+c | Copy to clipboard | Omarchy |
+| ctrl+/, ctrl+slash → `\x1f` | Fzf-git-browser (gfzf) | both |
+| ctrl+q → `\x11` | (sent as escape sequence) | both |
+| alt+delete | Reset font size | both |
+| alt+= | Increase font size 1pt | both |
+| alt+- | Decrease font size 1pt | both |
 
 ---
 
@@ -65,7 +132,8 @@
 | M-p | Switch client |
 | M-o | Cycle panes |
 | M-h | Command prompt split |
-| M-Tab | Resize pane (zoom) |
+| M-Tab | Resize pane (zoom) — mac (left_cmd tap via Karabiner) |
+| M-z | Resize pane (zoom) — Omarchy (keyd leftalt tap in Ghostty; Alt+Tab itself is claimed by Hyprland's window-cycle bind) |
 | M-C | Git diff split (working) |
 | M-C-c | Git diff split (staged) |
 | M-q | Zoom vim window toggle |
@@ -73,6 +141,7 @@
 | M-w | Focus vim runner + zoom |
 | M-y | Save + run + focus |
 | M-t | Save + test + focus |
+| M-f | Fleet popup (agent sidebar) |
 | C-g | Split with gfzf (fzf git browser) |
 | C-f | Fzf windows |
 | C-p | Fzf current pane |
@@ -83,7 +152,7 @@
 
 ---
 
-## Slate — Window Management (hyper+key)
+## Slate — Window Management (macOS, hyper+key)
 
 | Binding | Effect |
 |---------|--------|
@@ -107,7 +176,7 @@
 
 ---
 
-## Hammerspoon — App Focusing (hyper+key)
+## Hammerspoon — App Focusing (macOS, hyper+key)
 
 | Binding | Effect |
 |---------|--------|
@@ -134,6 +203,54 @@
 | hyper+m | Jump to Messages web tab |
 | hyper+s | Jump to Google Sheets tab |
 | hyper+f | Jump to TP-Link router admin |
+
+---
+
+## Hyprland — Window Management + App Focusing (Omarchy, `config/hypr/`)
+
+Coexists with Omarchy's own SUPER-based defaults (`omarchy menu keybindings
+--print` lists everything, defaults included) rather than replacing them —
+`bindings.lua` only unbinds the specific defaults it overrides.
+
+### App Focusing (hyper+key)
+
+Ported from the mac Hammerspoon list above; hyper here is keyd's right-Alt
+layer (see keyd section), not Caps Lock.
+
+| Binding | Effect |
+|---------|--------|
+| hyper+t | Focus/launch Ghostty |
+| hyper+g | Focus/launch Nautilus (Finder equivalent) |
+| hyper+p | Focus/launch Evince (Preview equivalent) |
+| hyper+c | Focus/launch ChatGPT (webapp) |
+| hyper+r | Focus/launch LibreOffice Calc (Excel equivalent) |
+| hyper+d | Focus/launch Discord (webapp) |
+| hyper+v | Focus/launch mpv |
+| hyper+b | Focus/launch Chrome |
+| hyper+\` | Focus/launch WhatsApp (webapp) |
+| hyper+e | Focus/launch Obsidian |
+| hyper+m | Focus/launch Google Messages (webapp) |
+| hyper+s | Focus/launch Google Sheets (webapp) |
+
+### Vim-style Navigation
+
+| Binding | Effect |
+|---------|--------|
+| SUPER+h | Focus previous window (index-based cycle) |
+| SUPER+l | Focus next window (index-based cycle) |
+| SUPER+j | Previous workspace |
+| SUPER+k | Next workspace |
+| SUPER+apostrophe | Keybindings menu (moved off SUPER+K) |
+| SUPER+backslash | Toggle window split (moved off SUPER+J) |
+| SUPER+q | Toggle workspace layout (moved off SUPER+L) |
+| SUPER+w | Close window — requires a double-press within 1s (guards against accidental kills) |
+
+### Window Rules (`windows.lua`)
+
+| Rule | Effect |
+|------|--------|
+| Terminal-tagged windows (incl. Ghostty) | Full opacity (Omarchy's default dims unfocused terminals) |
+| All windows | No open/close/move/resize/fullscreen animations |
 
 ---
 
