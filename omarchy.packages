@@ -1,0 +1,18 @@
+# Extra packages this dotfiles repo depends on, beyond Omarchy's own
+# defaults (see /usr/share/omarchy/install/omarchy-{base,other}.packages
+# on an Omarchy machine for the baseline this was diffed against).
+# Installed via `pacman -S --needed` in scripts/omarchy.sh.
+#
+# AUR-only dependencies (rcm, maplemono-nf, google-chrome, voxtype-bin) have
+# their own dedicated install steps in scripts/omarchy.sh instead of living
+# here, since each needs more than a plain package install (a helper
+# script, a font-set call, a default-browser call, etc).
+
+gemini-cli
+ghostty
+git-delta
+ranger
+rsync
+tree
+vivid
+zsh

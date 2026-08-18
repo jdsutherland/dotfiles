@@ -5,6 +5,8 @@ EXCLUDES="README.md scripts .gitignore AGENTS.md keyd KEYBINDINGS.md"
 case "$(uname -s)" in
   Darwin)
     TAGS="mac"
+    # Linux-only; there's no macOS equivalent to symlink this to.
+    EXCLUDES="$EXCLUDES omarchy.packages"
     ;;
   Linux)
     TAGS="omarchy"

@@ -8,13 +8,14 @@ set -euo pipefail
 # customizations on top of it:
 #
 #   1. rcm            (provides rcup; AUR, since Omarchy doesn't ship it)
-#   2. keyd            (system-wide key remapping; official 'extra' repo)
-#   3. Maple Mono NF   (AUR font, matches the mac machine)
-#   4. Google Chrome   (default browser; see keyd/app.conf + ghostty config)
-#   5. voxtype         (AI dictation)
-#   6. rcup            (symlink the dotfiles)
-#   7. mise install    (language runtimes from ~/.config/mise/config.toml)
-#   8. Destructive Command Guard (agent safety)
+#   2. omarchy.packages (extra official-repo packages, see that file)
+#   3. keyd            (system-wide key remapping; official 'extra' repo)
+#   4. Maple Mono NF   (AUR font, matches the mac machine)
+#   5. Google Chrome   (default browser; see keyd/app.conf + ghostty config)
+#   6. voxtype         (AI dictation)
+#   7. rcup            (symlink the dotfiles)
+#   8. mise install    (language runtimes from ~/.config/mise/config.toml)
+#   9. Destructive Command Guard (agent safety)
 
 DOTFILES="$HOME/.dotfiles"
 
@@ -39,7 +40,12 @@ if [[ ! -e "$HOME/.rcrc" ]]; then
   ln -s "$DOTFILES/rcrc" "$HOME/.rcrc"
 fi
 
-# 2. keyd — system-wide key remapping daemon
+# 2. Extra official-repo packages this setup depends on beyond Omarchy's
+# own defaults (see omarchy.packages for what and why).
+info "Installing extra packages"
+sudo pacman -S --needed --noconfirm $(grep -vE '^\s*#|^\s*$' "$DOTFILES/omarchy.packages")
+
+# 3. keyd — system-wide key remapping daemon
 if ! command -v keyd >/dev/null 2>&1; then
   info "Installing keyd"
   sudo pacman -S --needed --noconfirm keyd
@@ -53,14 +59,14 @@ sudo systemctl enable --now keyd
 # keyd-application-mapper is bundled with keyd and autostarted by Hyprland
 # (config/hypr/autostart.lua), not started here.
 
-# 3. Maple Mono NF font
+# 4. Maple Mono NF font
 if ! fc-list | grep -qi "Maple Mono NF"; then
   info "Installing Maple Mono NF"
   omarchy-pkg-aur-add maplemono-nf
   omarchy-font-set 'Maple Mono NF'
 fi
 
-# 4. Google Chrome, set as default browser + terminal
+# 5. Google Chrome, set as default browser + terminal
 if ! command -v google-chrome-stable >/dev/null 2>&1; then
   info "Installing Google Chrome"
   omarchy install browser chrome
@@ -68,26 +74,26 @@ fi
 omarchy default browser chrome
 omarchy default terminal ghostty
 
-# 5. voxtype (AI dictation) — interactive installer; run manually if this
+# 6. voxtype (AI dictation) — interactive installer; run manually if this
 # step is skipped in a non-interactive shell.
 if ! command -v voxtype >/dev/null 2>&1; then
   info "Installing voxtype"
   omarchy-voxtype-install
 fi
 
-# 6. Symlink dotfiles (rcup prompts before overwriting anything that exists)
+# 7. Symlink dotfiles (rcup prompts before overwriting anything that exists)
 info "Symlinking dotfiles (rcup)"
 rcup -v
 
-# 7. Language runtimes, from ~/.config/mise/config.toml (symlinked by rcup
-# in step 6 — mise's true global config, so it applies everywhere; see
+# 8. Language runtimes, from ~/.config/mise/config.toml (symlinked by rcup
+# in step 7 — mise's true global config, so it applies everywhere; see
 # README.md for why that matters vs. a bare .tool-versions file).
 if command -v mise >/dev/null 2>&1; then
   info "Installing language runtimes (mise)"
   mise install
 fi
 
-# 8. Destructive Command Guard (agent safety) — same as scripts/install.sh
+# 9. Destructive Command Guard (agent safety) — same as scripts/install.sh
 DCG_BIN="${DCG_BIN:-$HOME/.local/bin/dcg}"
 if [[ ! -x "$DCG_BIN" ]]; then
   curl -fsSL "https://raw.githubusercontent.com/Dicklesworthstone/destructive_command_guard/main/install.sh?$(date +%s)" | bash -s -- --easy-mode
