@@ -32,13 +32,13 @@
     "fleet-local": {
       "source": {
         "source": "directory",
-        "path": "/Users/j/.local/share/fleet-marketplace"
+        "path": "$HOME/.local/share/fleet-marketplace"
       }
     },
     "sessions": {
       "source": {
         "source": "directory",
-        "path": "/Users/j/.local/share/sessions"
+        "path": "$HOME/.local/share/sessions"
       }
     }
   },
