@@ -1,4 +1,4 @@
-EXCLUDES="README.md scripts .gitignore AGENTS.md keyd"
+EXCLUDES="README.md scripts .gitignore AGENTS.md keyd KEYBINDINGS.md"
 
 # keyd/default.conf lives in the repo for version control but is installed to
 # /etc/keyd/default.conf by scripts/omarchy.sh, not symlinked into $HOME.
