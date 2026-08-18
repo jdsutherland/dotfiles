@@ -13,11 +13,11 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Bash",
+        "matcher": "Bash|PowerShell",
         "hooks": [
           {
             "type": "command",
-            "command": "dcg"
+            "command": "/home/j/.local/bin/dcg"
           }
         ]
       }
