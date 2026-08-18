@@ -13,9 +13,10 @@ engine = "whisper"
 
 [hotkey]
 # Hotkey is configured in Hyprland. Default is Super + Ctrl + X
-enabled = false
+enabled = true
 key = "HOME"
-mode = "push_to_talk"
+mode = "toggle"
+cancel_key = "ESC"
 
 [audio]
 # Audio input device ("default" uses system default)
