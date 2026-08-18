@@ -32,6 +32,14 @@ if ! command -v rcup >/dev/null 2>&1; then
   yay -S --needed --noconfirm rcm
 fi
 
+# Register the homepath clean filter, which rewrites this machine's absolute
+# home directory back to $HOME on staging (see scripts/git-clean-homepath.sh
+# and .gitattributes). Filter config lives in .git/config, which isn't
+# version controlled, so it has to be set per clone.
+info "Registering the homepath git filter"
+git -C "$DOTFILES" config filter.homepath.clean "scripts/git-clean-homepath.sh"
+git -C "$DOTFILES" config filter.homepath.smudge "cat"
+
 # Bootstrap ~/.rcrc by hand: rcup's own rcm.sh library reads $HOME/.rcrc
 # before it can process the dotfiles tree at all, so this has to exist
 # before the first `rcup` call below — rcup can't symlink its own config in.

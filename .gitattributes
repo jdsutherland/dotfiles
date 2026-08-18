@@ -1,0 +1,7 @@
+# claude/settings.json is rewritten by the running Claude Code app, which
+# resolves $HOME to an absolute path (/home/j on Omarchy, /Users/j on macOS).
+# The homepath clean filter rewrites it back on staging so the other machine
+# doesn't get a path that doesn't exist there. See
+# scripts/git-clean-homepath.sh; the filter is configured by
+# scripts/install.sh / scripts/omarchy.sh, not by this file alone.
+claude/settings.json filter=homepath

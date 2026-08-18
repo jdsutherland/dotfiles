@@ -6,9 +6,10 @@ set -euo pipefail
 #
 #   1. Install Homebrew
 #   2. brew bundle  (formulae, casks, taps from the Brewfile)
-#   3. rcup         (symlink the dotfiles; rcm comes from the Brewfile)
-#   4. mise install (language runtimes from ~/.config/mise/config.toml)
-#   5. optionally apply macOS defaults (scripts/macos.sh)
+#   3. git filter   (normalize $HOME in app-managed configs)
+#   4. rcup         (symlink the dotfiles; rcm comes from the Brewfile)
+#   5. mise install (language runtimes from ~/.config/mise/config.toml)
+#   6. optionally apply macOS defaults (scripts/macos.sh)
 #
 # zinit is NOT installed here: zshrc self-installs it on first shell start.
 
@@ -28,7 +29,15 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 info "Installing packages (brew bundle)"
 brew bundle --file="$DOTFILES/Brewfile"
 
-# 3. Symlink dotfiles (rcup prompts before overwriting anything that exists)
+# 3. Register the homepath clean filter, which rewrites this machine's
+# absolute home directory back to $HOME on staging (see
+# scripts/git-clean-homepath.sh and .gitattributes). Filter config lives in
+# .git/config, which isn't version controlled, so it has to be set per clone.
+info "Registering the homepath git filter"
+git -C "$DOTFILES" config filter.homepath.clean "scripts/git-clean-homepath.sh"
+git -C "$DOTFILES" config filter.homepath.smudge "cat"
+
+# 4. Symlink dotfiles (rcup prompts before overwriting anything that exists)
 # Bootstrap ~/.rcrc by hand first: rcup's own rcm.sh library reads $HOME/.rcrc
 # before it processes the dotfiles tree at all, so rcup can't symlink its own
 # config into place. Without it, TAGS/EXCLUDES don't apply on the first run
@@ -42,8 +51,8 @@ fi
 info "Symlinking dotfiles (rcup)"
 rcup -v
 
-# 4. Language runtimes, from ~/.config/mise/config.toml (symlinked by rcup in
-# step 3). This is mise's true global config, so it applies regardless of the
+# 5. Language runtimes, from ~/.config/mise/config.toml (symlinked by rcup in
+# step 4). This is mise's true global config, so it applies regardless of the
 # directory this script is invoked from (unlike a bare .tool-versions file,
 # which mise only finds by walking up from the current directory).
 if command -v mise >/dev/null 2>&1; then
@@ -51,13 +60,13 @@ if command -v mise >/dev/null 2>&1; then
   mise install
 fi
 
-# 5. Destructive Command Guard (agent safety)
+# 6. Destructive Command Guard (agent safety)
 DCG_BIN="${DCG_BIN:-$HOME/.local/bin/dcg}"
 if [[ ! -x "$DCG_BIN" ]]; then
   curl -fsSL "https://raw.githubusercontent.com/Dicklesworthstone/destructive_command_guard/main/install.sh?$(date +%s)" | bash -s -- --easy-mode
 fi
 
-# 6. macOS system defaults (optional)
+# 7. macOS system defaults (optional)
 read -r -p $'\nApply macOS defaults (scripts/macos.sh)? [y/N] ' reply
 case "$reply" in
   [yY]) "$DOTFILES/scripts/macos.sh" ;;
