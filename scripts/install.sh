@@ -29,6 +29,16 @@ info "Installing packages (brew bundle)"
 brew bundle --file="$DOTFILES/Brewfile"
 
 # 3. Symlink dotfiles (rcup prompts before overwriting anything that exists)
+# Bootstrap ~/.rcrc by hand first: rcup's own rcm.sh library reads $HOME/.rcrc
+# before it processes the dotfiles tree at all, so rcup can't symlink its own
+# config into place. Without it, TAGS/EXCLUDES don't apply on the first run
+# and repo-only files (README.md, scripts/, omarchy.packages, ...) get
+# symlinked into $HOME.
+if [[ ! -e "$HOME/.rcrc" ]]; then
+  info "Bootstrapping ~/.rcrc"
+  ln -s "$DOTFILES/rcrc" "$HOME/.rcrc"
+fi
+
 info "Symlinking dotfiles (rcup)"
 rcup -v
 
