@@ -71,6 +71,5 @@ o.bind("SUPER + W", "Close window (double-press)", function()
     hl.dispatch(hl.dsp.window.close())
   else
     last_super_w = now
-    hl.exec_cmd("notify-send -u low 'Press SUPER+W again to close'")
   end
 end)
