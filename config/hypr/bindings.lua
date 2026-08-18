@@ -41,7 +41,7 @@ o.bind("SUPER + SHIFT + ALT + CTRL + V", "mpv", { launch = "mpv --idle=yes --for
 o.bind("SUPER + SHIFT + ALT + CTRL + B", "Chrome", { launch = "google-chrome-stable", focus = "^google-chrome$" })
 -- xkbcommon names the grave keysym "grave"; the upper-case "GRAVE" does not match.
 o.bind("SUPER + SHIFT + ALT + CTRL + grave", "WhatsApp", { webapp = "https://web.whatsapp.com/", focus = true })
-o.bind("SUPER + SHIFT + ALT + CTRL + E", "Obsidian", { launch = "obsidian", focus = "^obsidian$" })
+o.bind("SUPER + SHIFT + ALT + CTRL + E", "Obsidian", { launch = "obsidian", focus = "obsidian" })
 o.bind("SUPER + SHIFT + ALT + CTRL + M", "Google Messages", { webapp = "https://messages.google.com/web/conversations", focus = true })
 o.bind("SUPER + SHIFT + ALT + CTRL + S", "Google Sheets", { webapp = "https://docs.google.com/spreadsheets/", focus = true })
 
