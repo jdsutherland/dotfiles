@@ -60,6 +60,11 @@ o.bind("SUPER + K", "Next workspace", hl.dsp.focus({ workspace = "e+1" }))
 o.bind("SUPER + H", "Focus previous window", hl.dsp.window.cycle_next({ next = false }))
 o.bind("SUPER + L", "Focus next window", hl.dsp.window.cycle_next())
 
+-- Download the active Chrome tab's video. Chrome doesn't register keyboard
+-- shortcuts for --load-extension extensions, so this replaces the broken
+-- Alt+Shift+D extension shortcut (see bin/omarchy-download-video).
+o.bind("ALT + SHIFT + D", "Download video", "omarchy-download-video")
+
 -- SUPER+W: double-press to close the focused window (guards against
 -- accidental kills).
 hl.unbind("SUPER + W")
