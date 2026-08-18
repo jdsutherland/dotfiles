@@ -73,3 +73,7 @@ o.bind("SUPER + W", "Close window (double-press)", function()
     last_super_w = now
   end
 end)
+
+-- Cycle focus through windows of the same app (same WM class), e.g. Chrome
+-- windows spread across workspaces. Mac's Cmd+` equivalent.
+o.bind("SUPER + grave", "Cycle app windows", "hypr-cycle-app")

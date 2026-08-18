@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Cycle focus through all windows of the focused app (same WM class), e.g.
+# Chrome windows spread across workspaces. Bound to SUPER+grave.
+set -euo pipefail
+
+active=$(hyprctl activewindow -j 2>/dev/null)
+cls=$(jq -r '.class // empty' <<<"$active")
+cur=$(jq -r '.address // empty' <<<"$active")
+[[ -n "$cls" && -n "$cur" ]] || exit 0
+
+mapfile -t wins < <(hyprctl clients -j 2>/dev/null | jq -r --arg cls "$cls" \
+  '.[] | select(.class == $cls) | .address')
+
+[[ ${#wins[@]} -gt 1 ]] || exit 0
+
+next=""
+for i in "${!wins[@]}"; do
+  if [[ "${wins[$i]}" == "$cur" ]]; then
+    next="${wins[$(( (i + 1) % ${#wins[@]} ))]}"
+    break
+  fi
+done
+[[ -n "$next" ]] || next="${wins[0]}"
+
+hyprctl dispatch "hl.dsp.focus({ window = \"address:$next\" })"
