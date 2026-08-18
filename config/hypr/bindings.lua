@@ -59,3 +59,18 @@ o.bind("SUPER + J", "Previous workspace", hl.dsp.focus({ workspace = "e-1" }))
 o.bind("SUPER + K", "Next workspace", hl.dsp.focus({ workspace = "e+1" }))
 o.bind("SUPER + H", "Focus previous window", hl.dsp.window.cycle_next({ next = false }))
 o.bind("SUPER + L", "Focus next window", hl.dsp.window.cycle_next())
+
+-- SUPER+W: double-press to close the focused window (guards against
+-- accidental kills).
+hl.unbind("SUPER + W")
+local last_super_w = 0
+o.bind("SUPER + W", "Close window (double-press)", function()
+  local now = os.clock()
+  if now - last_super_w < 1.0 then
+    last_super_w = 0
+    hl.dispatch(hl.dsp.window.close())
+  else
+    last_super_w = now
+    hl.exec_cmd("notify-send -u low 'Press SUPER+W again to close'")
+  end
+end)
