@@ -104,6 +104,7 @@ return {
   'jghauser/mkdir.nvim',
   {
     'mrjones2014/dash.nvim',
+    cond = vim.fn.has('mac') == 1, -- Dash.app itself is macOS-only
     run = 'make install',
     cmd = { 'Dash', 'DashWord' },
     keys = { {'<space>gk', '<cmd>DashWord<cr>'} }
