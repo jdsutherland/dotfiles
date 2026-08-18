@@ -74,7 +74,7 @@ on U.
 | ctrl+shift+i / o | Delete word left / right (`C-backspace` / `C-delete`) |
 | ctrl+shift+u / y | Undo / redo (`C-z` / `C-S-z`) |
 | ctrl+shift+, / . | Backspace / delete |
-| ctrl+shift+; | Enter |
+| ctrl+shift+; / ' | Home / End |
 | ctrl+shift+[ / ] | Page down / up |
 | ctrl+shift+= | Clipboard history (`super+ctrl+v`) — mimics the mac Karabiner bind |
 
