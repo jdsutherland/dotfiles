@@ -65,16 +65,6 @@ function utils.has_active_lsp_client(servername)
   return false
 end
 
-function utils.is_dark_mode()
-  local handle = io.popen("defaults read -g AppleInterfaceStyle 2>/dev/null")
-  if handle == nil then
-    return true
-  end
-  local result = handle:read("*a")
-  handle:close()
-  return result:match("^%s*Dark%s*$") ~= nil
-end
-
 -- Session management: automatically save and restore window/tab layout per directory/branch
 vim.opt.sessionoptions = 'buffers,curdir,tabpages,winsize,winpos'
 
