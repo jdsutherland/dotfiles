@@ -1,12 +1,16 @@
-EXCLUDES="README.md scripts .gitignore AGENTS.md keyd KEYBINDINGS.md"
+EXCLUDES="README.md scripts .gitignore AGENTS.md KEYBINDINGS.md"
 
 # keyd/default.conf lives in the repo for version control but is installed to
 # /etc/keyd/default.conf by scripts/omarchy.sh, not symlinked into $HOME.
+# Match the file, not a bare "keyd" -- that pattern also swallows
+# config/keyd/app.conf, which *does* need to be symlinked (to
+# ~/.config/keyd/app.conf, read by keyd-application-mapper).
+EXCLUDES="$EXCLUDES keyd/default.conf"
 case "$(uname -s)" in
   Darwin)
     TAGS="mac"
-    # Linux-only; there's no macOS equivalent to symlink this to.
-    EXCLUDES="$EXCLUDES omarchy.packages"
+    # Linux-only; nothing on macOS reads these, so don't clutter $HOME.
+    EXCLUDES="$EXCLUDES omarchy.packages config/hypr config/keyd config/voxtype"
     ;;
   Linux)
     TAGS="omarchy"
