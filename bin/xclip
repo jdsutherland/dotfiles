@@ -16,10 +16,18 @@ if [[ "$(uname)" =~ Darwin ]]; then
 else
   if command -v wl-copy >/dev/null 2>&1; then
     cat - | wl-copy
-  elif command -v xclip >/dev/null 2>&1; then
-    cat - | xclip
   else
-    echo "xclip shim: no clipboard backend (install wl-clipboard or xclip)" >&2
-    exit 1
+    # Find the *real* xclip, not this shim: ~/.bin is ahead of /usr/bin on
+    # PATH, so a plain `xclip` here would re-exec this script forever.
+    real_xclip=""
+    for candidate in /usr/bin/xclip /usr/local/bin/xclip /bin/xclip; do
+      [[ -x "$candidate" ]] && { real_xclip="$candidate"; break; }
+    done
+    if [[ -n "$real_xclip" ]]; then
+      cat - | "$real_xclip" "$@"
+    else
+      echo "xclip shim: no clipboard backend (install wl-clipboard or xclip)" >&2
+      exit 1
+    fi
   fi
 fi
