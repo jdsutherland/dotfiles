@@ -14,7 +14,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash /Users/j/.local/share/fleet/plugin/hooks/codex/codex-hook.sh PreToolUse",
+            "command": "bash $HOME/.local/share/fleet/plugin/hooks/codex/codex-hook.sh PreToolUse",
             "timeout": 5000
           }
         ]
@@ -25,7 +25,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash /Users/j/.local/share/fleet/plugin/hooks/codex/codex-hook.sh Stop",
+            "command": "bash $HOME/.local/share/fleet/plugin/hooks/codex/codex-hook.sh Stop",
             "timeout": 5000
           }
         ]
