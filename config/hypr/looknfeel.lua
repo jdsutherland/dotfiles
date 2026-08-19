@@ -6,6 +6,7 @@ hl.config({
     -- No gaps between windows or borders.
     gaps_in = 0,
     gaps_out = 0,
+    border_size = 1,
   },
 })
 
