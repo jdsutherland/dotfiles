@@ -9,7 +9,9 @@ set -euo pipefail
 #   3. git filter   (normalize $HOME in app-managed configs)
 #   4. rcup         (symlink the dotfiles; rcm comes from the Brewfile)
 #   5. mise install (language runtimes from ~/.config/mise/config.toml)
-#   6. optionally apply macOS defaults (scripts/macos.sh)
+#   6. bat cache     (register custom bat themes)
+#   7. Destructive Command Guard (agent safety)
+#   8. optionally apply macOS defaults (scripts/macos.sh)
 #
 # zinit is NOT installed here: zshrc self-installs it on first shell start.
 
@@ -60,13 +62,22 @@ if command -v mise >/dev/null 2>&1; then
   mise install
 fi
 
-# 6. Destructive Command Guard (agent safety)
+# 6. bat theme cache. bat only picks up ~/.config/bat/themes/*.tmTheme once
+# this cache is built; until then the --theme name in config/bat/config
+# doesn't resolve and bat silently falls back to its built-in default. Must
+# run after rcup, since the themes are symlinked in step 4.
+if command -v bat >/dev/null 2>&1; then
+  info "Building bat theme cache"
+  bat cache --build
+fi
+
+# 7. Destructive Command Guard (agent safety)
 DCG_BIN="${DCG_BIN:-$HOME/.local/bin/dcg}"
 if [[ ! -x "$DCG_BIN" ]]; then
   curl -fsSL "https://raw.githubusercontent.com/Dicklesworthstone/destructive_command_guard/main/install.sh?$(date +%s)" | bash -s -- --easy-mode
 fi
 
-# 7. macOS system defaults (optional)
+# 8. macOS system defaults (optional)
 read -r -p $'\nApply macOS defaults (scripts/macos.sh)? [y/N] ' reply
 case "$reply" in
   [yY]) "$DOTFILES/scripts/macos.sh" ;;

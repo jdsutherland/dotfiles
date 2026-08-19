@@ -15,7 +15,8 @@ set -euo pipefail
 #   6. voxtype         (AI dictation)
 #   7. rcup            (symlink the dotfiles)
 #   8. mise install    (language runtimes from ~/.config/mise/config.toml)
-#   9. Destructive Command Guard (agent safety)
+#   9. bat cache     (register custom bat themes)
+#  10. Destructive Command Guard (agent safety)
 
 DOTFILES="$HOME/.dotfiles"
 
@@ -101,7 +102,17 @@ if command -v mise >/dev/null 2>&1; then
   mise install
 fi
 
-# 9. Destructive Command Guard (agent safety) — same as scripts/install.sh
+# 9. bat theme cache. bat only picks up ~/.config/bat/themes/*.tmTheme once
+# this cache is built; until then the --theme name in config/bat/config
+# doesn't resolve and bat silently falls back to its built-in default, which
+# looks close enough to the real theme to be confusing. Must run after rcup,
+# since the themes are symlinked in step 7.
+if command -v bat >/dev/null 2>&1; then
+  info "Building bat theme cache"
+  bat cache --build
+fi
+
+# 10. Destructive Command Guard (agent safety) — same as scripts/install.sh
 DCG_BIN="${DCG_BIN:-$HOME/.local/bin/dcg}"
 if [[ ! -x "$DCG_BIN" ]]; then
   curl -fsSL "https://raw.githubusercontent.com/Dicklesworthstone/destructive_command_guard/main/install.sh?$(date +%s)" | bash -s -- --easy-mode
