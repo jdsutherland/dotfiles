@@ -30,21 +30,32 @@ function! s:open_github_pr() abort
     return
   endif
 
-  let url = trim(system('gh api ' . shellescape('repos/{owner}/{repo}/commits/' . commit . '/pulls')
-        \ . ' --jq ' . shellescape('.[0].html_url // empty') . ' 2>/dev/null'))
+  " List form runs gh directly instead of through 'shell'. That matters here:
+  " gh is mise-managed, and a shell invocation sources zshenv -> mise, which
+  " prints "mise ~/.config/mise/config.toml tools: gh@..." to *stdout* and
+  " corrupts the captured output.
+  let out = system(['gh', 'api', 'repos/{owner}/{repo}/commits/' . commit . '/pulls',
+        \ '--jq', '.[0].html_url // empty'])
 
   if v:shell_error
     echo 'git-messenger: gh lookup failed (commit may not be pushed yet)'
     return
   endif
+
+  " Belt and braces: take the URL itself rather than trusting the whole buffer.
+  " trim() is required -- when matching against a string (rather than buffer
+  " text) Vim's \S also matches the trailing newline.
+  let url = trim(matchstr(out, 'https://\S\+'))
   if empty(url)
     echo 'git-messenger: No associated pull request for commit'
     return
   endif
 
   " vim.ui.open picks the right opener per platform (open / xdg-open), unlike
-  " netrw#BrowseX which this used to call.
-  call v:lua.vim.ui.open(url)
+  " netrw#BrowseX which this used to call. It returns a SystemObj, which
+  " vimscript can't convert back -- `call v:lua.vim.ui.open(url)` fails with
+  " E5101 -- so call it inside a lua wrapper that returns a plain number.
+  call luaeval('(function(u) vim.ui.open(u) return 0 end)(_A)', url)
 endfunction
 
 " git-messenger builds its `?` help from the popup object's opts.mappings
