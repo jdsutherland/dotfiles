@@ -91,7 +91,6 @@ focused (cleared on focus-out); autostarted by Hyprland, see
 | Chrome | ctrl+h / l | Back / forward (`alt+left` / `alt+right`) | Karabiner browser binds |
 | Chrome | ctrl+j / k | Previous / next tab | Karabiner browser binds |
 | Chrome | ctrl+d | Close tab (`ctrl+w`) | — |
-| Chrome | ctrl+r | Reopen closed tab (`ctrl+shift+t`) | — |
 
 ---
 
