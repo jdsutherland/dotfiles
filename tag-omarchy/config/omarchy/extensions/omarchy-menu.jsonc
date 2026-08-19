@@ -1,27 +1,53 @@
 {
-  // Extends the Quickshell Omarchy menu (SUPER+SPACE). See the stock file at
-  // /usr/share/omarchy/default/omarchy/omarchy-menu.jsonc for the full schema;
-  // the short version is that ids are dotted paths, the parent is inferred,
-  // and reusing an existing id extends it rather than replacing it (fields not
-  // named here are kept).
+  // Extends the Quickshell Omarchy menu (SUPER+SPACE). Stock definitions live
+  // in /usr/share/omarchy/default/omarchy/omarchy-menu.jsonc.
   //
-  // Fields: icon, label, action, target, provider, aliases, keywords,
-  //         description, when, checked.
+  // Two things the stock file's own comments get wrong, both found the hard
+  // way by reading shell/plugins/menu/{Menu.qml,MenuModel.js}:
+  //
+  // 1. It documents a "keywords" field. For JSONC rows that field is never
+  //    read -- MenuModel.js builds the search haystack as
+  //        [label, leafId, aliases.join(" ")]
+  //    so search terms have to go in "aliases". (Menu.qml does honour
+  //    keywords, but only for .desktop application entries, a separate path.)
+  //
+  // 2. It says reusing an id keeps existing fields unless overridden. It does
+  //    not. parseMenuJsonc() runs normalizeItem() on every entry *before*
+  //    mergeMenuSources() runs, and normalizeItem fills in every key with
+  //    defaults (label falls back to the id, action to "", kind to "menu").
+  //    So a partial override arrives fully populated with blanks and clobbers
+  //    the stock row -- the entry becomes an empty submenu named after its id.
+  //    Rows below are therefore re-declared in full, copied verbatim from the
+  //    stock file, with aliases added.
+  //
+  // Aliases double as `omarchy menu summon <alias>` routes and resolve
+  // first-match-wins; these were checked against the stock file for
+  // collisions. Use arrays -- a bare string counts as a single alias rather
+  // than being split on spaces.
 
-  // Alfred parity: type "ocr" at the menu to OCR a screen region straight to
-  // the clipboard. omarchy-capture-text already does the work (hyprpicker
-  // freeze -> slurp region -> grim -> tesseract -> wl-copy) and is bound to
-  // SUPER+CTRL+PRINT, but it sits at Capture > Text with no keywords, so
-  // "ocr" found nothing. Reusing the id keeps the stock icon/label/action.
+  // Alfred parity: type "ocr" to OCR a screen region straight to the
+  // clipboard. omarchy-capture-text already does the work (hyprpicker freeze
+  // -> slurp region -> grim -> tesseract -> wl-copy) and is bound to
+  // SUPER+CTRL+PRINT, but its label and leaf id are both just "text", so
+  // "ocr" matched nothing.
   "trigger.capture.text": {
-    "keywords": "ocr text recognize recognise extract scrape read screenshot clipboard tesseract"
+    "icon": "󰴑",
+    "label": "Text",
+    "action": "omarchy-capture-text",
+    "aliases": ["ocr", "extract-text", "grab-text", "tesseract"]
   },
 
-  // Same idea for the two neighbours, which are equally hard to find by name.
+  // Same idea for the two neighbours, equally hard to find by name.
   "trigger.capture.qr": {
-    "keywords": "qr qrcode barcode scan decode"
+    "icon": "󰐲",
+    "label": "QR Code",
+    "action": "omarchy-capture-qr",
+    "aliases": ["qr", "qrcode", "barcode"]
   },
   "trigger.capture.color": {
-    "keywords": "color colour picker eyedropper hex pick"
+    "icon": "󰃉",
+    "label": "Color",
+    "action": "pkill hyprpicker || hyprpicker -a",
+    "aliases": ["color", "colour", "picker", "eyedropper"]
   }
 }
