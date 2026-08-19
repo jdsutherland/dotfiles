@@ -1,0 +1,27 @@
+{
+  // Extends the Quickshell Omarchy menu (SUPER+SPACE). See the stock file at
+  // /usr/share/omarchy/default/omarchy/omarchy-menu.jsonc for the full schema;
+  // the short version is that ids are dotted paths, the parent is inferred,
+  // and reusing an existing id extends it rather than replacing it (fields not
+  // named here are kept).
+  //
+  // Fields: icon, label, action, target, provider, aliases, keywords,
+  //         description, when, checked.
+
+  // Alfred parity: type "ocr" at the menu to OCR a screen region straight to
+  // the clipboard. omarchy-capture-text already does the work (hyprpicker
+  // freeze -> slurp region -> grim -> tesseract -> wl-copy) and is bound to
+  // SUPER+CTRL+PRINT, but it sits at Capture > Text with no keywords, so
+  // "ocr" found nothing. Reusing the id keeps the stock icon/label/action.
+  "trigger.capture.text": {
+    "keywords": "ocr text recognize recognise extract scrape read screenshot clipboard tesseract"
+  },
+
+  // Same idea for the two neighbours, which are equally hard to find by name.
+  "trigger.capture.qr": {
+    "keywords": "qr qrcode barcode scan decode"
+  },
+  "trigger.capture.color": {
+    "keywords": "color colour picker eyedropper hex pick"
+  }
+}
