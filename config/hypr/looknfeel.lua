@@ -10,6 +10,13 @@ hl.config({
   },
 })
 
+-- ...but a border is only useful to tell two windows apart, so drop it when
+-- there is nothing to disambiguate. w[tv1] selects a workspace holding exactly
+-- one tiled visible window; the rule is re-evaluated as windows open and close,
+-- so the border appears the moment a second one shows up. This is the modern
+-- replacement for the old dwindle:no_gaps_when_only option.
+hl.workspace_rule({ workspace = "w[tv1]", border_size = 0 })
+
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#decoration
 -- hl.config({
 --   decoration = {
