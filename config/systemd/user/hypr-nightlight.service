@@ -1,0 +1,10 @@
+[Unit]
+Description=Night light (wlsunset, sunset+2h)
+
+[Service]
+Type=simple
+ExecStart=%h/.bin/hypr-nightlight
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

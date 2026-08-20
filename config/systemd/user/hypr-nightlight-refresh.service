@@ -1,0 +1,6 @@
+[Unit]
+Description=Recompute night light times (restart wlsunset)
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl --user restart hypr-nightlight.service
