@@ -8,3 +8,6 @@
 -- Requires the user to be in the `keyd` group (sudo usermod -aG keyd $USER,
 -- then a fresh login).
 o.exec_on_start("keyd-application-mapper -d")
+
+-- Sunset+2h night light (wlsunset), replacing hyprsunset.
+o.launch_on_start("hypr-nightlight")

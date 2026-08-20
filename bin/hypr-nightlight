@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Night light: wlsunset with a sunset+2h start and sunrise end, using the
+# location omarchy stores for its weather widget (falls back to IP city).
+set -euo pipefail
+
+loc="$HOME/.local/state/omarchy/settings/weather.json"
+name=$(jq -r '.name // empty' "$loc" 2>/dev/null || true)
+lat=$(jq -r '.latitude // empty' "$loc" 2>/dev/null || true)
+lon=$(jq -r '.longitude // empty' "$loc" 2>/dev/null || true)
+
+query=""
+if [[ -n "$lat" && -n "$lon" ]]; then
+  query="$lat,$lon"
+elif [[ -n "$name" ]]; then
+  query="$name"
+fi
+
+# Sunrise + sunset from wttr.in (the same source omarchy's weather widget uses).
+data=$(curl -fsS --max-time 5 "https://wttr.in/${query}?format=j1" 2>/dev/null | \
+  jq -er '[.weather[0].astronomy[0].sunrise, .weather[0].astronomy[0].sunset] | @tsv' 2>/dev/null) || {
+  notify-send -u critical "Night light" "Couldn't fetch sunrise/sunset"
+  exit 1
+}
+IFS=$'\t' read -r sunrise sunset <<< "$data"
+
+sunrise_24=$(date -d "$sunrise" +%H:%M 2>/dev/null || true)
+sunset_plus_2=$(date -d "$sunset + 2 hours" +%H:%M 2>/dev/null || true)
+[[ -n "$sunrise_24" && -n "$sunset_plus_2" ]] || exit 1
+
+# Replace any stale instance (also lets you re-run to recompute for today).
+pkill -x wlsunset 2>/dev/null || true
+exec wlsunset -S "$sunrise_24" -s "$sunset_plus_2" -t 4000 -T 6500
