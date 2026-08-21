@@ -37,7 +37,40 @@ o.bind("SUPER + SHIFT + ALT + CTRL + P", "Evince", { launch = "evince", focus = 
 o.bind("SUPER + SHIFT + ALT + CTRL + C", "ChatGPT", { webapp = "https://chatgpt.com", focus = true })
 o.bind("SUPER + SHIFT + ALT + CTRL + R", "LibreOffice Calc", { launch = "libreoffice --calc", focus = "^libreoffice-calc$" })
 o.bind("SUPER + SHIFT + ALT + CTRL + D", "Discord", { webapp = "https://discord.com/channels/@me", focus = true })
-o.bind("SUPER + SHIFT + ALT + CTRL + V", "mpv", { launch = "mpv --idle=yes --force-window=yes", focus = "^mpv$" })
+-- mpv: hyper+V cycles through open mpv windows on repeated presses (each
+-- press focuses the next one), and launches a new instance when none exist.
+-- Plain launch+focus (like the other hyper binds here) always jumps to the
+-- first match returned by omarchy-launch-or-focus, so with >1 mpv window
+-- open it can never reach the others.
+local function cycle_or_launch_mpv()
+  -- hl.get_windows' class filter is an exact match, not a regex -- unlike
+  -- Hyprland's window rules (and unlike focus="^mpv$" on the other hyper
+  -- binds above, which goes through a completely different, regex-based
+  -- script). "^mpv$" matched nothing here, so #wins was always 0 and this
+  -- launched a fresh mpv on every press instead of finding the existing one.
+  local wins = hl.get_windows({ class = "mpv" })
+  if #wins == 0 then
+    hl.exec_cmd(o.launch("mpv --idle=yes --force-window=yes"))
+    return
+  end
+
+  -- Stable order across presses -- get_windows makes no ordering guarantee.
+  table.sort(wins, function(a, b) return a.address < b.address end)
+
+  local active = hl.get_active_window()
+  local next_win = wins[1]
+  if active then
+    for i, w in ipairs(wins) do
+      if w.address == active.address then
+        next_win = wins[(i % #wins) + 1]
+        break
+      end
+    end
+  end
+
+  hl.dispatch(hl.dsp.focus({ window = "address:" .. next_win.address }))
+end
+o.bind("SUPER + SHIFT + ALT + CTRL + V", "mpv (cycle windows)", cycle_or_launch_mpv)
 o.bind("SUPER + SHIFT + ALT + CTRL + B", "Chrome", { launch = "google-chrome-stable", focus = "^google-chrome$" })
 -- xkbcommon names the grave keysym "grave"; the upper-case "GRAVE" does not match.
 o.bind("SUPER + SHIFT + ALT + CTRL + grave", "WhatsApp", { webapp = "https://web.whatsapp.com/", focus = true })
