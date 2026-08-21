@@ -49,5 +49,27 @@
     "label": "Color",
     "action": "pkill hyprpicker || hyprpicker -a",
     "aliases": ["color", "colour", "picker", "eyedropper"]
+  },
+
+  // Alfred parity: "sp $WORD" / "def $WORD" typed as one string into
+  // Alfred's bar. Omarchy's menu can't parse a keyword plus an inline
+  // free-text argument from the same search box (providers are bound to a
+  // submenu id, not to the live search text -- confirmed reading
+  // MenuModel.js), so this is two Enters instead of one: pick the row, then
+  // type the word into the prompt it opens. New ids, not stock overrides,
+  // so no clobbering risk here -- see bin/omarchy-spell-suggest and
+  // bin/omarchy-define-word for the actual lookups.
+  "tools": { "icon": "󰗊", "label": "Word Tools" },
+  "tools.spell": {
+    "icon": "󰓆",
+    "label": "Spelling Suggestions",
+    "action": "omarchy-spell-suggest",
+    "aliases": ["sp", "spell", "spelling", "spellcheck"]
+  },
+  "tools.define": {
+    "icon": "󰗊",
+    "label": "Define Word",
+    "action": "omarchy-define-word",
+    "aliases": ["def", "define", "definition", "dictionary", "meaning"]
   }
 }

@@ -11,6 +11,8 @@
 gemini-cli
 ghostty
 git-delta
+hunspell
+hunspell-en_us
 ranger
 rsync
 tree
