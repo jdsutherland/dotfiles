@@ -10,7 +10,6 @@
     "CLAUDE_CODE_NO_FLICKER": "1",
     "CLAUDE_CODE_TMUX_TRUECOLOR": "1"
   },
-  "model": "opus",
   "hooks": {
     "PreToolUse": [
       {
@@ -45,6 +44,6 @@
   },
   "syntaxHighlightingDisabled": false,
   "tui": "fullscreen",
-  "theme": "auto",
-  "skipDangerousModePermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "auto"
 }
