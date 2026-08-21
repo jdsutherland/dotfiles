@@ -13,3 +13,16 @@ font-size = 9
 # silently depend on upstream defaults staying that way.
 keybind = ctrl+shift+v=paste_from_clipboard
 keybind = ctrl+shift+c=copy_to_clipboard
+
+# Override Ghostty's default shift+insert=paste_from_selection. Omarchy's
+# SUPER+V "universal paste" bind (default/hypr/bindings/clipboard.lua) sends
+# shift+insert to any window tagged "terminal", on the classic xterm
+# assumption that ctrl+v means something else in a raw shell. But
+# paste_from_selection reads Wayland's PRIMARY selection (auto-populated by
+# mouse-highlighting text), not CLIPBOARD -- and nothing in this setup ever
+# writes to PRIMARY. tmux copy-mode, keyd's clipboard-history bind, and
+# ctrl+shift+v here all go through wl-copy, which only sets CLIPBOARD. So
+# SUPER+V in Ghostty pasted whatever was last mouse-selected somewhere, not
+# what was actually copied. Confirmed live: `wl-paste` (CLIPBOARD) had the
+# real copied text while `wl-paste --primary` had unrelated stale content.
+keybind = shift+insert=paste_from_clipboard
