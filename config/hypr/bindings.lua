@@ -78,6 +78,40 @@ o.bind("SUPER + SHIFT + ALT + CTRL + E", "Obsidian", { launch = "obsidian", focu
 o.bind("SUPER + SHIFT + ALT + CTRL + M", "Google Messages", { webapp = "https://messages.google.com/web/conversations", focus = true })
 o.bind("SUPER + SHIFT + ALT + CTRL + S", "Google Sheets", { webapp = "https://docs.google.com/spreadsheets/", focus = true })
 
+-- Move the focused window to the nearest empty workspace (by workspace
+-- number -- whichever side is closer; ties go to the higher number). A
+-- workspace Hyprland has never created counts as empty too, so this always
+-- terminates -- worst case it lands one past the highest workspace in use.
+-- hyper+O is mac's Slate "Throw next screen" slot (see KEYBINDINGS.md);
+-- there's no second monitor to throw to here, so "get this window out of my
+-- way onto empty space" is the closest equivalent.
+local function move_to_nearest_empty_workspace()
+  local current = hl.get_active_workspace()
+  if not current then return end
+
+  local existing = {}
+  local max_id = current.id
+  for _, ws in ipairs(hl.get_workspaces()) do
+    if not ws.special then
+      existing[ws.id] = ws
+      if ws.id > max_id then max_id = ws.id end
+    end
+  end
+
+  for distance = 1, max_id do
+    for _, candidate in ipairs({ current.id + distance, current.id - distance }) do
+      if candidate >= 1 then
+        local ws = existing[candidate]
+        if ws == nil or ws.is_empty then
+          hl.dispatch(hl.dsp.window.move({ workspace = tostring(candidate) }))
+          return
+        end
+      end
+    end
+  end
+end
+o.bind("SUPER + SHIFT + ALT + CTRL + O", "Move window to nearest empty workspace", move_to_nearest_empty_workspace)
+
 -- Vim-style navigation: J/K move workspaces (left/right), H/L focus windows
 -- (left/right). Move Keybindings, window-split, and workspace-layout off
 -- their old keys; unbind the Omarchy defaults first, then rebind.
