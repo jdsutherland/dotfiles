@@ -245,6 +245,8 @@ layer (see keyd section), not Caps Lock.
 | SUPER+backslash | Toggle window split (moved off SUPER+J) |
 | SUPER+q | Toggle workspace layout (moved off SUPER+L) |
 | SUPER+w | Close window — requires a double-press within 1s (guards against accidental kills) |
+| hyper+o | Move focused window to nearest empty workspace on the same monitor |
+| hyper+Right | Move focused window to the next monitor's active workspace |
 
 ### Window Rules (`windows.lua`)
 

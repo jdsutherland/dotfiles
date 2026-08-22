@@ -78,16 +78,17 @@ o.bind("SUPER + SHIFT + ALT + CTRL + E", "Obsidian", { launch = "obsidian", focu
 o.bind("SUPER + SHIFT + ALT + CTRL + M", "Google Messages", { webapp = "https://messages.google.com/web/conversations", focus = true })
 o.bind("SUPER + SHIFT + ALT + CTRL + S", "Google Sheets", { webapp = "https://docs.google.com/spreadsheets/", focus = true })
 
--- Move the focused window to the nearest empty workspace (by workspace
--- number -- whichever side is closer; ties go to the higher number). A
--- workspace Hyprland has never created counts as empty too, so this always
--- terminates -- worst case it lands one past the highest workspace in use.
--- hyper+O is mac's Slate "Throw next screen" slot (see KEYBINDINGS.md);
--- there's no second monitor to throw to here, so "get this window out of my
--- way onto empty space" is the closest equivalent.
+-- Move the focused window to the nearest empty workspace on the CURRENT
+-- monitor (by workspace number; ties go to the higher number). Workspaces are
+-- global in Hyprland, so treating an empty workspace on another monitor as a
+-- candidate made this shortcut appear to jump displays at random.
+--
+-- A workspace Hyprland has never created is safe: it is created on the active
+-- monitor. An existing workspace is eligible only when it belongs to this
+-- monitor and has no windows.
 local function move_to_nearest_empty_workspace()
   local current = hl.get_active_workspace()
-  if not current then return end
+  if not current or not current.monitor then return end
 
   local existing = {}
   local max_id = current.id
@@ -102,7 +103,11 @@ local function move_to_nearest_empty_workspace()
     for _, candidate in ipairs({ current.id + distance, current.id - distance }) do
       if candidate >= 1 then
         local ws = existing[candidate]
-        if ws == nil or ws.is_empty then
+        local empty_here = ws
+          and ws.monitor
+          and ws.monitor.id == current.monitor.id
+          and ws.windows == 0
+        if ws == nil or empty_here then
           hl.dispatch(hl.dsp.window.move({ workspace = tostring(candidate) }))
           return
         end
@@ -110,7 +115,39 @@ local function move_to_nearest_empty_workspace()
     end
   end
 end
-o.bind("SUPER + SHIFT + ALT + CTRL + O", "Move window to nearest empty workspace", move_to_nearest_empty_workspace)
+o.bind("SUPER + SHIFT + ALT + CTRL + O", "Move window to nearest empty workspace (same monitor)", move_to_nearest_empty_workspace)
+
+-- Move the focused window to the active workspace on the next physical
+-- monitor, ordered left-to-right then top-to-bottom. With two displays this
+-- simply toggles the window between them; focus follows the moved window.
+local function move_window_to_next_monitor()
+  local window = hl.get_active_window()
+  local current_monitor = window and window.workspace and window.workspace.monitor
+  if not current_monitor then return end
+
+  local monitors = {}
+  for _, monitor in ipairs(hl.get_monitors()) do
+    if not monitor.is_mirror and monitor.active_workspace then
+      table.insert(monitors, monitor)
+    end
+  end
+  if #monitors < 2 then return end
+
+  table.sort(monitors, function(a, b)
+    if a.x ~= b.x then return a.x < b.x end
+    if a.y ~= b.y then return a.y < b.y end
+    return a.id < b.id
+  end)
+
+  for i, monitor in ipairs(monitors) do
+    if monitor.id == current_monitor.id then
+      local target = monitors[(i % #monitors) + 1]
+      hl.dispatch(hl.dsp.window.move({ workspace = tostring(target.active_workspace.id) }))
+      return
+    end
+  end
+end
+o.bind("SUPER + SHIFT + ALT + CTRL + RIGHT", "Move window to next monitor", move_window_to_next_monitor)
 
 -- Vim-style navigation: J/K move workspaces (left/right), H/L focus windows
 -- (left/right). Move Keybindings, window-split, and workspace-layout off
