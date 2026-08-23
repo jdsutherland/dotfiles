@@ -120,7 +120,9 @@ o.bind("SUPER + SHIFT + ALT + CTRL + RIGHT", "Move window to nearest empty works
 -- Move the focused window to the active workspace on the next physical
 -- monitor, ordered left-to-right then top-to-bottom. With two displays this
 -- simply toggles the window between them; focus follows the moved window.
-local function move_window_to_next_monitor()
+-- With no external display, fall back to the nearest empty workspace so
+-- hyper+O remains useful on the laptop by itself.
+local function move_window_to_next_monitor_or_empty_workspace()
   local window = hl.get_active_window()
   local current_monitor = window and window.workspace and window.workspace.monitor
   if not current_monitor then return end
@@ -131,7 +133,10 @@ local function move_window_to_next_monitor()
       table.insert(monitors, monitor)
     end
   end
-  if #monitors < 2 then return end
+  if #monitors < 2 then
+    move_to_nearest_empty_workspace()
+    return
+  end
 
   table.sort(monitors, function(a, b)
     if a.x ~= b.x then return a.x < b.x end
@@ -147,7 +152,7 @@ local function move_window_to_next_monitor()
     end
   end
 end
-o.bind("SUPER + SHIFT + ALT + CTRL + O", "Move window to next monitor", move_window_to_next_monitor)
+o.bind("SUPER + SHIFT + ALT + CTRL + O", "Move window to next monitor (or empty workspace)", move_window_to_next_monitor_or_empty_workspace)
 
 -- Vim-style navigation: J/K move workspaces (left/right), H/L focus windows
 -- (left/right). Move Keybindings, window-split, and workspace-layout off
