@@ -224,6 +224,7 @@ layer (see keyd section), not Caps Lock.
 | hyper+g | Focus/launch Nautilus (Finder equivalent) |
 | hyper+p | Focus/launch Evince (Preview equivalent) |
 | hyper+c | Focus/launch ChatGPT (webapp) |
+| hyper+z | Focus/launch Gemini (webapp) |
 | hyper+r | Focus/launch LibreOffice Calc (Excel equivalent) |
 | hyper+d | Focus/launch Discord (webapp) |
 | hyper+v | Focus/launch mpv |

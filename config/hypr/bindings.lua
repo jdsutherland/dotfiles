@@ -35,6 +35,7 @@ o.bind("SUPER + SHIFT + ALT + CTRL + T", "Ghostty", { launch = "ghostty --gtk-si
 o.bind("SUPER + SHIFT + ALT + CTRL + G", "Nautilus", { launch = "nautilus", focus = "^org.gnome.Nautilus$" })
 o.bind("SUPER + SHIFT + ALT + CTRL + P", "Evince", { launch = "evince", focus = "^org.gnome.Evince$" })
 o.bind("SUPER + SHIFT + ALT + CTRL + C", "ChatGPT", { webapp = "https://chatgpt.com", focus = true })
+o.bind("SUPER + SHIFT + ALT + CTRL + Z", "Gemini", { webapp = "https://gemini.google.com", focus = true })
 o.bind("SUPER + SHIFT + ALT + CTRL + R", "LibreOffice Calc", { launch = "libreoffice --calc", focus = "^libreoffice-calc$" })
 o.bind("SUPER + SHIFT + ALT + CTRL + D", "Discord", { webapp = "https://discord.com/channels/@me", focus = true })
 -- mpv: hyper+V cycles through open mpv windows on repeated presses (each
