@@ -115,7 +115,7 @@ local function move_to_nearest_empty_workspace()
     end
   end
 end
-o.bind("SUPER + SHIFT + ALT + CTRL + O", "Move window to nearest empty workspace (same monitor)", move_to_nearest_empty_workspace)
+o.bind("SUPER + SHIFT + ALT + CTRL + RIGHT", "Move window to nearest empty workspace (same monitor)", move_to_nearest_empty_workspace)
 
 -- Move the focused window to the active workspace on the next physical
 -- monitor, ordered left-to-right then top-to-bottom. With two displays this
@@ -147,7 +147,7 @@ local function move_window_to_next_monitor()
     end
   end
 end
-o.bind("SUPER + SHIFT + ALT + CTRL + RIGHT", "Move window to next monitor", move_window_to_next_monitor)
+o.bind("SUPER + SHIFT + ALT + CTRL + O", "Move window to next monitor", move_window_to_next_monitor)
 
 -- Vim-style navigation: J/K move workspaces (left/right), H/L focus windows
 -- (left/right). Move Keybindings, window-split, and workspace-layout off
