@@ -181,12 +181,3 @@ end)
 -- Cycle focus through windows of the same app (same WM class), e.g. Chrome
 -- windows spread across workspaces. Mac's Cmd+` equivalent.
 o.bind("SUPER + grave", "Cycle app windows", "hypr-cycle-app")
-
--- Alfred parity: "sp $WORD" / "def $WORD" as direct hyper binds instead of
--- routed through the Omarchy menu -- the menu can't parse a keyword plus an
--- inline free-text argument from one search box (providers are bound to a
--- submenu id, not to the live search text), which made the menu-routed
--- version two Enters instead of one and error-prone. Binding straight to a
--- key skips that: hyper+J/K prompts immediately via omarchy-menu-input.
-o.bind("SUPER + SHIFT + ALT + CTRL + J", "Spelling suggestions", "omarchy-spell-suggest")
-o.bind("SUPER + SHIFT + ALT + CTRL + K", "Define word", "omarchy-define-word")
