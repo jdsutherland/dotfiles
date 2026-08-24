@@ -13,10 +13,11 @@ set -euo pipefail
 #   4. Maple Mono NF   (AUR font, matches the mac machine)
 #   5. Google Chrome   (default browser; see keyd/app.conf + ghostty config)
 #   6. voxtype         (AI dictation)
-#   7. rcup            (symlink the dotfiles)
-#   8. mise install    (language runtimes from ~/.config/mise/config.toml)
-#   9. bat cache     (register custom bat themes)
-#  10. Destructive Command Guard (agent safety)
+#   7. Sioyek          (content-aware PDF reader; AUR)
+#   8. rcup            (symlink the dotfiles)
+#   9. mise install    (language runtimes from ~/.config/mise/config.toml)
+#  10. bat cache       (register custom bat themes)
+#  11. Destructive Command Guard (agent safety)
 
 DOTFILES="$HOME/.dotfiles"
 
@@ -90,19 +91,27 @@ if ! command -v voxtype >/dev/null 2>&1; then
   omarchy-voxtype-install
 fi
 
-# 7. Symlink dotfiles (rcup prompts before overwriting anything that exists)
+# 7. Sioyek — content-aware PDF fitting that ignores page margins. Development
+# package is used because the stable 2.0.0 AppImage package is years behind.
+if ! command -v sioyek >/dev/null 2>&1; then
+  info "Installing Sioyek PDF reader"
+  omarchy pkg aur add sioyek-dev
+fi
+xdg-mime default sioyek.desktop application/pdf
+
+# 8. Symlink dotfiles (rcup prompts before overwriting anything that exists)
 info "Symlinking dotfiles (rcup)"
 rcup -v
 
-# 8. Language runtimes, from ~/.config/mise/config.toml (symlinked by rcup
-# in step 7 — mise's true global config, so it applies everywhere; see
+# 9. Language runtimes, from ~/.config/mise/config.toml (symlinked by rcup
+# in step 8 — mise's true global config, so it applies everywhere; see
 # README.md for why that matters vs. a bare .tool-versions file).
 if command -v mise >/dev/null 2>&1; then
   info "Installing language runtimes (mise)"
   mise install
 fi
 
-# 9. bat theme cache. bat only picks up ~/.config/bat/themes/*.tmTheme once
+# 10. bat theme cache. bat only picks up ~/.config/bat/themes/*.tmTheme once
 # this cache is built; until then the --theme name in config/bat/config
 # doesn't resolve and bat silently falls back to its built-in default, which
 # looks close enough to the real theme to be confusing. Must run after rcup,
@@ -112,7 +121,7 @@ if command -v bat >/dev/null 2>&1; then
   bat cache --build
 fi
 
-# 10. Destructive Command Guard (agent safety) — same as scripts/install.sh
+# 11. Destructive Command Guard (agent safety) — same as scripts/install.sh
 DCG_BIN="${DCG_BIN:-$HOME/.local/bin/dcg}"
 if [[ ! -x "$DCG_BIN" ]]; then
   curl -fsSL "https://raw.githubusercontent.com/Dicklesworthstone/destructive_command_guard/main/install.sh?$(date +%s)" | bash -s -- --easy-mode
