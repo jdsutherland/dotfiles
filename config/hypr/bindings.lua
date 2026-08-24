@@ -28,12 +28,17 @@
 -- o.bind("SUPER + H", nil, "voxtype record toggle")
 -- o.bind("SUPER + PERIOD", nil, { omarchy = "walker -m symbols" })
 
+-- SUPER+P was Omarchy's "Pseudo window" toggle. Use it for the default PDF
+-- reader instead; launch-or-focus avoids opening duplicate empty windows.
+hl.unbind("SUPER + P")
+o.bind("SUPER + P", "Sioyek", { launch = "sioyek", focus = "^sioyek$" })
+
 -- Hyper (right_control held, via keyd -> ctrl+super+alt+shift) app-focus
 -- binds, ported from mac Hammerspoon. See KEYBINDINGS.md. Coexists with
 -- Omarchy's own SUPER-based defaults rather than replacing any of them.
 o.bind("SUPER + SHIFT + ALT + CTRL + T", "Ghostty", { launch = "ghostty --gtk-single-instance=true", focus = "^com.mitchellh.ghostty$" })
 o.bind("SUPER + SHIFT + ALT + CTRL + G", "Nautilus", { launch = "nautilus", focus = "^org.gnome.Nautilus$" })
-o.bind("SUPER + SHIFT + ALT + CTRL + P", "Evince", { launch = "evince", focus = "^org.gnome.Evince$" })
+o.bind("SUPER + SHIFT + ALT + CTRL + P", "Sioyek", { launch = "sioyek", focus = "^sioyek$" })
 o.bind("SUPER + SHIFT + ALT + CTRL + C", "ChatGPT", { webapp = "https://chatgpt.com", focus = true })
 o.bind("SUPER + SHIFT + ALT + CTRL + Z", "Gemini", { webapp = "https://gemini.google.com", focus = true })
 o.bind("SUPER + SHIFT + ALT + CTRL + R", "LibreOffice Calc", { launch = "libreoffice --calc", focus = "^libreoffice-calc$" })

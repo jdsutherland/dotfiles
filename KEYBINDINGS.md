@@ -222,7 +222,7 @@ layer (see keyd section), not Caps Lock.
 |---------|--------|
 | hyper+t | Focus/launch Ghostty |
 | hyper+g | Focus/launch Nautilus (Finder equivalent) |
-| hyper+p | Focus/launch Evince (Preview equivalent) |
+| hyper+p | Focus/launch Sioyek (Preview equivalent) |
 | hyper+c | Focus/launch ChatGPT (webapp) |
 | hyper+z | Focus/launch Gemini (webapp) |
 | hyper+r | Focus/launch LibreOffice Calc (Excel equivalent) |
@@ -240,6 +240,7 @@ layer (see keyd section), not Caps Lock.
 |---------|--------|
 | SUPER+h | Focus previous window (index-based cycle) |
 | SUPER+l | Focus next window (index-based cycle) |
+| SUPER+p | Focus/launch Sioyek (replaces Omarchy's Pseudo window toggle) |
 | SUPER+j | Previous workspace |
 | SUPER+k | Next workspace |
 | SUPER+apostrophe | Keybindings menu (moved off SUPER+K) |
