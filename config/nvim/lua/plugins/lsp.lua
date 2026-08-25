@@ -115,6 +115,20 @@ return {
       -- Mason setup for managing external language servers
       require('mason').setup({})
 
+      -- Harper complements Neovim's spelling with grammar and prose-style
+      -- diagnostics. Restrict it to writing buffers rather than checking
+      -- comments and strings throughout every supported programming language.
+      vim.lsp.config('harper_ls', {
+        filetypes = { 'markdown', 'text', 'gitcommit' },
+        settings = {
+          ['harper-ls'] = {
+            -- Share words added with `zg` instead of maintaining a second
+            -- personal dictionary for Harper.
+            userDictPath = vim.fn.stdpath('config') .. '/spell/en.utf-8.add',
+          },
+        },
+      })
+
       require('mason-lspconfig').setup({
         ensure_installed = {
           'basedpyright',
@@ -122,6 +136,7 @@ return {
           'clangd',
           'cssls',
           'gopls',
+          'harper_ls',
           'html',
           'jsonls',
           'lua_ls',

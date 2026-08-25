@@ -67,12 +67,22 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Git commit: spellcheck + kspell completion
+-- Prose buffers: native spellchecking and readable soft wrapping. Keep
+-- textwidth at zero so Markdown is not rewritten merely because it was viewed
+-- in a narrow window; gq remains available when hard wrapping is intentional.
+local prose_group = augroup("prose-writing", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "gitcommit",
+  group = prose_group,
+  pattern = { "markdown", "text", "gitcommit" },
   callback = function()
     vim.opt_local.spell = true
+    vim.opt_local.spelllang = { "en_us" }
     vim.opt_local.complete:append({ "kspell" })
+    vim.opt_local.wrap = true
+    vim.opt_local.linebreak = true
+    vim.opt_local.breakindent = true
+    vim.opt_local.textwidth = 0
+    vim.opt_local.wrapmargin = 0
   end,
 })
 

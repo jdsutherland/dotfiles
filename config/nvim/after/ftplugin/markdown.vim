@@ -16,8 +16,6 @@ let g:markdown_fenced_languages = [
       \ 'vim'
       \ ]
 
-" setlocal spell
-
 " move beginning of next/prev paragraph (for LimeLight.vim) rather than inbetween
 noremap <buffer> } }j
 noremap <buffer> <PageDown> }j

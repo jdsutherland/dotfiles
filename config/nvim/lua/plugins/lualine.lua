@@ -9,6 +9,15 @@ return {
       custom_kanagawa.insert.a.bg = colors.theme.syn.string
       custom_kanagawa.insert.b.fg = colors.theme.syn.string
 
+      local prose_filetypes = { markdown = true, text = true, gitcommit = true }
+      local function prose_word_count()
+        local count = vim.fn.wordcount()
+        if count.visual_words then
+          return string.format('%d/%d words', count.visual_words, count.words)
+        end
+        return string.format('%d words', count.words)
+      end
+
       require('lualine').setup{
         options = {
           theme = custom_kanagawa,
@@ -19,7 +28,10 @@ return {
           lualine_a = { {'mode', upper = true} },
           lualine_b = { {'branch', icon = ''}, 'diff', 'diagnostics' },
           lualine_c = { {'filename' } },
-          lualine_x = { 'filetype' },
+          lualine_x = {
+            { prose_word_count, cond = function() return prose_filetypes[vim.bo.filetype] end },
+            'filetype',
+          },
           lualine_y = { 'ConflictedVersion', 'progress' },
           lualine_z = { 'location' },
         },
