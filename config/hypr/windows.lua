@@ -1,9 +1,9 @@
 -- Personal window rules. See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
 
--- Omarchy's default terminals.lua tags terminals (incl. Ghostty) "terminal"
--- and applies opacity = "0.97 0.9" (focused/unfocused), letting the
--- wallpaper show through. Full opacity instead.
-o.window({ tag = "terminal" }, { opacity = "1.0 1.0" })
+-- Restore Omarchy's current subtle compositor opacity for terminals. This was
+-- forced to 1.0/1.0 in cb7f145 when Omarchy used a much stronger 0.97/0.9;
+-- current Omarchy defaults are a quieter 0.985/0.96 (focused/unfocused).
+o.window({ tag = "terminal" }, { opacity = "0.985 0.96" })
 
 -- Instant transitions everywhere (open/close/move/resize/fullscreen) --
 -- no per-window "just the fullscreen transition" option exists in
