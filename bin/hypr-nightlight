@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 # Night light: wlsunset with a sunset+2h start and sunrise end, using the
-# location omarchy stores for its weather widget (falls back to IP city).
+# location Omarchy stores for its weather widget (falls back to IP location).
 set -euo pipefail
 
-loc="$HOME/.local/state/omarchy/settings/weather.json"
-name=$(jq -r '.name // empty' "$loc" 2>/dev/null || true)
-lat=$(jq -r '.latitude // empty' "$loc" 2>/dev/null || true)
-lon=$(jq -r '.longitude // empty' "$loc" 2>/dev/null || true)
+location_file="$HOME/.local/state/omarchy/settings/weather.json"
+cache_dir="$HOME/.cache/hypr-nightlight"
+cache_file="$cache_dir/sun-times.json"
+
+name=$(jq -r '.name // empty' "$location_file" 2>/dev/null || true)
+lat=$(jq -r '.latitude // empty' "$location_file" 2>/dev/null || true)
+lon=$(jq -r '.longitude // empty' "$location_file" 2>/dev/null || true)
 
 query=""
 if [[ -n "$lat" && -n "$lon" ]]; then
@@ -15,18 +18,44 @@ elif [[ -n "$name" ]]; then
   query="$name"
 fi
 
-# Sunrise + sunset from wttr.in (the same source omarchy's weather widget uses).
-data=$(curl -fsS --max-time 5 "https://wttr.in/${query}?format=j1" 2>/dev/null | \
-  jq -er '[.weather[0].astronomy[0].sunrise, .weather[0].astronomy[0].sunset] | @tsv' 2>/dev/null) || {
-  notify-send -u critical "Night light" "Couldn't fetch sunrise/sunset"
-  exit 1
-}
-IFS=$'\t' read -r sunrise sunset <<< "$data"
+# wttr.in is often unavailable during the first seconds of login. Cache the
+# last successful response so night light can still start before the network.
+encoded_query=$(jq -rn --arg query "$query" '$query | @uri')
+data=""
+if data=$(curl -fsS --retry 2 --retry-all-errors --retry-delay 2 \
+  --connect-timeout 4 --max-time 15 "https://wttr.in/${encoded_query}?format=j1" 2>/dev/null | \
+  jq -er '[.weather[0].astronomy[0].sunrise, .weather[0].astronomy[0].sunset] | @tsv' 2>/dev/null); then
+  IFS=$'\t' read -r sunrise sunset <<< "$data"
+  mkdir -p "$cache_dir"
+  jq -n \
+    --arg query "$query" \
+    --arg sunrise "$sunrise" \
+    --arg sunset "$sunset" \
+    --arg fetched_at "$(date --iso-8601=seconds)" \
+    '{$query, $sunrise, $sunset, $fetched_at}' >"$cache_file.tmp"
+  mv "$cache_file.tmp" "$cache_file"
+  source_name="network"
+else
+  data=$(jq -er --arg query "$query" \
+    'select(.query == $query) | [.sunrise, .sunset] | @tsv' \
+    "$cache_file" 2>/dev/null || true)
+  if [[ -z "$data" ]]; then
+    notify-send -u critical "Night light" "Couldn't fetch sunrise/sunset and no cached times exist" 2>/dev/null || true
+    exit 1
+  fi
+  IFS=$'\t' read -r sunrise sunset <<< "$data"
+  source_name="cache"
+fi
 
 sunrise_24=$(date -d "$sunrise" +%H:%M 2>/dev/null || true)
 sunset_plus_2=$(date -d "$sunset + 2 hours" +%H:%M 2>/dev/null || true)
 [[ -n "$sunrise_24" && -n "$sunset_plus_2" ]] || exit 1
 
-# Replace any stale instance (also lets you re-run to recompute for today).
+printf 'location=%s source=%s sunrise=%s sunset+2h=%s\n' \
+  "${query:-IP-auto}" "$source_name" "$sunrise_24" "$sunset_plus_2"
+
+# The Omarchy nightlight toggle can leave hyprsunset running in a transient
+# scope. Only one color-temperature daemon should control the outputs.
+pkill -x hyprsunset 2>/dev/null || true
 pkill -x wlsunset 2>/dev/null || true
 exec wlsunset -S "$sunrise_24" -s "$sunset_plus_2" -t 4000 -T 6500

@@ -103,6 +103,13 @@ xdg-mime default sioyek.desktop application/pdf
 info "Symlinking dotfiles (rcup)"
 rcup -v
 
+# The unit files are now symlinked. Use the custom location-aware wlsunset
+# service instead of Omarchy's fixed-temperature hyprsunset process.
+info "Enabling location-aware night light"
+systemctl --user disable --now hyprsunset.service 2>/dev/null || true
+systemctl --user daemon-reload
+systemctl --user enable --now hypr-nightlight.service hypr-nightlight-refresh.timer
+
 # 9. Language runtimes, from ~/.config/mise/config.toml (symlinked by rcup
 # in step 8 — mise's true global config, so it applies everywhere; see
 # README.md for why that matters vs. a bare .tool-versions file).
