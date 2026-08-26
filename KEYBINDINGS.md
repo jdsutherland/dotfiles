@@ -93,6 +93,10 @@ focused (cleared on focus-out); autostarted by Hyprland, see
 | Chrome | ctrl+d | Close tab (`ctrl+w`) | — |
 | Chrome | super+a / f / g | Select all / find / find next (`ctrl+a` / `ctrl+f` / `ctrl+g`) | Cmd+A / Cmd+F / Cmd+G |
 | Chrome | super+n | New incognito window (`ctrl+shift+n`) | Cmd+Shift+N |
+| Vesktop | ctrl+1…9 | Native numeric channel selection (passed through) | Discord native |
+| Vesktop | ctrl+n / p | Next / previous channel | Discord Alt+Down / Alt+Up |
+| Vesktop | ctrl+j / k | Next / previous unread channel | Discord Alt+Shift+Down / Alt+Shift+Up |
+| Vesktop | ctrl+h / l, ctrl+o / i | Back / forward | Discord Alt+Left / Alt+Right |
 
 ---
 
@@ -226,7 +230,7 @@ layer (see keyd section), not Caps Lock.
 | hyper+c | Focus/launch ChatGPT (webapp) |
 | hyper+z | Focus/launch Gemini (webapp) |
 | hyper+r | Focus/launch LibreOffice Calc (Excel equivalent) |
-| hyper+d | Focus/launch Discord (webapp) |
+| hyper+d | Focus/launch Vesktop |
 | hyper+v | Focus/launch mpv |
 | hyper+b | Focus/launch Chrome |
 | hyper+\` | Focus/launch WhatsApp (webapp) |

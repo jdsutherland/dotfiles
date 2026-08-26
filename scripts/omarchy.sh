@@ -13,11 +13,12 @@ set -euo pipefail
 #   4. Maple Mono NF   (AUR font, matches the mac machine)
 #   5. Google Chrome   (default browser; see keyd/app.conf + ghostty config)
 #   6. voxtype         (AI dictation)
-#   7. Sioyek          (content-aware PDF reader; AUR)
-#   8. rcup            (symlink the dotfiles)
-#   9. mise install    (language runtimes from ~/.config/mise/config.toml)
-#  10. bat cache       (register custom bat themes)
-#  11. Destructive Command Guard (agent safety)
+#   7. Vesktop         (Wayland-friendly Discord client; AUR)
+#   8. Sioyek          (content-aware PDF reader; AUR)
+#   9. rcup            (symlink the dotfiles)
+#  10. mise install    (language runtimes from ~/.config/mise/config.toml)
+#  11. bat cache       (register custom bat themes)
+#  12. Destructive Command Guard (agent safety)
 
 DOTFILES="$HOME/.dotfiles"
 
@@ -91,7 +92,15 @@ if ! command -v voxtype >/dev/null 2>&1; then
   omarchy-voxtype-install
 fi
 
-# 7. Sioyek — content-aware PDF fitting that ignores page margins. Development
+# 7. Vesktop — Wayland-friendly Discord desktop client with Vencord built in.
+# Remove Omarchy's Chrome Discord webapp so there is only one launcher.
+if ! command -v vesktop >/dev/null 2>&1; then
+  info "Installing Vesktop"
+  omarchy pkg aur add vesktop
+fi
+OMARCHY_REMOVE_NOTIFY=false omarchy webapp remove Discord
+
+# 8. Sioyek — content-aware PDF fitting that ignores page margins. Development
 # package is used because the stable 2.0.0 AppImage package is years behind.
 if ! command -v sioyek >/dev/null 2>&1; then
   info "Installing Sioyek PDF reader"
@@ -99,7 +108,7 @@ if ! command -v sioyek >/dev/null 2>&1; then
 fi
 xdg-mime default sioyek.desktop application/pdf
 
-# 8. Symlink dotfiles (rcup prompts before overwriting anything that exists)
+# 9. Symlink dotfiles (rcup prompts before overwriting anything that exists)
 info "Symlinking dotfiles (rcup)"
 rcup -v
 
@@ -110,25 +119,25 @@ systemctl --user disable --now hyprsunset.service 2>/dev/null || true
 systemctl --user daemon-reload
 systemctl --user enable --now hypr-nightlight.service hypr-nightlight-refresh.timer
 
-# 9. Language runtimes, from ~/.config/mise/config.toml (symlinked by rcup
-# in step 8 — mise's true global config, so it applies everywhere; see
+# 10. Language runtimes, from ~/.config/mise/config.toml (symlinked by rcup
+# in step 9 — mise's true global config, so it applies everywhere; see
 # README.md for why that matters vs. a bare .tool-versions file).
 if command -v mise >/dev/null 2>&1; then
   info "Installing language runtimes (mise)"
   mise install
 fi
 
-# 10. bat theme cache. bat only picks up ~/.config/bat/themes/*.tmTheme once
+# 11. bat theme cache. bat only picks up ~/.config/bat/themes/*.tmTheme once
 # this cache is built; until then the --theme name in config/bat/config
 # doesn't resolve and bat silently falls back to its built-in default, which
 # looks close enough to the real theme to be confusing. Must run after rcup,
-# since the themes are symlinked in step 7.
+# since the themes are symlinked in step 9.
 if command -v bat >/dev/null 2>&1; then
   info "Building bat theme cache"
   bat cache --build
 fi
 
-# 11. Destructive Command Guard (agent safety) — same as scripts/install.sh
+# 12. Destructive Command Guard (agent safety) — same as scripts/install.sh
 DCG_BIN="${DCG_BIN:-$HOME/.local/bin/dcg}"
 if [[ ! -x "$DCG_BIN" ]]; then
   curl -fsSL "https://raw.githubusercontent.com/Dicklesworthstone/destructive_command_guard/main/install.sh?$(date +%s)" | bash -s -- --easy-mode

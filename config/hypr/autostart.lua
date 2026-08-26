@@ -52,9 +52,9 @@ local startup_apps = {
   },
   {
     workspace = "7",
-    class = "chrome-discord.com__channels_@me-Default",
-    match = "^chrome-discord\\.com__channels_@me-Default$",
-    command = o.launch_webapp("https://discord.com/channels/@me"),
+    class = "vesktop",
+    match = "^vesktop$",
+    command = o.launch("vesktop"),
   },
   {
     workspace = "8",

@@ -39,7 +39,7 @@ hl.unbind("SUPER + SHIFT + BACKSPACE")
 hl.unbind("SUPER + P")
 o.bind("SUPER + P", "Sioyek", { launch = "sioyek", focus = "^sioyek$" })
 
--- Hyper (right_control held, via keyd -> ctrl+super+alt+shift) app-focus
+-- Hyper (rightalt held, via keyd -> ctrl+super+alt+shift) app-focus
 -- binds, ported from mac Hammerspoon. See KEYBINDINGS.md. Coexists with
 -- Omarchy's own SUPER-based defaults rather than replacing any of them.
 o.bind("SUPER + SHIFT + ALT + CTRL + T", "Ghostty", { launch = "ghostty --gtk-single-instance=true", focus = "^com.mitchellh.ghostty$" })
@@ -48,7 +48,7 @@ o.bind("SUPER + SHIFT + ALT + CTRL + P", "Sioyek", { launch = "sioyek", focus = 
 o.bind("SUPER + SHIFT + ALT + CTRL + C", "ChatGPT", { webapp = "https://chatgpt.com", focus = true })
 o.bind("SUPER + SHIFT + ALT + CTRL + Z", "Gemini", { webapp = "https://gemini.google.com", focus = true })
 o.bind("SUPER + SHIFT + ALT + CTRL + R", "LibreOffice Calc", { launch = "libreoffice --calc", focus = "^libreoffice-calc$" })
-o.bind("SUPER + SHIFT + ALT + CTRL + D", "Discord", { webapp = "https://discord.com/channels/@me", focus = true })
+o.bind("SUPER + SHIFT + ALT + CTRL + D", "Vesktop", { launch = "vesktop", focus = "^vesktop$" })
 -- mpv: hyper+V cycles through open mpv windows on repeated presses (each
 -- press focuses the next one), and launches a new instance when none exist.
 -- Plain launch+focus (like the other hyper binds here) always jumps to the
