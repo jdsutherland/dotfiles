@@ -28,6 +28,12 @@
 -- o.bind("SUPER + H", nil, "voxtype record toggle")
 -- o.bind("SUPER + PERIOD", nil, { omarchy = "walker -m symbols" })
 
+-- This Omarchy toggle sets the global border size to zero, overriding the
+-- dynamic one-window border rule in looknfeel.lua. Gaps are already fixed at
+-- zero there, so the toggle is both redundant and harmful for this setup.
+-- SUPER+SHIFT+BACKSPACE was "Toggle window gaps".
+hl.unbind("SUPER + SHIFT + BACKSPACE")
+
 -- SUPER+P was Omarchy's "Pseudo window" toggle. Use it for the default PDF
 -- reader instead; launch-or-focus avoids opening duplicate empty windows.
 hl.unbind("SUPER + P")
