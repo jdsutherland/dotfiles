@@ -93,6 +93,7 @@ focused (cleared on focus-out); autostarted by Hyprland, see
 | Chrome | ctrl+d | Close tab (`ctrl+w`) | — |
 | Chrome | super+a / f / g | Select all / find / find next (`ctrl+a` / `ctrl+f` / `ctrl+g`) | Cmd+A / Cmd+F / Cmd+G |
 | Chrome | super+n | New incognito window (`ctrl+shift+n`) | Cmd+Shift+N |
+| ChatGPT / Gemini | ctrl+n | Start a new chat (`ctrl+shift+o` natively) | — |
 | Vesktop | ctrl+1…9 | Native numeric channel selection (passed through) | Discord native |
 | Vesktop | ctrl+n / p | Next / previous channel | Discord Alt+Down / Alt+Up |
 | Vesktop | ctrl+j / k | Next / previous unread channel | Discord Alt+Shift+Down / Alt+Shift+Up |
