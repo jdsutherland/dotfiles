@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "AI Webapp Shortcuts",
+  "version": "1.0.0",
+  "description": "Consistent sidebar and chat-search shortcuts for ChatGPT and Gemini.",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://gemini.google.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

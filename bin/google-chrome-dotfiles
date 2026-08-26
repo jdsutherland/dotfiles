@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Add personal unpacked extensions without replacing Omarchy's extension list.
+# chrome-flags.conf is parsed one argument per non-comment line, matching the
+# AUR google-chrome wrapper while letting this script extend --load-extension
+# with a path derived portably from $HOME.
+flags_file="${XDG_CONFIG_HOME:-$HOME/.config}/chrome-flags.conf"
+ai_extension="$HOME/.config/chrome-extensions/ai-webapp-shortcuts"
+extensions=""
+flags=()
+
+if [[ -f "$flags_file" ]]; then
+  while IFS= read -r flag; do
+    [[ -z "$flag" || "$flag" == \#* ]] && continue
+    if [[ "$flag" == --load-extension=* ]]; then
+      extensions="${flag#--load-extension=}"
+    else
+      flags+=("$flag")
+    fi
+  done < "$flags_file"
+fi
+
+if [[ -n "$extensions" ]]; then
+  extensions+=",$ai_extension"
+else
+  extensions="$ai_extension"
+fi
+
+exec /opt/google/chrome/google-chrome "${flags[@]}" --load-extension="$extensions" "$@"

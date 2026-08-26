@@ -18,7 +18,7 @@ local startup_apps = {
     workspace = "1",
     class = "google-chrome",
     match = "^google-chrome$",
-    command = o.launch("google-chrome-stable"),
+    command = o.launch("google-chrome-dotfiles"),
   },
   {
     workspace = "2",

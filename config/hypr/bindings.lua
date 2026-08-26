@@ -83,7 +83,7 @@ local function cycle_or_launch_mpv()
   hl.dispatch(hl.dsp.focus({ window = "address:" .. next_win.address }))
 end
 o.bind("SUPER + SHIFT + ALT + CTRL + V", "mpv (cycle windows)", cycle_or_launch_mpv)
-o.bind("SUPER + SHIFT + ALT + CTRL + B", "Chrome", { launch = "google-chrome-stable", focus = "^google-chrome$" })
+o.bind("SUPER + SHIFT + ALT + CTRL + B", "Chrome", { launch = "google-chrome-dotfiles", focus = "^google-chrome$" })
 -- xkbcommon names the grave keysym "grave"; the upper-case "GRAVE" does not match.
 o.bind("SUPER + SHIFT + ALT + CTRL + grave", "WhatsApp", { webapp = "https://web.whatsapp.com/", focus = true })
 o.bind("SUPER + SHIFT + ALT + CTRL + E", "Obsidian", { launch = "obsidian", focus = "obsidian" })

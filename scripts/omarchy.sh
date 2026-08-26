@@ -111,6 +111,7 @@ xdg-mime default sioyek.desktop application/pdf
 # 9. Symlink dotfiles (rcup prompts before overwriting anything that exists)
 info "Symlinking dotfiles (rcup)"
 rcup -v
+update-desktop-database "$HOME/.local/share/applications"
 
 # The unit files are now symlinked. Use the custom location-aware wlsunset
 # service instead of Omarchy's fixed-temperature hyprsunset process.
