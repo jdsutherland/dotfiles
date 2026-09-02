@@ -6,7 +6,9 @@ set -euo pipefail
 # AUR google-chrome wrapper while letting this script extend --load-extension
 # with a path derived portably from $HOME.
 flags_file="${XDG_CONFIG_HOME:-$HOME/.config}/chrome-flags.conf"
-ai_extension="$HOME/.config/chrome-extensions/ai-webapp-shortcuts"
+# Use the real repository path: Chrome silently skips unpacked extensions whose
+# manifest/content files are reached through rcm's per-file symlinks.
+ai_extension="$HOME/.dotfiles/config/chrome-extensions/ai-webapp-shortcuts"
 extensions=""
 flags=()
 
