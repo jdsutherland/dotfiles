@@ -23,6 +23,11 @@
 -- Disable a default binding without replacing it.
 -- hl.unbind("SUPER + SHIFT + B")
 
+-- SUPER+CTRL+F was Omarchy's tiled-fullscreen toggle. Make it use true
+-- fullscreen instead; SUPER+F remains the original fullscreen binding.
+hl.unbind("SUPER + CTRL + F")
+o.bind("SUPER + CTRL + F", "Full screen", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
+
 -- Logitech MX Keys examples:
 -- o.bind("SUPER + SHIFT + S", nil, "omarchy-capture-screenshot")
 -- o.bind("SUPER + H", nil, "voxtype record toggle")
