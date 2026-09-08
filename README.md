@@ -53,8 +53,8 @@ exists).
    `keyd/default.conf` to `/etc/keyd/default.conf`
    (`/etc` is root-owned, so rcm can't manage it directly),
 4. installs Maple Mono NF and sets it system-wide,
-5. installs Google Chrome and sets it as the default browser + Ghostty as
-   the default terminal,
+5. replaces Chromium with Google Chrome, sets Chrome as the default browser,
+   and sets Ghostty as the default terminal,
 6. installs voxtype (AI dictation), Vesktop, and Sioyek,
 7. runs `rcup` to symlink the dotfiles,
 8. enables the location-aware night light,

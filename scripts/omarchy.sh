@@ -12,7 +12,7 @@ set -euo pipefail
 #   3. AUR packages     (portable additions from omarchy.aur.packages)
 #   4. keyd              (system-wide key remapping; official 'extra' repo)
 #   5. Maple Mono NF     (AUR font, matches the mac machine)
-#   6. Google Chrome     (default browser; see keyd/app.conf + ghostty config)
+#   6. Google Chrome     (replace Chromium and become the default browser)
 #   7. voxtype           (AI dictation)
 #   8. Vesktop           (Wayland-friendly Discord client; AUR)
 #   9. Sioyek            (content-aware PDF reader; AUR)
@@ -91,12 +91,17 @@ if ! fc-list | grep -qi "Maple Mono NF"; then
   omarchy-font-set 'Maple Mono NF'
 fi
 
-# 6. Google Chrome, set as default browser + terminal
+# 6. Replace Omarchy's stock Chromium with Google Chrome, then set the
+# application defaults used by launchers and terminal bindings.
 if ! command -v google-chrome-stable >/dev/null 2>&1; then
   info "Installing Google Chrome"
   omarchy install browser chrome
 fi
 omarchy default browser chrome
+if omarchy pkg present chromium; then
+  info "Removing Chromium"
+  omarchy pkg drop chromium
+fi
 omarchy default terminal ghostty
 
 # 7. voxtype (AI dictation) — interactive installer; run manually if this
