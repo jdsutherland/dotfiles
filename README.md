@@ -41,24 +41,25 @@ Prerequisite: an installed [Omarchy][] system (this only layers dotfiles on
 top of it — see `scripts/omarchy.sh` for exactly what it assumes already
 exists).
 
-    $ git clone https://github.com/jdsutherland/dotfiles.git ~/.dotfiles
+    $ git clone --branch omarchy-parity --single-branch https://github.com/jdsutherland/dotfiles.git ~/.dotfiles
     $ ~/.dotfiles/scripts/omarchy.sh
 
 `scripts/omarchy.sh` is idempotent and:
 
 1. installs [rcm][] (AUR, via `yay`, since Omarchy doesn't ship it),
-2. installs the extra packages this repo depends on beyond Omarchy's own
-   defaults (`omarchy.packages`),
-3. installs keyd and symlinks `keyd/default.conf` to `/etc/keyd/default.conf`
+2. restores the portable official and AUR package sets from
+   `omarchy.packages` and `omarchy.aur.packages`,
+3. installs keyd, adds the user to its group, and symlinks
+   `keyd/default.conf` to `/etc/keyd/default.conf`
    (`/etc` is root-owned, so rcm can't manage it directly),
-4. installs Maple Mono NF (AUR font, matches the mac machine) and sets it
-   system-wide,
+4. installs Maple Mono NF and sets it system-wide,
 5. installs Google Chrome and sets it as the default browser + Ghostty as
    the default terminal,
-6. installs voxtype (AI dictation),
+6. installs voxtype (AI dictation), Vesktop, and Sioyek,
 7. runs `rcup` to symlink the dotfiles,
-8. runs `mise install` for language runtimes from `config/mise/config.toml`,
-9. installs Destructive Command Guard (agent safety).
+8. enables the location-aware night light,
+9. runs `mise install` for language runtimes from `config/mise/config.toml`,
+10. builds the bat theme cache and installs Destructive Command Guard.
 
 Known gap: the internal PDM mic has no upstream ALSA UCM profile (AMD ACP
 7.0 / Strix Halo) — voxtype needs an external mic until that's fixed
@@ -82,12 +83,12 @@ Regenerate the `Brewfile` (macOS) from the current install with:
 
     $ brew bundle dump --force --describe --file=~/.dotfiles/Brewfile
 
-`omarchy.packages` (Omarchy) is hand-curated rather than auto-regenerated —
-it's a deliberate subset of `pacman -Qqe`, diffed against Omarchy's own
-`/usr/share/omarchy/install/omarchy-{base,other}.packages` and filtered down
-to what this repo actually depends on. Re-diff and re-curate by hand when
-adding a new dependency; don't dump the raw diff in, since most of it is
-either personal app installs or tools already covered by mise.
+`omarchy.packages` and `omarchy.aur.packages` are hand-curated rather than
+auto-regenerated. They restore the portable packages used on this setup while
+excluding Omarchy's baseline, hardware-specific packages, language runtimes
+already covered by mise, and packages with dedicated installer steps. Audit
+`pacman -Qqe` against `/usr/share/omarchy/install/omarchy-{base,other}.packages`
+and re-curate both lists when packages are added or removed.
 
 [zinit]:https://github.com/zdharma-continuum/zinit
 [powerlevel10k]:https://github.com/romkatv/powerlevel10k
