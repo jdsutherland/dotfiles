@@ -18,3 +18,6 @@ gh = "latest"
 codex = "latest"
 yt-dlp = "latest"
 "github:can1357/oh-my-pi" = "latest"
+
+[settings.upgrade]
+auto_prune = false
