@@ -159,6 +159,8 @@ if [[ ! -x "$DCG_BIN" ]]; then
 fi
 
 info "Done. Reboot or log out completely so keyd group membership takes effect."
-echo "Known gap: the internal PDM mic has no upstream ALSA UCM profile"
-echo "(AMD ACP 7.0 / Strix Halo) — voxtype needs an external mic until"
-echo "that's fixed upstream (alsa-ucm-conf issue #745)."
+if lspci -Dn | grep -qi '1022:15e2'; then
+  echo "Known gap: the internal PDM mic has no upstream ALSA UCM profile"
+  echo "(AMD ACP 7.0 / Strix Halo) — voxtype needs an external mic until"
+  echo "that's fixed upstream (alsa-ucm-conf issue #745)."
+fi
