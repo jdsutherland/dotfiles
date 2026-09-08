@@ -7,18 +7,19 @@ set -euo pipefail
 # Omarchy itself is assumed to already be installed — this only layers our
 # customizations on top of it:
 #
-#   1. rcm            (provides rcup; AUR, since Omarchy doesn't ship it)
-#   2. omarchy.packages (extra official-repo packages, see that file)
-#   3. keyd            (system-wide key remapping; official 'extra' repo)
-#   4. Maple Mono NF   (AUR font, matches the mac machine)
-#   5. Google Chrome   (default browser; see keyd/app.conf + ghostty config)
-#   6. voxtype         (AI dictation)
-#   7. Vesktop         (Wayland-friendly Discord client; AUR)
-#   8. Sioyek          (content-aware PDF reader; AUR)
-#   9. rcup            (symlink the dotfiles)
-#  10. mise install    (language runtimes from ~/.config/mise/config.toml)
-#  11. bat cache       (register custom bat themes)
-#  12. Destructive Command Guard (agent safety)
+#   1. rcm              (provides rcup; AUR, since Omarchy doesn't ship it)
+#   2. repo packages    (portable additions from omarchy.packages)
+#   3. AUR packages     (portable additions from omarchy.aur.packages)
+#   4. keyd              (system-wide key remapping; official 'extra' repo)
+#   5. Maple Mono NF     (AUR font, matches the mac machine)
+#   6. Google Chrome     (default browser; see keyd/app.conf + ghostty config)
+#   7. voxtype           (AI dictation)
+#   8. Vesktop           (Wayland-friendly Discord client; AUR)
+#   9. Sioyek            (content-aware PDF reader; AUR)
+#  10. rcup              (symlink the dotfiles)
+#  11. mise install      (language runtimes from ~/.config/mise/config.toml)
+#  12. bat cache         (register custom bat themes)
+#  13. Destructive Command Guard (agent safety)
 
 DOTFILES="$HOME/.dotfiles"
 
@@ -51,12 +52,17 @@ if [[ ! -e "$HOME/.rcrc" ]]; then
   ln -s "$DOTFILES/rcrc" "$HOME/.rcrc"
 fi
 
-# 2. Extra official-repo packages this setup depends on beyond Omarchy's
-# own defaults (see omarchy.packages for what and why).
-info "Installing extra packages"
-sudo pacman -S --needed --noconfirm $(grep -vE '^\s*#|^\s*$' "$DOTFILES/omarchy.packages")
+# 2. Portable official-repository packages beyond Omarchy's defaults.
+mapfile -t repo_packages < <(grep -vE '^\s*#|^\s*$' "$DOTFILES/omarchy.packages")
+info "Installing extra repository packages"
+sudo pacman -S --needed --noconfirm "${repo_packages[@]}"
 
-# 3. keyd — system-wide key remapping daemon
+# 3. Portable AUR packages that do not need their own setup step.
+mapfile -t aur_packages < <(grep -vE '^\s*#|^\s*$' "$DOTFILES/omarchy.aur.packages")
+info "Installing extra AUR packages"
+omarchy pkg aur add "${aur_packages[@]}"
+
+# 4. keyd — system-wide key remapping daemon
 if ! command -v keyd >/dev/null 2>&1; then
   info "Installing keyd"
   sudo pacman -S --needed --noconfirm keyd
@@ -78,14 +84,14 @@ fi
 # keyd-application-mapper is bundled with keyd and autostarted by Hyprland
 # (config/hypr/autostart.lua), not started here.
 
-# 4. Maple Mono NF font
+# 5. Maple Mono NF font
 if ! fc-list | grep -qi "Maple Mono NF"; then
   info "Installing Maple Mono NF"
   omarchy-pkg-aur-add maplemono-nf
   omarchy-font-set 'Maple Mono NF'
 fi
 
-# 5. Google Chrome, set as default browser + terminal
+# 6. Google Chrome, set as default browser + terminal
 if ! command -v google-chrome-stable >/dev/null 2>&1; then
   info "Installing Google Chrome"
   omarchy install browser chrome
@@ -93,14 +99,14 @@ fi
 omarchy default browser chrome
 omarchy default terminal ghostty
 
-# 6. voxtype (AI dictation) — interactive installer; run manually if this
+# 7. voxtype (AI dictation) — interactive installer; run manually if this
 # step is skipped in a non-interactive shell.
 if ! command -v voxtype >/dev/null 2>&1; then
   info "Installing voxtype"
   omarchy-voxtype-install
 fi
 
-# 7. Vesktop — Wayland-friendly Discord desktop client with Vencord built in.
+# 8. Vesktop — Wayland-friendly Discord desktop client with Vencord built in.
 # Remove Omarchy's Chrome Discord webapp so there is only one launcher.
 if ! command -v vesktop >/dev/null 2>&1; then
   info "Installing Vesktop"
@@ -108,7 +114,7 @@ if ! command -v vesktop >/dev/null 2>&1; then
 fi
 OMARCHY_REMOVE_NOTIFY=false omarchy webapp remove Discord
 
-# 8. Sioyek — content-aware PDF fitting that ignores page margins. Development
+# 9. Sioyek — content-aware PDF fitting that ignores page margins. Development
 # package is used because the stable 2.0.0 AppImage package is years behind.
 if ! command -v sioyek >/dev/null 2>&1; then
   info "Installing Sioyek PDF reader"
@@ -116,7 +122,7 @@ if ! command -v sioyek >/dev/null 2>&1; then
 fi
 xdg-mime default sioyek.desktop application/pdf
 
-# 9. Symlink dotfiles (rcup prompts before overwriting anything that exists)
+# 10. Symlink dotfiles (rcup prompts before overwriting anything that exists)
 info "Symlinking dotfiles (rcup)"
 rcup -v
 update-desktop-database "$HOME/.local/share/applications"
@@ -128,25 +134,25 @@ systemctl --user disable --now hyprsunset.service 2>/dev/null || true
 systemctl --user daemon-reload
 systemctl --user enable --now hypr-nightlight.service hypr-nightlight-refresh.timer
 
-# 10. Language runtimes, from ~/.config/mise/config.toml (symlinked by rcup
-# in step 9 — mise's true global config, so it applies everywhere; see
+# 11. Language runtimes, from ~/.config/mise/config.toml (symlinked by rcup
+# in step 10 — mise's true global config, so it applies everywhere; see
 # README.md for why that matters vs. a bare .tool-versions file).
 if command -v mise >/dev/null 2>&1; then
   info "Installing language runtimes (mise)"
   mise install
 fi
 
-# 11. bat theme cache. bat only picks up ~/.config/bat/themes/*.tmTheme once
+# 12. bat theme cache. bat only picks up ~/.config/bat/themes/*.tmTheme once
 # this cache is built; until then the --theme name in config/bat/config
 # doesn't resolve and bat silently falls back to its built-in default, which
 # looks close enough to the real theme to be confusing. Must run after rcup,
-# since the themes are symlinked in step 9.
+# since the themes are symlinked in step 10.
 if command -v bat >/dev/null 2>&1; then
   info "Building bat theme cache"
   bat cache --build
 fi
 
-# 12. Destructive Command Guard (agent safety) — same as scripts/install.sh
+# 13. Destructive Command Guard (agent safety) — same as scripts/install.sh
 DCG_BIN="${DCG_BIN:-$HOME/.local/bin/dcg}"
 if [[ ! -x "$DCG_BIN" ]]; then
   curl -fsSL "https://raw.githubusercontent.com/Dicklesworthstone/destructive_command_guard/main/install.sh?$(date +%s)" | bash -s -- --easy-mode

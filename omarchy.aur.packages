@@ -1,0 +1,7 @@
+# Portable AUR packages installed on this setup that do not need a dedicated
+# bootstrap action. Installed via `omarchy pkg aur add` in scripts/omarchy.sh.
+# Packages requiring additional setup (rcm, Maple Mono, Chrome, Voxtype,
+# Vesktop, and Sioyek) remain explicit steps in that script.
+
+ai-usagebar-bin
+ttf-literata

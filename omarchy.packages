@@ -1,13 +1,11 @@
-# Extra packages this dotfiles repo depends on, beyond Omarchy's own
-# defaults (see /usr/share/omarchy/install/omarchy-{base,other}.packages
-# on an Omarchy machine for the baseline this was diffed against).
+# Portable official-repository packages to restore on top of a fresh Omarchy
+# install. This is curated from `pacman -Qqe`: Omarchy's own baseline,
+# hardware-specific packages, duplicate language runtimes managed by mise, and
+# packages with dedicated bootstrap steps are intentionally omitted.
 # Installed via `pacman -S --needed` in scripts/omarchy.sh.
-#
-# AUR-only dependencies (rcm, maplemono-nf, google-chrome, voxtype-bin) have
-# their own dedicated install steps in scripts/omarchy.sh instead of living
-# here, since each needs more than a plain package install (a helper
-# script, a font-set call, a default-browser call, etc).
 
+# Dotfile and shell dependencies
+bc
 gemini-cli
 ghostty
 git-delta
@@ -17,3 +15,36 @@ tree
 vivid
 wlsunset
 zsh
+
+# Additional CLI and development tools
+bpftrace
+dust
+fish
+hurl
+iotop
+lsof
+mitmproxy
+onefetch
+strace
+sysstat
+tealdeer
+tokei
+uv
+viu
+xh
+
+# Applications, services, and supporting packages
+1password
+1password-cli
+anki
+foliate
+freerdp
+fwupd
+minecraft-launcher
+noto-fonts-extra
+openbsd-netcat
+signal-desktop
+spotify
+tailscale
+typora
+xmlstarlet

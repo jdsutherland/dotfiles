@@ -1,4 +1,4 @@
-EXCLUDES="README.md scripts .gitignore AGENTS.md KEYBINDINGS.md"
+EXCLUDES="README.md scripts .gitignore AGENTS.md KEYBINDINGS.md omarchy.packages omarchy.aur.packages"
 
 # keyd/default.conf lives in the repo for version control but is installed to
 # /etc/keyd/default.conf by scripts/omarchy.sh, not symlinked into $HOME.
@@ -10,7 +10,7 @@ case "$(uname -s)" in
   Darwin)
     TAGS="mac"
     # Linux-only; nothing on macOS reads these, so don't clutter $HOME.
-    EXCLUDES="$EXCLUDES omarchy.packages config/hypr config/keyd config/voxtype"
+    EXCLUDES="$EXCLUDES config/hypr config/keyd config/voxtype"
     ;;
   Linux)
     TAGS="omarchy"
