@@ -8,7 +8,7 @@ set -euo pipefail
 # customizations on top of it:
 #
 #   1. rcm              (provides rcup; AUR, since Omarchy doesn't ship it)
-#   2. repo packages    (portable additions from omarchy.packages)
+#   2. repo packages    (portable additions + zsh as the login shell)
 #   3. AUR packages     (portable additions from omarchy.aur.packages)
 #   4. keyd              (system-wide key remapping; official 'extra' repo)
 #   5. Maple Mono NF     (AUR font, matches the mac machine)
@@ -57,6 +57,16 @@ mapfile -t repo_packages < <(grep -vE '^\s*#|^\s*$' "$DOTFILES/omarchy.packages"
 info "Installing extra repository packages"
 sudo pacman -S --needed --noconfirm "${repo_packages[@]}"
 
+# Omarchy defaults to Bash. This repo's interactive shell configuration lives
+# in ~/.zshrc, so make zsh the account's login shell for the next full login.
+login_user="$(id -un)"
+zsh_path="$(command -v zsh)"
+current_shell="$(getent passwd "$login_user" | cut -d: -f7)"
+if [[ "$current_shell" != "$zsh_path" ]]; then
+  info "Setting zsh as the default shell for $login_user"
+  sudo usermod --shell "$zsh_path" "$login_user"
+fi
+
 # 3. Portable AUR packages that do not need their own setup step.
 mapfile -t aur_packages < <(grep -vE '^\s*#|^\s*$' "$DOTFILES/omarchy.aur.packages")
 info "Installing extra AUR packages"
@@ -77,9 +87,9 @@ sudo systemctl enable --now keyd
 # The daemon socket is restricted to the keyd group. The global remaps above
 # work without this, but keyd-application-mapper cannot apply app-specific
 # overlays until the login session has picked up the supplementary group.
-if ! id -nG "$(id -un)" | tr ' ' '\n' | grep -qx keyd; then
-  info "Adding $(id -un) to the keyd group"
-  sudo usermod -aG keyd "$(id -un)"
+if ! id -nG "$login_user" | tr ' ' '\n' | grep -qx keyd; then
+  info "Adding $login_user to the keyd group"
+  sudo usermod -aG keyd "$login_user"
 fi
 # keyd-application-mapper is bundled with keyd and autostarted by Hyprland
 # (config/hypr/autostart.lua), not started here.

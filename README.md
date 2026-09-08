@@ -48,7 +48,7 @@ exists).
 
 1. installs [rcm][] (AUR, via `yay`, since Omarchy doesn't ship it),
 2. restores the portable official and AUR package sets from
-   `omarchy.packages` and `omarchy.aur.packages`,
+   `omarchy.packages` and `omarchy.aur.packages`, then makes zsh the login shell,
 3. installs keyd, adds the user to its group, and symlinks
    `keyd/default.conf` to `/etc/keyd/default.conf`
    (`/etc` is root-owned, so rcm can't manage it directly),
