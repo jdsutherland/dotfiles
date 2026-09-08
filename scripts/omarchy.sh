@@ -67,6 +67,14 @@ if [[ ! -e /etc/keyd/default.conf ]]; then
   sudo ln -sf "$DOTFILES/keyd/default.conf" /etc/keyd/default.conf
 fi
 sudo systemctl enable --now keyd
+
+# The daemon socket is restricted to the keyd group. The global remaps above
+# work without this, but keyd-application-mapper cannot apply app-specific
+# overlays until the login session has picked up the supplementary group.
+if ! id -nG "$(id -un)" | tr ' ' '\n' | grep -qx keyd; then
+  info "Adding $(id -un) to the keyd group"
+  sudo usermod -aG keyd "$(id -un)"
+fi
 # keyd-application-mapper is bundled with keyd and autostarted by Hyprland
 # (config/hypr/autostart.lua), not started here.
 
@@ -144,7 +152,7 @@ if [[ ! -x "$DCG_BIN" ]]; then
   curl -fsSL "https://raw.githubusercontent.com/Dicklesworthstone/destructive_command_guard/main/install.sh?$(date +%s)" | bash -s -- --easy-mode
 fi
 
-info "Done. Open a new shell."
+info "Done. Reboot or log out completely so keyd group membership takes effect."
 echo "Known gap: the internal PDM mic has no upstream ALSA UCM profile"
 echo "(AMD ACP 7.0 / Strix Halo) — voxtype needs an external mic until"
 echo "that's fixed upstream (alsa-ucm-conf issue #745)."
