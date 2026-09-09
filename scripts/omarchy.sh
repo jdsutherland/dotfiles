@@ -179,3 +179,5 @@ if lspci -Dn | grep -qi '1022:15e2'; then
   echo "(AMD ACP 7.0 / Strix Halo) — voxtype needs an external mic until"
   echo "that's fixed upstream (alsa-ucm-conf issue #745)."
 fi
+
+omarchy theme install https://github.com/bjarneo/omarchy-kanagawa-dragon-theme
