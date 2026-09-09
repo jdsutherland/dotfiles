@@ -18,11 +18,12 @@ set -euo pipefail
 #   9. Sioyek            (content-aware PDF reader; AUR)
 #  10. rcup              (symlink the dotfiles)
 #  11. tmux plugins      (TPM and configured plugins)
-#  12. mise install      (language runtimes from ~/.config/mise/config.toml)
-#  13. Amp               (AI coding agent)
-#  14. dev-brief         (clone/update the private Chrome extension)
-#  15. bat cache         (register custom bat themes)
-#  16. Destructive Command Guard (agent safety)
+#  12. mise install      (language runtimes and standalone CLI tools)
+#  13. Fleet + sessions  (tmux agent dashboard and searchable agent history)
+#  14. Amp               (AI coding agent)
+#  15. dev-brief         (clone/update the private Chrome extension)
+#  16. bat cache         (register custom bat themes)
+#  17. Destructive Command Guard (agent safety)
 
 DOTFILES="$HOME/.dotfiles"
 DEV_BRIEF_DIR="$HOME/code/me/dev-brief"
@@ -183,13 +184,38 @@ if command -v mise >/dev/null 2>&1; then
   mise install
 fi
 
-# 13. Amp coding agent, using its official installer.
+# 13. Fleet and sessions. mise's GitHub backend extracts Fleet's release
+# archive with the binary and support files in the same directory, while Fleet
+# expects a Homebrew-like bin/../hooks layout. Stable links at the backend root
+# give its installers an upgrade-safe plugin location.
+if command -v fleet >/dev/null 2>&1; then
+  info "Configuring Fleet agent integrations"
+  fleet_dir="$(mise where 'github:nicknisi/fleet')"
+  fleet_root="$(dirname "$fleet_dir")"
+  fleet_version="$(basename "$fleet_dir")"
+  ln -sfn "$fleet_version/hooks" "$fleet_root/hooks"
+  ln -sfn "$fleet_version/.claude-plugin" "$fleet_root/.claude-plugin"
+  fleet install </dev/null
+  mkdir -p "$HOME/.cache/claude-status"
+  # Keep the deliberately configured single-row tmux status bar.
+  fleet statusline --remove
+  fleet install codex
+  fleet install pi
+fi
+if command -v sessions >/dev/null 2>&1; then
+  info "Configuring searchable agent sessions"
+  # Non-interactive setup leaves automatic context injection off, while still
+  # registering the plugin, MCP servers, and skills for installed agents.
+  sessions setup </dev/null
+fi
+
+# 14. Amp coding agent, using its official installer.
 if ! command -v amp >/dev/null 2>&1; then
   info "Installing Amp"
   curl -fsSL https://ampcode.com/install.sh | bash
 fi
 
-# 14. Keep the private dev-brief Chrome extension checked out locally. Chrome
+# 15. Keep the private dev-brief Chrome extension checked out locally. Chrome
 # requires unpacked extensions to be enabled manually once per browser profile.
 if [[ -d "$DEV_BRIEF_DIR/.git" ]]; then
   info "Updating dev-brief Chrome extension"
@@ -204,7 +230,7 @@ fi
 printf '\nTo enable dev-brief once: open chrome://extensions, enable Developer mode,\n'
 printf 'choose Load unpacked, and select %s\n' "$DEV_BRIEF_DIR"
 
-# 15. bat theme cache. bat only picks up ~/.config/bat/themes/*.tmTheme once
+# 16. bat theme cache. bat only picks up ~/.config/bat/themes/*.tmTheme once
 # this cache is built; until then the --theme name in config/bat/config
 # doesn't resolve and bat silently falls back to its built-in default, which
 # looks close enough to the real theme to be confusing. Must run after rcup,
@@ -214,7 +240,7 @@ if command -v bat >/dev/null 2>&1; then
   bat cache --build
 fi
 
-# 16. Destructive Command Guard (agent safety) — same as scripts/install.sh
+# 17. Destructive Command Guard (agent safety) — same as scripts/install.sh
 DCG_BIN="${DCG_BIN:-$HOME/.local/bin/dcg}"
 if [[ ! -x "$DCG_BIN" ]]; then
   curl -fsSL "https://raw.githubusercontent.com/Dicklesworthstone/destructive_command_guard/main/install.sh?$(date +%s)" | bash -s -- --easy-mode

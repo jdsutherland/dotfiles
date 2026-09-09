@@ -18,6 +18,8 @@ gh = "latest"
 codex = "latest"
 yt-dlp = "latest"
 "github:can1357/oh-my-pi" = "latest"
+"github:nicknisi/fleet" = "latest"
+"github:nicknisi/sessions" = "latest"
 
 [settings.upgrade]
 auto_prune = false
