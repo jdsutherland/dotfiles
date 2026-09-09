@@ -256,6 +256,7 @@ layer (see keyd section), not Caps Lock.
 | SUPER+w | Close window — requires a double-press within 1s (guards against accidental kills) |
 | hyper+o | Move focused window to next monitor; with one display, move to nearest empty workspace |
 | hyper+Right | Move focused window to nearest empty workspace on the same monitor (needed separately only with multiple displays) |
+| Ctrl+Shift+m | Download the clipboard video URL to `/tmp`, notify, and open it in mpv |
 
 ### Window Rules (`windows.lua`)
 

@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+set -u
+
+app_name="Clipboard video"
+notify() { notify-send -a "$app_name" "$@"; }
+
+for command in wl-paste yt-dlp mpv notify-send; do
+  if ! command -v "$command" >/dev/null 2>&1; then
+    notify -u critical "Download failed" "Required command not found: $command"
+    exit 1
+  fi
+done
+
+url="$(wl-paste --no-newline 2>/dev/null)" || {
+  notify -u critical "Download failed" "Could not read the clipboard."
+  exit 1
+}
+
+# Strip surrounding whitespace, but reject embedded whitespace/multiple URLs.
+url="${url#"${url%%[![:space:]]*}"}"
+url="${url%"${url##*[![:space:]]}"}"
+if [[ ! "$url" =~ ^https?://[^[:space:]]+$ ]]; then
+  notify -u critical "Download failed" "The clipboard does not contain one HTTP(S) URL."
+  exit 1
+fi
+
+download_dir="$(mktemp -d /tmp/clipboard-video.XXXXXX)" || {
+  notify -u critical "Download failed" "Could not create a temporary directory."
+  exit 1
+}
+error_log="$download_dir/yt-dlp.log"
+
+notify -u low "Downloading video" "$url"
+if ! filepath="$(yt-dlp \
+  --no-playlist \
+  --no-progress \
+  --print after_move:filepath \
+  --output "$download_dir/%(title).200B [%(id)s].%(ext)s" \
+  -- "$url" 2>"$error_log")"; then
+  error="$(tail -n 4 "$error_log")"
+  [[ -n "$error" ]] || error="yt-dlp exited without an error message."
+  notify -u critical "Download failed" "$error"
+  exit 1
+fi
+
+# --no-playlist should produce one path; use the final non-empty print line.
+filepath="$(printf '%s\n' "$filepath" | awk 'NF { value=$0 } END { print value }')"
+if [[ -z "$filepath" || ! -f "$filepath" ]]; then
+  notify -u critical "Download failed" "yt-dlp completed but no video file was found."
+  exit 1
+fi
+
+rm -f "$error_log"
+notify "Download complete" "Opening $(basename "$filepath") in mpv."
+(
+  if ! mpv --player-operation-mode=pseudo-gui -- "$filepath" >/dev/null 2>&1; then
+    notify -u critical "Playback failed" "mpv could not open $(basename "$filepath")."
+  fi
+) &
