@@ -18,10 +18,12 @@ set -euo pipefail
 #   9. Sioyek            (content-aware PDF reader; AUR)
 #  10. rcup              (symlink the dotfiles)
 #  11. mise install      (language runtimes from ~/.config/mise/config.toml)
-#  12. bat cache         (register custom bat themes)
-#  13. Destructive Command Guard (agent safety)
+#  12. dev-brief         (clone/update the private Chrome extension)
+#  13. bat cache         (register custom bat themes)
+#  14. Destructive Command Guard (agent safety)
 
 DOTFILES="$HOME/.dotfiles"
+DEV_BRIEF_DIR="$HOME/code/me/dev-brief"
 
 info() { printf '\n\033[0;34m==> %s\033[0m\n' "$*"; }
 
@@ -29,6 +31,10 @@ if ! command -v yay >/dev/null 2>&1; then
   echo "yay not found — this script assumes Omarchy's default install (which ships yay)." >&2
   exit 1
 fi
+
+# Standard locations for personal projects and external repositories.
+info "Creating code directories"
+mkdir -p "$HOME/code"/{me,clones}
 
 # 1. rcm (provides rcup)
 if ! command -v rcup >/dev/null 2>&1; then
@@ -53,6 +59,11 @@ if [[ ! -e "$HOME/.rcrc" ]]; then
 fi
 
 # 2. Portable official-repository packages beyond Omarchy's defaults.
+# Omarchy ships the Python tldr client, which conflicts with tealdeer.
+if omarchy pkg present tldr; then
+  info "Removing Omarchy's Python tldr client"
+  omarchy pkg drop tldr
+fi
 mapfile -t repo_packages < <(grep -vE '^\s*#|^\s*$' "$DOTFILES/omarchy.packages")
 info "Installing extra repository packages"
 sudo pacman -S --needed --noconfirm "${repo_packages[@]}"
@@ -157,7 +168,22 @@ if command -v mise >/dev/null 2>&1; then
   mise install
 fi
 
-# 12. bat theme cache. bat only picks up ~/.config/bat/themes/*.tmTheme once
+# 12. Keep the private dev-brief Chrome extension checked out locally. Chrome
+# requires unpacked extensions to be enabled manually once per browser profile.
+if [[ -d "$DEV_BRIEF_DIR/.git" ]]; then
+  info "Updating dev-brief Chrome extension"
+  git -C "$DEV_BRIEF_DIR" pull --ff-only
+elif [[ -e "$DEV_BRIEF_DIR" ]]; then
+  echo "$DEV_BRIEF_DIR exists but is not a Git repository; refusing to overwrite it." >&2
+  exit 1
+else
+  info "Cloning dev-brief Chrome extension"
+  mise exec -- gh repo clone jdsutherland/dev-brief "$DEV_BRIEF_DIR"
+fi
+printf '\nTo enable dev-brief once: open chrome://extensions, enable Developer mode,\n'
+printf 'choose Load unpacked, and select %s\n' "$DEV_BRIEF_DIR"
+
+# 13. bat theme cache. bat only picks up ~/.config/bat/themes/*.tmTheme once
 # this cache is built; until then the --theme name in config/bat/config
 # doesn't resolve and bat silently falls back to its built-in default, which
 # looks close enough to the real theme to be confusing. Must run after rcup,
@@ -167,7 +193,7 @@ if command -v bat >/dev/null 2>&1; then
   bat cache --build
 fi
 
-# 13. Destructive Command Guard (agent safety) — same as scripts/install.sh
+# 14. Destructive Command Guard (agent safety) — same as scripts/install.sh
 DCG_BIN="${DCG_BIN:-$HOME/.local/bin/dcg}"
 if [[ ! -x "$DCG_BIN" ]]; then
   curl -fsSL "https://raw.githubusercontent.com/Dicklesworthstone/destructive_command_guard/main/install.sh?$(date +%s)" | bash -s -- --easy-mode
