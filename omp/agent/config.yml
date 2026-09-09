@@ -1,16 +1,19 @@
-modelRoles: 
+modelRoles:
   default: openai-codex/gpt-5.6-sol:medium
   smol: openai-codex/gpt-5.6-sol:medium
 symbolPreset: nerd
-theme: 
+theme:
   dark: dark-tokyo-night
-setupVersion: 1
+setupVersion: 2
 defaultThinkingLevel: auto
-statusLine: 
+statusLine:
   separator: powerline-thin
-terminal: 
+terminal:
   showProgress: false
-display: 
+display:
   shimmer: disabled
-skills: 
+skills:
   enabled: false
+composer:
+  # Use Pi's look; the prompt-marker extension keeps ❯ in submitted history.
+  shape: pi
