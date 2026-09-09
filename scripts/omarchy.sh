@@ -18,9 +18,10 @@ set -euo pipefail
 #   9. Sioyek            (content-aware PDF reader; AUR)
 #  10. rcup              (symlink the dotfiles)
 #  11. mise install      (language runtimes from ~/.config/mise/config.toml)
-#  12. dev-brief         (clone/update the private Chrome extension)
-#  13. bat cache         (register custom bat themes)
-#  14. Destructive Command Guard (agent safety)
+#  12. Amp               (AI coding agent)
+#  13. dev-brief         (clone/update the private Chrome extension)
+#  14. bat cache         (register custom bat themes)
+#  15. Destructive Command Guard (agent safety)
 
 DOTFILES="$HOME/.dotfiles"
 DEV_BRIEF_DIR="$HOME/code/me/dev-brief"
@@ -168,7 +169,13 @@ if command -v mise >/dev/null 2>&1; then
   mise install
 fi
 
-# 12. Keep the private dev-brief Chrome extension checked out locally. Chrome
+# 12. Amp coding agent, using its official installer.
+if ! command -v amp >/dev/null 2>&1; then
+  info "Installing Amp"
+  curl -fsSL https://ampcode.com/install.sh | bash
+fi
+
+# 13. Keep the private dev-brief Chrome extension checked out locally. Chrome
 # requires unpacked extensions to be enabled manually once per browser profile.
 if [[ -d "$DEV_BRIEF_DIR/.git" ]]; then
   info "Updating dev-brief Chrome extension"
@@ -183,7 +190,7 @@ fi
 printf '\nTo enable dev-brief once: open chrome://extensions, enable Developer mode,\n'
 printf 'choose Load unpacked, and select %s\n' "$DEV_BRIEF_DIR"
 
-# 13. bat theme cache. bat only picks up ~/.config/bat/themes/*.tmTheme once
+# 14. bat theme cache. bat only picks up ~/.config/bat/themes/*.tmTheme once
 # this cache is built; until then the --theme name in config/bat/config
 # doesn't resolve and bat silently falls back to its built-in default, which
 # looks close enough to the real theme to be confusing. Must run after rcup,
@@ -193,7 +200,7 @@ if command -v bat >/dev/null 2>&1; then
   bat cache --build
 fi
 
-# 14. Destructive Command Guard (agent safety) — same as scripts/install.sh
+# 15. Destructive Command Guard (agent safety) — same as scripts/install.sh
 DCG_BIN="${DCG_BIN:-$HOME/.local/bin/dcg}"
 if [[ ! -x "$DCG_BIN" ]]; then
   curl -fsSL "https://raw.githubusercontent.com/Dicklesworthstone/destructive_command_guard/main/install.sh?$(date +%s)" | bash -s -- --easy-mode
