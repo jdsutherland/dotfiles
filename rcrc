@@ -1,4 +1,7 @@
-EXCLUDES="README.md scripts .gitignore AGENTS.md KEYBINDINGS.md omarchy.packages omarchy.aur.packages"
+# Exclude only files inside the repo's top-level scripts directory. A bare
+# "scripts" pattern also excludes nested app plugin directories such as
+# config/mpv/scripts.
+EXCLUDES="README.md scripts/* .gitignore AGENTS.md KEYBINDINGS.md omarchy.packages omarchy.aur.packages"
 
 # keyd/default.conf lives in the repo for version control but is installed to
 # /etc/keyd/default.conf by scripts/omarchy.sh, not symlinked into $HOME.
