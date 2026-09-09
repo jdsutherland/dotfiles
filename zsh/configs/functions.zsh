@@ -671,6 +671,25 @@ jqv(){
   jq . | nvim -c "set ft=json"
 }
 
+# Coding agents backed by the private DwarfStar endpoint configured through
+# DS4_BASE_URL in ~/.zshenv_private. Additional arguments come last so an
+# explicit --thinking flag can override the default.
+pids4() {
+  if [[ -z "${DS4_BASE_URL:-}" ]]; then
+    echo "pids4: set DS4_BASE_URL in ~/.zshenv_private" >&2
+    return 1
+  fi
+  command pi --model ds4/deepseek-v4-flash --thinking high "$@"
+}
+
+ompds4() {
+  if [[ -z "${DS4_BASE_URL:-}" ]]; then
+    echo "ompds4: set DS4_BASE_URL in ~/.zshenv_private" >&2
+    return 1
+  fi
+  command omp --model ds4/deepseek-v4-flash --thinking high "$@"
+}
+
 # pi coding agent: run against a named account profile. Each profile is its
 # own PI_CODING_AGENT_DIR with separate credentials, so `/login` in one
 # doesn't affect another - use this to pick which ChatGPT/business account
