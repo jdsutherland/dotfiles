@@ -2,6 +2,13 @@ require('jdsutherland.general')
 require('jdsutherland.keymaps')
 require('jdsutherland.autocmds')
 
+-- This is a standalone lazy.nvim config, not a LazyVim distribution. Omarchy's
+-- generated theme.lua still contributes a LazyVim option spec so its theme
+-- hot-reloader can discover the active colorscheme. Since our own plugin specs
+-- intentionally load alongside it rather than after LazyVim's core/extras
+-- imports, the distribution's import-order warning does not apply here.
+vim.g.lazyvim_check_order = false
+
 -- Init lazy.nvim plugin manager.
 -- Plugins are automatically sourced in config/nvim/lua/plugins/*
 -- Plugins with little to no configuration live in config/nvim/lua/plugins/init.lua
