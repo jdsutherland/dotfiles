@@ -49,5 +49,14 @@
     "label": "Color",
     "action": "pkill hyprpicker || hyprpicker -a",
     "aliases": ["color", "colour", "picker", "eyedropper"]
+  },
+
+  // Keyboard cleaner plugin: keep it out of the bar, but make it searchable
+  // from SUPER+SPACE with terms like "clean" or "clean keyboard".
+  "setup.keyboard-cleaner": {
+    "icon": "󰫠",
+    "label": "Keyboard cleaner",
+    "aliases": ["clean", "clean keyboard", "cleaning", "wipe", "lock keyboard", "touchpad"],
+    "action": "omarchy-shell shell toggle reidenxerx.keyboard-cleaner '{\"seconds\":180}'"
   }
 }

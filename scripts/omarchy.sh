@@ -17,13 +17,14 @@ set -euo pipefail
 #   8. Vesktop           (Wayland-friendly Discord client; AUR)
 #   9. Sioyek            (content-aware PDF reader; AUR)
 #  10. rcup              (symlink the dotfiles)
-#  11. tmux plugins      (TPM and configured plugins)
-#  12. mise install      (language runtimes and standalone CLI tools)
-#  13. Fleet + sessions  (tmux agent dashboard and searchable agent history)
-#  14. Amp               (AI coding agent)
-#  15. dev-brief         (clone/update the private Chrome extension)
-#  16. bat cache         (register custom bat themes)
-#  17. Destructive Command Guard (agent safety)
+#  11. Keyboard cleaner  (SUPER+SPACE "clean", overlay-only)
+#  12. tmux plugins      (TPM and configured plugins)
+#  13. mise install      (language runtimes and standalone CLI tools)
+#  14. Fleet + sessions  (tmux agent dashboard and searchable agent history)
+#  15. Amp               (AI coding agent)
+#  16. dev-brief         (clone/update the private Chrome extension)
+#  17. bat cache         (register custom bat themes)
+#  18. Destructive Command Guard (agent safety)
 
 DOTFILES="$HOME/.dotfiles"
 DEV_BRIEF_DIR="$HOME/code/me/dev-brief"
@@ -157,7 +158,11 @@ info "Symlinking dotfiles (rcup)"
 rcup -v
 update-desktop-database "$HOME/.local/share/applications"
 
-# 11. Install TPM and every plugin declared in the now-symlinked tmux config.
+# 11. Keyboard cleaner: install the shell plugin, keep it off the bar, and
+# expose one SUPER+SPACE "clean" menu entry from the symlinked menu extension.
+"$DOTFILES/scripts/setup-keyboard-cleaner.sh"
+
+# 12. Install TPM and every plugin declared in the now-symlinked tmux config.
 if [[ -d "$TPM_DIR/.git" ]]; then
   info "Installing missing tmux plugins"
 elif [[ -e "$TPM_DIR" ]]; then
@@ -176,7 +181,7 @@ systemctl --user disable --now hyprsunset.service 2>/dev/null || true
 systemctl --user daemon-reload
 systemctl --user enable --now hypr-nightlight.service hypr-nightlight-refresh.timer
 
-# 12. Language runtimes, from ~/.config/mise/config.toml (symlinked by rcup
+# 13. Language runtimes, from ~/.config/mise/config.toml (symlinked by rcup
 # in step 10 — mise's true global config, so it applies everywhere; see
 # README.md for why that matters vs. a bare .tool-versions file).
 if command -v mise >/dev/null 2>&1; then
@@ -184,7 +189,7 @@ if command -v mise >/dev/null 2>&1; then
   mise install
 fi
 
-# 13. Fleet and sessions. mise's GitHub backend extracts Fleet's release
+# 14. Fleet and sessions. mise's GitHub backend extracts Fleet's release
 # archive with the binary and support files in the same directory, while Fleet
 # expects a Homebrew-like bin/../hooks layout. Stable links at the backend root
 # give its installers an upgrade-safe plugin location.
@@ -209,13 +214,13 @@ if command -v sessions >/dev/null 2>&1; then
   sessions setup </dev/null
 fi
 
-# 14. Amp coding agent, using its official installer.
+# 15. Amp coding agent, using its official installer.
 if ! command -v amp >/dev/null 2>&1; then
   info "Installing Amp"
   curl -fsSL https://ampcode.com/install.sh | bash
 fi
 
-# 15. Keep the private dev-brief Chrome extension checked out locally. Chrome
+# 16. Keep the private dev-brief Chrome extension checked out locally. Chrome
 # requires unpacked extensions to be enabled manually once per browser profile.
 if [[ -d "$DEV_BRIEF_DIR/.git" ]]; then
   info "Updating dev-brief Chrome extension"
@@ -230,7 +235,7 @@ fi
 printf '\nTo enable dev-brief once: open chrome://extensions, enable Developer mode,\n'
 printf 'choose Load unpacked, and select %s\n' "$DEV_BRIEF_DIR"
 
-# 16. bat theme cache. bat only picks up ~/.config/bat/themes/*.tmTheme once
+# 17. bat theme cache. bat only picks up ~/.config/bat/themes/*.tmTheme once
 # this cache is built; until then the --theme name in config/bat/config
 # doesn't resolve and bat silently falls back to its built-in default, which
 # looks close enough to the real theme to be confusing. Must run after rcup,
@@ -240,7 +245,7 @@ if command -v bat >/dev/null 2>&1; then
   bat cache --build
 fi
 
-# 17. Destructive Command Guard (agent safety) — same as scripts/install.sh
+# 18. Destructive Command Guard (agent safety) — same as scripts/install.sh
 DCG_BIN="${DCG_BIN:-$HOME/.local/bin/dcg}"
 if [[ ! -x "$DCG_BIN" ]]; then
   curl -fsSL "https://raw.githubusercontent.com/Dicklesworthstone/destructive_command_guard/main/install.sh?$(date +%s)" | bash -s -- --easy-mode
