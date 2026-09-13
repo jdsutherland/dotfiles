@@ -34,8 +34,9 @@ return {
     nnoremap <localleader>va :VtrAttachToPane<cr>
     nnoremap <localleader>V :VtrSendLinesToRunner<cr>
     vmap <localleader>V :VtrSendLinesToRunner<cr>
-    " on startup, attach to pane below
-    autocmd VimEnter * if !system("tmux display-message -p '#{pane_at_bottom}'") | execute 'VtrAttachToPane' system('tmux display -p -t "{down-of}" "#{pane_index}"')
+    " Do not auto-attach on startup: when no suitable pane exists,
+    " vim-tmux-runner prompts via `tmux display-panes`, which steals keys.
+    " Use <localleader>va or <localleader>v0/1/2 to attach manually.
     ]])
   end
 }
