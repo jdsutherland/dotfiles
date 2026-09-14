@@ -8,6 +8,20 @@ config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
 # Linux/GTK stack. 9 matches what 3 manual ctrl+minus presses landed on.
 font-size = 9
 
+# Test whether the visible bottom strip is terminal padding vs cell-grid
+# rounding. If a strip remains after reload, it is leftover pixels that cannot
+# fit another full character row at the current font metrics/window size.
+window-padding-x = 0
+window-padding-y = 0
+# Spread leftover pixels across the top/bottom instead of dumping all extra
+# grid slack at the bottom edge. This does not create another text row; it makes
+# cell-grid rounding look intentional/centered.
+window-padding-balance = true
+
+# Keep size-9 glyph weight, but tighten row height a bit; size 8 is too thin
+# and fractional sizes render badly on this GTK/Wayland stack.
+adjust-cell-height = -1
+
 # These currently match Ghostty's own Linux defaults (verified via
 # `ghostty +show-config`), but declared explicitly so this repo doesn't
 # silently depend on upstream defaults staying that way.
