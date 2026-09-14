@@ -15,7 +15,7 @@ This repo uses git worktrees to let multiple agents work simultaneously on diffe
 | Agent | Task | Branch | Worktree | Status |
 |-------|------|--------|----------|--------|
 | pi | Replace asdf with mise and add uv Python tooling | mise-uv-migration | ~/.dotfiles-wip/mise-uv-migration | In progress |
-| pi | Try Nick-style Fleet tmux chips on omarchy-parity | omarchy-parity-fleet-chips | ~/.dotfiles | In progress |
+| pi | Try Nick-style Fleet tmux chips on omarchy-parity | omarchy-parity-fleet-chips | ~/.dotfiles | Complete |
 
 ## Task Lifecycle
 
