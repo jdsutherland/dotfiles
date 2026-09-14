@@ -7,18 +7,10 @@ config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
 # Slightly larger terminal text for the denser 1.6x Hyprland monitor scale.
 font-size = 10
 
-# Test whether the visible bottom strip is terminal padding vs cell-grid
-# rounding. If a strip remains after reload, it is leftover pixels that cannot
-# fit another full character row at the current font metrics/window size.
-window-padding-x = 0
-window-padding-y = 0
 # Spread leftover pixels across the top/bottom instead of dumping all extra
 # grid slack at the bottom edge. This does not create another text row; it makes
 # cell-grid rounding look intentional/centered.
 window-padding-balance = true
-
-# Keep glyph weight, but tighten row height a bit.
-adjust-cell-height = -1
 
 # These currently match Ghostty's own Linux defaults (verified via
 # `ghostty +show-config`), but declared explicitly so this repo doesn't
