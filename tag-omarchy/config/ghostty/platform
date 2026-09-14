@@ -4,9 +4,8 @@
 # boot doesn't error.
 config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
 
-# Smaller than mac's 12pt -- same font renders visually larger on this
-# Linux/GTK stack. 9 matches what 3 manual ctrl+minus presses landed on.
-font-size = 9
+# Slightly larger terminal text for the denser 1.6x Hyprland monitor scale.
+font-size = 10
 
 # Test whether the visible bottom strip is terminal padding vs cell-grid
 # rounding. If a strip remains after reload, it is leftover pixels that cannot
@@ -18,8 +17,7 @@ window-padding-y = 0
 # cell-grid rounding look intentional/centered.
 window-padding-balance = true
 
-# Keep size-9 glyph weight, but tighten row height a bit; size 8 is too thin
-# and fractional sizes render badly on this GTK/Wayland stack.
+# Keep glyph weight, but tighten row height a bit.
 adjust-cell-height = -1
 
 # These currently match Ghostty's own Linux defaults (verified via

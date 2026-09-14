@@ -2,8 +2,8 @@
 -- List current monitors and supported resolutions with: hyprctl monitors all
 
 local omarchy_gdk_scale = 2
--- Let Hyprland choose per-display scaling for the XPS panel and any docks.
-local omarchy_monitor_scale = "auto"
+-- Default the XPS panel to a denser-but-readable layout than auto/2x.
+local omarchy_monitor_scale = 1.6
 
 hl.env("GDK_SCALE", tostring(omarchy_gdk_scale))
 hl.monitor({ output = "", mode = "preferred", position = "auto", scale = omarchy_monitor_scale })
