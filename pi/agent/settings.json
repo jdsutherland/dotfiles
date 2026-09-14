@@ -1,0 +1,9 @@
+{
+  "theme": "omarchy-system",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.5",
+  "packages": [
+    "../../.local/share/mise/installs/github-nicknisi-fleet/hooks/pi",
+    "../../.local/share/nicknisi/pi-extensions/packages/session-name"
+  ]
+}
