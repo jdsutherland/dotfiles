@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# tmux-fleet-chips — render Fleet's statusline chips for a single-row tmux bar.
+#
+# `fleet status --statusline` also refreshes Fleet's per-window rollup state.
+# Keep this helper tiny and failure-quiet so tmux's status line never shows
+# errors when fleet is absent/updating or no agents need attention.
+out=$(fleet status --statusline 2>/dev/null) || exit 0
+# Fleet's default separator is visually noisy in our compact right status.
+out=${out//│/ }
+printf '%s' "$out"
